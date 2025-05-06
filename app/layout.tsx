@@ -5,7 +5,7 @@ import { Toaster } from '@/app/(legacy)/components/ui/toaster'
 import Head from 'next/head'
 import Image from 'next/image'
 import { GoogleAnalytics } from '@next/third-parties/google'
-const font = Inter({ subsets: ['cyrillic'] })
+const font = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: {
@@ -49,6 +49,17 @@ export const metadata = {
       }
     ],
   },
+  alternates: {
+    canonical: 'https://legacy.us.com',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -60,6 +71,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Legacy Speaker",
+          "url": "https://legacy.us.com",
+          "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp"
+        })
+      }} />
         <link
           rel="preload"
           href="/images/legacy/navbarbg.webp"

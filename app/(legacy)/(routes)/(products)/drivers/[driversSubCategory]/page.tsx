@@ -2,7 +2,6 @@
 import { CheckBoxData, Products, SliderData } from "@/app/(legacy)/types";
 import AllDriversandFiltersProducts from "../components/all-filters";
 import getAllProductsBySubCategory from "@/app/(legacy)/actions/get-all-products-by-sub-category";
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Loader } from "@/app/(legacy)/components/ui/loader";
 
@@ -171,12 +170,10 @@ const [allprodserver, setallprodserver] = useState<Products[]>([])
         </div>  
       :
     <>
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         /> 
-      </Head>
         <div className="bg-white -z-10">
         <div className="relative w-full py-8 h-fit">
           {showserver?

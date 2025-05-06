@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Separator } from "../../../../components/ui/separator";
 import { FileDown } from "lucide-react";
-import Head from "next/head";
 
 export default function Catalog() {
 
@@ -15,12 +14,10 @@ export default function Catalog() {
 
   return (
     <div className="bg-white -z-10">
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Head>
     <div className="relative w-full container mx-auto xl:px-36 lg:px-20 px-10 pb-4 pt-16 h-fit">
       <div className='pb-8'>
         <div className='text-4xl font-bold text-black pb-4'>

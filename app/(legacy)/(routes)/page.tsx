@@ -4,7 +4,6 @@ import History from './components/History';
 import Youtube from './components/Youtube';
 import News from './components/news';
 import Distributor from './components/distributor';
-import Head from 'next/head';
 import Keunggulan from './components/keunggulan';
 
 export default function LandingPageLegacy() {  
@@ -22,12 +21,10 @@ export default function LandingPageLegacy() {
   
   return (
     <>
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Head>
       <Hero />
       <Series />
       <News/>

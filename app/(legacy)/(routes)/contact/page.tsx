@@ -4,7 +4,6 @@ import { MapPin, Phone } from "lucide-react";
 import { Separator } from "../../../../components/ui/separator";
 import { useState } from "react";
 import { LazyImageContact } from "../../components/lazyImageContact";
-import Head from "next/head";
 
 const allMapsUrl: string[] = [
   "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15831.555636353316!2d112.6804805!3d-7.2534827!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fe923ed24eeb%3A0x85682a2a3bd9cf3a!2sSinar%20Baja%20Electric%20Group!5e0!3m2!1sen!2sid!4v1728026193190!5m2!1sen!2sid",
@@ -64,12 +63,10 @@ export default function ContactUs() {
 
   return (
     <>
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Head>
     <div className="bg-white -z-10">
      <div className="map-container">
        <iframe src={allMapsUrl[activeMapIndex]} width="100%" height="500" loading="lazy"></iframe>

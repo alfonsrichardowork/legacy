@@ -2,7 +2,6 @@
 import { CheckBoxData, Products, SliderData } from "@/app/(legacy)/types";
 import AllDriversandFiltersProducts from "./components/all-filters";
 import getAllProducts from "@/app/(legacy)/actions/get-all-products";
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Loader } from "@/app/(legacy)/components/ui/loader";
 
@@ -156,15 +155,10 @@ export default function ProductByCategoryPage() {
       </div>  
     :
     <>
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Head>
-      {/* {loading?
-        <FullScreenLoader isVisible={loading} />
-        : */}
         <div className="bg-white -z-10">
         <div className="relative w-full py-8 h-fit">
           {showserver?
@@ -176,7 +170,6 @@ export default function ProductByCategoryPage() {
           }
         </div>
         </div>
-      {/* } */}
     </>
   );
 }

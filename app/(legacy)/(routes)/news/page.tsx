@@ -4,7 +4,6 @@ import { NewsType, SliderDataNews,  } from "../../types";
 import getAllNews from "../../actions/get-all-news";
 import AllNewsandFilters from "./components/all-filters";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../../components/ui/breadcrumb";
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Loader } from "../../components/ui/loader";
 
@@ -133,12 +132,10 @@ export default function News() {
       </div>  
     :
     <>
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Head>
     <div className="bg-white -z-10">
     <div className="relative w-full bg-white p-8 h-fit container mx-auto xl:px-36 lg:px-20 px-10 ">
     <div className="pb-6">

@@ -9,7 +9,6 @@ import {
 } from "@/app/(legacy)/components/ui/breadcrumb";
 import "./styles.scss";
 import { LazyImageContact } from "@/app/(legacy)/components/lazyImageContact";
-import Head from "next/head";
 import { SanitizedHtml } from "./sanitizedHtml";
 
 type Props = {
@@ -49,12 +48,10 @@ export default async function SingleNewsPage(props: Props) {
 
   return (
     <>
-      <Head>
         <script 
           type="application/ld+json" 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} 
         />
-      </Head>
         <div className="bg-white -z-10">
           {tempData && (
             <div className="container mx-auto xl:px-36 lg:px-20 px-10 py-8">

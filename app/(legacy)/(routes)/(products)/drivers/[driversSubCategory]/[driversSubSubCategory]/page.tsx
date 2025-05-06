@@ -2,7 +2,6 @@
 import { Products, SliderData } from '@/app/(legacy)/types';
 import AllDriversandFiltersProducts from '../../components/all-filters';
 import getAllProductsBySubSubCategory from '@/app/(legacy)/actions/get-all-products-by-sub-sub-category';
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Loader } from '@/app/(legacy)/components/ui/loader';
 
@@ -145,12 +144,10 @@ const [allprodserver, setallprodserver] = useState<Products[]>([])
       </div>  
     :
     <>
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         /> 
-      </Head>
       {/* {loading?
         <FullScreenLoader isVisible={loading} />
         :

@@ -1,6 +1,5 @@
 import { Phone } from "lucide-react";
 import { Separator } from "../../../../components/ui/separator";
-import Head from "next/head";
 
 export default function Distributors() {
 
@@ -118,12 +117,10 @@ export default function Distributors() {
 
   return (
     <>
-    <Head>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    </Head>
   <div className="bg-white -z-10">
   <div className="relative w-full container mx-auto xl:px-36 lg:px-20 px-10 pb-4 pt-16 h-fit">
         <div className="pb-4">

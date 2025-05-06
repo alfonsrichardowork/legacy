@@ -11,8 +11,6 @@ import TweeterTable from "@/app/(legacy)/components/tweeter-table";
 import ActiveSubwooferTable from "@/app/(legacy)/components/active-sub-table";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/app/(legacy)/components/ui/breadcrumb";
 import getProduct from "@/app/(legacy)/actions/get-one-product";
-import Head from "next/head";
-import { SingleProducts } from "@/app/(legacy)/types";
 
 const all_desc_style = "text-left xl:text-base sm:text-sm text-xs text-black p-0 py-1"
 const all_sub_title_style = "text-left font-bold xl:text-4xl text-2xl text-black"
@@ -53,12 +51,10 @@ const SingleProduct = async (
 
     return(
         <div className="container mx-auto xl:px-36 lg:px-20 px-10 xl:py-8 lg:py-6 py-4">
-            <Head>
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
-            </Head>
             {/* <div className="hidden md:flex"> */}
             <div className="pb-6">
                 <Breadcrumb>

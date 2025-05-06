@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { Separator } from "../../../../components/ui/separator";
 import { LazyImage } from "../../components/lazyImage";
 
@@ -14,12 +13,10 @@ export default function AboutUs() {
 
   return (
     <div className="bg-white -z-10">
-      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Head>
       <div className="relative w-full container mx-auto xl:px-36 lg:px-20 px-10 pb-4 pt-16 h-fit">
         <div className='pb-4'>
           <div className='text-4xl font-bold text-black pb-4'>
