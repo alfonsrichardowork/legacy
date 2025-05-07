@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const productRedirects = require('./redirects')
 
 const nextConfig = {
   compress: true,
@@ -36,10 +35,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-
-  async redirects() {
-    return productRedirects;
   },
 };
 
