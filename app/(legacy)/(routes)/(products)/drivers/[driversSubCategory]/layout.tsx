@@ -21,12 +21,6 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       url: `https://legacy.us.com/drivers/${subCatName.name.toLowerCase()}`,
       siteName: "Legacy Speaker",
       images: [
-        // {
-        //   url: logo_URL,
-        //   width: 1200,
-        //   height: 630,
-        //   alt: subCatName.name.concat(" Series"),
-        // },
         {
           url: logo_URL,
           width: 800,

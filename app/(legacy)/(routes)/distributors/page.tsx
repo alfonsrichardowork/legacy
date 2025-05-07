@@ -6,7 +6,7 @@ export default function Distributors() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Sinar Baja Electric",
+    "name": "Legacy Speaker",
     "url": "https://legacy.us.com/distributors",
     "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
     "description": "Find our distributors around the world.",

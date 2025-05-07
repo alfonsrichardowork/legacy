@@ -38,7 +38,7 @@ export default function ContactUs() {
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Sinar Baja Electric",
+      "name": "Legacy Speaker",
       "url": "https://legacy.us.com/contact",
       "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
       "description": "Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!",

@@ -10,6 +10,7 @@ export default function Catalog() {
     "name": "Catalog | Legacy Speaker",
     "url": "https://legacy.us.com/catalog",
     "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
+    "description": "Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!",
   };
 
   return (

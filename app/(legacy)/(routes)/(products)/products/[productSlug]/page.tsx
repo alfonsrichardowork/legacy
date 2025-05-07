@@ -25,18 +25,18 @@ const SingleProduct = async (
     if(data.id === '' && data.slug === ''){
         redirect('/notfound')
     }
-    // console.log("data:", data)
     const jsonLd = {
         "@context": "https://schema.org",
-        "@type": "AudioObject",
-        "name": data?.name ?? '',
-        "contentUrl": data?.coverUrl ?? '',
-        "identifier": data?.slug || data?.id || '',
-        "description": data?.desc ?? '',
-        "keywords": data 
-          ? `${data.name ?? ''}, ${data.size?.value ?? ''} inch drivers, ${data.size?.value ?? ''}" drivers, ${data.sub_categories?.[0]?.name ?? ""} series, ${data.sub_categories?.[0]?.name ?? ''} ${data.sub_sub_categories?.[0]?.name ?? ''}`
-          : '',
-        "url": data?.slug ? `https://legacy.us.com/products/${data.slug}` : '',
+        "@type": "Product",
+        "name": data?.name? data.name : "",
+        "description": data?.name? data.name : "",
+        "image": data?.coverUrl ? `https://legacy.us.com${data.coverUrl}` : '',
+        "sku": data?.slug || data?.id,
+        "brand": {
+          "@type": "Brand",
+          "name": "Legacy Speaker"
+        },
+        "url": data?.slug ? `https://legacy.us.com/products/${data.slug}` : 'https://legacy.us.com',
         "isPartOf": "Legacy Speaker",
         "provider": {
           "@type": "Organization",
@@ -51,10 +51,10 @@ const SingleProduct = async (
 
     return(
         <div className="container mx-auto xl:px-36 lg:px-20 px-10 xl:py-8 lg:py-6 py-4">
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-                />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             {/* <div className="hidden md:flex"> */}
             <div className="pb-6">
                 <Breadcrumb>

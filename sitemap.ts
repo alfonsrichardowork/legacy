@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static URLs
   const staticUrls = [
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL?.replace(/\/$/, '')}`,
       lastModified: new Date().toISOString(),
       changeFrequency: "weekly",
       priority: 1.0,

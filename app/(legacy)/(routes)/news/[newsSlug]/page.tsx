@@ -34,17 +34,29 @@ export default async function SingleNewsPage(props: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": tempData.title,
-    "image": tempData.news_img_url,
-    "description": tempData.description,
-    "datePublished": tempData.event_date,
-    "dateModified": tempData.updatedAt,
-    "url": `https://legacy.us.com/news/${tempData.slug}`,
+    "headline": tempData?.title ? tempData.title : '',
+    "image": tempData?.news_img_url.length > 0 ? `https://legacy.us.com${[tempData.news_img_url]}` : '',
+    "description": tempData?.description? tempData.description : '',
+    "datePublished": tempData?.event_date ? tempData.event_date : '',
+    "dateModified": tempData?.updatedAt ? tempData.updatedAt : '',
+    "author": {
+      "@type": "Organization",
+      "name": "ACR"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Legacy Speaker",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://legacy.us.com/images/legacy/logo_legacy.webp"
+      }
+    },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://legacy.us.com/news/${tempData.slug}`
+      "@id": tempData?.slug ? `https://legacy.us.com/news/${tempData.slug}` : "https://legacy.us.com/news"
     }
   };
+  
 
   return (
     <>

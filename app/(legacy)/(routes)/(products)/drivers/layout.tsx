@@ -11,12 +11,6 @@ export const metadata: Metadata = {
     url: 'https://legacy.us.com/drivers',
     siteName: 'Legacy Speaker',
     images: [
-      // {
-      //   url: 'https://legacy.us.com/images/legacy/logo_legacy.webp',
-      //   width: 1200,
-      //   height: 630,
-      //   alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
-      // },
       {
         url: 'https://legacy.us.com/images/legacy/logo_legacy.webp',
         width: 800,
