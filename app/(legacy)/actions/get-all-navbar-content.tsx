@@ -1,7 +1,7 @@
 import { NavbarCategory, NavbarProducts } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ALL_NAVBAR_CONTENT}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_NAVBAR_CONTENT}`;
 
 const getAllNavbarContent = async (): Promise<NavbarProducts[]> => {
   let allNavbarProducts: Array<NavbarProducts> = []

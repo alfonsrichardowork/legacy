@@ -1,7 +1,7 @@
 import { FeaturedProducts } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ALL_FEATURED_PRODUCTS}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_FEATURED_PRODUCTS}`;
 
 const getAllFeaturedProducts = async (): Promise<FeaturedProducts[]> => {
   let allFeaturedProducts: Array<FeaturedProducts> = []

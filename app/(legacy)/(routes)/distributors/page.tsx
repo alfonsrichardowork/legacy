@@ -2,13 +2,14 @@ import { Phone } from "lucide-react";
 import { Separator } from "../../../../components/ui/separator";
 
 export default function Distributors() {
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Legacy Speaker",
-    "url": "https://legacy.us.com/distributors",
-    "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
+    "url": `${baseUrl}/distributors`,
+    "logo": `${baseUrl}/images/legacy/logo_legacy.webp`,
     "description": "Find our distributors around the world.",
     "subOrganization": [
       {

@@ -7,13 +7,13 @@ import Distributor from './components/distributor';
 import Keunggulan from './components/keunggulan';
 
 export default function LandingPageLegacy() {  
-  
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Legacy Speaker",
-    "url": "https://legacy.us.com",
-    "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
+    "url": `${baseUrl}`,
+    "logo": `${baseUrl}/images/legacy/logo_legacy.webp`,
     "sameAs": [
       "https://www.instagram.com/legacy.speaker",
     ]

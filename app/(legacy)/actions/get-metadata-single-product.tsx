@@ -1,7 +1,7 @@
 import { MetadataSingleProducts, Size } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_METADATA_SINGLE_PRODUCT}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_METADATA_SINGLE_PRODUCT}`;
 
 const getSingleMetadata = async (productSlug: string): Promise<MetadataSingleProducts> => {
   const API_EDITED = API.replace('{productSlug}', productSlug)

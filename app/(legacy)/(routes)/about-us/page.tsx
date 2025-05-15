@@ -2,13 +2,13 @@ import { Separator } from "../../../../components/ui/separator";
 import { LazyImage } from "../../components/lazyImage";
 
 export default function AboutUs() {
-
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "About Us | Legacy Speaker",
-    "url": "https://legacy.us.com/about-us",
-    "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
+    "url": `${baseUrl}/about-us`,
+    "logo": `${baseUrl}/images/legacy/logo_legacy.webp`,
     "description": "Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!",
   };
 

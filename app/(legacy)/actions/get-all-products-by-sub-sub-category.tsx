@@ -1,7 +1,7 @@
 import { AllCategory, AllProductsForHome, CachedAllProducts, Products, Size, Specifications, SubCategoryFilters } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS_BY_SUB_SUB_CATEGORY}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS_BY_SUB_SUB_CATEGORY}`;
 
 const getAllProductsBySubSubCategory = async (subcategory: string, subsubcategory: string): Promise<CachedAllProducts> => {
   let allProducts: Array<Products> = []

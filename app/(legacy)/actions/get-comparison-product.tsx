@@ -1,7 +1,7 @@
 import { AllCategory, ComparisonProductData, Specifications } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ONE_COMPARISON_PRODUCT}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ONE_COMPARISON_PRODUCT}`;
 
 const getComparisonProduct = async (productSlug: string): Promise<ComparisonProductData> => {
   const API_EDITED = API.replace('{productSlug}', productSlug)

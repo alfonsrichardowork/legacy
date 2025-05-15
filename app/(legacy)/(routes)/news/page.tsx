@@ -3,12 +3,13 @@ import NewsClient from "./pageClient";
 
 
 export default async function News() { 
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   let allnewsserver = await getAllNews('all');
   
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",      
-    "url": "https://legacy.us.com/news", 
+    "url": `${baseUrl}/news`, 
     "name": "Legacy Speaker",
     "description": "All news from Legacy Speaker.",
     "itemListElement": allnewsserver?.map((news, index) => ({
@@ -17,8 +18,8 @@ export default async function News() {
       "item": {
         "@type": "NewsArticle",
         "headline": news.title,
-        "image": `https://legacy.us.com${news.news_img_url}`,
-        "url": `https://legacy.us.com/news/${news.slug}`,
+        "image": `${baseUrl}${news.news_img_url}`,
+        "url": `${baseUrl}/news/${news.slug}`,
         "description": news.description,
         "datePublished": news.event_date,
         "dateModified": news.updatedAt,  

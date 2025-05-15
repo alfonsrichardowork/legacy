@@ -7,6 +7,7 @@ type Props = {
 
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   const product = await getSingleMetadata(params.productSlug)
   const previousImages = (await parent).openGraph?.images || []
   return {
@@ -22,17 +23,17 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
     openGraph: {
       title: `${product.name} | Legacy Speaker`,
       description: `Temukan spesifikasi dan fitur unggulan dari ${product.name}!`,
-      url: `https://legacy.us.com/products/${product.slug}`,
+      url: `${baseUrl}/products/${product.slug}`,
       siteName: "Legacy Speaker",
       images: [
         // {
-        //   url: `https://legacy.us.com${product.coverUrl}`,
+        //   url: `${baseUrl}${product.coverUrl}`,
         //   width: 1200,
         //   height: 630,
         //   alt: product.name,
         // },
         {
-          url: `https://legacy.us.com${product.coverUrl}`,
+          url: `${baseUrl}${product.coverUrl}`,
           width: 800,
           height: 800,
           alt: product.name,
@@ -48,12 +49,15 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       description: `Temukan spesifikasi dan fitur unggulan dari ${product.name}!`,
       images: [
         {
-          url: `https://legacy.us.com${product.coverUrl}`,
+          url: `${baseUrl}${product.coverUrl}`,
           width: 800,
           height: 800,
           alt: product.name,
         },
       ],
+    },
+    alternates: {
+      canonical: `${baseUrl}/products/${product.slug}`,
     },
   }
 }

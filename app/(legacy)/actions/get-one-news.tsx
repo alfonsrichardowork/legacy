@@ -1,7 +1,7 @@
 import { NewsType } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ONE_NEWS}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ONE_NEWS}`;
 
 const getOneNews = async (slug: string): Promise<NewsType> => {
 

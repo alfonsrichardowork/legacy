@@ -1,7 +1,7 @@
 import { Active_Subwoofer_Specifications, AllCategory, Datasheet_Prod, SingleProducts, Size, Specifications, Thiele_Small_Parameters_Specifications, Tweeter_Specifications } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ONE_PRODUCT}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ONE_PRODUCT}`;
 
 const getProduct = async (productSlug: string): Promise<SingleProducts> => {
   const API_EDITED = API.replace('{productSlug}', productSlug)

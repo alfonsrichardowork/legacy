@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { categoriesHeader } from "../types";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_SUBSUBCAT_NAME_BY_SLUG}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_SUBSUBCAT_NAME_BY_SLUG}`;
 
 const getSubSubCatNameBySlug = async (slug: string): Promise<categoriesHeader> => {
     const API_EDITED = API.replace('{subSubCategorySlug}', slug)

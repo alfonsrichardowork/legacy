@@ -18,6 +18,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
   const product = await getOneNews(params.newsSlug)
   const previousImages = (await parent).openGraph?.images || []
   const truncatedDescription = stripHtmlAndTruncate(product.description, 30);
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   return {
     title: product.title.concat(" | Legacy Speaker"),
     description: truncatedDescription,
@@ -32,7 +33,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
     openGraph: {
       title: `${product.title} | Legacy Speaker`,
       description: truncatedDescription,
-      url: `https://legacy.us.com/news/${product.slug}`,
+      url: `${baseUrl}/news/${product.slug}`,
       siteName: "Legacy Speaker",
       images: [
         // {
@@ -42,7 +43,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
         //   alt: product.title,
         // },
         {
-          url: `https://legacy.us.com${product.news_img_url}`,
+          url: `${baseUrl}${product.news_img_url}`,
           width: 800,
           height: 800,
           alt: product.title,
@@ -58,13 +59,16 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       description: truncatedDescription,
       images: [    
         {
-          url: `https://legacy.us.com${product.news_img_url}`,
+          url: `${baseUrl}${product.news_img_url}`,
           width: 800,
           height: 800,
           alt: product.title,
         },
       ],
     },
+    alternates: {
+      canonical: `${baseUrl}/news/${product.slug}`,
+    }
   }
 }
 

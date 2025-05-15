@@ -3,13 +3,13 @@ import { Separator } from "../../../../components/ui/separator";
 import { FileDown } from "lucide-react";
 
 export default function Catalog() {
-
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Catalog | Legacy Speaker",
-    "url": "https://legacy.us.com/catalog",
-    "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
+    "url": `${baseUrl}/catalog`,
+    "logo": `${baseUrl}/images/legacy/logo_legacy.webp`,
     "description": "Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!",
   };
 

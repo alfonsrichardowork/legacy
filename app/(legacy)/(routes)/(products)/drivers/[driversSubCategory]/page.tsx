@@ -8,22 +8,23 @@ type Props = {
 export default async function SubDriversPage(props: Props) {
   let driversubcat = (await props.params).driversSubCategory
   const allprodserver = await getAllProductsBySubCategoryJsonld(driversubcat); // SSR fetch
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Legacy Speaker Drivers",
     "description":  driversubcat && driversubcat!= "" ? "The best ".concat(driversubcat, " series from Legacy Speaker."): 'All drivers from Legacy Speaker.',
-    "url": driversubcat && driversubcat!= "" ? "https://legacy.us.com/drivers/".concat(driversubcat) : 'https://legacy.us.com/drivers/',
+    "url": driversubcat && driversubcat!= "" ? `${baseUrl}/drivers/${driversubcat}` : `${baseUrl}/drivers`,
     "itemListElement": allprodserver.map((driver, index) => ({
       "@type": "ListItem",
       "position": index + 1,
       "item": {
         "@type": "Product",
-        "url": `https://legacy.us.com/products/${driver.slug}`,
+        "url": `${baseUrl}/products/${driver.slug}`,
         "name": driver.name,
         "description": driver.name,
-        "image": `https://legacy.us.com${driver.coverUrl}`,
+        "image": `${baseUrl}${driver.coverUrl}`,
         "sku": driver.slug || driver.id,
         "brand": {
           "@type": "Brand",

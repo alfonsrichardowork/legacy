@@ -3,22 +3,23 @@ import ProductByCategoryPage from "./pageClient";
 
 export default async function DriversPage() {
   const allprodserver = await getAllProductsJsonld(); // SSR fetch
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Legacy Speaker Drivers",
     "description": "All drivers from Legacy Speaker.",
-    "url": "https://legacy.us.com/drivers",
+    "url": `${baseUrl}/drivers`,
     "itemListElement": allprodserver.map((driver, index) => ({
       "@type": "ListItem",
       "position": index + 1,
       "item": {
         "@type": "Product",
-        "url": `https://legacy.us.com/products/${driver.slug}`,
+        "url": `${baseUrl}/products/${driver.slug}`,
         "name": driver.name,
         "description": driver.name,
-        "image": `https://legacy.us.com${driver.coverUrl}`,
+        "image": `${baseUrl}${driver.coverUrl}`,
         "sku": driver.slug || driver.id,
         "brand": {
           "@type": "Brand",

@@ -20,6 +20,7 @@ const SingleProduct = async (
         params: Promise<{ productSlug: string }>
       }
 ) => {
+    const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
     const params = await props.params;
     let data = await getProduct(params.productSlug)
     if(data.id === '' && data.slug === ''){
@@ -30,13 +31,13 @@ const SingleProduct = async (
         "@type": "Product",
         "name": data?.name? data.name : "",
         "description": data?.name? data.name : "",
-        "image": data?.coverUrl ? `https://legacy.us.com${data.coverUrl}` : '',
+        "image": data?.coverUrl ? `${baseUrl}${data.coverUrl}` : '',
         "sku": data?.slug || data?.id,
         "brand": {
           "@type": "Brand",
           "name": "Legacy Speaker"
         },
-        "url": data?.slug ? `https://legacy.us.com/products/${data.slug}` : 'https://legacy.us.com',
+        "url": data?.slug ? `${baseUrl}/products/${data.slug}` : `${baseUrl}`,
         "isPartOf": "Legacy Speaker",
         "provider": {
           "@type": "Organization",
@@ -44,7 +45,7 @@ const SingleProduct = async (
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://legacy.us.com"
+          "@id": `${baseUrl}`
         }
       };
       

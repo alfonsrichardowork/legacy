@@ -18,6 +18,7 @@ type Props = {
 export default async function SingleNewsPage(props: Props) {
   let slug = (await props.params).newsSlug
 
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   const tempData = await getOneNews(slug);
 
   const formatDate = (isoDate: string): string => {
@@ -35,7 +36,7 @@ export default async function SingleNewsPage(props: Props) {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "headline": tempData?.title ? tempData.title : '',
-    "image": tempData?.news_img_url.length > 0 ? `https://legacy.us.com${[tempData.news_img_url]}` : '',
+    "image": tempData?.news_img_url.length > 0 ? `${baseUrl}${[tempData.news_img_url]}` : '',
     "description": tempData?.description? tempData.description : '',
     "datePublished": tempData?.event_date ? tempData.event_date : '',
     "dateModified": tempData?.updatedAt ? tempData.updatedAt : '',
@@ -48,12 +49,12 @@ export default async function SingleNewsPage(props: Props) {
       "name": "Legacy Speaker",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://legacy.us.com/images/legacy/logo_legacy.webp"
+        "url": `${baseUrl}/images/legacy/logo_legacy.webp`
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": tempData?.slug ? `https://legacy.us.com/news/${tempData.slug}` : "https://legacy.us.com/news"
+      "@id": tempData?.slug ? `${baseUrl}/news/${tempData.slug}` : `${baseUrl}/news`
     }
   };
   

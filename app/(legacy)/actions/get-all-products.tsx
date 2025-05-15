@@ -1,7 +1,7 @@
 import { AllCategory, AllProductsForHome, CachedAllProducts, Products, Size, Specifications, SubCategoryFilters } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS}`;
 
 const getAllProducts = async (): Promise<CachedAllProducts> => {
   let allProducts: Array<Products> = []

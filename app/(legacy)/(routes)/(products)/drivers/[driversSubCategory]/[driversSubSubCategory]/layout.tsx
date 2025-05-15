@@ -8,6 +8,7 @@ type Props = {
  
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   const [subCatNameResult, subSubCatNameResult] = await Promise.allSettled([
     getSubCatNameBySlug(params.driversSubCategory),
     getSubSubCatNameBySlug(params.driversSubSubCategory),
@@ -16,7 +17,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
   const subCatName = subCatNameResult.status === 'fulfilled' ? subCatNameResult.value : { name: '' };
   const subSubCatName = subSubCatNameResult.status === 'fulfilled' ? subSubCatNameResult.value : { name: '' };
     const previousImages = (await parent).openGraph?.images || []
-  const logo_URL = subCatName.name.toLowerCase() === 'legacy' ? 'https://legacy.us.com/images/legacy/logo_legacy.webp' : subCatName.name.toLowerCase() === 'prestige' ? 'https://legacy.us.com/images/legacy/prestige_logo.webp' : subCatName.name.toLowerCase() === 'energy' ? 'https://legacy.us.com/images/legacy/energy_logo.webp' : subCatName.name.toLowerCase() === 'sparta' ? 'https://legacy.us.com/images/legacy/sparta_logo.webp' : 'https://legacy.us.com/images/legacy/logo_legacy.webp'
+  const logo_URL = subCatName.name.toLowerCase() === 'legacy' ? `${baseUrl}/images/legacy/logo_legacy.webp` : subCatName.name.toLowerCase() === 'prestige' ? `${baseUrl}/images/legacy/prestige_logo.webp` : subCatName.name.toLowerCase() === 'energy' ? `${baseUrl}/images/legacy/energy_logo.webp` : subCatName.name.toLowerCase() === 'sparta' ? `${baseUrl}/images/legacy/sparta_logo.webp` : `${baseUrl}/images/legacy/logo_legacy.webp`
 
   return {
     title: subCatName.name.concat(" ", subSubCatName.name," Series | Legacy Speaker"),
@@ -26,7 +27,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
     openGraph: {
       title: subCatName.name.concat(" ", subSubCatName.name," Series | Legacy Speaker"),
       description: "Semua Seri ".concat(subCatName.name, " ", subSubCatName.name, " milik Legacy Speaker"),
-      url: `https://legacy.us.com/drivers/${subCatName.name.toLowerCase()}/${subSubCatName.name.toLowerCase()}`,
+      url: `${baseUrl}/drivers/${subCatName.name.toLowerCase()}/${subSubCatName.name.toLowerCase()}`,
       siteName: "Legacy Speaker",
       images: [
         // {
@@ -58,6 +59,9 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
           alt: subCatName.name.concat(" ", subSubCatName.name," Series"),
         },
       ],
+    },
+    alternates: {
+      canonical: `${baseUrl}/drivers/${subCatName.name.toLowerCase()}/${subSubCatName.name.toLowerCase()}`,
     },
   }
 }

@@ -12,6 +12,7 @@ const allMapsUrl: string[] = [
 ]
 
 export default function ContactUs() {
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
   const [activeMapIndex, setActiveMapIndex] = useState<number>(0)
   const [_, setIsScrolling] = useState(false);
 
@@ -39,8 +40,8 @@ export default function ContactUs() {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Legacy Speaker",
-      "url": "https://legacy.us.com/contact",
-      "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp",
+      "url": `${baseUrl}/contact`,
+      "logo": `${baseUrl}/images/legacy/logo_legacy.webp`,
       "description": "Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!",
       "contactPoint": [
         {

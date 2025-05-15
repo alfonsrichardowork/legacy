@@ -5,62 +5,66 @@ import { Toaster } from '@/app/(legacy)/components/ui/toaster'
 import Head from 'next/head'
 import Image from 'next/image'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Metadata } from 'next'
 const font = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: {
-    template: '%s | Legacy Speaker',
-    default: 'Legacy Speaker | 100% Karya Anak Bangsa',
-  },
-  description: 'Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!',
-  keywords: 'Legacy, Legacy Speaker, Karya Anak Bangsa, Speaker Indonesia, Loudspeaker Indonesia, Car Speaker, Audio Mobil',
-  openGraph: {
-    title: 'Legacy Speaker | 100% Karya Anak Bangsa',
+export async function generateMetadata(): Promise<Metadata> {
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  return {
+    title: {
+      template: '%s | Legacy Speaker',
+      default: 'Legacy Speaker | 100% Karya Anak Bangsa',
+    },
     description: 'Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!',
-    url: 'https://legacy.us.com/',
-    siteName: 'Legacy Speaker',
-    images: [
-       {
-         url: 'https://legacy.us.com/images/legacy/logo_legacy.webp',
-         width: 1200,
-         height: 630,
-         alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
-       },
-      {
-        url: 'https://legacy.us.com/images/legacy/logo_legacy.webp',
-        width: 800,
-        height: 800,
-        alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
-      },
-    ],
-    locale: 'id_ID',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Legacy Speaker | 100% Karya Anak Bangsa',
-    description: 'Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!',
-    images: [
-      {
-        url: 'https://legacy.us.com/images/legacy/logo_legacy.webp',
-        width: 800,
-        height: 800,
-        alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
-      }
-    ],
-  },
-  alternates: {
-    canonical: 'https://legacy.us.com',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    keywords: 'Legacy, Legacy Speaker, Karya Anak Bangsa, Speaker Indonesia, Loudspeaker Indonesia, Car Speaker, Audio Mobil',
+    openGraph: {
+      title: 'Legacy Speaker | 100% Karya Anak Bangsa',
+      description: 'Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!',
+      url: `${baseUrl}`,
+      siteName: 'Legacy Speaker',
+      images: [
+        {
+          url: `${baseUrl}/images/legacy/logo_legacy.webp`,
+          width: 1200,
+          height: 630,
+          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+        },
+        {
+          url: `${baseUrl}/images/legacy/logo_legacy.webp`,
+          width: 800,
+          height: 800,
+          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+        },
+      ],
+      locale: 'id_ID',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Legacy Speaker | 100% Karya Anak Bangsa',
+      description: 'Speaker mobil asli buatan Indonesia produksi dari CV. Sinar Baja Electric. Manjakan telinga Anda dengan suara jernih dan bass kuat!',
+      images: [
+        {
+          url: `${baseUrl}/images/legacy/logo_legacy.webp`,
+          width: 800,
+          height: 800,
+          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+        }
+      ],
+    },
+    alternates: {
+      canonical: `${baseUrl}`,
+    },
+    robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
     },
-  },
-};
+  }
+}
 
 export default function RootLayout({
   children,
@@ -71,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
@@ -79,7 +83,7 @@ export default function RootLayout({
           "url": "https://legacy.us.com",
           "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp"
         })
-      }} />
+      }} /> */}
         <link
           rel="preload"
           href="/images/legacy/navbarbg.webp"

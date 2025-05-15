@@ -5,13 +5,11 @@ import path from "path";
 
 // Fetch your dynamic URLs (from a database, API, or local data)
 async function getProductsDynamicUrls() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS}`);
   const products = await res.json();
   return products.map((product: { slug: string }) => ({
-    url: `${process.env.NEXT_PUBLIC_ROOT_URL}products/${product.slug}`,
+    url: `${process.env.NEXT_PUBLIC_ROOT_URL}/products/${product.slug}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: "daily",
-    priority: 0.8,
   }));
 }
 
@@ -19,13 +17,11 @@ async function getProductsDynamicUrls() {
 async function getNewsDynamicUrls() {
     const API_EDITED = process.env.NEXT_PUBLIC_FETCH_ALL_NEWS!.replace('{totalNews}', "all")
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}${API_EDITED}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/${API_EDITED}`);
     const news = await res.json();
     return news.map((onenews: { slug: string }) => ({
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}news/${onenews.slug}`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/news/${onenews.slug}`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.8,
     }));
   }
 
@@ -37,130 +33,88 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static URLs
   const staticUrls = [
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL?.replace(/\/$/, '')}`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "weekly",
-      priority: 1.0,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}about-us`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/about-us`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}catalog`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/catalog`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "monthly",
-      priority: 0.8,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}contact`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/contact`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}distributors`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/distributors`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}news`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/news`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.7,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/legacy`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/legacy`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/legacy/subwoofer`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/legacy/subwoofer`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/legacy/coaxial`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/legacy/coaxial`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/legacy/tweeter`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/legacy/tweeter`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/prestige`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/prestige`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/prestige/subwoofer`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/prestige/subwoofer`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/prestige/woofer`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/prestige/woofer`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/prestige/full-range`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/prestige/full-range`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/prestige/tweeter`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/prestige/tweeter`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/prestige/coaxial`,
-      lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/prestige/coaxial`,
+      lastModified: new Date().toISOString()
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/energy`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/energy`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/energy/subwoofer`,
-      lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/energy/subwoofer`,
+      lastModified: new Date().toISOString()
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/sparta`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/sparta`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}drivers/sparta/subwoofer`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/drivers/sparta/subwoofer`,
       lastModified: new Date().toISOString(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
   ];
 
@@ -177,14 +131,10 @@ sitemap()
       <?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${data.map((url) => 
-          `
-          <url>
+          `          <url>
             <loc>${url.url}</loc>
             <lastmod>${url.lastModified}</lastmod>
-            <changefreq>${url.changeFrequency}</changefreq>
-            <priority>${url.priority}</priority>
-          </url>
-        `
+          </url>`
           )
           .join("\n")}
       </urlset>

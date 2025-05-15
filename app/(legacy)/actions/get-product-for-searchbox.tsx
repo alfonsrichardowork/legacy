@@ -1,7 +1,7 @@
 import { Searchbox } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}${process.env.NEXT_PUBLIC_REACT_APP_FETCH_PRODUCT_FOR_SEARCHBOX}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_REACT_APP_FETCH_PRODUCT_FOR_SEARCHBOX}`;
 
 const getProductsForSearchbox = async (): Promise<Searchbox[]> => {
     let productForSearchbox: Array<Searchbox> = [];
