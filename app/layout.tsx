@@ -80,8 +80,8 @@ export default function RootLayout({
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "Legacy Speaker",
-          "url": "https://legacy.us.com",
-          "logo": "https://legacy.us.com/images/legacy/logo_legacy.webp"
+          "url": "https://www.legacy.us.com",
+          "logo": "https://www.legacy.us.com/images/legacy/logo_legacy.webp"
         })
       }} /> */}
         <link

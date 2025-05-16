@@ -37,7 +37,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       siteName: "Legacy Speaker",
       images: [
         // {
-        //   url: `https://legacy.us.com${product.news_img_url}`,
+        //   url: `https://www.legacy.us.com${product.news_img_url}`,
         //   width: 1200,
         //   height: 630,
         //   alt: product.title,

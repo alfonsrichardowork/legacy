@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 Disallow: /admin/
-Sitemap: https://legacy.us.com/sitemap.xml
+Sitemap: https://www.legacy.us.com/sitemap.xml
