@@ -17,6 +17,7 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom'
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import { useState } from 'react';
+import { LazyImageCustom } from '../lazyImageCustom';
 
 type PropType = {
   alt: string,
@@ -74,7 +75,7 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
           clickable: true,
         }}
         modules={[Navigation, FreeMode, Pagination]}
-        className="mySwiper2"
+        className="mySwiper2 lg:h-80 sm:h-72 h-48 flex items-center"
         style={{
           // @ts-ignore
             "--swiper-navigation-color": "#f2b90f",
@@ -90,11 +91,12 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
                   <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
-                          <LazyImage
+                          <LazyImageCustom
                             src={item} 
                             alt={alt.concat(" - Drawing")} 
                             width={500}
                             height={500}
+                            classname='h-full w-fit'
                           />
                           {/* <Image 
                             src={item} 
@@ -118,12 +120,12 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
                     <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
-                          
-                          <LazyImage
+                          <LazyImageCustom
                             src={item} 
                             alt={alt.concat(" - Frequency Response")} 
                             width={500}
                             height={500}
+                            classname='h-full w-fit'
                           />
                           {/* <Image 
                             src={item} 
@@ -147,11 +149,12 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
                     <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
-                          <LazyImage
+                          <LazyImageCustom
                             src={item} 
                             alt={alt.concat(" - Impedance")} 
                             width={500}
                             height={500}
+                            classname='h-full w-fit'
                           />
                           {/* <Image 
                             src={item} 

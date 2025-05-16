@@ -26,6 +26,7 @@ import 'yet-another-react-lightbox/styles.css'
 import 'yet-another-react-lightbox/plugins/thumbnails.css'
 import "yet-another-react-lightbox/plugins/captions.css";
 import { LazyImage } from '../lazyImage';
+import { LazyImageCustom } from '../lazyImageCustom';
 
 
 type PropType = {
@@ -68,7 +69,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           navigation={true}
           modules={[FreeMode, Navigation, Thumbs, Pagination]}
-          className="mySwiper2"
+          className="mySwiper2 lg:h-80 sm:h-72 h-48 flex items-center"
           thumbs={{ swiper: thumbsSwiper }}
         >
               {catalogues && catalogues.length > 0 && catalogues.map((item, index) => (
@@ -80,11 +81,12 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
                             {/* <div className="object-contain max-h-full max-w-full"> */}
-                              <LazyImage
+                              <LazyImageCustom
                                 src={item} 
                                 alt={alt} 
                                 width={500}
                                 height={500}
+                                classname='h-full w-fit'
                               />
                             {/* </div> */}
                               {/* <Image 
@@ -108,11 +110,12 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                       <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
-                              <LazyImage
+                              <LazyImageCustom
                                 src={cover} 
                                 alt={alt} 
                                 width={500}
                                 height={500}
+                                classname='h-full w-fit'
                               />
                               {/* <Image 
                                 src={cover} 
@@ -136,11 +139,12 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                       <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
-                              <LazyImage
+                              <LazyImageCustom
                                 src={item} 
                                 alt={alt} 
                                 width={500}
                                 height={500}
+                                classname='h-full w-fit'
                               />
                               {/* <Image 
                                 src={item} 
