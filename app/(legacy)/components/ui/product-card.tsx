@@ -31,6 +31,7 @@ const ProductCard: React.FC<ReviewCard> = ({
       <div className="flex flex-col items-center pt-4">
       <div className="text-sm text-gray-400 lg:text-lg font-semibold text-center">{data.sub_sub_categories[0].name}</div>
         <div className="text-lg lg:text-2xl font-bold text-center pb-2 text-black">{data.name}</div>
+        <h2 className="sr-only">{data.name} - {data.sub_sub_categories[0].name}</h2>
       </div>
       {/* </div> */}
     </Link>

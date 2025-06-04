@@ -27,16 +27,16 @@ const NewsCard: React.FC<NewsCardProps> =  ({ data }) => {
         />
         {/* </div> */}
         <div className="md:w-2/3 md:pl-12">
-          <div className="text-lg lg:text-xl font-bold text-black pb-2 md:pt-0 pt-4">
+          <h2 className="text-lg lg:text-xl font-bold text-black pb-2 md:pt-0 pt-4">
             {data.title}
-          </div>
-          <div className="text-sm py-2 text-black">
+          </h2>
+          <h3 className="text-sm py-2 text-black">
             {eventDate}
-          </div>
-          <div className="text-base py-2 text-black"  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description.length > 150
+          </h3>
+          <h3 className="text-base py-2 text-black"  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description.length > 150
               ? `${data.description.slice(0, 150)}...`
               : data.description)}}>
-          </div>
+          </h3>
           <div className="text-base py-2 text-black">
             <Button asChild size={'lg'} variant={'secondary'} className="sm:w-fit w-full">
               <Link href={`/news/${data.slug}`} className='text-white font-bold'>READ MORE</Link>

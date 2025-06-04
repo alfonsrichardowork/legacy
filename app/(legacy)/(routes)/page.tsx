@@ -25,6 +25,7 @@ export default function LandingPageLegacy() {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <h1 className='sr-only'>Welcome to Legacy Speaker Official Website!</h1>
       <Hero />
       <Series />
       <News/>

@@ -121,7 +121,7 @@ export default function NewsClient() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-              <BreadcrumbPage>All News</BreadcrumbPage>
+              <BreadcrumbPage><h1>All News</h1></BreadcrumbPage>
               </BreadcrumbItem>
           </BreadcrumbList>
       </Breadcrumb>

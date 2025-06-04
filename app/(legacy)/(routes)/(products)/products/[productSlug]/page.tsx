@@ -147,7 +147,15 @@ const SingleProduct = async (
             </div>
         )}
 
-        {data?.name && <div className={`${all_sub_title_style} pb-4`}>{data.name}</div>}
+        {data?.name && <h1 className={`${all_sub_title_style} pb-4`}>{data.name}</h1>}
+
+         {data?.sub_sub_categories.length > 0 && (
+            <h2 className={`sr-only`}>
+                {data.sub_sub_categories.map((subsubcategory, index) => (
+                        subsubcategory.name
+                ))}
+            </h2>
+        )}
 
         <Separator className="bg-foreground w-56 h-2" />
 
@@ -166,7 +174,7 @@ const SingleProduct = async (
                 data.specification?.berat_speaker != '' ||
                 data.specification?.custom_note != '') && (
                 <>
-                    <div className="text-2xl text-gray-500 font-bold py-4">Spesifikasi</div>
+                    <h2 className="text-2xl text-gray-500 font-bold py-4">Spesifikasi</h2>
                     {SingleProductTable(data.specification, all_desc_style)}
                 </>
             )
@@ -182,7 +190,7 @@ const SingleProduct = async (
                 data.tweeter_specification?.magnetic_flux_density != '' ||
                 data.tweeter_specification?.magnet_weight != '') && (
                 <>
-                    <div className="text-2xl text-gray-500 font-bold py-4">Tweeter Specification</div>
+                    <h2 className="text-2xl text-gray-500 font-bold py-4">Tweeter Specification</h2>
                     {TweeterTable(data.tweeter_specification, all_desc_style)}
                 </>
             )
@@ -197,7 +205,7 @@ const SingleProduct = async (
                 data.active_subwoofer_specification?.power_input != '' ||
                 data.active_subwoofer_specification?.box_type != '') && (
                 <>
-                    <div className="text-2xl text-gray-500 font-bold py-4">Active Subwoofers Specification</div>
+                    <h2 className="text-2xl text-gray-500 font-bold py-4">Active Subwoofers Specification</h2>
                     {ActiveSubwooferTable(data.active_subwoofer_specification, all_desc_style)}
                 </>
             )
@@ -218,7 +226,7 @@ const SingleProduct = async (
                 data.thiele_small_parameters_specification2?.x_max != '') &&
             data.thiele_small_parameters_specification4 && (
                 <>
-                    <div className="text-2xl text-gray-500 font-bold py-4">Parameter Thiele-Small</div>
+                    <h2 className="text-2xl text-gray-500 font-bold py-4">Parameter Thiele-Small</h2>
                     {Thiele24ProductTable(data.thiele_small_parameters_specification2, data.thiele_small_parameters_specification4, all_desc_style)}
                 </>
             )

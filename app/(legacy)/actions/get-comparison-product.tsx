@@ -82,7 +82,7 @@ const getComparisonProduct = async (productSlug: string): Promise<ComparisonProd
     let product: ComparisonProductData = {
       id: data.id,
       coverUrl: data.cover_img? data.cover_img[0].url: '',
-      coverAlt: data.slug,
+      coverAlt: data.name,
       graph_Url: all_graph_url.length!=0?all_graph_url:[],
       impedance_Url: all_impedance_url.length!=0?all_impedance_url:[],
       name: data.name,

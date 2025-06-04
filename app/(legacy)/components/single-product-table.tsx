@@ -34,13 +34,13 @@ export default function SingleProductTable(spec: Specifications, styling: string
             row.value? 
               <TableRow key={index}>
                 <TableCell className={`${styling} border p-2`}>
-                  {row.specs}
+                  <h3>{row.specs}</h3>
                 </TableCell>
                 <TableCell className={`${styling} border p-2`}>
                   {row.value ? 
-                    <>
+                    <h4>
                       {row.value} {row.unit}
-                    </>
+                    </h4>
                   : 
                     '-'
                   }
@@ -53,9 +53,9 @@ export default function SingleProductTable(spec: Specifications, styling: string
       </Table>  
       <div className='pt-4 text-xs text-black'>
         {notesArray.map((note, index) => 
-          <div key={index} className='pb-2'>
+          <h3 key={index} className='pb-2'>
             {note}
-          </div>
+          </h3>
         )}
       </div>
     </>

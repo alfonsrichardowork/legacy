@@ -103,12 +103,12 @@ export default async function SingleNewsPage(props: Props) {
                 </div>
 
                 {/* Title and Date */}
-                <div className="lg:text-3xl text-xl text-black font-bold py-2">
+                <h1 className="lg:text-3xl text-xl text-black font-bold py-2">
                   {tempData.title}
-                </div>
-                <div className="lg:text-base text-sm text-gray-500 pb-8">
+                </h1>
+                <h2 className="lg:text-base text-sm text-gray-500 pb-8">
                   {formatDate(tempData.event_date.toString())}
-                </div>
+                </h2>
 
                 {/* Description */}
                 <SanitizedHtml html={tempData.description} />

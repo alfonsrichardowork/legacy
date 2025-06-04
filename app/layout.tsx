@@ -27,13 +27,13 @@ export async function generateMetadata(): Promise<Metadata> {
           url: `${baseUrl}/images/legacy/logo_legacy.webp`,
           width: 1200,
           height: 630,
-          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+          alt: 'Legacy Speaker Logo',
         },
         {
           url: `${baseUrl}/images/legacy/logo_legacy.webp`,
           width: 800,
           height: 800,
-          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+          alt: 'Legacy Speaker Logo',
         },
       ],
       locale: 'id_ID',
@@ -48,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: `${baseUrl}/images/legacy/logo_legacy.webp`,
           width: 800,
           height: 800,
-          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+          alt: 'Legacy Speaker Logo',
         }
       ],
     },
@@ -91,7 +91,7 @@ export default function RootLayout({
         />
       </Head>
       <body className={`${font.className || ''} overflow-x-hidden`}>
-      <Image src={'/images/legacy/navbarbg.webp'} alt="navbarbg" width={1920} height={1080} className='-z-10 fixed md:-top-64 sm:-top-24 -top-10 left-0' priority/>
+      <Image src={'/images/legacy/navbarbg.webp'} alt="Legacy Speaker Navigation Bar Background" width={1920} height={1080} className='-z-10 fixed md:-top-64 sm:-top-24 -top-10 left-0' priority/>
           {children}
         <Toaster />
       </body>

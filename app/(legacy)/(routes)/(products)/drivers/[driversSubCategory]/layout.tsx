@@ -11,6 +11,8 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
   const subCatName = await getSubCatNameBySlug(params.driversSubCategory)
   const previousImages = (await parent).openGraph?.images || []
   const logo_URL = subCatName.name.toLowerCase() === 'legacy' ? `${baseUrl}/images/legacy/logo_legacy.webp` : subCatName.name.toLowerCase() === 'prestige' ? `${baseUrl}/images/legacy/prestige_logo.webp` : subCatName.name.toLowerCase() === 'energy' ? `${baseUrl}/images/legacy/energy_logo.webp` : subCatName.name.toLowerCase() === 'sparta' ? `${baseUrl}/images/legacy/sparta_logo.webp` : `${baseUrl}/images/legacy/logo_legacy.webp`
+  const logo_ALT = subCatName.name.toLowerCase() === 'legacy' ? `Legacy Speaker Logo` : subCatName.name.toLowerCase() === 'prestige' ? `Prestige Series Logo` : subCatName.name.toLowerCase() === 'energy' ? `Energy Series Logo` : subCatName.name.toLowerCase() === 'sparta' ? `Sparta Series Logo` : `Legacy Speaker Logo`
+ 
   return {
     title: subCatName.name.concat(" Series | Legacy Speaker"),
     description: "Semua Seri ".concat(subCatName.name, " milik Legacy Speaker"),
@@ -26,7 +28,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
           url: logo_URL,
           width: 800,
           height: 800,
-          alt: subCatName.name.concat(" Series"),
+          alt: logo_ALT,
         },
         ...previousImages,
       ],
@@ -42,7 +44,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
           url: logo_URL,
           width: 800,
           height: 800,
-          alt: subCatName.name.concat(" Series"),
+          alt: logo_ALT,
         },
       ],
     },

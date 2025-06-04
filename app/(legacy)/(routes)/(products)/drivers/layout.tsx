@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: `${baseUrl}/images/legacy/logo_legacy.webp`,
           width: 800,
           height: 800,
-          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+          alt: 'Legacy Speaker Logo',
         },
       ],
       locale: 'id_ID',
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: `${baseUrl}/images/legacy/logo_legacy.webp`,
           width: 800,
           height: 800,
-          alt: 'Legacy Speaker | 100% Karya Anak Bangsa',
+          alt: 'Legacy Speaker Logo',
         }
       ],
     },

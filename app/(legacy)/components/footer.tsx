@@ -7,28 +7,30 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 export default function Footer() {
   return (
     <div className='relative md:py-0 py-10'>
-      <Image src={'/images/legacy/footerbg.webp'} alt='Background Footer Legacy' className='object-cover bg-center absolute inset-0 z-0 w-screen h-full' width={1000} height={1000} loading='lazy'/>
+      <Image src={'/images/legacy/footerbg.webp'} alt='Background Footer Legacy Speaker' className='object-cover bg-center absolute inset-0 z-0 w-screen h-full' width={1000} height={1000} loading='lazy'/>
       <div className='relative z-10 container mx-auto xl:px-36 lg:px-20 px-10 xl:py-8 lg:py-6 py-4'>
       <div className="text-white font-bold sm:text-2xl text-lg text-center">
-        Brand Lain Dari CV. Sinar Baja Electric
+        <h2>Brand Lain Dari CV. Sinar Baja Electric</h2>
         <div className="md:grid md:grid-cols-3 md:px-0 px-8 items-center gap-4 py-8">
           <div className="hidden md:block"></div>
 
           <div className="flex items-center justify-center gap-4">
+            <h3 className='sr-only'>ACR Speaker Website</h3>
             <Link href="https://acrspeaker.com/" target="_blank" aria-label="Visit ACR Speaker Website">
               <Image
                 src="/images/legacy/ACR2.webp"
-                alt="ACR Logo"
+                alt="Logo ACR Speaker"
                 width={150}
                 height={150}
                 className="w-auto md:h-24 h-12 object-contain transition-transform duration-300 hover:scale-110"
                 loading="lazy"
               />
             </Link>
+            <h3 className='sr-only'>Rhyme Audio Website</h3>
             <Link href="https://rhymeaudio.com/" target="_blank" aria-label="Visit Rhyme Audio Website">
               <Image
                 src="/images/legacy/Rhyme2.webp"
-                alt="Rhyme Logo"
+                alt="Logo Rhyme Audio"
                 width={150}
                 height={150}
                 className="w-auto md:h-24 h-12 object-contain transition-transform duration-300 hover:scale-110"
@@ -44,9 +46,10 @@ export default function Footer() {
         </div>
         <Separator className="opacity-50 md:hidden block" />
         <div className='md:hidden block justify-center items-center w-full h-full'>
+          <h3 className='sr-only'>Download Aplikasi MySBE</h3>
             <div className='text-white py-6 text-sm font-normal'>Download Aplikasinya Sekarang</div>
               <Link href="https://play.google.com/store/apps/details?id=id.sbe.mysbe.customer&hl=id&pli=1" target="__blank" className="flex font-bold text-center items-center justify-center">
-                <Image src={"/images/legacy/mysbe.webp"} alt="MySBE" width={125} height={125} className="rounded-lg" />
+                <Image src={"/images/legacy/mysbe.webp"} alt="Logo Aplikasi MySBE" width={125} height={125} className="rounded-lg" />
               </Link>  
           </div>
         <Separator className="opacity-50 md:block hidden" />
@@ -59,7 +62,7 @@ export default function Footer() {
             <Link href="/">
               <Image
                 src="/images/legacy/logo_legacy.webp"
-                alt="Legacy"
+                alt="Legacy Speaker Logo"
                 width={800}
                 height={600}
                 className="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
@@ -67,32 +70,32 @@ export default function Footer() {
               />
             </Link>
           </div>
-            <div className="text-lg lg:text-2xl font-bold text-white pb-1">
+            <h3 className="text-lg lg:text-2xl font-bold text-white pb-1">
               CV. Sinar Baja Electric Surabaya
-            </div>
+            </h3>
             <div className="py-4">
               <Separator className="bg-foreground w-56 h-2 mx-auto md:mx-0" />
             </div>
             <div className="text-xs text-white pb-4 font-light space-y-2 sm:block hidden">
               <div className="flex items-center justify-center md:justify-start">
                 <MapPin size={15} className="mr-2" />
-                <span>Jl. Margomulyo No.5, Surabaya 60186, Jawa Timur, Indonesia</span>
+                <h4>Jl. Margomulyo No.5, Surabaya 60186, Jawa Timur, Indonesia</h4>
               </div>
               <div className="flex items-center justify-center md:justify-start">
                 <Phone size={15} className="mr-2" />
-                <span>+62 812-3183-3504</span>
+                <h4>+62 812-3183-3504</h4>
               </div>
               <div className="flex items-center justify-center md:justify-start">
                 <Mail size={15} className="mr-2" />
-                <span>legacyspeaker01@gmail.com</span>
+                <h4>legacyspeaker01@gmail.com</h4>
               </div>
             </div>
-            <div className="text-xs text-white pb-1 font-light  sm:block hidden">
+            <h4 className="text-xs text-white pb-1 font-light  sm:block hidden">
               Showroom Jakarta: Ruko Glodok Plaza, Blok F-97 Mangga Besar - Jakarta Barat
-            </div>
-            <div className="text-xs text-white pb-1 font-light  sm:block hidden">
+            </h4>
+            <h4 className="text-xs text-white pb-1 font-light  sm:block hidden">
               Showroom Surabaya: Jl. Genteng Besar No. 15A - Genteng, Surabaya
-            </div>
+            </h4>
           </div>
         </div>
         <div className="md:order-2 order-1 flex flex-col items-center md:items-end w-full h-full">
@@ -102,7 +105,7 @@ export default function Footer() {
               Download Aplikasinya Sekarang
             </div>
               <Link href="https://play.google.com/store/apps/details?id=id.sbe.mysbe.customer&hl=id&pli=1" target="__blank" className="flex text-white font-bold text-end justify-end">
-                <Image src={"/images/legacy/mysbe.webp"} alt="MySBE" width={125} height={125} className="rounded-lg" />
+                <Image src={"/images/legacy/mysbe.webp"} alt="Logo Aplikasi MySBE" width={125} height={125} className="rounded-lg" />
               </Link>  
           </div>
         </div>

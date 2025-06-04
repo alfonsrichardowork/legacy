@@ -31,9 +31,15 @@ export default function Thiele24ProductTable(spec2: Thiele_Small_Parameters_Spec
         <TableBody className='border'>
             {rows.map((row, index) => (
             <TableRow key={index} className={`${index===0? 'font-bold': ''}`}>
-              <TableCell className={`${styling} border p-2`}>{row.specs}</TableCell>
-              <TableCell className={`${styling} border p-2`}>{row.value2 ? row.value2: '-'}</TableCell>
-              <TableCell className={`${styling} border p-2`}>{row.value4 ? row.value4: '-'}</TableCell>
+              <TableCell className={`${styling} border p-2`}><h3>{row.specs}</h3></TableCell>
+              <TableCell className={`${styling} border p-2`}>
+                <h4 className='sr-only'>2 Ω: {row.value2 ? row.value2: '-'}</h4>
+                {row.value2 ? row.value2: '-'}
+                </TableCell>
+              <TableCell className={`${styling} border p-2`}>
+                <h4 className='sr-only'>4 Ω: {row.value4 ? row.value4: '-'}</h4>
+                {row.value4 ? row.value4: '-'}
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>

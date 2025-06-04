@@ -7,7 +7,7 @@ export const SanitizedHtml = ({ html }: { html: string }) => {
   const cleanHtml = useMemo(() => DOMPurify.sanitize(html), [html]);
 
   return (
-    <div
+    <h3
       className="news-content text-base text-black pb-8"
       dangerouslySetInnerHTML={{ __html: cleanHtml }}
     />

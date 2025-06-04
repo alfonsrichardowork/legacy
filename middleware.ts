@@ -75,6 +75,12 @@ export async function middleware(req: NextRequest) {
     url.hostname = host.replace('www.', '')
     return NextResponse.redirect(url, 301)
   }
+
+  //Reroute permanent
+  if (url.pathname === '/comparison' || url.pathname === '/products') {
+    return NextResponse.redirect(new URL('/drivers', req.url));
+  }
+
   
   if (url.pathname.includes('/productdetail.php')) {
     const categ = url.searchParams.get('categ')

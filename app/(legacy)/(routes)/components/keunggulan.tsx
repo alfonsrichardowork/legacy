@@ -13,9 +13,9 @@ const Keunggulan: React.FC = () => {
               <div className="flex flex-col items-center justify-center h-full">
                 <Image src={`/images/legacy/indo_flag.webp`} alt="Bendera Indonesia" width={50} height={50} className="w-14 h-10" />
                 <div className="pt-4">
-                  <p className="md:text-xl text-base text-black text-center">
+                  <h2 className="md:text-xl text-base text-black text-center">
                     100% Karya Anak Bangsa
-                  </p>
+                  </h2>
                 </div>
               </div>
             </div>

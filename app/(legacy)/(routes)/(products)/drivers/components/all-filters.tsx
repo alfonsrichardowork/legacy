@@ -542,7 +542,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Legacy' ? 
                                     <div className="w-full h-fit px-6">
                                         <LazyImage
-                                            alt="Logo Legacy"
+                                            alt="Legacy Series Logo"
                                             src={'/images/legacy/legacy_logo.webp'}
                                             width={500}
                                             height={500}
@@ -552,7 +552,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Energy' ?
                                     <div className="w-full h-fit">
                                         <LazyImage
-                                            alt="Logo Energy"
+                                            alt="Energy Series Logo"
                                             src={'/images/legacy/energy_logo.webp'}
                                             width={500}
                                             height={500}
@@ -562,13 +562,13 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Prestige' ?
                                     <div className="w-full h-fit px-6 py-4">
                                         <LazyImage
-                                            alt="Logo Prestige"
+                                            alt="Prestige Series Logo"
                                             src={'/images/legacy/prestige_logo.webp'}
                                             width={500}
                                             height={500}
                                         />
                                         {/* <Image
-                                            alt="Logo Prestige"
+                                            alt="Prestige Series Logo"
                                             src={'/images/legacy/prestige_logo.webp'}
                                             width={500}
                                             height={500}
@@ -580,7 +580,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Sparta' ?
                                     <div className="w-full h-fit">
                                         <LazyImage
-                                            alt="Logo Sparta"
+                                            alt="Sparta Series Logo"
                                             src={'/images/legacy/sparta_logo.webp'}
                                             width={500}
                                             height={500}
@@ -663,7 +663,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Legacy' ? 
                                     <div className="w-full h-fit px-6">
                                         <LazyImage
-                                            alt="Logo Legacy"
+                                            alt="Legacy Series Logo"
                                             src={'/images/legacy/legacy_logo.webp'}
                                             width={500}
                                             height={500}
@@ -673,7 +673,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Energy' ?
                                     <div className="w-full h-fit">
                                         <LazyImage
-                                            alt="Logo Energy"
+                                            alt="Energy Series Logo"
                                             src={'/images/legacy/energy_logo.webp'}
                                             width={500}
                                             height={500}
@@ -683,13 +683,13 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Prestige' ?
                                     <div className="w-full h-fit px-6 py-4">
                                         <LazyImage
-                                            alt="Logo Prestige"
+                                            alt="Prestige Series Logo"
                                             src={'/images/legacy/prestige_logo.webp'}
                                             width={500}
                                             height={500}
                                         />
                                         {/* <Image
-                                            alt="Logo Prestige"
+                                            alt="Prestige Series Logo"
                                             src={'/images/legacy/prestige_logo.webp'}
                                             width={500}
                                             height={500}
@@ -701,7 +701,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                     choicesVal === 'Sparta' ?
                                     <div className="w-full h-fit">
                                         <LazyImage
-                                            alt="Logo Sparta"
+                                            alt="Sparta Series Logo"
                                             src={'/images/legacy/sparta_logo.webp'}
                                             width={500}
                                             height={500}

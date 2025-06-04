@@ -350,9 +350,9 @@ function NavbarContentMobile (){
                 <Image
                   src={'/images/legacy/logo_legacy.webp'}
                   className='cursor-pointer max-w-[150px] h-8'
-                  alt="logo of Legacy Speaker"
-                  width={10000}
-                  height={10000}            
+                  alt="Legacy Speaker Logo"
+                  width={500}
+                  height={500}            
                   priority
                   // fill
                 />

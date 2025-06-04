@@ -32,7 +32,7 @@ const Youtube: React.FC = () => {
                 <Image src="/images/legacy/acryoutubeprofile.jpg" alt="ACR Rhyme Youtube" className="rounded-full" width={100} height={100} />
               </div>
               <div>
-                <div className="text-2xl font-bold text-black pb-2 text-center">YOUTUBE CHANNEL</div>
+                <h2 className="text-2xl font-bold text-black pb-2 text-center">YOUTUBE CHANNEL</h2>
                 <div className="text-xl text-black text-center">ACR Speaker - Rhyme Pro Audio</div>
               </div>
             </div>
@@ -47,6 +47,7 @@ const Youtube: React.FC = () => {
                   className="w-full lg:h-60 h-40 rounded-lg bg-gray-200 flex items-center justify-center cursor-pointer relative"
                   onClick={() => loadVideo(video.id)}
                 >
+                  <h3 className='sr-only'>{video.title}</h3>
                   <Image
                     src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
                     alt={video.title}

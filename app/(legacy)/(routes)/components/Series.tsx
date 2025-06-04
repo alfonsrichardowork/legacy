@@ -6,7 +6,7 @@ const Series: React.FC = () => {
   return (
     <div className="relative w-full h-fit bg-white">
       <div className="container mx-auto xl:px-36 lg:px-20 px-10 xl:pt-8 lg:pt-6 pt-4 h-fit items-center text-center">
-        <div className="text-3xl font-bold text-black pb-4">PILIH SPEAKER ANDA</div>
+        <h2 className="text-3xl font-bold text-black pb-4">PILIH SPEAKER ANDA</h2>
         <Separator className="bg-foreground w-56 h-2 mx-auto" />
       </div>
 
@@ -15,21 +15,21 @@ const Series: React.FC = () => {
           {
             href: '/drivers/energy',
             src: '/images/legacy/energychoicecrop.webp',
-            alt: 'Energy Series',
+            alt: 'Energy Series Logo',
             title: 'ENERGY',
             description: 'Tenaga Maksimal, Energi Efisien.',
           },
           {
             href: '/drivers/legacy',
             src: '/images/legacy/legacychoice2crop.webp',
-            alt: 'Legacy Series',
+            alt: 'Legacy Series Logo',
             title: 'LEGACY',
             description: 'Presisi Suara di Setiap Nada.',
           },
           {
             href: '/drivers/sparta',
             src: '/images/legacy/spartachoicecrop.webp',
-            alt: 'Sparta Series',
+            alt: 'Sparta Series Logo',
             title: 'SPARTA',
             description: 'Performa Handal, Harga Optimal.',
           },
@@ -47,12 +47,12 @@ const Series: React.FC = () => {
                 blurDataURL="data:image/webp;base64,[base64-encoded-string]"
               />
               <div className="p-4 flex-grow flex flex-col order-1">
-                <h2 className="font-bold lg:text-4xl md:text-2xl text-xl text-secondary text-left">
+                <h3 className="font-bold lg:text-4xl md:text-2xl text-xl text-secondary text-left">
                   {series.title}
-                </h2>
-                <p className="md:text-base text-sm text-black text-left ">
+                </h3>
+                <h4 className="md:text-base text-sm text-black text-left ">
                   {series.description}
-                </p>
+                </h4>
               </div>
             </div>
           </Link>

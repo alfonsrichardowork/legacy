@@ -101,9 +101,9 @@ const ProductBySubCategoryPage = (
         <div className='bg-white -z-10'>
         <div className="container mx-auto xl:px-36 lg:px-20 px-10 xl:py-8 lg:py-6 py-4">
             <div className='w-full text-center'>
-                <div className='text-3xl font-bold text-black pb-4 md:pt-0 pt-16'>
+                <h1 className='text-3xl font-bold text-black pb-4 md:pt-0 pt-16'>
                     KOMPARASI PRODUK
-                </div>
+                </h1>
                 <Separator className='bg-foreground w-56 h-2 mx-auto'/>
                 <div className='py-2 text-black'>
                     {allDriversName}

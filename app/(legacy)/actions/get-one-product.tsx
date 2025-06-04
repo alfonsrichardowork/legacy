@@ -235,7 +235,7 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
     let product: SingleProducts = {
       id: data.product.id,
       coverUrl: data.product.cover_img? data.product.cover_img[0].url: '',
-      coverAlt: data.product.slug,
+      coverAlt: data.product.name,
       images_Catalogues_Url: all_url.length!=0?all_url:[],
       images_Catalogues_Alt: all_alt,
       drawing_Url: all_drawing_url.length!=0?all_drawing_url:[],

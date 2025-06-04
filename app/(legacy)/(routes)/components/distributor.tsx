@@ -8,9 +8,9 @@ const Distributor: React.FC = () => {
     <div className="relative w-full h-fit bg-white">
      <div className="container mx-auto xl:px-36 lg:px-20 px-10 md:py-10 py-8 h-fit block items-center lg:grid lg:grid-cols-2">
         <div>
-          <div className='text-3xl font-bold text-black pb-4'>
+          <h2 className='text-3xl font-bold text-black pb-4'>
             TOKO & DISTRIBUTOR
-          </div>
+          </h2>
           <Separator className='bg-foreground w-56 h-2'/>
           <div className='pt-2 pb-8 text-black lg:text-base text-sm lg:w-4/5 w-full'>
             Chanel pembelian speaker legacy bisa diperoleh melalui Toko & Distributor berikut.
@@ -23,9 +23,9 @@ const Distributor: React.FC = () => {
           </Button>
         </div>
         <div className='lg:pl-8 lg:block hidden'>
-          <div className='text-3xl font-bold text-black pb-4'>
+          <h2 className='text-3xl font-bold text-black pb-4'>
             SOSIAL MEDIA
-          </div>
+          </h2>
           <Separator className='bg-foreground w-56 h-2'/>
           <div className='py-11'>
             <FindUs scrolled={true} type='navbar'/>

@@ -26,7 +26,7 @@ const getSingleMetadata = async (productSlug: string): Promise<MetadataSinglePro
     let product: MetadataSingleProducts = {
       id: data.id,
       coverUrl: data.cover_img[0].url,
-      coverAlt: data.slug,
+      coverAlt: data.name,
       name: data.name,
       desc: data.description,
       slug: data.slug,

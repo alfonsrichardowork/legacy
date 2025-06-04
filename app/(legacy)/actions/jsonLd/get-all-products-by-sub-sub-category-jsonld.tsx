@@ -78,7 +78,7 @@ const getAllProductsBySubSubCategoryJsonld = async (subcategory: string, subsubc
       let product: Products = {
         id: data[i].id,
         coverUrl: data[i].cover_img[0].url,
-        CoverAlt: data[i].slug,
+        CoverAlt: data[i].name,
         name: data[i].name,
         slug: data[i].slug,
         size: size,

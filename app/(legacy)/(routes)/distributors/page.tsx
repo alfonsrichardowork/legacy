@@ -122,6 +122,7 @@ export default function Distributors() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <h1 className='sr-only'>Distributors | Legacy Speaker</h1>
   <div className="bg-white -z-10">
   <div className="relative w-full container mx-auto xl:px-36 lg:px-20 px-10 pb-4 pt-16 h-fit">
         <div className="pb-4">
@@ -136,27 +137,27 @@ export default function Distributors() {
       <div className="pb-4">
         <div className="border-2 rounded-lg p-4 shadow-lg border-secondary">
           <div className='pb-4'>
-            <div className='text-4xl font-bold text-black pb-4'>
+            <h2 className='text-4xl font-bold text-black pb-4'>
               SURABAYA
-            </div>
+            </h2>
           </div>
           <div className="block pb-2">
-            <div className="font-bold text-black pb-2 text-2xl">Seni Musik</div>
+            <h3 className="font-bold text-black pb-2 text-2xl">Seni Musik</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:0313815728" className="text-blue-600 hover:underline">
                   031-3815728
                 </a>
-              </div>
+              </h4>
             </div>
           </div>
           <div className="block pb-2">
-            <div className="font-bold text-black pb-2 text-2xl">Mutiara Jaya</div>
+            <h3 className="font-bold text-black pb-2 text-2xl">Mutiara Jaya</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:0315314275" className="text-blue-600 hover:underline">
                   031-5314275
@@ -165,19 +166,19 @@ export default function Distributors() {
                 <a href="tel:082140191857" className="text-blue-600 hover:underline">
                   0821-40191857
                 </a>
-              </div>
+              </h4>
             </div>
           </div>
           <div className="block pb-2">
-            <div className="font-bold text-black pb-2 text-2xl">Surya Pratama</div>
+            <h3 className="font-bold text-black pb-2 text-2xl">Surya Pratama</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:0317490490" className="text-blue-600 hover:underline">
                   031-7490490
                 </a>
-              </div>
+              </h4>
             </div>
           </div>
         </div>
@@ -186,17 +187,17 @@ export default function Distributors() {
       <div className="pb-4">
         <div className="border-2 rounded-lg p-4 shadow-lg border-secondary">
           <div className='pb-4'>
-            <div className='text-4xl font-bold text-black pb-4'>
+            <h2 className='text-4xl font-bold text-black pb-4'>
               MALANG
-            </div>
+            </h2>
           </div>
           <div className="block pb-2">
-            <div className="font-bold text-black pb-2 text-2xl">Maju Mapan</div>
+            <h3 className="font-bold text-black pb-2 text-2xl">Maju Mapan</h3>
             <div className="flex text-black pb-4 items-center">
               <div className="pr-2">
                 <Phone size={20} />
               </div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:0341566616" className="text-blue-600 hover:underline">
                   0341-566616
@@ -205,7 +206,7 @@ export default function Distributors() {
                 <a href="tel:0341575133" className="text-blue-600 hover:underline">
                   0341-575133
                 </a>
-              </div>
+              </h4>
             </div>
           </div>
         </div>
@@ -214,20 +215,20 @@ export default function Distributors() {
       <div className="pb-4">
         <div className="border-2 rounded-lg p-4 shadow-lg border-secondary">
           <div className='pb-4'>
-            <div className='text-4xl font-bold text-black pb-4'>
+            <h2 className='text-4xl font-bold text-black pb-4'>
               PATI
-            </div>
+            </h2>
           </div>
           <div className="block pb-2">
-            <div className="font-bold text-black pb-2 text-2xl">Mapan Abadi</div>
+            <h3 className="font-bold text-black pb-2 text-2xl">Mapan Abadi</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:082226465225" className="text-blue-600 hover:underline">
                   0822-26465225
                 </a>
-              </div>
+              </h4>
             </div>
           </div>
         </div>
@@ -240,15 +241,15 @@ export default function Distributors() {
     <div className="pb-4">
       <div className="border-2 rounded-lg p-4 shadow-lg border-secondary">
         <div className='pb-4'>
-          <div className='text-4xl font-bold text-black pb-4'>
+          <h2 className='text-4xl font-bold text-black pb-4'>
           JAKARTA
-          </div>
+          </h2>
         </div>
         <div className="block pb-2">
-          <div className="font-bold text-black pb-2 text-2xl">Anugerah</div>
+          <h3 className="font-bold text-black pb-2 text-2xl">Anugerah</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:0216590134" className="text-blue-600 hover:underline">
                   021-6590134
@@ -257,31 +258,31 @@ export default function Distributors() {
                 <a href="tel:0216590151" className="text-blue-600 hover:underline">
                   021-6590151
                 </a>
-              </div>
+              </h4>
             </div>
         </div>
         <div className="block pb-2">
-          <div className="font-bold text-black pb-2 text-2xl">Indomas Perkasa</div>
+          <h3 className="font-bold text-black pb-2 text-2xl">Indomas Perkasa</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:0216613249" className="text-blue-600 hover:underline">
                   021-6613249
                 </a>
-              </div>
+              </h4>
             </div>
         </div>
         <div className="block pb-2">
-          <div className="font-bold text-black pb-2 text-2xl">Alvaro Artha Jaya</div>
+          <h3 className="font-bold text-black pb-2 text-2xl">Alvaro Artha Jaya</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:082112345228" className="text-blue-600 hover:underline">
                   0821-12345228
                 </a>
-              </div>
+              </h4>
             </div>
         </div>
       </div>
@@ -291,20 +292,20 @@ export default function Distributors() {
       <div className="pb-4">
       <div className="border-2 rounded-lg p-4 shadow-lg border-secondary">
         <div className='pb-4'>
-          <div className='text-4xl font-bold text-black pb-4'>
+          <h2 className='text-4xl font-bold text-black pb-4'>
             BANDUNG
-          </div>
+          </h2>
         </div>
         <div className="block pb-2">
-          <div className="font-bold text-black pb-2 text-2xl">Akai Electronic</div>
+          <h3 className="font-bold text-black pb-2 text-2xl">Akai Electronic</h3>
             <div className="flex text-black pb-4">
               <div className="pr-2"><Phone size={20} /></div>
-              <div>
+              <h4>
                 :{" "}
                 <a href="tel:0227276788" className="text-blue-600 hover:underline">
                   022-7276788
                 </a>
-              </div>
+              </h4>
             </div>
         </div>
       </div>

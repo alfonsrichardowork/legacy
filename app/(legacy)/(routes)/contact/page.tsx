@@ -68,6 +68,7 @@ export default function ContactUs() {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      <h1 className='sr-only'>Contact Us | Legacy Speaker</h1>
     <div className="bg-white -z-10">
      <div className="map-container">
        <iframe src={allMapsUrl[activeMapIndex]} width="100%" height="500" loading="lazy"></iframe>
@@ -90,36 +91,36 @@ export default function ContactUs() {
       {/* Left Side: Text */}
       <div className="p-4">
         <div className="pb-4">
-          <div className="md:text-4xl text-3xl font-bold text-black pb-2">MAIN OFFICE</div>
+          <h2 className="md:text-4xl text-3xl font-bold text-black pb-2">MAIN OFFICE</h2>
           <Separator className="bg-foreground w-56 h-2" />
         </div>
 
-        <div className="text-black font-bold text-2xl pb-2">SURABAYA</div>
+        <h3 className="text-black font-bold text-2xl pb-2">SURABAYA</h3>
         <div className="flex text-black pb-4">
           <div className="pr-2">
             <MapPin size={20} />
           </div>
-          <div>: Jl. Margomulyo No.5, Tandes - Surabaya 60186</div>
+          <h4>: Jl. Margomulyo No.5, Tandes - Surabaya 60186</h4>
         </div>
 
-        <div className="text-black font-bold text-xl pb-2">Telp Pabrik:</div>
+        <h4 className="text-black font-bold text-xl pb-2">Telp Pabrik:</h4>
         <div className="flex text-black">
           <div className="pr-2">
             <Phone size={20} />
           </div>
-          <div>: +62 31 7480011 (Phone)</div>
+          : <h5>+62 31 7480011 (Phone)</h5>
         </div>
         <div className="flex text-black">
           <div className="pr-2">
             <Phone size={20} />
           </div>
-          <div>: +62 31 7493777 (Fax)</div>
+          : <h5>+62 31 7493777 (Fax)</h5>
         </div>
       </div>
 
       {/* Right Side: Image */}
       <div className="relative md:block hidden">
-        <LazyImageContact src="/images/legacy/contact-us-page.webp" alt="Contact Us SBE"/>
+        <LazyImageContact src="/images/legacy/contact-us-page.webp" alt="Pabrik Sinar Baja Electric"/>
         {/* <Image
           src="/images/legacy/contact-us-page.webp"
           alt="Contact Us Page"
@@ -138,36 +139,36 @@ export default function ContactUs() {
         {/* Left Side: Text */}
         <div className="p-4">
           <div className="pb-4">
-            <div className="md:text-4xl text-3xl font-bold text-black pb-2">SHOWROOM - SBY</div>
+            <h2 className="md:text-4xl text-3xl font-bold text-black pb-2">SHOWROOM - SBY</h2>
             <Separator className="bg-foreground w-56 h-2" />
           </div>
 
-          <div className="text-black font-bold text-2xl pb-2">SURABAYA</div>
+          <h3 className="text-black font-bold text-2xl pb-2">SURABAYA</h3>
           <div className="flex text-black pb-4">
             <div className="pr-2">
               <MapPin size={20} />
             </div>
-            <div>: Jl. Genteng Besar No. 15A - Genteng</div>
+            <h4>: Jl. Genteng Besar No. 15A - Genteng</h4>
           </div>
 
-          <div className="text-black font-bold text-xl pb-2">Telp Showroom:</div>
+          <h4 className="text-black font-bold text-xl pb-2">Telp Showroom:</h4>
           <div className="flex text-black">
             <div className="pr-2">
               <Phone size={20} />
             </div>
-            <div>: +62-81 231 833 504</div>
+            : <h5>+62-81 231 833 504</h5>
           </div>
           <div className="flex text-black">
             <div className="pr-2">
               <Phone size={20} />
             </div>
-            <div>: +62-81 217 334 084</div>
+            : <h5>+62-81 217 334 084</h5>
           </div>
         </div>
 
         {/* Right Side: Image */}
         <div className="relative md:block hidden">
-          <LazyImageContact src="/images/legacy/contact-us-page-sby.webp" alt="Contact Us Surabaya"/>
+          <LazyImageContact src="/images/legacy/contact-us-page-sby.webp" alt="Showroom Legacy Speaker Surabaya"/>
           {/* <Image
             src="/images/legacy/contact-us-page-sby.webp"
             alt="Contact Us Page"
@@ -187,30 +188,30 @@ export default function ContactUs() {
       {/* Left Side: Text */}
       <div className="p-4">
         <div className="pb-4">
-          <div className="md:text-4xl text-3xl font-bold text-black pb-2">SHOWROOM - JKT</div>
+          <h2 className="md:text-4xl text-3xl font-bold text-black pb-2">SHOWROOM - JKT</h2>
           <Separator className="bg-foreground w-56 h-2" />
         </div>
 
-        <div className="text-black font-bold text-2xl pb-2">JAKARTA</div>
+        <h3 className="text-black font-bold text-2xl pb-2">JAKARTA</h3>
         <div className="flex text-black pb-4">
           <div className="pr-2">
             <MapPin size={20} />
           </div>
-          <div>: Ruko Glodok Plaza, Blok F-97 Mangga Besar - Jakarta Barat.</div>
+          <h4>: Ruko Glodok Plaza, Blok F-97 Mangga Besar - Jakarta Barat.</h4>
         </div>
 
-        <div className="text-black font-bold text-xl pb-2">Telp Showroom:</div>
+        <h4 className="text-black font-bold text-xl pb-2">Telp Showroom:</h4>
         <div className="flex text-black">
           <div className="pr-2">
             <Phone size={20} />
           </div>
-          <div>: +62-021-6493139</div>
+          : <h5>+62-021-6493139</h5>
         </div>
       </div>
 
       {/* Right Side: Image */}
       <div className="relative md:block hidden">
-      <LazyImageContact src="/images/legacy/contact-us-page-jkt.webp" alt="Contact Us Jakarta"/>
+      <LazyImageContact src="/images/legacy/contact-us-page-jkt.webp" alt="Showroom Legacy Speaker Jakarta"/>
         {/* <Image
           src="/images/legacy/contact-us-page-jkt.webp"
           alt="Contact Us Page"

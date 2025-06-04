@@ -1,3 +1,4 @@
+import getSubCatNameBySlug from "@/app/(legacy)/actions/get-SubCat_Name";
 import ProductBySubCategoryPage from "./pageClient";
 import getAllProductsBySubCategoryJsonld from "@/app/(legacy)/actions/jsonLd/get-all-products-by-sub-category-jsonld";
 
@@ -7,6 +8,7 @@ type Props = {
 
 export default async function SubDriversPage(props: Props) {
   let driversubcat = (await props.params).driversSubCategory
+  const subCatName = await getSubCatNameBySlug(driversubcat)
   const allprodserver = await getAllProductsBySubCategoryJsonld(driversubcat); // SSR fetch
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
 
@@ -40,6 +42,7 @@ export default async function SubDriversPage(props: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <h1 className="sr-only">{subCatName.name} Series | Legacy Speaker</h1>
       <ProductBySubCategoryPage params={props.params} />
     </>
   );

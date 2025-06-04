@@ -35,6 +35,7 @@ export default async function DriversPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <h1 className="sr-only">All Drivers | Legacy Speaker</h1>
       <ProductByCategoryPage />
     </>
   );

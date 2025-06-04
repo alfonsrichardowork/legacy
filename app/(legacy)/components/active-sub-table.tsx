@@ -24,8 +24,8 @@ export default function ActiveSubwooferTable(spec: Active_Subwoofer_Specificatio
         <TableBody className='border'>
             {rows.map((row, index) => (
             <TableRow key={index}>
-              <TableCell className={`${styling} border p-2`}>{row.specs}</TableCell>
-              <TableCell className={`${styling} border p-2`}>{row.value2 ? row.value2: '-'}</TableCell>
+              <TableCell className={`${styling} border p-2`}><h3>{row.specs}</h3></TableCell>
+              <TableCell className={`${styling} border p-2`}><h4>{row.value2 ? row.value2: '-'}</h4></TableCell>
             </TableRow>
           ))}
         </TableBody>

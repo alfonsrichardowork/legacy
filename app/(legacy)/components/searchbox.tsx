@@ -92,7 +92,7 @@ export default function SearchBoxMain() {
         <Image
           src={'/images/legacy/logo_legacy.webp'}
           className='cursor-pointer max-w-[150px] h-8'
-          alt="logo of Legacy Speaker"
+          alt="Legacy Speaker Logo"
           width={1000}
           height={1000}            
           priority

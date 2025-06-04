@@ -37,7 +37,7 @@ const News: React.FC = () => {
   return (
     <div className="relative w-full h-fit bg-slate-100">
       <div className="container mx-auto xl:px-36 lg:px-20 px-10 xl:pt-8 lg:pt-6 pt-4 h-fit items-start block text-start">
-        <div className="text-3xl font-bold text-black pb-4 w-full flex justify-center">BERITA TERBARU</div>
+        <h2 className="text-3xl font-bold text-black pb-4 w-full flex justify-center">BERITA TERBARU</h2>
         <Separator className="bg-foreground w-56 h-2 mx-auto" />
       {loading ? (
         <div className="flex items-center justify-center w-screen h-[500px] z-50">
@@ -67,13 +67,13 @@ const News: React.FC = () => {
                       className="w-fit lg:h-[300px] h-[200px] mx-auto rounded-xl"
                       loading="lazy"
                     />
-                  <div className="text-2xl font-bold text-black w-full line-clamp-2 my-4">
+                  <h3 className="text-2xl font-bold text-black w-full line-clamp-2 my-4">
                     {value.title}
-                  </div>
-                  <div
+                  </h3>
+                  <h4
                     className="text-black w-full line-clamp-4 my-4"
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(value.description) }}
-                  ></div>
+                  ></h4>
                   <div className="items-start pb-4 pt-2">
                     <Button asChild size={"lg"} variant={"secondary"}>
                       <Link

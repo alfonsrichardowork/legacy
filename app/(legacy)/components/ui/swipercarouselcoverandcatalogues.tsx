@@ -83,7 +83,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                             {/* <div className="object-contain max-h-full max-w-full"> */}
                               <LazyImageCustom
                                 src={item} 
-                                alt={alt} 
+                                alt={alt.concat(" - Catalogues - ", index.toString())} 
                                 width={500}
                                 height={500}
                                 classname='h-full w-fit'
@@ -112,7 +112,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                           <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
                               <LazyImageCustom
                                 src={cover} 
-                                alt={alt} 
+                                alt={alt.concat(" - Cover")} 
                                 width={500}
                                 height={500}
                                 classname='h-full w-fit'
@@ -141,7 +141,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                           <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
                               <LazyImageCustom
                                 src={item} 
-                                alt={alt} 
+                                alt={alt.concat(" - Catalogues - ", index.toString())} 
                                 width={500}
                                 height={500}
                                 classname='h-full w-fit'
