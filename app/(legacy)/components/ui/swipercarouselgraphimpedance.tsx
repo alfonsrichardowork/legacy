@@ -75,7 +75,7 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
           clickable: true,
         }}
         modules={[Navigation, FreeMode, Pagination]}
-        className="mySwiper2 lg:h-80 sm:h-72 h-48 flex items-center"
+        className="mySwiper2 h-full flex items-center"
         style={{
           // @ts-ignore
             "--swiper-navigation-color": "#f2b90f",
@@ -90,13 +90,13 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
                     onClick={() => openLightbox(0)}>
                   <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
-                        <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
+                        <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
                             src={item} 
                             alt={alt.concat(" - Drawing")} 
                             width={500}
                             height={500}
-                            classname='h-full w-fit'
+                            classname="max-h-full max-w-full object-contain"
                           />
                           {/* <Image 
                             src={item} 
@@ -119,13 +119,13 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
                     onClick={() => drawing && drawing.length > 0? openLightbox(drawing.length + 1) : openLightbox(0)}>
                     <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
-                        <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
+                        <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
                             src={item} 
                             alt={alt.concat(" - Frequency Response")} 
                             width={500}
                             height={500}
-                            classname='h-full w-fit'
+                            classname="max-h-full max-w-full object-contain"
                           />
                           {/* <Image 
                             src={item} 
@@ -148,13 +148,13 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
                 onClick={() => drawing && drawing.length > 0 && graph && graph.length > 0? openLightbox(2) : (drawing && drawing.length > 0) || (graph && graph.length>0) ? openLightbox(1)  : openLightbox(0)}>
                     <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
-                        <div className="relative overflow-hidden flex items-center justify-center h-full w-full">
+                        <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
                             src={item} 
                             alt={alt.concat(" - Impedance")} 
                             width={500}
                             height={500}
-                            classname='h-full w-fit'
+                            classname="max-h-full max-w-full object-contain"
                           />
                           {/* <Image 
                             src={item} 
