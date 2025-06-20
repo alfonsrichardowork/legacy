@@ -13,7 +13,8 @@ const getAllProductsJsonld = async (): Promise<Products[]> => {
 
   const response = await fetch(API, {cache: "no-store"});
   if (!response.ok) {
-    throw new Error(`Failed to fetch all products`);
+      redirect('/');
+    // throw new Error(`Failed to fetch all products`);
   }
   const data = await response.json();
   if (!data) {

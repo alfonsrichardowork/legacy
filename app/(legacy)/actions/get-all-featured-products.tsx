@@ -8,7 +8,8 @@ const getAllFeaturedProducts = async (): Promise<FeaturedProducts[]> => {
 
   const response = await fetch(API);
   if (!response.ok) {
-    throw new Error('Failed to fetch featured products');
+      redirect('/');
+    // throw new Error('Failed to fetch featured products');
   }
   const data = await response.json();
   

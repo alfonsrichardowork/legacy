@@ -7,7 +7,8 @@ const getProductsForSearchbox = async (): Promise<Searchbox[]> => {
     let productForSearchbox: Array<Searchbox> = [];
     const response = await fetch(API);
     if (!response.ok) {
-      throw new Error('Failed to fetch searchbox');
+      redirect('/');
+    //   throw new Error('Failed to fetch searchbox');
     }
     const data = await response.json();
     if (!data) {
