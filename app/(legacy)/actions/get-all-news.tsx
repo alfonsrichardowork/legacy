@@ -9,7 +9,8 @@ const getAllNews = async (totalNews: string): Promise<NewsType[]> => {
   const API_EDITED = API.replace('{totalNews}', totalNews)
   const response = await fetch(API_EDITED, {cache: "no-store"});
   if (!response.ok) {
-    throw new Error(`Failed to fetch news`);
+    redirect('/');
+    // throw new Error(`Failed to fetch news`);
   }
   const data = await response.json();
 

@@ -15,7 +15,8 @@ const getAllProductsBySubSubCategory = async (subcategory: string, subsubcategor
   const API_EDITED = API_EDITED_FIRST.replace('{productSubSubCategory}', subsubcategory)
   const response = await fetch(API_EDITED, {cache: "no-store"});
   if (!response.ok) {
-    throw new Error(`Failed to fetch products by ${subsubcategory}`);
+    redirect('/');
+    // throw new Error(`Failed to fetch products by ${subsubcategory}`);
   }
   const data = await response.json();
   if (!data) {

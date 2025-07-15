@@ -139,7 +139,7 @@ const ProductBySubCategoryPage = (
                             <TableHead className='font-bold text-black bg-gray-200 border-2 border-black w-40'>Visual Speaker</TableHead>
                             {finalFetchedProducts.map((product) => (
                                 <TableHead key={product.name} className="items-center text-black border-2 border-black min-w-40 p-1">
-                                    <div className='h-36 w-36 mx-auto'>
+                                    <div className='max-h-full max-w-full object-contain p-2'>
                                         <LazyImage
                                             src={product.coverUrl} 
                                             alt={product.coverAlt} 

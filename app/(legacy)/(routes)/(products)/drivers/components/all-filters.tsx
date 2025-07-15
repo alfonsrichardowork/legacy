@@ -17,6 +17,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/app/(legacy)/components/ui/breadcrumb";
 import { LazyImage } from "@/app/(legacy)/components/lazyImage";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { LazyImageCustom } from "@/app/(legacy)/components/lazyImageCustom";
 
 
 let activeSlugCompare: string[] = [];
@@ -440,15 +441,16 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                             {activeSlugCompare.map((slug, index) => (
                 <div
                 key={slug}
-                className="relative flex justify-between items-center py-2 h-[50px] w-full"
+                className="relative flex justify-between items-center py-2 h-14 w-full"
               >
-                <div className="w-[50px] h-[50px] flex-shrink-0 pr-2">
-                    <div className="w-full h-full object-contain">
-                        <LazyImage
+                <div className="pr-2">
+                    <div className="items-center justify-center text-center">
+                        <LazyImageCustom
                             src={activeUrlCompare[index]}
                             width={50}
                             height={50}
                             alt={activeNameCompare[index]}
+                            classname="max-h-12 max-w-full object-contain"
                         />
                     </div>
                 </div>

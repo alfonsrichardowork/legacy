@@ -7,7 +7,8 @@ const getSingleMetadata = async (productSlug: string): Promise<MetadataSinglePro
   const API_EDITED = API.replace('{productSlug}', productSlug)
   const response = await fetch(API_EDITED!);
   if (!response.ok) {
-    throw new Error('Failed to fetch one product');
+    redirect('/');
+    // throw new Error('Failed to fetch one product');
   }
   const data = await response.json();
   if (!data) {

@@ -7,7 +7,8 @@ const getSubSubCatNameBySlug = async (slug: string): Promise<categoriesHeader> =
     const API_EDITED = API.replace('{subSubCategorySlug}', slug)
     const response = await fetch(API_EDITED);
     if (!response.ok) {
-      throw new Error('Failed to fetch SubSubCat Name by Slug');
+      redirect('/');
+      // throw new Error('Failed to fetch SubSubCat Name by Slug');
     }
     const data = await response.json();
     if (!data) {

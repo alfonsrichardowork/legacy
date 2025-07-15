@@ -8,7 +8,8 @@ const getAllNavbarContent = async (): Promise<NavbarProducts[]> => {
 
   const response = await fetch(API);
   if (!response.ok) {
-    throw new Error('Failed to fetch navbar products');
+      redirect('/');
+    // throw new Error('Failed to fetch navbar products');
   }
   const data = await response.json();
 

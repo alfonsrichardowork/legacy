@@ -35,11 +35,10 @@ const Hero: React.FC = () => {
           <div className="top-0 left-0 w-full z-10"> 
           <h2 className='sr-only'>Featured Products by Legacy Speakers!</h2>
           <div className="absolute w-full h-[90vh] top-0">
-            <Image
+            <img
               className="top-0 left-0 object-cover w-screen h-screen"
               src="/images/legacy/navbarbg.webp"
               alt="Legacy Navigation Bar Background"
-              priority
               width={1000}
               height={1000}
             />
