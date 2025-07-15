@@ -70,7 +70,7 @@ export async function middleware(req: NextRequest) {
   const host = req.headers.get('host')
   const url = req.nextUrl.clone()
 
-   if (host === 'legacy.us.com') {
+  if (host === 'legacy.us.com') {
     url.hostname = 'www.legacy.us.com'
     return NextResponse.redirect(url, 301)
   }
