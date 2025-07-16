@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -45,9 +45,9 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
     setLightboxOpen(true)
   }
 
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const { cover, alt, catalogues, catalogues_alt } = props
+  const swiperRef = useRef<SwiperClass | null>(null);
+  const [realIndex, setRealIndex] = useState(0);
 
   return (
     <>
@@ -59,18 +59,18 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
             "--swiper-navigation-size": "30px",
             "--swiper-navigation-sides-offset": "0px"
           }}
-          rewind={catalogues && catalogues.length > 6 ? false : true}
-          loop={catalogues && catalogues.length > 6 ? true : false}
+          loop={true}
           spaceBetween={0}
-          pagination={{
-            clickable: true,
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={(swiper) => {
+            const indexAttr = swiper.slides[swiper.activeIndex]?.getAttribute('data-swiper-slide-index');
+            const real = indexAttr ? parseInt(indexAttr) : 0;
+            setRealIndex(real);
           }}
           centeredSlides={true}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           navigation={true}
-          modules={[FreeMode, Navigation, Thumbs, Pagination]}
+          modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper2 h-full flex items-center"
-          thumbs={{ swiper: thumbsSwiper }}
         >
               {catalogues && catalogues.length > 0 && catalogues.map((item, index) => (
                 catalogues_alt[index] === 'Top' &&
@@ -162,6 +162,26 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
               ))}
         </Swiper>
 
+
+
+      <div className="z-10 gap-2 flex justify-center items-center pt-2">
+        <button
+          key={0}
+          onClick={() => swiperRef.current?.slideToLoop(0)}
+          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            realIndex === 0 ? 'bg-foreground scale-125' : 'bg-slate-300'
+          }`}
+        ></button>
+        {catalogues.map((_, index) => (
+          <button
+            key={index+1}
+            onClick={() => swiperRef.current?.slideToLoop(index+1)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              realIndex === index+1 ? 'bg-foreground scale-125' : 'bg-slate-300'
+            }`}
+          ></button>
+        ))}
+      </div>
 
 
       {/* </div> */}

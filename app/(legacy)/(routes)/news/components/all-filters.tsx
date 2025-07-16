@@ -30,15 +30,64 @@ const AllNewsandFilters: React.FC<MainProps> = ({
     const [defaultSliderSheet, setdefaultSliderSheet] = useState<SliderSheetValue[]>([])  
     const [sheetOpenedForSlider, setSheetOpenedForSlider] = useState<boolean>(false)  
     const [reseted, setReseted] = useState<string>('false')
+    const [loading, setLoading] = useState<boolean>(true)
+    const [allNews, setAllNews] = useState<NewsType[]>([])
+
+
+    const [sliderValue, setSliderValue] = useState<SliderDataNews[]>([])
+    const [loadingSlider, setLoadingSlider] = useState<boolean>(true)
 
     useEffect(() => {
-        if (reseted) {
-          setAllActiveSlider([]);
-          setReseted('false');
+        const fetchDataSlider = async () => {
+            try {
+                let tempSlider: SliderDataNews[] = []
+                slider.map((value) => {
+                    tempSlider.push({
+                        slug: value.slug,
+                        name: value.name,
+                        minIndex: value.minIndex,
+                        maxIndex: value.maxIndex,
+                        min_index: value.min_index,
+                        max_index: value.max_index,
+                        unit: value.unit,
+                        value: value.value,
+                        realDate: value.realDate
+                    })
+                });
+                // console.log("tempSlider: ", tempSlider)
+                setSliderValue(tempSlider)
+                setLoadingSlider(false);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchDataSlider();
+    }, []);
+
+    useEffect(() => {
+        if (reseted === 'true') {
+            setAllActiveSlider([]);
+
+            let tempslider = sliderValue
+            tempslider.map((value) => {
+                value.minIndex = value.min_index
+                value.maxIndex = value.max_index
+            })
+            setSliderValue(tempslider)
+
+
+            setReseted('false');
         }
     }, [reseted]);
 
-    const handleSliderChange = (slug: string, value: number[], min_index: number, max_index: number, allVal: number[], parentName: string, unit: string) => {
+
+    const handleSliderChange = (slug: string, value: number[], min_index: number, max_index: number, allVal: number[], parentName: string, unit: string, index: number) => {
+
+        let tempslider = sliderValue
+        tempslider[index].minIndex = value[0]
+        tempslider[index].maxIndex = value[1]
+        setSliderValue(tempslider)
+
         let tempactiveSlider : activeSlider[] = []
         let sliderisActive : boolean = false
         if(allActiveSlider.length!= 0){
@@ -93,6 +142,66 @@ const AllNewsandFilters: React.FC<MainProps> = ({
         setAllActiveSlider(tempactiveSlider)
       };
 
+
+      const normalizeDate = (date: Date) =>
+        new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            let finishedSliderNews: NewsType[] = []
+            let tempShowed: NewsType[][] = [];
+            
+
+            if (allActiveSlider.length !== 0) {
+                allActiveSlider.forEach((slider, indexslider) => {
+                    if (!tempShowed[indexslider]) {
+                        tempShowed[indexslider] = [];
+                    }
+                    if (indexslider === 0) {
+                        data.forEach((product) => {
+                            const productValue = normalizeDate(new Date(product.event_date));
+                            const bottomValue = normalizeDate(new Date(slider.bottomRealVal));
+                            const topValue = normalizeDate(new Date(slider.topRealVal));
+
+                            if (bottomValue <= productValue && topValue >= productValue) {
+                                tempShowed[indexslider].push(product);
+                            }
+                        });
+                    } else {
+                        tempShowed[indexslider - 1].forEach((product) => {
+                            const productValue = normalizeDate(new Date(product.event_date));
+                            const bottomValue = normalizeDate(new Date(slider.bottomRealVal));
+                            const topValue = normalizeDate(new Date(slider.topRealVal));
+
+
+                            if (bottomValue <= productValue && topValue >= productValue) {
+                                tempShowed[indexslider].push(product);
+                            }
+                        });
+                    }
+                });
+                finishedSliderNews = tempShowed[allActiveSlider.length - 1]
+            } else {
+                finishedSliderNews = data
+            }
+
+            let FinalFeatured: NewsType[] = []
+            for (const slidernews of finishedSliderNews) {
+                FinalFeatured.push(slidernews)
+            }
+
+            setAllNews(FinalFeatured)
+
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, [data, allActiveSlider]); 
+
+
       useEffect(() => {
         const fetchData = () => {
           try {
@@ -108,6 +217,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
             })
             setdefaultSliderSheet(sliderTemp)
             setSheetOpenedForSlider(false)
+            setLoading(false)
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -135,8 +245,9 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                         FILTERS 
                         </div>
                     </SheetHeader>
-                        <ScrollArea className="h-full w-full pb-8">
-                        {slider.map((value, index)=> 
+                    {!loadingSlider && Array.isArray(sliderValue) &&
+                        <ScrollArea className="h-full w-full pb-8 px-2">
+                        {sliderValue.map((value, index)=> 
                             value.value.length===1?
                             null
                             :
@@ -145,21 +256,24 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                                     {value.name}
                                 </div>
                                 <SliderNews
+                                    value={[value.minIndex, value.maxIndex]}
                                     max={value.max_index}
                                     min={value.min_index}
                                     step={1}
+                                    onValueChange={(val) => {
+                                    handleSliderChange(
+                                        value.slug,
+                                        val,
+                                        value.min_index,
+                                        value.max_index,
+                                        value.value,
+                                        value.name,
+                                        value.unit,
+                                        index
+                                    )
+                                    }}
                                     unit={value.unit}
-                                    value={value.value}
-                                    opensheetvalmin={
-                                        (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.min) ?? 0
-                                    }
-                                    opensheetvalmax={
-                                        (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.max) ?? 0
-                                    }
                                     realdatesvalues={value.realDate}
-                                    //@ts-ignore
-                                    resetclicked={reseted}
-                                    onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
                                     className={cn("w-full py-2")}
                                 />
                                 <hr/>
@@ -171,6 +285,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                             </Button>
                         </div>
                     </ScrollArea>
+                    }
                     </SheetContent>
                 </Sheet>
                 
@@ -184,7 +299,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                             <b>Clear Filters</b>
                         </Button>
                     </div>
-                    {slider.map((value, index)=> 
+                    {sliderValue.map((value, index)=> 
                         value.value.length===1?
                         null
                         :
@@ -193,23 +308,26 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                                 {value.name}
                             </div>
                             <SliderNews
-                                max={value.max_index}
-                                min={value.min_index}
-                                step={1}
-                                unit={value.unit}
-                                value={value.value}
-                                opensheetvalmin={
-                                    (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.min) ?? 0
-                                }
-                                opensheetvalmax={
-                                    (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.max) ?? 0
-                                }
-                                realdatesvalues={value.realDate}
-                                //@ts-ignore
-                                resetclicked={reseted}
-                                onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
-                                className={cn("w-full py-2")}
-                            />
+                                    value={[value.minIndex, value.maxIndex]}
+                                    max={value.max_index}
+                                    min={value.min_index}
+                                    step={1}
+                                    onValueChange={(val) => {
+                                    handleSliderChange(
+                                        value.slug,
+                                        val,
+                                        value.min_index,
+                                        value.max_index,
+                                        value.value,
+                                        value.name,
+                                        value.unit,
+                                        index
+                                    )
+                                    }}
+                                    unit={value.unit}
+                                    realdatesvalues={value.realDate}
+                                    className={cn("w-full py-2")}
+                                />
                             <hr/>
                         </div>
                     )}

@@ -1,22 +1,18 @@
 "use client"
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // import required modules
-import { Pagination, Navigation, FreeMode } from 'swiper/modules';
+import { Navigation, FreeMode } from 'swiper/modules';
 import { Card, CardContent } from './card';
-import Image from 'next/image';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../../../components/ui/dialog';
-import { LazyImage } from '../lazyImage';
 import Lightbox from 'yet-another-react-lightbox'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
 import Captions from "yet-another-react-lightbox/plugins/captions";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { LazyImageCustom } from '../lazyImageCustom';
 
 type PropType = {
@@ -25,9 +21,6 @@ type PropType = {
   graph: string[],
   impedance: string[],
 }
-
-const highlight_style = "w-full xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm max-h-screen p-2 overflow-y-auto flex flex-col justify-start items-center bg-white text-black"
-const image_highlight_style = "w-screen max-h-screen object-contain bg-white"
 
 const SwiperCarouselGraphImpedance: React.FC<PropType> = (props) => {
   const { alt, drawing, graph, impedance } = props
@@ -62,24 +55,29 @@ const impedanceSlides = impedance && impedance.length > 0
     }))
   : [];
 
-const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
+  const originalSlides  = [...drawingSlides, ...graphSlides, ...impedanceSlides];
+  const slides = originalSlides.length === 2 ? [...originalSlides, ...originalSlides] : originalSlides;
+  const repeated = originalSlides.length !== slides.length
+  const swiperRef = useRef<SwiperClass | null>(null);
+  const [realIndex, setRealIndex] = useState(0);
   return (
     <>
       <Swiper
         centeredSlides={true}
-        loop={false}
-        rewind={true}
+        loop={true}
         spaceBetween={0}
-        navigation={true}
-        pagination={{
-          clickable: true,
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSlideChange={(swiper) => {
+          const indexAttr = swiper.slides[swiper.activeIndex]?.getAttribute('data-swiper-slide-index');
+          const real = indexAttr ? parseInt(indexAttr) : 0;
+          setRealIndex(real);
         }}
-        modules={[Navigation, FreeMode, Pagination]}
+        navigation={true}
+        modules={[Navigation, FreeMode]}
         className="mySwiper2 h-full flex items-center"
         style={{
           // @ts-ignore
             "--swiper-navigation-color": "#f2b90f",
-            "--swiper-pagination-color": "#f2b90f",
             "--swiper-navigation-size": "30px",
             "--swiper-navigation-sides-offset": "0px"
         }}
@@ -170,7 +168,102 @@ const slides = [...drawingSlides, ...graphSlides, ...impedanceSlides];
                   </div>
             </SwiperSlide>
           ))}
+         <>
+          {repeated && drawing?.length > 0 &&
+            drawing.map((item: string, index: number) => (
+              <SwiperSlide key={`${alt} - Drawing - ${index} - 2`}>
+                <div
+                  className="h-full flex justify-center items-center cursor-pointer"
+                  onClick={() => openLightbox(0)}
+                >
+                  <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
+                    <CardContent className="p-6 flex items-center justify-center w-full h-full">
+                      <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
+                        <LazyImageCustom
+                          src={item}
+                          alt={`${alt} - Drawing`}
+                          width={500}
+                          height={500}
+                          classname="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </SwiperSlide>
+            ))}
+
+          {graph?.length > 0 &&
+            graph.map((item: string, index: number) => (
+              <SwiperSlide key={`${alt} - Frequency Response - ${index} - 2`}>
+                <div
+                  className="h-full flex justify-center items-center cursor-pointer"
+                  onClick={() =>
+                    drawing?.length > 0
+                      ? openLightbox(drawing.length + index)
+                      : openLightbox(index)
+                  }
+                >
+                  <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
+                    <CardContent className="p-6 flex items-center justify-center w-full h-full">
+                      <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
+                        <LazyImageCustom
+                          src={item}
+                          alt={`${alt} - Frequency Response`}
+                          width={500}
+                          height={500}
+                          classname="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </SwiperSlide>
+            ))}
+
+          {impedance?.length > 0 &&
+            impedance.map((item: string, index: number) => {
+              const baseIndex =
+                (drawing?.length || 0) + (graph?.length || 0) + index;
+
+              return (
+                <SwiperSlide key={`${alt} - Impedance - ${index} - 2`}>
+                  <div
+                    className="h-full flex justify-center items-center cursor-pointer"
+                    onClick={() => openLightbox(baseIndex)}
+                  >
+                    <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
+                      <CardContent className="p-6 flex items-center justify-center w-full h-full">
+                        <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
+                          <LazyImageCustom
+                            src={item}
+                            alt={`${alt} - Impedance`}
+                            width={500}
+                            height={500}
+                            classname="max-h-full max-w-full object-contain"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+        </>
       </Swiper>
+
+      <div className="z-10 gap-2 flex justify-center items-center pt-2">
+        {slides.map((_, index) => (
+          repeated && index < originalSlides.length &&
+          <button
+            key={index}
+            onClick={() => swiperRef.current?.slideToLoop(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              realIndex === index || (repeated && realIndex === (index + originalSlides.length)) ? 'bg-foreground scale-125' : 'bg-slate-300'
+            }`}
+          ></button>
+        ))}
+      </div>
 
         <Lightbox
           open={lightboxOpen}

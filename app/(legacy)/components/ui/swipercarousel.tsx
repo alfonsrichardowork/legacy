@@ -1,17 +1,17 @@
 "use client"
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import { FeaturedProducts } from '../../types';
 import Link from 'next/link';
 import { Separator } from '../../../../components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { useRef, useState } from 'react';
 
 type PropType = {
   slides: FeaturedProducts[];
@@ -19,54 +19,31 @@ type PropType = {
 
 const SwiperCarousel: React.FC<PropType> = (props) => {
   const { slides } = props;
+  const [realIndex, setRealIndex] = useState(0);
+  const swiperRef = useRef<SwiperClass | null>(null);
   return (
     <div className="relative top-0 left-0 w-full z-10 h-full">
         <Swiper
           centeredSlides={true}
+          parallax={true}
           autoplay={{
               delay: 5000,
               disableOnInteraction: false,
           }}
-          rewind={slides && slides.length > 7 ? false : true}
-          loop={slides && slides.length > 7 ? true : false}
-          pagination={{
-              clickable: true,
+          loop={true}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={(swiper) => {
+            const indexAttr = swiper.slides[swiper.activeIndex]?.getAttribute('data-swiper-slide-index');
+            const real = indexAttr ? parseInt(indexAttr) : 0;
+            setRealIndex(real);
           }}
-          modules={[Autoplay, Pagination, Navigation]}
+          modules={[Autoplay, Navigation]}
           className="swiper"
-          style={{
-              //@ts-ignore
-              '--swiper-pagination-color': '#f2b90f',
-              '--swiper-pagination-bullet-height': '20px',
-              '--swiper-pagination-bullet-width': '20px',
-              '--swiper-pagination-bullet-horizontal-gap': '20px',
-              '--swiper-pagination-bullet-inactive-color': '#ffffff',
-              '--swiper-pagination-bullet-inactive-opacity': '1',
-          }}
         >
           {slides && slides.length > 0 && slides.map((item, indexParent) => (
             <SwiperSlide key={item.name.concat(` ${indexParent}`)}>
               <div className="container mx-auto flex flex-col md:flex-row items-center justify-between xl:px-36 lg:px-20 px-10 pb-16 pt-6">
-                {/* Image */}
                 <div className="order-1 md:order-2 flex items-center justify-center md:w-2/5 w-full h-[200px] md:h-full">
-                  {/* <Image
-                    src={item.featuredImgUrl}
-                    alt={item.slug}
-                    width={500}
-                    height={500}
-                    className="w-fit object-contain h-full"
-                    priority
-                    // placeholder="blur"
-                    // blurDataURL="data:image/webp;base64,[base64-placeholder]"
-                    sizes="(max-width: 768px) 500px, 1000px"
-                  /> */}
-                  {/* <LazyImageCustom
-                    src={item.featuredImgUrl}
-                    alt={item.slug}
-                    width={500}
-                    height={500}
-                    classname="w-fit object-contain h-full"
-                  /> */}
                 <Image
                   src={item.featuredImgUrl}
                   alt={item.name}
@@ -111,6 +88,17 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex justify-center gap-6">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => swiperRef.current?.slideToLoop(index)}
+              className={`w-6 h-6 rounded-full transition-all duration-300 ${
+                realIndex === index ? 'bg-foreground' : 'bg-white'
+              }`}
+            ></button>
+          ))}
+        </div>
     </div>
   );
 };

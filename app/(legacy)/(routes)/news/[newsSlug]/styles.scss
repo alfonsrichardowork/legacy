@@ -25,15 +25,15 @@
   }
 
   img {
-      max-width: 35vw; /* Responsive images */
+      max-width: 75%; /* Responsive images */
       height: auto;
-      margin: 0.5rem auto; /* Top margin and auto horizontally to center */
+      // margin: 0.5rem auto; /* Top margin and auto horizontally to center */
       display: block; /* Block display ensures margin auto works */
     }
 
     @media (max-width: 768px) {
       img {
-        max-width: 50vw; /* Make image full width */
+        max-width: 100%; /* Make image full width */
       }
     }
 

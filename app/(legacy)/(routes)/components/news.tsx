@@ -40,7 +40,7 @@ const News: React.FC = () => {
         <h2 className="text-3xl font-bold text-black pb-4 w-full flex justify-center">BERITA TERBARU</h2>
         <Separator className="bg-foreground w-56 h-2 mx-auto" />
       {loading ? (
-        <div className="flex items-center justify-center w-screen h-[500px] z-50">
+        <div className="flex items-center justify-center w-full h-[500px] z-50">
           <Loader />
         </div>
       ) : (

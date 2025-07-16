@@ -66,14 +66,48 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
     const segmentedPathname = pathname.split(('/'))
     // console.log(segmentedPathname)
     // console.log("allFeaturedProducts: ", allFeaturedProducts)
+    const [sliderValue, setSliderValue] = useState<SliderData[]>([])
+    const [loadingSlider, setLoadingSlider] = useState<boolean>(true)
 
-
+    useEffect(() => {
+        const fetchDataSlider = async () => {
+            try {
+                let tempSlider: SliderData[] = []
+                slider.map((value) => {
+                    tempSlider.push({
+                        slug: value.slug,
+                        name: value.name,
+                        minIndex: value.minIndex,
+                        maxIndex: value.maxIndex,
+                        min_index: value.min_index,
+                        max_index: value.max_index,
+                        unit: value.unit,
+                        value: value.value
+                    })
+                });
+                // console.log("tempSlider: ", tempSlider)
+                setSliderValue(tempSlider)
+                setLoadingSlider(false);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchDataSlider();
+    }, []);
     
     useEffect(() => {
         if (reseted === 'true') {
-          setAllActiveCheckbox([]);
-          setAllActiveSlider([]);
-          setReseted('false');
+            setAllActiveCheckbox([]);
+            setAllActiveSlider([]);
+          
+            let tempslider = sliderValue
+            tempslider.map((value) => {
+                value.minIndex = value.min_index
+                value.maxIndex = value.max_index
+            })
+            setSliderValue(tempslider)
+
+            setReseted('false');
         }
     }, [reseted]);
 
@@ -301,7 +335,17 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
 
 
 
-    const handleSliderChange = (slug: string, value: number[], min_index: number, max_index: number, allVal: number[], parentName: string, unit: string) => {
+    const handleSliderChange = (slug: string, value: number[], min_index: number, max_index: number, allVal: number[], parentName: string, unit: string, index: number) => {
+        // setSliderValue((prev) => ({
+        // ...prev,
+        // minIndex: value[0],
+        // maxIndex: value[1],
+        // }))
+        let tempslider = sliderValue
+        tempslider[index].minIndex = value[0]
+        tempslider[index].maxIndex = value[1]
+        setSliderValue(tempslider)
+
         let tempactiveSlider : activeSlider[] = []
         let sliderisActive : boolean = false
         if(allActiveSlider.length!= 0){
@@ -355,6 +399,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
         }
         setAllActiveSlider(tempactiveSlider)
       };
+
 
     const handleCheckboxChange = (slug: string, name: string, unit: string, parentName: string) => {
         if(name!==''){
@@ -525,114 +570,111 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                             FILTERS 
                         </div>
                     </SheetHeader>
-                        <ScrollArea className="h-full w-full pb-8">
-                        {checkbox.map((valueCheckbox, index) =>
-                        valueCheckbox.value.length === 1 ? null : (
-                            <div key={index} className="grid gap-2 w-full pt-2">
-                            <div className="text-center font-bold text-sm text-black">{valueCheckbox.name}</div>
-                            {valueCheckbox.value.map((choicesVal, indexChoices) => (
-                                <div key={indexChoices} className="flex items-center">
-                                <div className="pr-2">
-                                    <Checkbox
-                                    id={choicesVal}
-                                    checked={allActiveCheckbox.some((item) => item.name === choicesVal)}
-                                    onClick={() => handleCheckboxChange(valueCheckbox.slug, choicesVal, valueCheckbox.unit, valueCheckbox.name)}
-                                    />
+                        <ScrollArea className="h-full w-full pb-8 px-2">
+                            <div className="w-full px-2">
+                                {checkbox.map((valueCheckbox, index) =>
+                                valueCheckbox.value.length === 1 ? null : (
+                                    <div key={index} className="grid gap-2 w-full pt-2">
+                                    <div className="text-center font-bold text-sm text-black">{valueCheckbox.name}</div>
+                                    {valueCheckbox.value.map((choicesVal, indexChoices) => (
+                                        <div key={indexChoices} className="flex items-center">
+                                        <div className="pr-2">
+                                            <Checkbox
+                                            id={choicesVal}
+                                            checked={allActiveCheckbox.some((item) => item.name === choicesVal)}
+                                            onClick={() => handleCheckboxChange(valueCheckbox.slug, choicesVal, valueCheckbox.unit, valueCheckbox.name)}
+                                            />
+                                        </div>
+                                        <label htmlFor={choicesVal} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black">
+                                        {
+                                            choicesVal === 'Legacy' ? 
+                                            <div className="w-full h-fit px-6">
+                                                <LazyImage
+                                                    alt="Legacy Series Logo"
+                                                    src={'/images/legacy/legacy_logo.webp'}
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                            </div>
+                                        :
+                                            choicesVal === 'Energy' ?
+                                            <div className="w-full h-fit">
+                                                <LazyImage
+                                                    alt="Energy Series Logo"
+                                                    src={'/images/legacy/energy_logo.webp'}
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                            </div>
+                                        :
+                                            choicesVal === 'Prestige' ?
+                                            <div className="w-full h-fit px-6 py-4">
+                                                <LazyImage
+                                                    alt="Prestige Series Logo"
+                                                    src={'/images/legacy/prestige_logo.webp'}
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                                {/* <Image
+                                                    alt="Prestige Series Logo"
+                                                    src={'/images/legacy/prestige_logo.webp'}
+                                                    width={500}
+                                                    height={500}
+                                                    className="w-full h-fit px-6 py-4"
+                                                    priority
+                                                /> */}
+                                            </div>
+                                        :
+                                            choicesVal === 'Sparta' ?
+                                            <div className="w-full h-fit">
+                                                <LazyImage
+                                                    alt="Sparta Series Logo"
+                                                    src={'/images/legacy/sparta_logo.webp'}
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                            </div>
+                                        :   
+                                            <>
+                                            {choicesVal} {valueCheckbox.unit}
+                                            </>
+                                        }
+                                        </label>
+                                        </div>
+                                    ))}
+                                    <hr />
+                                    </div>
+                                )
+                                )}
+                                {sliderValue.map((value, index) =>
+                                value.value.length === 1 ? null : (
+                                <div key={index} className="grid gap-2 w-full pt-2">
+                                <div className="text-center font-bold text-sm text-black">
+                                    {value.name}
                                 </div>
-                                <label htmlFor={choicesVal} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black">
-                                {
-                                    choicesVal === 'Legacy' ? 
-                                    <div className="w-full h-fit px-6">
-                                        <LazyImage
-                                            alt="Legacy Series Logo"
-                                            src={'/images/legacy/legacy_logo.webp'}
-                                            width={500}
-                                            height={500}
-                                        />
-                                    </div>
-                                :
-                                    choicesVal === 'Energy' ?
-                                    <div className="w-full h-fit">
-                                        <LazyImage
-                                            alt="Energy Series Logo"
-                                            src={'/images/legacy/energy_logo.webp'}
-                                            width={500}
-                                            height={500}
-                                        />
-                                    </div>
-                                :
-                                    choicesVal === 'Prestige' ?
-                                    <div className="w-full h-fit px-6 py-4">
-                                        <LazyImage
-                                            alt="Prestige Series Logo"
-                                            src={'/images/legacy/prestige_logo.webp'}
-                                            width={500}
-                                            height={500}
-                                        />
-                                        {/* <Image
-                                            alt="Prestige Series Logo"
-                                            src={'/images/legacy/prestige_logo.webp'}
-                                            width={500}
-                                            height={500}
-                                            className="w-full h-fit px-6 py-4"
-                                            priority
-                                        /> */}
-                                    </div>
-                                :
-                                    choicesVal === 'Sparta' ?
-                                    <div className="w-full h-fit">
-                                        <LazyImage
-                                            alt="Sparta Series Logo"
-                                            src={'/images/legacy/sparta_logo.webp'}
-                                            width={500}
-                                            height={500}
-                                        />
-                                    </div>
-                                :   
-                                    <>
-                                    {choicesVal} {valueCheckbox.unit}
-                                    </>
-                                }
-                                </label>
-                                </div>
-                            ))}
-                            <hr />
+                                <Slider
+                                    value={[value.minIndex, value.maxIndex]}
+                                    max={value.max_index}
+                                    min={value.min_index}
+                                    step={1}
+                                    onValueChange={(val) => {
+                                    handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit, index)
+                                    }}
+                                    unit={value.unit}
+                                    dataArray={value.value}
+                                    className={cn("w-full py-2")}
+                                />
+                                <hr/>
                             </div>
-                        )
-                        )}
-                        {slider.map((value, index) =>
-                        value.value.length === 1 ? null : (
-                        <div key={index} className="grid gap-2 w-full pt-2">
-                        <div className="text-center font-bold text-sm text-black">
-                            {value.name}
-                        </div>
-                        <Slider
-                            max={value.max_index}
-                            min={value.min_index}
-                            step={1}
-                            unit={value.unit}
-                            value={value.value}
-                            opensheetvalmin={
-                                (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.min) ?? 0
-                            }
-                            opensheetvalmax={
-                                (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.max) ?? 0
-                            }
-                            //@ts-ignore
-                            resetclicked={reseted}
-                            onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
-                            className={cn("w-full py-2")}
-                        />
-                        <hr/>
-                    </div>
-                        )
-                        )}
-                        <div className="w-full flex justify-center pt-4">
-                            <Button onClick={() => setReseted('true')} variant={"outline"} className="bg-transparent border-foreground border-4">
-                                <b>Clear Filters</b>
-                            </Button>
-                        </div>
-                    </ScrollArea>
+                                )
+                                )}
+                                <div className="w-full flex justify-center pt-4">
+                                    <Button onClick={() => setReseted('true')} variant={"outline"} className="bg-transparent border-foreground border-4">
+                                        <b>Clear Filters</b>
+                                    </Button>
+                                </div>
+                            </div>
+                        </ScrollArea>
                     </SheetContent>
                 </Sheet>
                 </div>
@@ -722,7 +764,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                         </div>
                     )
                     )}
-                    {slider.map((value, index)=> 
+                    {sliderValue.map((value, index)=> 
                         value.value.length===1?
                         null
                         :
@@ -731,21 +773,16 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                 {value.name}
                             </div>
                             <Slider
+                                value={[value.minIndex, value.maxIndex]}
                                 max={value.max_index}
                                 min={value.min_index}
                                 step={1}
+                                onValueChange={(val) => {
+                                handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit, index)
+                                }}
                                 unit={value.unit}
-                                value={value.value}
-                                opensheetvalmin={
-                                    (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.min) ?? 0
-                                }
-                                opensheetvalmax={
-                                    (defaultSliderSheet && defaultSliderSheet.find(tempVal => tempVal.slug === value.slug)?.value.max) ?? 0
-                                }
-                                //@ts-ignore
-                                resetclicked={reseted}
-                                onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
-                                className={`w-full py-2`}
+                                dataArray={value.value}
+                                className={cn("w-full py-2")}
                             />
                             <hr/>
                         </div>

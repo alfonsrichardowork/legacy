@@ -67,17 +67,11 @@ const redirectMapCateg: Record<string, string> = {
 }
 
 export async function middleware(req: NextRequest) {
-  const host = req.headers.get('host')
   const url = req.nextUrl.clone()
-
-  if (host === 'legacy.us.com') {
-    url.hostname = 'www.legacy.us.com'
-    return NextResponse.redirect(url, 301)
-  }
 
   //Reroute permanent
   if (url.pathname === '/comparison' || url.pathname === '/products') {
-    return NextResponse.redirect(new URL('/drivers', req.url));
+    return NextResponse.redirect(new URL('/drivers', req.url), 301);
   }
 
   
@@ -88,14 +82,14 @@ export async function middleware(req: NextRequest) {
       const key = `${categ}-${idproduct}`
       const destination = redirectMapCategandId[key]
       if (destination) {
-        return NextResponse.redirect(new URL(destination, req.url))
+        return NextResponse.redirect(new URL(destination, req.url), 301)
       }
       else{
-        return NextResponse.redirect(new URL('/drivers', req.url))
+        return NextResponse.redirect(new URL('/drivers', req.url), 301)
       }
     }
     else{
-      return NextResponse.redirect(new URL('/drivers', req.url))
+      return NextResponse.redirect(new URL('/drivers', req.url), 301)
     }
   }
   if (url.pathname.includes('/products.php')) {
@@ -104,39 +98,39 @@ export async function middleware(req: NextRequest) {
       const key = `${categ}`
       const destination = redirectMapCateg[key]
       if (destination) {
-        return NextResponse.redirect(new URL(destination, req.url))
+        return NextResponse.redirect(new URL(destination, req.url), 301)
       }
       else{
-        return NextResponse.redirect(new URL('/drivers', req.url))
+        return NextResponse.redirect(new URL('/drivers', req.url), 301)
       }
     }
     else{
-      return NextResponse.redirect(new URL('/drivers', req.url))
+      return NextResponse.redirect(new URL('/drivers', req.url), 301)
     }
   }
   if (url.pathname.includes('/index.php')) {
-    return NextResponse.redirect(new URL('/', req.url))
+    return NextResponse.redirect(new URL('/', req.url), 301)
   }
   if (url.pathname.includes('/aboutus.php')) {
-    return NextResponse.redirect(new URL('/about-us', req.url))
+    return NextResponse.redirect(new URL('/about-us', req.url), 301)
   }
   if (url.pathname.includes('/links.php')) {
-    return NextResponse.redirect(new URL('/', req.url))
+    return NextResponse.redirect(new URL('/', req.url), 301)
   }
   if (url.pathname.includes('/capabilities.php')) {
-    return NextResponse.redirect(new URL('/', req.url))
+    return NextResponse.redirect(new URL('/', req.url), 301)
   }
   if (url.pathname.includes('/news.php')) {
-    return NextResponse.redirect(new URL('/news', req.url))
+    return NextResponse.redirect(new URL('/news', req.url), 301)
   }
   if (url.pathname.includes('/events.php')) {
-    return NextResponse.redirect(new URL('/', req.url))
+    return NextResponse.redirect(new URL('/', req.url), 301)
   }
   if (url.pathname.includes('/distributors.php')) {
-    return NextResponse.redirect(new URL('/distributors', req.url))
+    return NextResponse.redirect(new URL('/distributors', req.url), 301)
   }
   if (url.pathname.includes('/contact.php')) {
-    return NextResponse.redirect(new URL('/contact', req.url))
+    return NextResponse.redirect(new URL('/contact', req.url), 301)
   }
 
 

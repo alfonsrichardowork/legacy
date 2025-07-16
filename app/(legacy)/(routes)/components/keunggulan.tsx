@@ -11,7 +11,7 @@ const Keunggulan: React.FC = () => {
 
             <div className="overflow-hidden block h-full">
               <div className="flex flex-col items-center justify-center h-full">
-                <Image src={`/images/legacy/indo_flag.webp`} alt="Bendera Indonesia" width={50} height={50} className="w-14 h-10" />
+                <Image src={`/images/legacy/indo_flag.webp`} alt="Bendera Indonesia" width={50} height={50} className="w-14 h-10 shadow-md" />
                 <div className="pt-4">
                   <h2 className="md:text-xl text-base text-black text-center">
                     100% Karya Anak Bangsa

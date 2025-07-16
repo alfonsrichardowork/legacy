@@ -223,15 +223,19 @@ export interface SliderDataNews{
     unit: string;
     max_index: number;
     min_index: number;
+    minIndex: number // Index in the data array
+    maxIndex: number // Index in the data array
 }
 
 export interface SliderData{
-    name: string;
-    slug: string;
-    value: number[];
-    unit: string;
-    max_index: number;
-    min_index: number;
+  slug: string
+  name: string
+  minIndex: number // Index in the data array
+  maxIndex: number // Index in the data array
+  min_index: number // Minimum possible index
+  max_index: number // Maximum possible index
+  unit: string
+  value: number[] // Array of actual values
 }
 
 export interface CheckBoxData{

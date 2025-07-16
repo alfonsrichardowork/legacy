@@ -59,6 +59,8 @@ const [allprodserver, setallprodserver] = useState<Products[]>([])
                 unit: value.unit,
                 max_index: sortedValues.length - 1,
                 min_index: 0,
+                minIndex: 0,
+                maxIndex: sortedValues.length - 1,
                 slug: value.filterKey
               },
             )
@@ -77,6 +79,8 @@ const [allprodserver, setallprodserver] = useState<Products[]>([])
                   unit: value.unit,
                   max_index: sortedValues.length - 1,
                   min_index: 0,
+                  minIndex: 0,
+                  maxIndex: sortedValues.length - 1,
                   slug: value.filterKey
                 },
               )

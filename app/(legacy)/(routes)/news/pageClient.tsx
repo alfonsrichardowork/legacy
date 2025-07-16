@@ -6,6 +6,7 @@ import AllNewsandFilters from "./components/all-filters";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../../components/ui/breadcrumb";
 import { useEffect, useState } from "react";
 import { Loader } from "../../components/ui/loader";
+import { redirect } from "next/navigation";
 
 function createFilterProps(
   key: string,
@@ -85,6 +86,8 @@ export default function NewsClient() {
               unit: value.unit,
               max_index: sortedValues.length - 1,
               min_index: 0,
+              minIndex: 0,
+              maxIndex: sortedValues.length - 1,
               slug: value.filterKey
             },
           )
@@ -97,6 +100,7 @@ export default function NewsClient() {
         setLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error);
+        redirect('/')
       }
     };
 

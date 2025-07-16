@@ -7,7 +7,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 export default function Footer() {
   return (
     <div className='relative md:py-0 py-10'>
-      <Image src={'/images/legacy/footerbg.webp'} alt='Background Footer Legacy Speaker' className='object-cover bg-center absolute inset-0 z-0 w-screen h-full' width={1000} height={1000} loading='lazy'/>
+      <img src={'/images/legacy/footerbg.webp'} alt='Background Footer Legacy Speaker' className='object-cover bg-center absolute inset-0 z-0 w-screen h-full' width={1000} height={1000} loading='lazy'/>
       <div className='relative z-10 container mx-auto xl:px-36 lg:px-20 px-10 xl:py-8 lg:py-6 py-4'>
       <div className="text-white font-bold sm:text-2xl text-lg text-center">
         <h2>Brand Lain Dari CV. Sinar Baja Electric</h2>

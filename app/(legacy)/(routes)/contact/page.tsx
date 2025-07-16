@@ -108,13 +108,13 @@ export default function ContactUs() {
           <div className="pr-2">
             <Phone size={20} />
           </div>
-          : <h5>+62 31 7480011 (Phone)</h5>
+          : <h5>+62 31 748 0011 (Phone)</h5>
         </div>
         <div className="flex text-black">
           <div className="pr-2">
             <Phone size={20} />
           </div>
-          : <h5>+62 31 7493777 (Fax)</h5>
+          : <h5>+62 31 749 3777 (Fax)</h5>
         </div>
       </div>
 
@@ -156,13 +156,13 @@ export default function ContactUs() {
             <div className="pr-2">
               <Phone size={20} />
             </div>
-            : <h5>+62-81 231 833 504</h5>
+            : <h5>+62 81 231 833 504</h5>
           </div>
           <div className="flex text-black">
             <div className="pr-2">
               <Phone size={20} />
             </div>
-            : <h5>+62-81 217 334 084</h5>
+            : <h5>+62 81 217 334 084</h5>
           </div>
         </div>
 
@@ -201,13 +201,19 @@ export default function ContactUs() {
         </div>
 
         <h4 className="text-black font-bold text-xl pb-2">Telp Showroom:</h4>
-        <div className="flex text-black">
-          <div className="pr-2">
-            <Phone size={20} />
+          <div className="flex text-black">
+            <div className="pr-2">
+              <Phone size={20} />
+            </div>
+            : <h5>+62 811 3077 6724</h5>
           </div>
-          : <h5>+62-021-6493139</h5>
+          <div className="flex text-black">
+            <div className="pr-2">
+              <Phone size={20} />
+            </div>
+            : <h5>+62 21 649 3139</h5>
+          </div>
         </div>
-      </div>
 
       {/* Right Side: Image */}
       <div className="relative md:block hidden">
