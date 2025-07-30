@@ -11,6 +11,7 @@ import TweeterTable from "@/app/(legacy)/components/tweeter-table";
 import ActiveSubwooferTable from "@/app/(legacy)/components/active-sub-table";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/app/(legacy)/components/ui/breadcrumb";
 import getProduct from "@/app/(legacy)/actions/get-one-product";
+import { SanitizedHtml } from "./sanitizedHtml";
 
 const all_desc_style = "text-left xl:text-base sm:text-sm text-xs text-black p-0 py-1"
 const all_sub_title_style = "text-left font-bold xl:text-4xl text-2xl text-black"
@@ -158,6 +159,13 @@ const SingleProduct = async (
         )}
 
         <Separator className="bg-foreground w-56 h-2" />
+
+        {data && data.desc && data.desc != '' && data.desc != '-' && (
+            <>
+                <h2 className="text-2xl text-gray-500 font-bold py-4">Deskripsi</h2>
+                <SanitizedHtml html={data.desc} />
+            </>
+        )}
 
         {data?.specification && (
             (data.specification?.diameter_speaker != '' ||

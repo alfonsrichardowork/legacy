@@ -36,3 +36,6 @@ yarn-error.log*
 next-env.d.ts
 zipped.zip
 lib.zip
+
+# Google Analtytics Credentials - Admin Page
+credentials/service-account.json

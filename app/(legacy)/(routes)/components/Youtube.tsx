@@ -41,35 +41,59 @@ const Youtube: React.FC = () => {
 
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 items-center pt-8">
           {videoData.map((video, index) => (
-            <div key={video.id} className={`p-1 ${index >= 3 ? 'sm:block hidden' : ''} group`}>
-              {!loadedVideos[video.id] ? (
-                <div
-                  className="w-full lg:h-60 h-40 rounded-lg bg-gray-200 flex items-center justify-center cursor-pointer relative"
-                  onClick={() => loadVideo(video.id)}
-                >
-                  <h3 className='sr-only'>{video.title}</h3>
+            // <div key={video.id} className={`p-1 ${index >= 3 ? 'sm:block hidden' : ''} group`}>
+            //   {!loadedVideos[video.id] ? (
+            //     <div
+            //       className="w-full lg:h-60 h-40 rounded-lg bg-gray-200 flex items-center justify-center cursor-pointer relative"
+            //       onClick={() => loadVideo(video.id)}
+            //     >
+            //       <h3 className='sr-only'>{video.title}</h3>
+            //       <Image
+            //         src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+            //         alt={video.title}
+            //         layout="fill"
+            //         objectFit="cover"
+            //         className="rounded-lg"
+            //       />
+            //       <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
+            //         <Play width={30} height={30} className="text-foreground group-hover:text-white duration-200 ease-in-out" />
+            //       </div>
+            //     </div>
+            //   ) : (
+            //     <iframe
+            //       className="w-full lg:h-60 h-40 rounded-lg"
+            //       src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
+            //       title={video.title}
+            //       loading="lazy"
+            //       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            //       allowFullScreen
+            //     />
+            //   )}
+            // </div>
+
+
+            <Link
+                key={video.id}
+                href={`https://www.youtube.com/watch?v=${video.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-1 block ${index >= 3 ? 'sm:block hidden' : ''} group`}
+              >
+                <div className="w-full lg:h-60 h-40 rounded-lg relative overflow-hidden">
                   <Image
                     src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
                     alt={video.title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-lg"
+                    fill
+                    className="object-cover rounded-lg"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
-                    <Play width={30} height={30} className="text-foreground group-hover:text-white duration-200 ease-in-out" />
+                  <div className="absolute inset-0 bg-secondary-foreground/40 flex items-center justify-center rounded-lg">
+                    <Play width={30} height={30} className="text-secondary group-hover:text-white duration-200 ease-in-out" />
                   </div>
                 </div>
-              ) : (
-                <iframe
-                  className="w-full lg:h-60 h-40 rounded-lg"
-                  src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
-                  title={video.title}
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              )}
-            </div>
+                {/* <div className="text-sm text-center font-medium pt-2 text-black">
+                  {video.title}
+                </div> */}
+              </Link>
           ))}
         </div>
       </div>

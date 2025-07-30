@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/admin/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const formSchema = z.object({
   email: z.string().min(1),
@@ -46,19 +47,18 @@ export default function Page () {
   };
 
   return (
-      <div>
+      <div className="grid md:grid-cols-2 grid-cols-1 items-center justify-center h-full w-full">
+        <div className="md:block hidden"></div>
         <div className="space-y-4 py-2 pb-4">
           <div className="space-y-2">
-          <Card className="mx-auto max-w-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl">Login</CardTitle>
-              <CardDescription>
-                Enter your username and password to login to admin page
-              </CardDescription>
+          <Card className="mx-auto w-1/2 bg-transparent border-none">
+            <CardHeader className="flex flex-col items-center justify-center space-y-2 w-full pb-4">
+              <Image src={'/images/admin/logo_legacy.webp'} alt="Logo Legacy" width={200} height={100}/>
+              <CardTitle className="md:text-xl text-base text-center">Welcome to Legacy Admin Page!</CardTitle>
             </CardHeader>
             <CardContent>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
                   <FormField
                     control={form.control}
                     name="email"
@@ -66,7 +66,7 @@ export default function Page () {
                       <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl>
-                          <Input disabled={loading} placeholder="Input your username" {...field} />
+                          <Input disabled={loading} placeholder="Input your username" className="bg-white shadow-md text-black" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -79,7 +79,7 @@ export default function Page () {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input disabled={loading} type="password" placeholder="********" {...field} />
+                          <Input disabled={loading} type="password" placeholder="********" className="bg-white shadow-md text-black" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

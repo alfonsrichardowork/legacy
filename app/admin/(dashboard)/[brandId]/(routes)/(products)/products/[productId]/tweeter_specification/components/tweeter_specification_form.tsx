@@ -118,38 +118,38 @@ export const TweeterSpecForm: React.FC<TweeterSpecFormProps> = ({
       </div>
       <Separator />
         <form onSubmit={onSubmit} className="space-y-8 w-full">
-          <div className="md:grid md:grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 rounded-lg p-4 bg-white/50 gap-4">
             <div>
-            <Label htmlFor="nominal_impedance">Nominal Impedance (Ω)</Label>
-            <Input disabled={loading} id="nominal_impedance" placeholder="nominal_impedance value" defaultValue={spec?.nominal_impedance? spec.nominal_impedance : ""} />
+            <Label htmlFor="nominal_impedance" className="font-bold text-base">Nominal Impedance (Ω)</Label>
+            <Input disabled={loading} id="nominal_impedance" placeholder="nominal_impedance value" defaultValue={spec?.nominal_impedance? spec.nominal_impedance : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="dc_resistance">DC resistance, Re (Ω)</Label>
-            <Input disabled={loading} id="dc_resistance" placeholder="dc_resistance value" defaultValue={spec?.dc_resistance? spec.dc_resistance : ""} />
+            <Label htmlFor="dc_resistance" className="font-bold text-base">DC resistance, Re (Ω)</Label>
+            <Input disabled={loading} id="dc_resistance" placeholder="dc_resistance value" defaultValue={spec?.dc_resistance? spec.dc_resistance : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="voice_coil_diameter">Voice coil diameter (mm)</Label>
-            <Input disabled={loading} id="voice_coil_diameter" placeholder="voice_coil_diameter value" defaultValue={spec?.voice_coil_diameter? spec.voice_coil_diameter : ""} />
+            <Label htmlFor="voice_coil_diameter" className="font-bold text-base">Voice coil diameter (mm)</Label>
+            <Input disabled={loading} id="voice_coil_diameter" placeholder="voice_coil_diameter value" defaultValue={spec?.voice_coil_diameter? spec.voice_coil_diameter : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="voice_coil_height">Voice coil height (mm)</Label>
-            <Input disabled={loading} id="voice_coil_height" placeholder="voice_coil_height value" defaultValue={spec?.voice_coil_height? spec.voice_coil_height : ""} />
+            <Label htmlFor="voice_coil_height" className="font-bold text-base">Voice coil height (mm)</Label>
+            <Input disabled={loading} id="voice_coil_height" placeholder="voice_coil_height value" defaultValue={spec?.voice_coil_height? spec.voice_coil_height : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="air_gap_height">Air gap height (mm)</Label>
-            <Input disabled={loading} id="air_gap_height" placeholder="air_gap_height value" defaultValue={spec?.air_gap_height? spec.air_gap_height : ""} />
+            <Label htmlFor="air_gap_height" className="font-bold text-base">Air gap height (mm)</Label>
+            <Input disabled={loading} id="air_gap_height" placeholder="air_gap_height value" defaultValue={spec?.air_gap_height? spec.air_gap_height : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="sensitivity">Sensitivity (2.83V/1m) (dB)</Label>
-            <Input disabled={loading} id="sensitivity" placeholder="sensitivity value" defaultValue={spec?.sensitivity? spec.sensitivity : ""} />
+            <Label htmlFor="sensitivity" className="font-bold text-base">Sensitivity (2.83V/1m) (dB)</Label>
+            <Input disabled={loading} id="sensitivity" placeholder="sensitivity value" defaultValue={spec?.sensitivity? spec.sensitivity : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="magnetic_flux_density">Magnetic flux density (T)</Label>
-            <Input disabled={loading} id="magnetic_flux_density" placeholder="magnetic_flux_density value" defaultValue={spec?.magnetic_flux_density? spec.magnetic_flux_density : ""} />
+            <Label htmlFor="magnetic_flux_density" className="font-bold text-base">Magnetic flux density (T)</Label>
+            <Input disabled={loading} id="magnetic_flux_density" placeholder="magnetic_flux_density value" defaultValue={spec?.magnetic_flux_density? spec.magnetic_flux_density : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="magnet_weight">Magnet weight (Kg)</Label>
-            <Input disabled={loading} id="magnet_weight" placeholder="magnet_weight value" defaultValue={spec?.magnet_weight? spec.magnet_weight : ""} />
+            <Label htmlFor="magnet_weight" className="font-bold text-base">Magnet weight (Kg)</Label>
+            <Input disabled={loading} id="magnet_weight" placeholder="magnet_weight value" defaultValue={spec?.magnet_weight? spec.magnet_weight : ""} className="text-black bg-white" />
             </div>
             </div>
           <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>

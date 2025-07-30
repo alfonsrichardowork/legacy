@@ -197,7 +197,7 @@ export default function ContactUs() {
           <div className="pr-2">
             <MapPin size={20} />
           </div>
-          <h4>: Ruko Glodok Plaza, Blok F-97 Mangga Besar - Jakarta Barat.</h4>
+          <h4>: Ruko Glodok Plaza F-97, Jl. Raya Pinangsia 1, Glodok, Tamansari, Jakarta Barat</h4>
         </div>
 
         <h4 className="text-black font-bold text-xl pb-2">Telp Showroom:</h4>

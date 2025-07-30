@@ -33,6 +33,7 @@ import { uploadDrawingImage } from "@/app/admin/upload-drawing-image"
 import { uploadFrequencyResponseImage } from "@/app/admin/upload-frequency-response-image"
 import { uploadImageCatalogues } from "@/app/admin/upload-image-catalogues"
 import { uploadImpedanceImage } from "@/app/admin/upload-impedance-image"
+import { CirclePlus, File, Trash } from "lucide-react"
 
 
 const formSchema = z.object({
@@ -618,306 +619,61 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="text-center mb-6">
-            <div className="text-left">Cover Image</div>
-          </div>
-          <div className="space-y-2 border-2 rounded-lg border-foreground p-2">
-              <div
-                className="flex items-center justify-between rounded-md shadow-sm"
-              >
-                {coverImgUrl && (coverImgUrl!.url !== undefined && coverImgUrl.url !== '') ?
-                <>
-                <div className="flex items-center space-x-4">
-                    <Image
-                    src={coverImgUrl!.url}
-                    alt={initialData?.name? initialData?.name : ''}
-                    width={100}
-                    height={100}
-                    className="w-32 h-fit"
-                    priority
-                    />
-                    <Input
-                    type="file"
-                    accept="image/*"
-                    name="file"
-                    onChange={(e) =>
-                      e.target.files && handleCoverImageChange(e)
-                    }
-                    disabled={loading}
-                    className="border border-gray-300 p-2 rounded-md"
-                  />
-                </div>
-                <div
-                className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                onClick={() => deleteCoverImage()}
-              >
-                Delete Cover Image
-              </div>
-              </>
-              :
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    name="file"
-                    onChange={(e) =>
-                      e.target.files && handleCoverImageChange(e)
-                    }
-                    disabled={loading}
-                    className="border border-gray-300 p-2 rounded-md"
-                    required
-                  />
-                  }
-              </div>
-          </div>
-          <div className="text-center mb-6">
-            <div className="text-left pb-2">Image Catalogues</div>
-            <div
-              onClick={addImageCataloguesCounter}
-              className="bg-foreground w-fit text-background py-2 px-4 rounded-md hover:bg-primary-dark cursor-pointer"
-            >
-              Add Image Catalogues
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="rounded-lg p-4 bg-white/50">
+            <div className="text-center pb-2">
+              <div className="text-left font-bold">Cover Image</div>
             </div>
-          </div>
-          <div className="space-y-2 border-2 rounded-lg border-foreground p-2">
-            {imgCataloguesUrl.map((value, index) => (
-              <div
-                key={value.id}
-                className="flex items-center justify-between rounded-md shadow-sm"
-              >
-                <div className="flex items-center space-x-4">
-                  {value.url !== '' && (
-                     <Image
-                     src={value.url}
-                     alt={initialData?.name? initialData?.name : ''}
-                     width={100}
-                     height={100}
+            <div className="space-y-2 p-2">
+                <div
+                  className="flex items-center justify-between rounded-md shadow-sm"
+                >
+                  {coverImgUrl && (coverImgUrl!.url !== undefined && coverImgUrl.url !== '') ?
+                  <>
+                  <div className="flex items-center space-x-4">
+                      <Image
+                      src={coverImgUrl!.url}
+                      alt={initialData?.name? initialData?.name : ''}
+                      width={100}
+                      height={100}
                       className="w-32 h-fit"
-                     />
-                  )}
-                  <Input
-                    id={`image-catalogues-${index}`}
-                    type="file"
-                    accept="image/*"
-                    name="file"
-                    onChange={(e) =>
-                      e.target.files && handleImageCataloguesFileChange(e, index)
-                    }
-                    disabled={loading}
-                    className="border border-gray-300 p-2 rounded-md"
-                  />
-                  <Input
-                    type="text"
-                    defaultValue={value.name}
-                    placeholder="Input this image name"
-                    onChange={(e) => {
-                      const updatedImageCatalogues = [...imgCataloguesUrl];
-                      updatedImageCatalogues[index].name = e.target.value;
-                      setImgCataloguesUrl(updatedImageCatalogues);
-                    }}
-                    className="border border-gray-300 p-2 rounded-md w-48"
-                  />
-                </div>
-                <div
+                      priority
+                      />
+                  </div>
+                  <div
                   className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                  onClick={() => reduceImageCataloguesCounter(index)}
+                  onClick={() => deleteCoverImage()}
                 >
-                  Delete
+                  <Trash width={20} height={20} />
                 </div>
-              </div>
-            ))}
-          </div>
-
-
-          <div className="text-center mb-6">
-            <div className="text-left">Drawing Image</div>
-          </div>
-          <div className="space-y-2 border-2 rounded-lg border-foreground p-2">
-              <div
-                className="flex items-center justify-between rounded-md shadow-sm"
-              >
-                <div className="flex items-center space-x-4">
-                  {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
-                    <Image
-                    src={drawingImgUrl!.url}
-                    alt={initialData?.name? initialData?.name : ''}
-                    width={100}
-                    height={100}
-                    className="w-32 h-fit"
+                </>
+                :
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      name="file"
+                      onChange={(e) =>
+                        e.target.files && handleCoverImageChange(e)
+                      }
+                      disabled={loading}
+                      className="bg-white p-2 rounded-md"
+                      required
                     />
-                  )}
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    name="file"
-                    onChange={(e) =>
-                      e.target.files && handleDrawingImageChange(e)
                     }
-                    disabled={loading}
-                    className="border border-gray-300 p-2 rounded-md"
-                  />
                 </div>
-                {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
-                  <div
-                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                    onClick={() => deleteDrawingImage()}
-                  >
-                    Delete Drawing Image
-                  </div>
-                )}
-              </div>
-          </div>
-
-          <div className="text-center mb-6">
-            <div className="text-left">Frequency Response Image</div>
-          </div>
-          <div className="space-y-2 border-2 rounded-lg border-foreground p-2">
-              <div
-                className="flex items-center justify-between rounded-md shadow-sm"
-              >
-                <div className="flex items-center space-x-4">
-                  {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
-                    <Image
-                    src={freqResponseUrl!.url}
-                    alt={initialData?.name? initialData?.name : ''}
-                    width={100}
-                    height={100}
-                    className="w-32 h-fit"
-                    />
-                  )}
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    name="file"
-                    onChange={(e) =>
-                      e.target.files && handleFrequencyResponseImageChange(e)
-                    }
-                    disabled={loading}
-                    className="border border-gray-300 p-2 rounded-md"
-                  />
-                </div>
-                {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
-                  <div
-                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                    onClick={() => deleteFrequencyResponseImage()}
-                  >
-                    Delete Frequency Response Image
-                  </div>
-                )}
-              </div>
-          </div>
-
-
-
-          <div className="text-center mb-6">
-            <div className="text-left">Impedance Image</div>
-          </div>
-          <div className="space-y-2 border-2 rounded-lg border-foreground p-2">
-              <div
-                className="flex items-center justify-between rounded-md shadow-sm"
-              >
-                <div className="flex items-center space-x-4">
-                  {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
-                    <Image
-                    src={impedanceUrl!.url}
-                    alt={initialData?.name? initialData?.name : ''}
-                    width={100}
-                    height={100}
-                    className="w-32 h-fit"
-                    />
-                  )}
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    name="file"
-                    onChange={(e) =>
-                      e.target.files && handleImpedanceImageChange(e)
-                    }
-                    disabled={loading}
-                    className="border border-gray-300 p-2 rounded-md"
-                  />
-                </div>
-                {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
-                  <div
-                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                    onClick={() => deleteImpedanceImage()}
-                  >
-                    Delete Impedance Image
-                  </div>
-                )}
-              </div>
-          </div>
-
-
-
-
-         <div className="text-center mb-6">
-            <div className="text-left pb-2">Datasheet</div>
-            <div
-              onClick={addDatasheetCounter}
-              className="bg-foreground w-fit text-background py-2 px-4 rounded-md hover:bg-primary-dark cursor-pointer"
-            >
-              Add Datasheet
             </div>
           </div>
-          <div className="space-y-2 border-2 rounded-lg border-foreground p-2">
-            {allDatasheet.map((value, index) => (
-              <div
-                key={value.id}
-                className="flex items-center justify-between rounded-md shadow-sm"
-              >
-                <div className="flex items-center space-x-4">
-                  {value.url !== '' && (
-                    <Link
-                      target="_blank"
-                      href={value.url}
-                      className="text-blue-600 hover:underline"
-                    >
-                      View File
-                    </Link>
-                  )}
-                  <Input
-                    id={`file-${index}`}
-                    type="file"
-                    accept=".pdf"
-                    name="file"
-                    onChange={(e) =>
-                      e.target.files && handleDatasheetFileChange(e, index)
-                    }
-                    disabled={loading}
-                    className="border border-gray-300 p-2 rounded-md"
-                  />
-                  <Input
-                    type="text"
-                    defaultValue={value.name}
-                    placeholder="PDF File name"
-                    onChange={(e) => {
-                      const updatedDatasheet = [...allDatasheet];
-                      updatedDatasheet[index].name = e.target.value;
-                      setAllDatasheet(updatedDatasheet);
-                    }}
-                    required
-                    className="border border-gray-300 p-2 rounded-md w-48"
-                  />
-                </div>
-                <div
-                  className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                  onClick={() => reduceDatasheetCounter(index)}
-                >
-                  Delete
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="md:grid md:grid-cols-3 gap-8">
+          
+          <div className="flex flex-col w-full justify-center rounded-lg p-4 bg-white/50 gap-4">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="font-bold text-base">Name</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Product name" {...field} />
+                    <Input disabled={loading} placeholder="Product name" {...field} className="bg-white text-black"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -928,14 +684,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="sizeId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Size</FormLabel>
+                  <FormLabel className="font-bold text-base">Size</FormLabel>
                   <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Select a size" />
+                      <SelectTrigger className="bg-white text-black">
+                        <SelectValue defaultValue={field.value} placeholder="Select a size" className="bg-white"/>
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent  className="bg-white text-black">
                       {sizes.map((size) => (
                         <SelectItem key={size.id} value={size.id}>{size.name}</SelectItem>
                       ))}
@@ -950,20 +706,288 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormDescription>For lists only. Give a new space (enter) for each list. For paragraph, please check the <b>Custom Product</b> checkbox.</FormDescription>
+                  <FormLabel className="font-bold text-base">Description</FormLabel>
+                  <FormDescription className="text-black">For lists only. Give a new space (enter) for each list. If empty, type: - | <Link href={'/images/admin/single_prod_desc_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline">Check placement</Link></FormDescription>
                   <FormControl>
-                    <Textarea disabled={loading} placeholder="Product description" {...field} />
+                    <Textarea disabled={loading} placeholder="Product description" {...field} className="bg-white text-black" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+          </div>
+        </div>
+
+
+          
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="rounded-lg p-4 bg-white/50">
+            <div className="text-center pb-2">
+              <div className="text-left font-bold">Drawing Image</div>
+            </div>
+            <div className="space-y-2 p-2">
+                <div
+                  className="flex items-center justify-between rounded-md shadow-sm"
+                >
+                  <div className="flex items-center space-x-4">
+                    {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
+                      <Image
+                      src={drawingImgUrl!.url}
+                      alt={initialData?.name? initialData?.name : ''}
+                      width={100}
+                      height={100}
+                      className="w-32 h-fit"
+                      />
+                    )}
+                    {(!drawingImgUrl || (drawingImgUrl.url === '')) && (
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        name="file"
+                        onChange={(e) =>
+                          e.target.files && handleDrawingImageChange(e)
+                        }
+                        disabled={loading}
+                        className="bg-white p-2 rounded-md"
+                      />
+                    )}
+                  </div>
+                  {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
+                    <div
+                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                      onClick={() => deleteDrawingImage()}
+                    >
+                      <Trash width={20} height={20} />
+                    </div>
+                  )}
+                </div>
+            </div>
+          </div>
+
+          
+          <div className="rounded-lg p-4 bg-white/50">
+            <div className="text-center pb-2">
+              <div className="text-left font-bold">Frequency Response Image</div>
+            </div>
+            <div className="space-y-2 p-2">
+                <div
+                  className="flex items-center justify-between rounded-md shadow-sm"
+                >
+                  <div className="flex items-center space-x-4">
+                    {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
+                      <Image
+                      src={freqResponseUrl!.url}
+                      alt={initialData?.name? initialData?.name : ''}
+                      width={100}
+                      height={100}
+                      className="w-32 h-fit"
+                      />
+                    )}
+                    {(!freqResponseUrl || (freqResponseUrl.url === '')) && (
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        name="file"
+                        onChange={(e) =>
+                          e.target.files && handleFrequencyResponseImageChange(e)
+                        }
+                        disabled={loading}
+                        className="bg-white p-2 rounded-md"
+                      />
+                    )}
+                  </div>
+                  {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
+                    <div
+                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                      onClick={() => deleteFrequencyResponseImage()}
+                    >
+                      <Trash width={20} height={20} />
+                    </div>
+                  )}
+                </div>
+            </div>
+          </div>
+
+
+          <div className="rounded-lg p-4 bg-white/50">
+            <div className="text-center pb-2">
+              <div className="text-left font-bold">Impedance Image</div>
+            </div>
+            <div className="space-y-2 p-2">
+                <div
+                  className="flex items-center justify-between rounded-md shadow-sm"
+                >
+                  <div className="flex items-center space-x-4">
+                    {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
+                      <Image
+                      src={impedanceUrl!.url}
+                      alt={initialData?.name? initialData?.name : ''}
+                      width={100}
+                      height={100}
+                      className="w-32 h-fit"
+                      />
+                    )}
+                    {(!impedanceUrl || (impedanceUrl.url === '')) && (
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        name="file"
+                        onChange={(e) =>
+                          e.target.files && handleImpedanceImageChange(e)
+                        }
+                        disabled={loading}
+                        className="bg-white p-2 rounded-md"
+                      />
+                    )}
+                  </div>
+                  {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
+                    <div
+                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                      onClick={() => deleteImpedanceImage()}
+                    >
+                      <Trash width={20} height={20} />
+                    </div>
+                  )}
+                </div>
+            </div>
+          </div>  
+        </div>
+
+
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="rounded-lg p-4 bg-white/50">
+            <div className="text-center pb-2 flex justify-between items-center">
+              <div className="text-left pb-2 font-bold">Image Catalogues</div>
+              <div
+                onClick={addImageCataloguesCounter}
+                className="flex gap-2 items-center justify-center bg-foreground w-fit text-background py-2 px-4 rounded-md hover:bg-primary-dark cursor-pointer"
+              >
+                <CirclePlus width={20} height={20} />Add Image Catalogues
+              </div>
+            </div>
+            {imgCataloguesUrl.map((value, index) => (
+              <div className="space-y-2 rounded-lg shadow-md p-2" key={index}>
+                <div
+                  key={value.id}
+                  className="flex items-center justify-between rounded-md shadow-sm"
+                >
+                  <div className="flex items-center space-x-4">
+                    {value.url !== '' && (
+                      <Image
+                      src={value.url}
+                      alt={initialData?.name? initialData?.name : ''}
+                      width={100}
+                      height={100}
+                        className="w-32 h-fit"
+                      />
+                    )}
+                    {value.url === '' && (
+                      <Input
+                        id={`image-catalogues-${index}`}
+                        type="file"
+                        accept="image/*"
+                        name="file"
+                        onChange={(e) =>
+                          e.target.files && handleImageCataloguesFileChange(e, index)
+                        }
+                        disabled={loading}
+                        className="border bg-white p-2 rounded-md"
+                      />
+                    )}
+                    <Input
+                      type="text"
+                      defaultValue={value.name}
+                      placeholder="Input this image name"
+                      onChange={(e) => {
+                        const updatedImageCatalogues = [...imgCataloguesUrl];
+                        updatedImageCatalogues[index].name = e.target.value;
+                        setImgCataloguesUrl(updatedImageCatalogues);
+                      }}
+                      className="border text-black bg-white p-2 rounded-md w-48"
+                    />
+                  </div>
+                  <div
+                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                    onClick={() => reduceImageCataloguesCounter(index)}
+                  >
+                    <Trash width={20} height={20} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-lg p-4 bg-white/50">
+            <div className="text-center pb-2 flex justify-between items-center">
+              <div className="text-left pb-2 font-bold">Datasheet</div>
+              <div
+                onClick={addDatasheetCounter}
+                className="flex items-center gap-2 justify-center bg-foreground w-fit text-background py-2 px-4 rounded-md hover:bg-primary-dark cursor-pointer"
+              >
+                <CirclePlus width={20} height={20} />Add Datasheet
+              </div>
+            </div>
+            {allDatasheet.map((value, index) => (
+              <div className="space-y-2 shadow-md rounded-lg p-2" key={index}>
+                <div
+                  key={value.id}
+                  className="flex items-center justify-between rounded-md shadow-sm"
+                >
+                  <div className="flex items-center space-x-4">
+                    {value.url !== '' && (
+                      <Link
+                        target="_blank"
+                        href={value.url}
+                        className="text-blue-600 font-medium hover:underline transition-colors whitespace-nowrap flex items-center gap-2"
+                      >
+                        <File width={20} height={20}/> View File
+                      </Link>
+                    )}
+                    {value.url === '' && (
+                      <Input
+                        id={`file-${index}`}
+                        type="file"
+                        accept=".pdf"
+                        name="file"
+                        onChange={(e) =>
+                          e.target.files && handleDatasheetFileChange(e, index)
+                        }
+                        disabled={loading}
+                        className="border bg-white p-2 rounded-md"
+                      />
+                    )}
+                    <Input
+                      type="text"
+                      defaultValue={value.name}
+                      placeholder="PDF File name"
+                      onChange={(e) => {
+                        const updatedDatasheet = [...allDatasheet];
+                        updatedDatasheet[index].name = e.target.value;
+                        setAllDatasheet(updatedDatasheet);
+                      }}
+                      required
+                      className="border text-black bg-white p-2 rounded-md w-48"
+                    />
+                  </div>
+                  <div
+                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                    onClick={() => reduceDatasheetCounter(index)}
+                  >
+                    <Trash width={20} height={20} />
+                  </div>
+                </div>  
+              </div>
+            ))}
+          </div>
+        </div>
+          <div className="md:grid md:grid-cols-3 gap-4 rounded-lg p-4 bg-white/50">
+            
             <FormField
               control={form.control}
               name="isFeatured"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormItem className="flex flex-row items-center shadow-md space-x-3 space-y-0 rounded-md p-4">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -972,11 +996,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>
+                    <FormLabel className="font-bold text-base">
                       Featured
                     </FormLabel>
-                    <FormDescription>
-                      This product will appear on the homepage slideshow. To be displayed, add the backgorund image through the <b>Featured Products</b> menu.
+                    <FormDescription className="text-black">
+                      This product will appear on the homepage slideshow. To be displayed, add the backgorund image through the <b>Featured Products</b> menu. <Link href={'/images/admin/featured_prod_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline">Check placement</Link>
                     </FormDescription>
                     {/* <div className="text-xs font-semibold">Note: To be displayed, you need to add the backgorund image through the &quot;Featured Products&quot; menu.</div> */}
                   </div>
@@ -987,7 +1011,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               control={form.control}
               name="isArchived"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormItem className="flex flex-row items-center shadow-md space-x-3 space-y-0 rounded-md p-4">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -996,21 +1020,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>
+                    <FormLabel className="font-bold text-base">
                       Archived
                     </FormLabel>
-                    <FormDescription>
+                    <FormDescription className="text-black">
                       This product will not appear anywhere in the website.
                     </FormDescription>
                   </div>
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="isNewProduct"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormItem className="flex flex-row items-center shadow-md space-x-3 space-y-0 rounded-md p-4">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -1019,7 +1043,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>
+                    <FormLabel className="font-bold text-base">
                       New Product
                     </FormLabel>
                     <FormDescription>
@@ -1028,15 +1052,18 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   </div>
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="series"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Series</FormLabel>
+                  <FormLabel className="font-bold text-base">Series</FormLabel>
+                  <FormDescription className="text-black">
+                      This will appear in hero section. <Link href={'/images/admin/single_prod_series_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline">Check placement</Link>
+                    </FormDescription>
                   <FormControl>
-                    <Input disabled={loading} placeholder="What Series" {...field} />
+                    <Input disabled={loading} placeholder="What Series" {...field} className="bg-white text-black"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

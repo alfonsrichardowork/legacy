@@ -117,34 +117,34 @@ export const ActiveSubwooferSpecForm: React.FC<ActiveSubwooferSpecFormProps> = (
       </div>
       <Separator />
         <form onSubmit={onSubmit} className="space-y-8 w-full">
-          <div className="md:grid md:grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 rounded-lg p-4 bg-white/50 gap-4">
             <div>
-            <Label htmlFor="speaker">Speaker </Label>
-            <Input disabled={loading} id="speaker" placeholder="speaker value" defaultValue={spec?.speaker? spec.speaker : ""} />
+            <Label htmlFor="speaker" className="font-bold text-base">Speaker </Label>
+            <Input disabled={loading} id="speaker" placeholder="speaker value" defaultValue={spec?.speaker? spec.speaker : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="subwoofer">Subwoofer</Label>
-            <Input disabled={loading} id="subwoofer" placeholder="subwoofer value" defaultValue={spec?.subwoofer? spec.subwoofer : ""} />
+            <Label htmlFor="subwoofer" className="font-bold text-base">Subwoofer</Label>
+            <Input disabled={loading} id="subwoofer" placeholder="subwoofer value" defaultValue={spec?.subwoofer? spec.subwoofer : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="daya_amplifier">Daya amplifier</Label>
-            <Input disabled={loading} id="daya_amplifier" placeholder="daya_amplifier value" defaultValue={spec?.daya_amplifier? spec.daya_amplifier : ""} />
+            <Label htmlFor="daya_amplifier" className="font-bold text-base">Daya amplifier</Label>
+            <Input disabled={loading} id="daya_amplifier" placeholder="daya_amplifier value" defaultValue={spec?.daya_amplifier? spec.daya_amplifier : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="filter_lpf_variabel">Filter LPF variabel</Label>
-            <Input disabled={loading} id="filter_lpf_variabel" placeholder="filter_lpf_variabel value" defaultValue={spec?.filter_lpf_variabel? spec.filter_lpf_variabel : ""} />
+            <Label htmlFor="filter_lpf_variabel" className="font-bold text-base">Filter LPF variabel</Label>
+            <Input disabled={loading} id="filter_lpf_variabel" placeholder="filter_lpf_variabel value" defaultValue={spec?.filter_lpf_variabel? spec.filter_lpf_variabel : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="input_level">Input Level</Label>
-            <Input disabled={loading} id="input_level" placeholder="input_level value" defaultValue={spec?.input_level? spec.input_level : ""} />
+            <Label htmlFor="input_level" className="font-bold text-base">Input Level</Label>
+            <Input disabled={loading} id="input_level" placeholder="input_level value" defaultValue={spec?.input_level? spec.input_level : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="power_input">Power Input</Label>
-            <Input disabled={loading} id="power_input" placeholder="power_input value" defaultValue={spec?.power_input? spec.power_input : ""} />
+            <Label htmlFor="power_input" className="font-bold text-base">Power Input</Label>
+            <Input disabled={loading} id="power_input" placeholder="power_input value" defaultValue={spec?.power_input? spec.power_input : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="box_type">Box Type</Label>
-            <Input disabled={loading} id="box_type" placeholder="box_type value" defaultValue={spec?.box_type? spec.box_type : ""} />
+            <Label htmlFor="box_type" className="font-bold text-base">Box Type</Label>
+            <Input disabled={loading} id="box_type" placeholder="box_type value" defaultValue={spec?.box_type? spec.box_type : ""} className="text-black bg-white" />
             </div>
             </div>
           <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>

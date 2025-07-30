@@ -1,132 +1,79 @@
+'use client';
+
 import { Separator } from "@/components/ui/separator";
-import { Card, CardHeader, CardTitle } from "@/app/admin/components/ui/card";
 import { Heading } from "@/app/admin/components/ui/heading";
-import prismadb from "@/lib/prismadb";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { MostVisited } from "./components/most-visited-card";
+import { LiveVisitor } from "./components/live-visitor-card";
+import { Card } from "@/app/admin/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { CountryVisitor } from "./components/visitor-by-country-card";
+import { VisitorDevice } from "./components/visitor-device";
 
 
-const DashboardPage = async (
-  props: {
-    params: Promise<{ brandId: string }>
-  }
-) => {
-  const params = await props.params;
-  const products = await prismadb.product.findMany({
-    where: {
-      brandId: params.brandId
-    },
-    select: {
-      id: true,
-      name: true,
-      updatedAt: true,
-    },
-    orderBy: {
-      updatedAt: 'desc'
-    }
-  });
-  const sizes = await prismadb.size.findMany({
-    where: {
-      brandId: params.brandId
-    },
-    select: {
-      name: true
-    }
-  });
-  const allCat = await prismadb.allCategory.findMany({
-    where: {
-      brandId: params.brandId,
-      type: "Category"
-    },
-    select: {
-      name: true
-    }
-  });
-  const allSubCat = await prismadb.allCategory.findMany({
-    where: {
-      brandId: params.brandId,
-      type: "Sub Category"
-    },
-    select: {
-      name: true
-    }
-  });
-  const allSubSubCat = await prismadb.allCategory.findMany({
-    where: {
-      brandId: params.brandId,
-      type: "Sub Sub Category"
-    },
-    select: {
-      name: true
-    }
-  });
+function DashboardPage () {
+  const [mostVisitedPageReport, setMostVisitedPageReport] = useState<{ page: string; views: number }[]>([]);
+  const [trafficByCountry, setTrafficByCountry] = useState<{ country: string; users: number }[]>([]);
+  const [deviceUsed, setDeviceUsed] = useState<{ device: string; users: number }[]>([]);
+  const [totalVisitorPerDay, setTotalVisitorPerDay] = useState<{ year: string, month: string, date: string; users: number }[]>([]);
+  const [totalVisitor, setTotalVisitor] = useState<{ year: string, month: string, date: string; users: number }[]>([]);
+  const [counterMonth, setCounterMonth] = useState<number>(0);
+  const [visitorConstraint, setVisitorConstraint] = useState<string>('Last 7 Days')
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    fetch('/admin/api/analytics')
+      .then(res => res.json())
+      .then(data => [setMostVisitedPageReport(data.mostvisited || []), setTrafficByCountry(data.trafficbycountry || []), setDeviceUsed(data.deviceused || []), setTotalVisitor(data.totalvisitorperday || []), setLoading(false)])
+  }, []);
+
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <Heading title="Overview" description="Overview of your Brand" />
+        <Heading title="Overview" description="" />
         <Separator />
-        <div className="grid gap-4 grid-cols-2">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle style={{ fontSize: '1.3rem' }} className="text-sm font-medium">Total Product</CardTitle>
-              {products.length}
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle style={{ fontSize: '1.3rem' }} className="text-sm font-medium">Total Sizes</CardTitle>
-              {sizes.length}
-            </CardHeader>
-          </Card>
+
+        <Card className="mt-6 p-6 shadow-lg rounded-lg border-none bg-secondary-foreground">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-base font-bold">Total Visitors {visitorConstraint}</h2>
+            <div className="flex gap-2">
+              <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Last 7 Days'), setTotalVisitorPerDay(totalVisitor.slice(totalVisitor.length - 7, totalVisitor.length))]} className={`${visitorConstraint === 'Last 7 Days' ? 'bg-secondary text-white' : ''}`}>
+                Last 7 Days
+              </Button>
+              <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Last 30 Days'), setTotalVisitorPerDay(totalVisitor.slice(totalVisitor.length - 30, totalVisitor.length))]} className={`${visitorConstraint === 'Last 30 Days' ? 'bg-secondary text-white' : ''}`}>
+                Last 30 Days
+              </Button>
+              <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Last 3 Months'), setTotalVisitorPerDay(totalVisitor.slice(totalVisitor.length - 120, totalVisitor.length)), setCounterMonth(3)]} className={`${visitorConstraint === 'Last 3 Months' ? 'bg-secondary text-white' : ''}`}>
+                Last 3 Months
+              </Button>
+              <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Last 6 Months'), setTotalVisitorPerDay(totalVisitor.slice(totalVisitor.length - 210, totalVisitor.length)), setCounterMonth(6)]} className={`${visitorConstraint === 'Last 6 Months' ? 'bg-secondary text-white' : ''}`}>
+                Last 6 Months
+              </Button>
+              <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Last 12 Months'), setTotalVisitorPerDay(totalVisitor.slice(totalVisitor.length - 390, totalVisitor.length)), setCounterMonth(12)]} className={`${visitorConstraint === 'Last 12 Months' ? 'bg-secondary text-white' : ''}`}>
+                Last 12 Months
+              </Button>
+            </div>
+          </div>
+          <LiveVisitor LiveVisitor={totalVisitorPerDay.length > 0 ? totalVisitorPerDay : totalVisitor.slice(totalVisitor.length - 7, totalVisitor.length)} counterMonth={counterMonth} loading={loading}/>
+        </Card>
+
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+        <MostVisited pageReports={mostVisitedPageReport} loading={loading}/>
+        <CountryVisitor LiveVisitor={trafficByCountry.slice(0,5)} loading={loading}/>
         </div>
 
-        <div className="grid gap-4 grid-cols-3">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle style={{ fontSize: '1.3rem' }} className="text-sm font-medium">
-                Total Categories
-              </CardTitle>
-              {allCat.length}
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle style={{ fontSize: '1.3rem' }} className="text-sm font-medium">Total Sub Categories</CardTitle>
-              {allSubCat.length}
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle style={{ fontSize: '1.3rem' }} className="text-sm font-medium">Total Sub Sub Categories</CardTitle>
-              {allSubSubCat.length}
-            </CardHeader>
-          </Card>
-        </div>
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle style={{ fontSize: '1.3rem' }}>Recently Updated</CardTitle>
-          </CardHeader>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Updated At</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {products.slice(0, 10).map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell className="font-medium">
-                    <Link href={`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/${product.id}`}>
-                      {product.name}
-                    </Link>
-                  </TableCell>
-                  <TableCell>{product.updatedAt.toLocaleString()}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Card>
+        <VisitorDevice LiveVisitor={deviceUsed} loading={loading}/>
+
+        {/* <div>
+          <h1 className="text-xl font-bold mb-4">Page Views</h1>
+          <ul>
+            {mostVisitedPageReport.map((row, i) => (
+              <li key={i}>
+                <strong>{row.page}</strong>: {row.views} views
+              </li>
+            ))}
+          </ul>
+        </div> */}
       </div>
     </div>
   );

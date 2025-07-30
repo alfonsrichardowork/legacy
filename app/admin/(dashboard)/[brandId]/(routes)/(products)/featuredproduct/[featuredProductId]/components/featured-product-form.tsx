@@ -25,6 +25,8 @@ import { Heading } from "@/app/admin/components/ui/heading"
 import { Checkbox } from "@/components/ui/checkbox"
 import { uploadFeaturedImage } from "@/app/admin/upload-featured-image"
 import Image from "next/image"
+import { Trash } from "lucide-react"
+import Link from "next/link"
 
 
 const formSchema = z.object({
@@ -199,73 +201,85 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="space-y-2">
-            <div
-              className="flex items-center justify-between rounded-md shadow-sm"
-            >
-              <div className="flex items-center space-x-4">
-                {featuredImage && featuredImage.url !== '' && (
-                  <Image alt={title} src={featuredImage.url} width={200} height={200} className="w-52 h-fit" priority/>
-                )}
-                <Input
-                  id={`file`}
-                  type="file"
-                  accept="image/*"
-                  name="file"
-                  onChange={(e) =>
-                    e.target.files && handleFileChange(e)
-                  }
-                  disabled={loading}
-                  className="border border-gray-300 p-2 rounded-md"
-                />
-              </div>
-              {featuredImage && featuredImage.url !== '' && (
-                <div
-                  className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                  onClick={() => deleteImage()}
-                >
-                  Delete Image
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+          <div className="md:grid md:grid-cols-2 gap-4">
+            
+            <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+              <div className="text-left font-bold pb-2">Cover Image | <Link href={'/images/admin/cover_image_featured_prod_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline font-normal text-sm">Check placement</Link></div>
+              <div
+                className="flex items-center justify-between rounded-md shadow-sm"
+              >
+                <div className="flex items-center space-x-4">
+                  {featuredImage && featuredImage.url !== '' && (
+                    <Image alt={title} src={featuredImage.url} width={200} height={200} className="w-52 h-fit" priority/>
+                  )}
+                  {(!featuredImage || (featuredImage.url === '')) && (
+                    <Input
+                      id={`file`}
+                      type="file"
+                      accept="image/*"
+                      name="file"
+                      onChange={(e) =>
+                        e.target.files && handleFileChange(e)
+                      }
+                      disabled={loading}
+                      className="border border-gray-300 p-2 rounded-md"
+                    />
+                  )}
                 </div>
-              )}
+                {featuredImage && featuredImage.url !== '' && (
+                  <div
+                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                    onClick={() => deleteImage()}
+                  >
+                    <Trash width={20} height={20} />
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <div className=" rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+              <div className="pb-4">
+              <FormField
+                control={form.control}
+                name="featuredDesc"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-bold text-base">Featured Description | <Link href={'/images/admin/desc_featured_prod_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline font-normal text-sm">Check placement</Link></FormLabel>
+                    <FormControl>
+                      <Input disabled={loading} placeholder="Featured Products Descriptions" {...field} className="bg-white text-black"/>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              </div>
+              <FormField
+                control={form.control}
+                name="isFeatured"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md shadow-md p-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        // @ts-ignore
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="font-bold text-base">
+                        Featured
+                      </FormLabel>
+                      <FormDescription>
+                        This product will appear on the home page
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
-           <FormField
-              control={form.control}
-              name="featuredDesc"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Featured Description</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} placeholder="Featured Products Descriptions" {...field}/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="isFeatured"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      // @ts-ignore
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>
-                      Featured
-                    </FormLabel>
-                    <FormDescription>
-                      This product will appear on the home page
-                    </FormDescription>
-                  </div>
-                </FormItem>
-              )}
-            />
+           
           <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
             {action}
           </Button>

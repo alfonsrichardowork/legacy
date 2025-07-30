@@ -208,207 +208,193 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
         <Heading title={title} description={description} />
       </div>
       <Separator />
-    <form onSubmit={handleSubmit}>
-      <div className="md:grid md:grid-cols-3 gap-8">
+      <form onSubmit={handleSubmit}>
+        <div className="md:grid md:grid-cols-3 gap-4">
 
 
-
-      <Popover open={openCat} onOpenChange={setOpenCat}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          role="combobox"
-          aria-expanded={openCat}
-          aria-label="Select a Brand"
-          className={cn("w-[200px] justify-between")}
-        >
-          Select Category
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandList>
-            <CommandInput placeholder="Search Category..." />
-            <CommandEmpty>No Category found.</CommandEmpty>
-            <CommandGroup heading="Category">
-              {formattedCat.map((cat) => (
-                <CommandItem
-                  key={cat.value}
-                  onSelect={() => {
-                    addSelectedCat(cat.value);
-                    setOpenCat(false);
-                  }}
-                  className="text-sm"
-                >
-                  {cat.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-
-    <Popover open={openSubCat} onOpenChange={setOpenSubCat}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          role="combobox"
-          aria-expanded={openSubCat}
-          aria-label="Select a Sub Category"
-          className={cn("w-[200px] justify-between")}
-        >
-          Select Sub Category
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandList>
-            <CommandInput placeholder="Search Sub Category..." />
-            <CommandEmpty>No Sub Category found.</CommandEmpty>
-            <CommandGroup heading="Sub Category">
-              {formattedSubCat.map((subcat) => (
-                <CommandItem
-                  key={subcat.value}
-                  onSelect={() => {
-                    addSelectedSubCat(subcat.value);
-                    setOpenSubCat(false);
-                  }}
-                  className="text-sm"
-                >
-                  {subcat.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-
-    <Popover open={openSubSubCat} onOpenChange={setOpenSubSubCat}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          role="combobox"
-          aria-expanded={openSubSubCat}
-          aria-label="Select a Sub Sub Category"
-          className={cn("w-[200px] justify-between")}
-        >
-          Select Sub Sub Category
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandList>
-            <CommandInput placeholder="Search Sub Sub Category..." />
-            <CommandEmpty>No Sub Sub Category found.</CommandEmpty>
-            <CommandGroup heading="SubSubCategory">
-              {formattedSubSubCat.map((subsubcat) => (
-                <CommandItem
-                  key={subsubcat.value}
-                  onSelect={() => {
-                    addSelectedSubSubCat(subsubcat.value);
-                    setOpenSubSubCat(false);
-                  }}
-                  className="text-sm"
-                >
-                  {subsubcat.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-
-    </div>
-      <div className="md:grid md:grid-cols-3 gap-8">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Selected Categories</TableHead>
-                <TableHead>Delete?</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+            <div className="font-bold mb-2">Selected Categories</div>
+            <Popover open={openCat} onOpenChange={setOpenCat}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                role="combobox"
+                aria-expanded={openCat}
+                aria-label="Select a Brand"
+                className={cn("w-[200px] justify-between bg-white text-black")}
+              >
+                Select
+                <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] p-0">
+              <Command>
+                <CommandList>
+                  <CommandInput placeholder="Search Category..." />
+                  <CommandEmpty>No Category found.</CommandEmpty>
+                  <CommandGroup>
+                    {formattedCat.map((cat) => (
+                      <CommandItem
+                        key={cat.value}
+                        onSelect={() => {
+                          addSelectedCat(cat.value);
+                          setOpenCat(false);
+                        }}
+                        className="text-sm"
+                      >
+                        {cat.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+            </Popover>
+            <div className="grid grid-cols-1 justify-between">
               {allSelectedCategories?.map((categories) => (
-                <TableRow key={categories.name}>
-                  <TableCell className="font-medium">{categories.name}</TableCell>
-                  <TableCell>
-                    <Button
-                      disabled={loading}
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => deleteSelectedCat(categories.id)}
-                    >
-                      <Trash className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Selected Sub Categories</TableHead>
-                <TableHead>Delete?</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {allSelectedSubCategories?.map((subcategories) => (
-                <TableRow key={subcategories.name}>
-                  <TableCell className="font-medium">{subcategories.name}</TableCell>
-                  <TableCell>
-                    <Button
-                      disabled={loading}
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => deleteSelectedSubCat(subcategories.id)}
-                    >
-                      <Trash className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Selected Sub Sub Categories</TableHead>
-                <TableHead>Delete?</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {allSelectedSubSubCategories?.map((subsubcategories) => (
-                <TableRow key={subsubcategories.name}>
-                  <TableCell className="font-medium">{subsubcategories.name}</TableCell>
-                  <TableCell>
-                    <Button
-                      disabled={loading}
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => deleteSelectedSubSubCat(subsubcategories.id)}
-                    >
-                      <Trash className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                  <div key={categories.name} className="flex items-center justify-between py-2 border-b px-2">
+                    <div className="font-medium">{categories.name}</div>
+                    <div>
+                      <Button
+                        disabled={loading}
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => deleteSelectedCat(categories.id)}
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
-      <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
+
+          <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+            <div className="font-bold mb-2">Selected Sub Categories</div>
+            <Popover open={openSubCat} onOpenChange={setOpenSubCat}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  role="combobox"
+                  aria-expanded={openSubCat}
+                  aria-label="Select a Sub Category"
+                  className={cn("w-[200px] justify-between bg-white text-black")}
+                >
+                  Select
+                  <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[200px] p-0">
+                <Command>
+                  <CommandList>
+                    <CommandInput placeholder="Search Sub Category..." />
+                    <CommandEmpty>No Sub Category found.</CommandEmpty>
+                    <CommandGroup>
+                      {formattedSubCat.map((subcat) => (
+                        <CommandItem
+                          key={subcat.value}
+                          onSelect={() => {
+                            addSelectedSubCat(subcat.value);
+                            setOpenSubCat(false);
+                          }}
+                          className="text-sm"
+                        >
+                          {subcat.label}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <div className="grid grid-cols-1 justify-between">
+              {allSelectedSubCategories?.map((subcategories) => (
+                  <div key={subcategories.name} className="flex items-center justify-between py-2 border-b px-2">
+                    <div className="font-medium">{subcategories.name}</div>
+                    <div>
+                      <Button
+                        disabled={loading}
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => deleteSelectedSubCat(subcategories.id)}
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+
+          <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+            <div className="font-bold mb-2">Selected Sub Sub Categories</div>
+            <Popover open={openSubSubCat} onOpenChange={setOpenSubSubCat}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  role="combobox"
+                  aria-expanded={openSubSubCat}
+                  aria-label="Select a Sub Sub Category"
+                  className={cn("w-[200px] justify-between bg-white text-black")}
+                >
+                  Select
+                  <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[200px] p-0">
+                <Command>
+                  <CommandList>
+                    <CommandInput placeholder="Search Sub Sub Category..." />
+                    <CommandEmpty>No Sub Sub Category found.</CommandEmpty>
+                    <CommandGroup>
+                      {formattedSubSubCat.map((subsubcat) => (
+                        <CommandItem
+                          key={subsubcat.value}
+                          onSelect={() => {
+                            addSelectedSubSubCat(subsubcat.value);
+                            setOpenSubSubCat(false);
+                          }}
+                          className="text-sm"
+                        >
+                          {subsubcat.label}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <div className="grid grid-cols-1 justify-between">
+              {allSelectedSubSubCategories?.map((subsubcategories) => (
+                  <div key={subsubcategories.name} className="flex items-center justify-between py-2 border-b px-2">
+                    <div className="font-medium">{subsubcategories.name}</div>
+                    <div>
+                      <Button
+                        disabled={loading}
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => deleteSelectedSubSubCat(subsubcategories.id)}
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+
+        </div>
+        <div className="pt-4">
+          <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
             {action}
           </Button>
-    </form>
+        </div>
+      </form>
     </>
   );
 };

@@ -110,16 +110,16 @@ export const SubCategoryForm: React.FC<SubCategoryFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="md:grid md:grid-cols-3 gap-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+          <div className="grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-4 rounded-lg p-4 shadow-lg bg-white/50">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="font-bold text-base">Name</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Sub Category name" {...field} />
+                    <Input disabled={loading} placeholder="Sub Category name" {...field} className="bg-white text-black"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,9 +130,9 @@ export const SubCategoryForm: React.FC<SubCategoryFormProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel className="font-bold text-base">Description</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Sub Category description" {...field} />
+                    <Input disabled={loading} placeholder="Sub Category description" {...field} className="bg-white text-black"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -126,59 +126,59 @@ export const SpecForm: React.FC<SpecFormProps> = ({
         <Heading title={title} description={description} />
       </div>
       <Separator />
-        <form onSubmit={onSubmit} className="space-y-8 w-full">
-          <div className="md:grid md:grid-cols-3 gap-8">
+        <form onSubmit={onSubmit} className="space-y-4 w-full">
+          <div className="md:grid md:grid-cols-3 rounded-lg p-4 bg-white/50 gap-4">
             <div>
-            <Label htmlFor="diameter_speaker">Diameter speaker (inch/mm)</Label>
-            <Input disabled={loading} id="diameter_speaker" placeholder="Diameter Speaker" defaultValue={spec?.diameter_speaker? spec.diameter_speaker : ""} />
+            <Label htmlFor="diameter_speaker" className="font-bold text-base">Diameter speaker (inch/mm)</Label>
+            <Input disabled={loading} id="diameter_speaker" placeholder="Diameter Speaker" className="text-black bg-white" defaultValue={spec?.diameter_speaker? spec.diameter_speaker : ""} />
             </div>
             <div>
-            <Label htmlFor="daya_maksimum">Daya maksimum (Watt)</Label>
-            <Input disabled={loading} id="daya_maksimum" placeholder="Daya maksimum" defaultValue={spec?.daya_maksimum? spec.daya_maksimum : ""} />
+            <Label htmlFor="daya_maksimum" className="font-bold text-base">Daya maksimum (Watt)</Label>
+            <Input disabled={loading} id="daya_maksimum" placeholder="Daya maksimum" className="text-black bg-white" defaultValue={spec?.daya_maksimum? spec.daya_maksimum : ""} />
             </div>
             <div>
-            <Label htmlFor="lebar_daerah_frekuensi">Lebar daerah frekuensi (Hz)</Label>
-            <Input disabled={loading} id="lebar_daerah_frekuensi" placeholder="Lebar daerah frekuensi" defaultValue={spec?.lebar_daerah_frekuensi? spec.lebar_daerah_frekuensi : ""} />
+            <Label htmlFor="lebar_daerah_frekuensi" className="font-bold text-base">Lebar daerah frekuensi (Hz)</Label>
+            <Input disabled={loading} id="lebar_daerah_frekuensi" placeholder="Lebar daerah frekuensi" className="text-black bg-white" defaultValue={spec?.lebar_daerah_frekuensi? spec.lebar_daerah_frekuensi : ""} />
             </div>
             <div>
-            <Label htmlFor="spl">SPL (2.83 V / 1 m) (dB)</Label>
-            <Input disabled={loading} id="spl" placeholder="SPL (2.83 V / 1 m)" defaultValue={spec?.spl? spec.spl : ""} />
+            <Label htmlFor="spl" className="font-bold text-base">SPL (2.83 V / 1 m) (dB)</Label>
+            <Input disabled={loading} id="spl" placeholder="SPL (2.83 V / 1 m)" className="text-black bg-white" defaultValue={spec?.spl? spec.spl : ""} />
             </div>
             <div>
-            <Label htmlFor="medan_magnet">Medan magnet (T)</Label>
-            <Input disabled={loading} id="medan_magnet" placeholder="Medan magnet" defaultValue={spec?.medan_magnet? spec.medan_magnet : ""} />
+            <Label htmlFor="medan_magnet" className="font-bold text-base">Medan magnet (T)</Label>
+            <Input disabled={loading} id="medan_magnet" placeholder="Medan magnet" className="text-black bg-white" defaultValue={spec?.medan_magnet? spec.medan_magnet : ""} />
             </div>
             <div>
-            <Label htmlFor="berat_magnet">Berat magnet (Kg/Oz)</Label>
-            <Input disabled={loading} id="berat_magnet" placeholder="Berat magnet" defaultValue={spec?.berat_magnet? spec.berat_magnet : ""} />
+            <Label htmlFor="berat_magnet" className="font-bold text-base">Berat magnet (Kg/Oz)</Label>
+            <Input disabled={loading} id="berat_magnet" placeholder="Berat magnet" className="text-black bg-white" defaultValue={spec?.berat_magnet? spec.berat_magnet : ""} />
             </div>
             <div>
-            <Label htmlFor="voice_coil_diameter">Voice coil diameter (mm)</Label>
-            <Input disabled={loading} id="voice_coil_diameter" placeholder="Voice coil diameter" defaultValue={spec?.voice_coil_diameter? spec.voice_coil_diameter : ""} />
+            <Label htmlFor="voice_coil_diameter" className="font-bold text-base">Voice coil diameter (mm)</Label>
+            <Input disabled={loading} id="voice_coil_diameter" placeholder="Voice coil diameter" className="text-black bg-white" defaultValue={spec?.voice_coil_diameter? spec.voice_coil_diameter : ""} />
             </div>
             <div>
-            <Label htmlFor="impedansi">Impedansi (Ω)</Label>
-            <Input disabled={loading} id="impedansi" placeholder="Impedansi" defaultValue={spec?.impedansi? spec.impedansi : ""} />
+            <Label htmlFor="impedansi" className="font-bold text-base">Impedansi (Ω)</Label>
+            <Input disabled={loading} id="impedansi" placeholder="Impedansi" className="text-black bg-white" defaultValue={spec?.impedansi? spec.impedansi : ""} />
             </div>
             <div>
-            <Label htmlFor="nominal_power_handling">Nominal power handling (Watt)</Label>
-            <Input disabled={loading} id="nominal_power_handling" placeholder="Nominal power handling" defaultValue={spec?.nominal_power_handling? spec.nominal_power_handling : ""} />
+            <Label htmlFor="nominal_power_handling" className="font-bold text-base">Nominal power handling (Watt)</Label>
+            <Input disabled={loading} id="nominal_power_handling" placeholder="Nominal power handling" className="text-black bg-white" defaultValue={spec?.nominal_power_handling? spec.nominal_power_handling : ""} />
             </div>
             <div>
-            <Label htmlFor="program_power">Program power (Watt)</Label>
-            <Input disabled={loading} id="program_power" placeholder="Program power" defaultValue={spec?.program_power? spec.program_power : ""} />
+            <Label htmlFor="program_power" className="font-bold text-base">Program power (Watt)</Label>
+            <Input disabled={loading} id="program_power" placeholder="Program power" className="text-black bg-white" defaultValue={spec?.program_power? spec.program_power : ""} />
             </div>
             <div>
-            <Label htmlFor="voice_coil_material">Voice coil material</Label>
-            <Input disabled={loading} id="voice_coil_material" placeholder="Voice coil material" defaultValue={spec?.voice_coil_material? spec.voice_coil_material : ""} />
+            <Label htmlFor="voice_coil_material" className="font-bold text-base">Voice coil material</Label>
+            <Input disabled={loading} id="voice_coil_material" placeholder="Voice coil material" className="text-black bg-white" defaultValue={spec?.voice_coil_material? spec.voice_coil_material : ""} />
             </div>
             <div>
-            <Label htmlFor="berat_speaker">Berat speaker (system) (Kg)</Label>
-            <Input disabled={loading} id="berat_speaker" placeholder="Berat speaker" defaultValue={spec?.berat_speaker? spec.berat_speaker : ""} />
+            <Label htmlFor="berat_speaker" className="font-bold text-base">Berat speaker (system) (Kg)</Label>
+            <Input disabled={loading} id="berat_speaker" placeholder="Berat speaker" className="text-black bg-white" defaultValue={spec?.berat_speaker? spec.berat_speaker : ""} />
             </div>
             <div>
-            <Label htmlFor="custom_note">Custom Note (akan ditampilkan dibawah tabel)</Label>
-            <Input disabled={loading} id="custom_note" placeholder="custom note" defaultValue={spec?.custom_note? spec.custom_note : ""} />
+            <Label htmlFor="custom_note" className="font-bold text-base">Custom Note (akan ditampilkan dibawah tabel)</Label>
+            <Input disabled={loading} id="custom_note" placeholder="custom note" className="text-black bg-white" defaultValue={spec?.custom_note? spec.custom_note : ""} />
             </div>
             </div>
           <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>

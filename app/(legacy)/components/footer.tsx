@@ -91,7 +91,7 @@ export default function Footer() {
               </div>
             </div>
             <h4 className="text-xs text-white pb-1 font-light  sm:block hidden">
-              Showroom Jakarta: Ruko Glodok Plaza, Blok F-97 Mangga Besar - Jakarta Barat
+              Showroom Jakarta: Ruko Glodok Plaza F-97, Jl. Raya Pinangsia 1, Glodok, Tamansari, Jakarta Barat
             </h4>
             <h4 className="text-xs text-white pb-1 font-light  sm:block hidden">
               Showroom Surabaya: Jl. Genteng Besar No. 15A - Genteng, Surabaya

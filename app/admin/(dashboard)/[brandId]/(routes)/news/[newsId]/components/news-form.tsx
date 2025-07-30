@@ -27,7 +27,7 @@ import { Textarea } from "@/app/admin/components/ui/textarea"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/app/admin/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/admin/components/ui/popover"
-import { Bold, CalendarIcon, Heading1, Heading4, Heading5, Heading6, Italic, List, ListOrdered, Strikethrough, Link as LinkLucide, Unlink as UnlinkLucide } from "lucide-react"
+import { Bold, CalendarIcon, Heading1, Heading4, Heading5, Heading6, Italic, List, ListOrdered, Strikethrough, Link as LinkLucide, Unlink as UnlinkLucide, Redo, Undo, UnderlineIcon, ImageIcon, YoutubeIcon, TableIcon, ArrowDown, ArrowUp, ArrowLeft, ArrowRight, GripVertical, Trash2, GripHorizontal, Plus, Trash } from "lucide-react"
 import { format } from "date-fns"
 import { Toggle } from "@/app/admin/components/ui/toggle"
 import { Heading2 } from "lucide-react"
@@ -39,7 +39,16 @@ import ImageTiptap from '@tiptap/extension-image';
 import LinkTiptap from '@tiptap/extension-link'
 import BulletList from '@tiptap/extension-bullet-list'
 import OrderedList from '@tiptap/extension-ordered-list'
+import Placeholder from "@tiptap/extension-placeholder"
+import Youtube from "@tiptap/extension-youtube"
+import { Table } from "@tiptap/extension-table"
+import TableRow from "@tiptap/extension-table-row"
+import TableCell from "@tiptap/extension-table-cell"
+import TableHeader from "@tiptap/extension-table-header"
+import Underline from "@tiptap/extension-underline"
 import './styles.scss'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/app/admin/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
 
 const formSchema = z.object({
@@ -70,6 +79,10 @@ export const NewsForm: React.FC<NewsFormProps> = ({
   const [newsImage, setNewsImage] = useState<News_Image>()
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File>();
+  const [linkUrl, setLinkUrl] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
+  const [youtubeUrl, setYoutubeUrl] = useState("")
+  const [tableSize, setTableSize] = useState({ rows: 3, cols: 3 })
 
   const title = initialData ? 'Edit News' : 'Add News';
   const description_title = `Add or Change This News`;
@@ -237,10 +250,10 @@ export const NewsForm: React.FC<NewsFormProps> = ({
       immediatelyRender: false,
       extensions: [
         StarterKit,
+        Underline,
         HeadingTiptap.configure({
           levels: [1, 2, 3, 4, 5, 6],
         }),
-        ImageTiptap,
         BulletList,
         OrderedList,
         LinkTiptap.configure({
@@ -303,17 +316,63 @@ export const NewsForm: React.FC<NewsFormProps> = ({
           },
   
         }),
+        ImageTiptap.configure({
+          HTMLAttributes: {
+            class: "max-w-full rounded-md my-4",
+          },
+        }),
+        Youtube.configure({
+          width: 640,
+          height: 480,
+          HTMLAttributes: {
+            class: "my-4 rounded overflow-hidden",
+          },
+        }),
+        Placeholder.configure({
+          placeholder: "Write something...",
+        }),
+        Table.configure({
+          resizable: true,
+          HTMLAttributes: {
+            class: "border-collapse table-auto w-full my-4",
+          },
+        }),
+        TableRow,
+        TableHeader,
+        TableCell.configure({
+          HTMLAttributes: {
+            class: "border border-gray-300 p-2",
+          },
+        }),
       ],
       editorProps: {
         attributes: {
-          class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none',
+          class: "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-none min-h-[200px] max-w-none",
         },
       },
-      content: initialData?.description ? initialData.description : '<p>Start editing...</p>',
+      content: initialData?.description ? initialData.description : '<p>Start editing...</p><p></p><p></p><p></p><p></p><p></p>',
     });
   
-    
+    const addLink = () => {
+      if (linkUrl) {
+        editor!.chain().focus().extendMarkRange("link").setLink({ href: linkUrl }).run()
+        setLinkUrl("")
+      } else {
+        editor!.chain().focus().extendMarkRange("link").unsetLink().run()
+      }
+    }
+
+    const addYoutubeVideo = () => {
+      if (youtubeUrl) {
+        editor!.chain().focus().setYoutubeVideo({ src: youtubeUrl }).run()
+        setYoutubeUrl("")
+      }
+    }
   
+    const insertTable = () => {
+      editor!.chain().focus().insertTable({ rows: tableSize.rows, cols: tableSize.cols, withHeaderRow: true }).run()
+    }
+    
     const setLink = useCallback(() => {
       const previousUrl = editor!.getAttributes('link').href
       const url = window.prompt('URL', previousUrl)
@@ -389,112 +448,88 @@ export const NewsForm: React.FC<NewsFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="space-y-2">
-            <div
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* <div
               className="flex items-center justify-between rounded-md shadow-sm"
-            >
-              <div className="flex items-center space-x-4">
+            > */}
+              <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+                <div className="text-left font-bold pb-2">Cover Image</div>
+                <div className="flex items-center space-x-4 justify-between">
+                  {newsImage && newsImage.url !== '' && (
+                    <Image alt={title} src={newsImage.url} width={200} height={200} className="w-52 h-fit" priority/>
+                  )}
+                  {newsImage && newsImage.url === '' && (
+                    <Input
+                      id={`file`}
+                      type="file"
+                      accept="image/*"
+                      name="file"
+                      onChange={(e) =>
+                        e.target.files && handleFileChange(e) // Ensure your file upload function can handle image files
+                      }
+                      disabled={loading}
+                      className="border border-gray-300 p-2 rounded-md bg-white"
+                    />
+                  )}
                 {newsImage && newsImage.url !== '' && (
-                  <Image alt={title} src={newsImage.url} width={200} height={200} className="w-52 h-fit" priority/>
+                  <div
+                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                    onClick={() => deleteImage()}
+                  >
+                    <Trash width={20} height={20} />
+                  </div>
                 )}
-                <Input
-                  id={`file`}
-                  type="file"
-                  accept="image/*"
-                  name="file"
-                  onChange={(e) =>
-                    e.target.files && handleFileChange(e) // Ensure your file upload function can handle image files
-                  }
-                  disabled={loading}
-                  className="border border-gray-300 p-2 rounded-md"
-                />
-              </div>
-              {newsImage && newsImage.url !== '' && (
-                <div
-                  className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                  onClick={() => deleteImage()}
-                >
-                  Delete Image
                 </div>
-              )}
-            </div>
+              </div>
+            
+            
+              <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4 items-center w-full">
+                <div className="pb-2">
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold text-base pb-2">Title</FormLabel>
+                        <FormControl>
+                          <Input disabled={loading} placeholder="News Title" {...field} className="bg-white text-black"/>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <Label className="block p-0 font-bold text-base pb-2">Publication Date</Label>
+                <Popover>
+                  <PopoverTrigger asChild className="flex">
+                    <Button
+                      variant={"outline"}
+                    >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            {/* </div> */}
+
+            
           </div>
-           <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} placeholder="News Title" {...field}/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem className=" hidden">
-                  <FormLabel>Content (HTML format)</FormLabel>
-                  <FormControl>
-                    <Textarea disabled={loading} placeholder="Enter news content in HTML format" className="min-h-[200px]" {...field} value={'-'} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-             <FormField
-              control={form.control}
-              name="link_url"
-              render={({ field }) => (
-                <FormItem className=" hidden">
-                  <FormLabel>Link URL</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} placeholder="Enter Link Here" {...field} value={'-'}/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-             <FormField
-              control={form.control}
-              name="link_placeholder"
-              render={({ field }) => (
-                <FormItem className=" hidden">
-                  <FormLabel>Placeholder For Your Link</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} placeholder="Add a Placeholder For Your Link" {...field} value={'-'}/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Label className="block p-0">Publication Date</Label>
-            <Popover>
-              <PopoverTrigger asChild className="flex">
-                <Button
-                  variant={"outline"}
-                >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                />
-              </PopoverContent>
-            </Popover>
+         
 
 
-            <div>
+            <div className="rounded-lg p-4 shadow-lg gap-4 bg-white/50">
+              <div className="font-bold mb-2">Content</div>
               {/* Toolbar */}
-              <div className="flex gap-2 mb-4 flex-wrap">
+              <div className="flex gap-2 mb-4 flex-wrap text-black">
                 <Toggle
                   pressed={editor.isActive('bold')}
                   onClick={() => editor.chain().focus().toggleBold().run()}
@@ -506,6 +541,12 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                   onClick={() => editor.chain().focus().toggleItalic().run()}
                 >
                   <Italic className="w-4 h-4" />
+                </Toggle>
+                <Toggle
+                  pressed={editor.isActive('underline')}
+                  onClick={() => editor.chain().focus().toggleUnderline().run()}
+                >
+                  <UnderlineIcon className="w-4 h-4" />
                 </Toggle>
                 <Toggle
                   pressed={editor.isActive('strike')}
@@ -539,34 +580,238 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                     {level === 6 && <Heading6 className="w-4 h-4" />}
                   </Toggle>
                 ))}
-                 
-                 <Toggle
-                  pressed={editor.isActive('link')}
-                  onClick={setLink}
-                >
-                    <LinkLucide className="w-4 h-4" />
-                </Toggle>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Toggle
+                      pressed={editor.isActive('link')}
+                    >
+                      <LinkLucide className="w-4 h-4" />
+                    </Toggle>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <div className="flex flex-col space-y-2">
+                      <p className="text-sm text-muted-foreground">Add a link</p>
+                      <div className="flex space-x-2">
+                        <Input placeholder="https://example.com" value={linkUrl} onChange={(e) => setLinkUrl(e.target.value)} />
+                        <Button onClick={addLink}>Add</Button>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>                
                 <Toggle
                   pressed={!editor.isActive('link')}
                   onClick={() => editor.chain().focus().unsetLink().run()}
                 >
                     <UnlinkLucide className="w-4 h-4" />
                 </Toggle>
-              </div>
-                
-                <Input  
-                  id={`file`}
-                  type="file"
-                  accept="image/*"
-                  name="file"
-                  onChange={(e) =>
-                    e.target.files && handleFileChangeTiptap(e)
-                  }
-                  className="border border-gray-300 p-2 rounded-md"
-                />
 
-              <EditorContent editor={editor} className="border p-4"/>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" size="icon" className="hover:bg-white">
+                      <ImageIcon className="h-4 w-4" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <div className="flex flex-col space-y-4">
+                      <div>
+                        <p className="text-sm font-medium mb-2">Upload from device</p>
+                        <Input  
+                          id={`file`}
+                          type="file"
+                          accept="image/*"
+                          name="file"
+                          onChange={(e) =>
+                            e.target.files && handleFileChangeTiptap(e)
+                          }
+                          className="border border-gray-300 p-2 rounded-md"
+                        />
+                      </div>
+                      <div className="border-t pt-4">
+                        <p className="text-sm font-medium mb-2">Or add from URL</p>
+                        <div className="flex space-x-2">
+                          <Input
+                            placeholder="https://example.com/image.jpg"
+                            value={imageUrl}
+                            onChange={(e) => setImageUrl(e.target.value)}
+                          />
+                          <Button onClick={() => addImage} variant={'secondary'}>Add</Button>
+                        </div>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" size="icon" className="hover:bg-white">
+                      <YoutubeIcon className="h-4 w-4" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <div className="flex flex-col space-y-2">
+                      <p className="text-sm text-muted-foreground">Add a YouTube video</p>
+                      <div className="flex space-x-2">
+                        <Input
+                          placeholder="https://youtube.com/watch?v=dQw4w9WgXcQ"
+                          value={youtubeUrl}
+                          onChange={(e) => setYoutubeUrl(e.target.value)}
+                        />
+                        <Button onClick={addYoutubeVideo} variant={'secondary'}>Add</Button>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+
+                {/* Table Controls */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className={cn(editor.isActive("table") ? "bg-muted hover:bg-white" : "hover:bg-white")}>
+                      <TableIcon className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-56">
+                    <div className="p-2">
+                      <p className="text-sm font-medium mb-2">Insert Table</p>
+                      <div className="flex items-center space-x-2 mb-2">
+                        <div className="flex items-center space-x-1">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-6 w-6"
+                            onClick={() => setTableSize({ ...tableSize, rows: Math.max(2, tableSize.rows - 1) })}
+                          >
+                            <ArrowDown className="h-3 w-3" />
+                          </Button>
+                          <span className="text-sm w-6 text-center">{tableSize.rows}</span>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-6 w-6"
+                            onClick={() => setTableSize({ ...tableSize, rows: Math.min(10, tableSize.rows + 1) })}
+                          >
+                            <ArrowUp className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <span className="text-sm">×</span>
+                        <div className="flex items-center space-x-1">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-6 w-6"
+                            onClick={() => setTableSize({ ...tableSize, cols: Math.max(2, tableSize.cols - 1) })}
+                          >
+                            <ArrowLeft className="h-3 w-3" />
+                          </Button>
+                          <span className="text-sm w-6 text-center">{tableSize.cols}</span>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-6 w-6"
+                            onClick={() => setTableSize({ ...tableSize, cols: Math.min(10, tableSize.cols + 1) })}
+                          >
+                            <ArrowRight className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                      <Button className="w-full" onClick={insertTable} variant={'secondary'}>
+                        Insert Table
+                      </Button>
+                    </div>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().addColumnBefore().run()}
+                      disabled={!editor.can().addColumnBefore()}
+                    >
+                      <GripVertical className="h-4 w-4 mr-2" />
+                      Add Column Before
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().addColumnAfter().run()}
+                      disabled={!editor.can().addColumnAfter()}
+                    >
+                      <GripVertical className="h-4 w-4 mr-2" />
+                      Add Column After
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().deleteColumn().run()}
+                      disabled={!editor.can().deleteColumn()}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Delete Column
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().addRowBefore().run()}
+                      disabled={!editor.can().addRowBefore()}
+                    >
+                      <GripHorizontal className="h-4 w-4 mr-2" />
+                      Add Row Before
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().addRowAfter().run()}
+                      disabled={!editor.can().addRowAfter()}
+                    >
+                      <GripHorizontal className="h-4 w-4 mr-2" />
+                      Add Row After
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().deleteRow().run()}
+                      disabled={!editor.can().deleteRow()}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Delete Row
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().deleteTable().run()}
+                      disabled={!editor.can().deleteTable()}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Delete Table
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().mergeCells().run()}
+                      disabled={!editor.can().mergeCells()}
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Merge Cells
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => editor.chain().focus().splitCell().run()}
+                      disabled={!editor.can().splitCell()}
+                    >
+                      <ArrowDown className="h-4 w-4 mr-2" />
+                      Split Cell
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <div className="ml-auto flex text-black gap-2">
+                  <div
+                    onClick={() => editor.chain().focus().undo().run()}
+                    // disabled={!editor.can().undo()}
+                    className={`p-4 ${!editor.can().undo() ? 'disabled' : 'hover:bg-secondary hover:cursor-pointer rounded-md duration-300 ease-in-out'}`}
+                  >
+                    <Undo className="h-4 w-4" />
+                  </div>
+                  <div
+                    onClick={() => editor.chain().focus().redo().run()}
+                    // disabled={!editor.can().redo()}
+                    className={`p-4 ${!editor.can().redo() ? 'disabled' : 'hover:bg-secondary hover:cursor-pointer rounded-md duration-300 ease-in-out'}`}
+                  >
+                    <Redo className="h-4 w-4" />
+                  </div>
+                </div>
+              </div>
+              <EditorContent editor={editor} className="border rounded-md text-black p-4"/>
             </div>
+
 
 
           <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>

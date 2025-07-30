@@ -107,16 +107,16 @@ export const SizeForm: React.FC<SizeFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="md:grid md:grid-cols-3 gap-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+          <div className="grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-4 rounded-lg p-4 shadow-lg bg-white/50">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="font-bold text-base">Name</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Size name" {...field} />
+                    <Input disabled={loading} placeholder="Size name" {...field} className="text-black bg-white"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -127,9 +127,9 @@ export const SizeForm: React.FC<SizeFormProps> = ({
               name="value"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Value</FormLabel>
+                  <FormLabel className="font-bold text-base">Value</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Size value" {...field} />
+                    <Input disabled={loading} placeholder="Size value" {...field} className="text-black bg-white"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

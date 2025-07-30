@@ -212,55 +212,55 @@ export const ThieleSpecForm: React.FC<ThieleSpecFormProps> = ({
       <Separator />
         <form onSubmit={onSubmit} className="space-y-8 w-full">
           <div>
-            {need4Ohm? <div className="text-3xl pb-4">Thiele Small Parameters 2 Ω</div>: <></>}
-          <div className="md:grid md:grid-cols-3 gap-8">
+            {need4Ohm? <div className="text-2xl pb-4 font-bold">Thiele Small Parameters 2 Ω</div>: <></>}
+          <div className="md:grid md:grid-cols-3 rounded-lg p-4 bg-white/50 gap-4">
             <div>
-            <Label htmlFor="fs">Frekuensi Resonansi / Fs (Hz)</Label>
-            <Input disabled={loading} id="fs" placeholder="fs value" defaultValue={thiele2?.fs? thiele2.fs : ""} />
+            <Label htmlFor="fs" className="font-bold text-base">Frekuensi Resonansi / Fs (Hz)</Label>
+            <Input disabled={loading} id="fs" placeholder="fs value" defaultValue={thiele2?.fs? thiele2.fs : ""} className="text-black bg-white"/>
             </div>
             <div>
-            <Label htmlFor="dcr">DCR (Ω)</Label>
-            <Input disabled={loading} id="dcr" placeholder="dcr value" defaultValue={thiele2?.dcr? thiele2.dcr : ""} />
+            <Label htmlFor="dcr" className="font-bold text-base">DCR (Ω)</Label>
+            <Input disabled={loading} id="dcr" placeholder="dcr value" defaultValue={thiele2?.dcr? thiele2.dcr : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="qts">Qts</Label>
-            <Input disabled={loading} id="qts" placeholder="qts value" defaultValue={thiele2?.qts? thiele2.qts : ""} />
+            <Label htmlFor="qts" className="font-bold text-base">Qts</Label>
+            <Input disabled={loading} id="qts" placeholder="qts value" defaultValue={thiele2?.qts? thiele2.qts : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="qes">Qes</Label>
-            <Input disabled={loading} id="qes" placeholder="qes value" defaultValue={thiele2?.qes? thiele2.qes : ""} />
+            <Label htmlFor="qes" className="font-bold text-base">Qes</Label>
+            <Input disabled={loading} id="qes" placeholder="qes value" defaultValue={thiele2?.qes? thiele2.qes : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="qms">Qms</Label>
-            <Input disabled={loading} id="qms" placeholder="qms value" defaultValue={thiele2?.qms? thiele2.qms : ""} />
+            <Label htmlFor="qms" className="font-bold text-base">Qms</Label>
+            <Input disabled={loading} id="qms" placeholder="qms value" defaultValue={thiele2?.qms? thiele2.qms : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="mms">Mms (g)</Label>
-            <Input disabled={loading} id="mms" placeholder="mms value" defaultValue={thiele2?.mms? thiele2.mms : ""} />
+            <Label htmlFor="mms" className="font-bold text-base">Mms (g)</Label>
+            <Input disabled={loading} id="mms" placeholder="mms value" defaultValue={thiele2?.mms? thiele2.mms : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="cms">Cms (mm/N)</Label>
-            <Input disabled={loading} id="cms" placeholder="cms value" defaultValue={thiele2?.cms? thiele2.cms : ""} />
+            <Label htmlFor="cms" className="font-bold text-base">Cms (mm/N)</Label>
+            <Input disabled={loading} id="cms" placeholder="cms value" defaultValue={thiele2?.cms? thiele2.cms : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="bl_product">BL Product (Tm)</Label>
-            <Input disabled={loading} id="bl_product" placeholder="bl_product value" defaultValue={thiele2?.bl_product? thiele2.bl_product : ""} />
+            <Label htmlFor="bl_product" className="font-bold text-base">BL Product (Tm)</Label>
+            <Input disabled={loading} id="bl_product" placeholder="bl_product value" defaultValue={thiele2?.bl_product? thiele2.bl_product : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="vas">Vas (liters)</Label>
-            <Input disabled={loading} id="vas" placeholder="vas value" defaultValue={thiele2?.vas? thiele2.vas : ""} />
+            <Label htmlFor="vas" className="font-bold text-base">Vas (liters)</Label>
+            <Input disabled={loading} id="vas" placeholder="vas value" defaultValue={thiele2?.vas? thiele2.vas : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="no">No (%)</Label>
-            <Input disabled={loading} id="no" placeholder="no value" defaultValue={thiele2?.no? thiele2.no : ""} />
+            <Label htmlFor="no" className="font-bold text-base">No (%)</Label>
+            <Input disabled={loading} id="no" placeholder="no value" defaultValue={thiele2?.no? thiele2.no : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="sd">Sd (cm2)</Label>
-            <Input disabled={loading} id="sd" placeholder="sd value" defaultValue={thiele2?.sd? thiele2.sd : ""} />
+            <Label htmlFor="sd" className="font-bold text-base">Sd (cm2)</Label>
+            <Input disabled={loading} id="sd" placeholder="sd value" defaultValue={thiele2?.sd? thiele2.sd : ""} className="text-black bg-white" />
             </div>
             <div>
-            <Label htmlFor="x_max">x_max (mm)</Label>
-            <Input disabled={loading} id="x_max" placeholder="x_max value" defaultValue={thiele2?.x_max? thiele2.x_max : ""} />
+            <Label htmlFor="x_max" className="font-bold text-base">x_max (mm)</Label>
+            <Input disabled={loading} id="x_max" placeholder="x_max value" defaultValue={thiele2?.x_max? thiele2.x_max : ""} className="text-black bg-white" />
             </div>
             </div>
           </div>
@@ -270,55 +270,55 @@ export const ThieleSpecForm: React.FC<ThieleSpecFormProps> = ({
           </div>
           <div className={`${need4Ohm ? 'block' : 'hidden'}`}>
             <div>
-              <div className="text-3xl pb-4">Thiele Small Parameters 4 Ω</div>
-            <div className="md:grid md:grid-cols-3 gap-8">
+              <div className="text-2xl font-bold pb-4">Thiele Small Parameters 4 Ω</div>
+            <div className="md:grid md:grid-cols-3 rounded-lg p-4 bg-white/50 gap-4">
               <div>
-              <Label htmlFor="fs">Frekuensi Resonansi / Fs (Hz)</Label>
-              <Input disabled={loading} id="fs" placeholder="fs value" defaultValue={thiele4?.fs? thiele4.fs : ""} />
+              <Label htmlFor="fs" className="font-bold text-base">Frekuensi Resonansi / Fs (Hz)</Label>
+              <Input disabled={loading} id="fs" placeholder="fs value" defaultValue={thiele4?.fs? thiele4.fs : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="dcr">DCR (Ω)</Label>
-              <Input disabled={loading} id="dcr" placeholder="dcr value" defaultValue={thiele4?.dcr? thiele4.dcr : ""} />
+              <Label htmlFor="dcr" className="font-bold text-base">DCR (Ω)</Label>
+              <Input disabled={loading} id="dcr" placeholder="dcr value" defaultValue={thiele4?.dcr? thiele4.dcr : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="qts">Qts</Label>
-              <Input disabled={loading} id="qts" placeholder="qts value" defaultValue={thiele4?.qts? thiele4.qts : ""} />
+              <Label htmlFor="qts" className="font-bold text-base">Qts</Label>
+              <Input disabled={loading} id="qts" placeholder="qts value" defaultValue={thiele4?.qts? thiele4.qts : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="qes">Qes</Label>
-              <Input disabled={loading} id="qes" placeholder="qes value" defaultValue={thiele4?.qes? thiele4.qes : ""} />
+              <Label htmlFor="qes" className="font-bold text-base">Qes</Label>
+              <Input disabled={loading} id="qes" placeholder="qes value" defaultValue={thiele4?.qes? thiele4.qes : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="qms">Qms</Label>
-              <Input disabled={loading} id="qms" placeholder="qms value" defaultValue={thiele4?.qms? thiele4.qms : ""} />
+              <Label htmlFor="qms" className="font-bold text-base">Qms</Label>
+              <Input disabled={loading} id="qms" placeholder="qms value" defaultValue={thiele4?.qms? thiele4.qms : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="mms">Mms (g)</Label>
-              <Input disabled={loading} id="mms" placeholder="mms value" defaultValue={thiele4?.mms? thiele4.mms : ""} />
+              <Label htmlFor="mms" className="font-bold text-base">Mms (g)</Label>
+              <Input disabled={loading} id="mms" placeholder="mms value" defaultValue={thiele4?.mms? thiele4.mms : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="cms">Cms (mm/N)</Label>
-              <Input disabled={loading} id="cms" placeholder="cms value" defaultValue={thiele4?.cms? thiele4.cms : ""} />
+              <Label htmlFor="cms" className="font-bold text-base">Cms (mm/N)</Label>
+              <Input disabled={loading} id="cms" placeholder="cms value" defaultValue={thiele4?.cms? thiele4.cms : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="bl_product">BL Product (Tm)</Label>
-              <Input disabled={loading} id="bl_product" placeholder="bl_product value" defaultValue={thiele4?.bl_product? thiele4.bl_product : ""} />
+              <Label htmlFor="bl_product" className="font-bold text-base">BL Product (Tm)</Label>
+              <Input disabled={loading} id="bl_product" placeholder="bl_product value" defaultValue={thiele4?.bl_product? thiele4.bl_product : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="vas">Vas (liters)</Label>
-              <Input disabled={loading} id="vas" placeholder="vas value" defaultValue={thiele4?.vas? thiele4.vas : ""} />
+              <Label htmlFor="vas" className="font-bold text-base">Vas (liters)</Label>
+              <Input disabled={loading} id="vas" placeholder="vas value" defaultValue={thiele4?.vas? thiele4.vas : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="no">No (%)</Label>
-              <Input disabled={loading} id="no" placeholder="no value" defaultValue={thiele4?.no? thiele4.no : ""} />
+              <Label htmlFor="no" className="font-bold text-base">No (%)</Label>
+              <Input disabled={loading} id="no" placeholder="no value" defaultValue={thiele4?.no? thiele4.no : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="sd">Sd (cm2)</Label>
-              <Input disabled={loading} id="sd" placeholder="sd value" defaultValue={thiele4?.sd? thiele4.sd : ""} />
+              <Label htmlFor="sd" className="font-bold text-base">Sd (cm2)</Label>
+              <Input disabled={loading} id="sd" placeholder="sd value" defaultValue={thiele4?.sd? thiele4.sd : ""} className="text-black bg-white" />
               </div>
               <div>
-              <Label htmlFor="x_max">x_max (mm)</Label>
-              <Input disabled={loading} id="x_max" placeholder="x_max value" defaultValue={thiele4?.x_max? thiele4.x_max : ""} />
+              <Label htmlFor="x_max" className="font-bold text-base">x_max (mm)</Label>
+              <Input disabled={loading} id="x_max" placeholder="x_max value" defaultValue={thiele4?.x_max? thiele4.x_max : ""} className="text-black bg-white" />
               </div>
               </div>
             </div>
