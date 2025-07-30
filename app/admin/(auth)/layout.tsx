@@ -7,7 +7,7 @@ export default function AuthLayout({
 <div className="relative h-full w-full">
   <div className="absolute inset-0 bg-[url('/images/admin/login_bg.webp')] bg-cover bg-center"></div>
 
-  <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-primary"></div>
+  <div className="absolute inset-0 bg-linear-to-r from-white/0 to-primary"></div>
 
   <div className="relative z-10 flex items-center justify-center h-full w-full">
     {children}

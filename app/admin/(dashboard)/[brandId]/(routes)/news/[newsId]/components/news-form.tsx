@@ -24,7 +24,6 @@ import { Heading } from "@/app/admin/components/ui/heading"
 import Image from "next/image"
 import { uploadNewsImage } from "@/app/admin/upload-news-image"
 import { Textarea } from "@/app/admin/components/ui/textarea"
-import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/app/admin/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/admin/components/ui/popover"
 import { Bold, CalendarIcon, Heading1, Heading4, Heading5, Heading6, Italic, List, ListOrdered, Strikethrough, Link as LinkLucide, Unlink as UnlinkLucide, Redo, Undo, UnderlineIcon, ImageIcon, YoutubeIcon, TableIcon, ArrowDown, ArrowUp, ArrowLeft, ArrowRight, GripVertical, Trash2, GripHorizontal, Plus, Trash } from "lucide-react"
@@ -49,6 +48,7 @@ import Underline from "@tiptap/extension-underline"
 import './styles.scss'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/app/admin/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
 
 
 const formSchema = z.object({
@@ -347,7 +347,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
       ],
       editorProps: {
         attributes: {
-          class: "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-none min-h-[200px] max-w-none",
+          class: "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-hidden min-h-[200px] max-w-none",
         },
       },
       content: initialData?.description ? initialData.description : '<p>Start editing...</p><p></p><p></p><p></p><p></p><p></p>',
@@ -451,7 +451,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* <div
-              className="flex items-center justify-between rounded-md shadow-sm"
+              className="flex items-center justify-between rounded-md shadow-xs"
             > */}
               <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
                 <div className="text-left font-bold pb-2">Cover Image</div>

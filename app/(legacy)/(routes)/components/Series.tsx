@@ -41,12 +41,12 @@ const Series: React.FC = () => {
                 alt={series.alt}
                 width={1000}
                 height={1000}
-                className="object-cover aspect-[4/3] lg:w-1/2 sm:w-1/4 w-7/12 h-full order-2"
+                className="object-cover aspect-4/3 lg:w-1/2 sm:w-1/4 w-7/12 h-full order-2"
                 placeholder="blur"
                 priority
                 blurDataURL="data:image/webp;base64,[base64-encoded-string]"
               />
-              <div className="p-4 flex-grow flex flex-col order-1">
+              <div className="p-4 grow flex flex-col order-1">
                 <h3 className="font-bold lg:text-4xl md:text-2xl text-xl text-secondary text-left">
                   {series.title}
                 </h3>

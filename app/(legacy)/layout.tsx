@@ -14,7 +14,7 @@ export default function RootlegacyLayout({
         <Navbar />
       </div>
       <div className="flex flex-col min-h-screen">
-        <main className="flex-grow">
+        <main className="grow">
           {children}
         </main>
         <Footer />

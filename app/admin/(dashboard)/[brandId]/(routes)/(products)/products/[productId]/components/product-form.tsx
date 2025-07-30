@@ -627,7 +627,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             </div>
             <div className="space-y-2 p-2">
                 <div
-                  className="flex items-center justify-between rounded-md shadow-sm"
+                  className="flex items-center justify-between rounded-md shadow-xs"
                 >
                   {coverImgUrl && (coverImgUrl!.url !== undefined && coverImgUrl.url !== '') ?
                   <>
@@ -727,7 +727,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             </div>
             <div className="space-y-2 p-2">
                 <div
-                  className="flex items-center justify-between rounded-md shadow-sm"
+                  className="flex items-center justify-between rounded-md shadow-xs"
                 >
                   <div className="flex items-center space-x-4">
                     {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
@@ -771,7 +771,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             </div>
             <div className="space-y-2 p-2">
                 <div
-                  className="flex items-center justify-between rounded-md shadow-sm"
+                  className="flex items-center justify-between rounded-md shadow-xs"
                 >
                   <div className="flex items-center space-x-4">
                     {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
@@ -815,7 +815,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             </div>
             <div className="space-y-2 p-2">
                 <div
-                  className="flex items-center justify-between rounded-md shadow-sm"
+                  className="flex items-center justify-between rounded-md shadow-xs"
                 >
                   <div className="flex items-center space-x-4">
                     {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
@@ -870,7 +870,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               <div className="space-y-2 rounded-lg shadow-md p-2" key={index}>
                 <div
                   key={value.id}
-                  className="flex items-center justify-between rounded-md shadow-sm"
+                  className="flex items-center justify-between rounded-md shadow-xs"
                 >
                   <div className="flex items-center space-x-4">
                     {value.url !== '' && (
@@ -932,7 +932,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               <div className="space-y-2 shadow-md rounded-lg p-2" key={index}>
                 <div
                   key={value.id}
-                  className="flex items-center justify-between rounded-md shadow-sm"
+                  className="flex items-center justify-between rounded-md shadow-xs"
                 >
                   <div className="flex items-center space-x-4">
                     {value.url !== '' && (

@@ -75,7 +75,7 @@ export default function SearchBoxMain() {
   
     return(
         searchBoxOpen && 
-        <div className="fixed top-0 left-0 w-screen h-screen bg-background/80 backdrop-blur-sm z-[101] p-8">
+        <div className="fixed top-0 left-0 w-screen h-screen bg-background/80 backdrop-blur-xs z-101 p-8">
         <Button
             onClick={() => {setSearchBoxOpen(false), setactiveSearch('')}}
             className="absolute right-0 top-0 p-2 text-foreground/60 hover:text-foreground transition-colors bg-transparent hover:bg-transparent pr-8 pt-12"

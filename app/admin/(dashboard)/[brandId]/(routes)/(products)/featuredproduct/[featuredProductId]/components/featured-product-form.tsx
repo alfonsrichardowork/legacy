@@ -207,7 +207,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
             <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
               <div className="text-left font-bold pb-2">Cover Image | <Link href={'/images/admin/cover_image_featured_prod_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline font-normal text-sm">Check placement</Link></div>
               <div
-                className="flex items-center justify-between rounded-md shadow-sm"
+                className="flex items-center justify-between rounded-md shadow-xs"
               >
                 <div className="flex items-center space-x-4">
                   {featuredImage && featuredImage.url !== '' && (
