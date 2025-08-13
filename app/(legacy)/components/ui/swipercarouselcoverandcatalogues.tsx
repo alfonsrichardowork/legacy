@@ -67,7 +67,6 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
             const real = indexAttr ? parseInt(indexAttr) : 0;
             setRealIndex(real);
           }}
-          centeredSlides={true}
           navigation={true}
           modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper2 h-full flex items-center"

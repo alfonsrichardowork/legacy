@@ -49,7 +49,9 @@ export async function POST(
         input_level,
         power_input,
         box_type ,
-        productId: params.productId
+        productId: params.productId,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     });
 

@@ -52,7 +52,9 @@ export async function POST(
         sensitivity,
         magnetic_flux_density,
         magnet_weight,
-        productId: params.productId
+        productId: params.productId,
+        updatedAt: new Date(),
+        createdAt: new Date()
       }
     });
 

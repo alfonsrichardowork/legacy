@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
 import { Featured_Image } from '@prisma/client';
+import path from 'path';
+import fs from 'fs/promises';
 
 export async function GET(
   req: Request,
@@ -67,6 +69,90 @@ export async function PATCH(
       return NextResponse.json("unauthorized");
     }    
 
+
+
+    //FEATURED_IMAGE
+    const featuredImageOld = await prismadb.featured_Image.findMany({
+      where: {
+        productId: params.featuredProductId,
+      },
+    });
+    let finalfoundFeaturedImage : Featured_Image[] = []
+    featuredImageOld.forEach((val) => {
+      const found = featured_img.find((value: Featured_Image) => value.url === val.url);
+      
+      if (found && !finalfoundFeaturedImage.some((item) => item.url === found.url)) {
+        finalfoundFeaturedImage.push(found);
+      }
+    });
+    //DELETE FeaturedImage
+    //Delete physical files
+    for (const featuredImg of featuredImageOld) {
+      const isInFinal = finalfoundFeaturedImage.some((item) => item.url === featuredImg.url);
+      if (isInFinal) continue;
+
+      if (featuredImg.url) {
+        const featuredImgPath = path.join(process.cwd(), 'public', featuredImg.url);
+
+        try {
+          await fs.unlink(featuredImgPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${featuredImg.url}:`, error);
+        }
+      }
+    }
+    //Delete oldFeaturedImage records
+    await prismadb.featured_Image.deleteMany({
+      where: {
+        productId: params.featuredProductId,
+        url: {
+          notIn: finalfoundFeaturedImage.map((val) => val.url),
+        },
+      },
+    });
+    if (featured_img.length !== 0) {
+      const creations = featured_img.map(async (value: Featured_Image) => {
+        if(value !== null && value !== undefined){
+          const alreadyInDB = finalfoundFeaturedImage.some((val) => val.url === value.url);
+          if (!alreadyInDB && value.url !== '') {
+            await prismadb.featured_Image.create({
+              data: {
+                productId: params.featuredProductId,
+                url: value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            });
+          }
+        }
+      });
+
+      await Promise.all(creations);
+    }
+
+
+    if (!isFeatured) {
+      //Delete physical files
+      for (const featuredImg of featuredImageOld) {
+        if (featuredImg.url) {
+          const featuredImgPath = path.join(process.cwd(), 'public', featuredImg.url);
+
+          try {
+            await fs.unlink(featuredImgPath);
+          } catch (error) {
+            console.warn(`Could not delete file when isFeatured is false - ${featuredImg.url}:`, error);
+          }
+        }
+      }
+      //Delete oldFeaturedImage records
+      await prismadb.featured_Image.deleteMany({
+        where: {
+          productId: params.featuredProductId
+        },
+      });
+    }
+
+
     await prismadb.product.update({
       where: {
         id: params.featuredProductId
@@ -76,26 +162,9 @@ export async function PATCH(
         featuredDesc,
         updatedAt: new Date(),
         updatedBy: session.name,
-        featured_img:{
-          deleteMany: {},
-        }
       },
     })
-
-    if(featured_img.length!=0){
-      featured_img.map(async (value: Featured_Image) => {
-        if(value.url!=''){
-          await prismadb.featured_Image.create({
-            data:{
-              productId: params.featuredProductId,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
+    
     return NextResponse.json("success");
   } catch (error) {
     console.log('[FEATURED_PRODUCT_PATCH]', error);

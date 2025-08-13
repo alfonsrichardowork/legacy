@@ -21,7 +21,7 @@ const getAllProductsJsonld = async (): Promise<Products[]> => {
     redirect('/');
   }
   for (let i = 0; i < data.length; i++) {
-    if(data[i].name !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
+    // if(data[i].name !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
     //Voice Coil Diameter
     //Size
     if(data[i].size!=null){
@@ -103,7 +103,7 @@ const getAllProductsJsonld = async (): Promise<Products[]> => {
       allProducts.push(product)
     }
   }
-}
+// }
   return allProducts;
 };
 

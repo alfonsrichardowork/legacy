@@ -239,8 +239,26 @@ const SingleProduct = async (
                 </>
             )
         )}
-        {data.name === '10" LG 1040 & 12" LG 1240' && 
-        <div className="w-full flex items-center justify-center font-bold text-background md:h-96 h-20 text-3xl" >
+        {data && 
+        (data.desc === '-' || data.desc === '') && 
+        data.specification &&
+          (data.specification.diameter_speaker === '' &&
+          data.specification.daya_maksimum === '' &&
+          data.specification.lebar_daerah_frekuensi === '' &&
+          data.specification.spl === '' &&
+          data.specification.medan_magnet === '' &&
+          data.specification.berat_magnet === '' &&
+          data.specification.voice_coil_diameter === '' &&
+          data.specification.impedansi === '' &&
+          data.specification.nominal_power_handling === '' &&
+          data.specification.program_power === '' &&
+          data.specification.voice_coil_material === '' &&
+          data.specification.berat_speaker === '' &&
+          data.specification.custom_note === '') && 
+        data.tweeter_specification! &&
+        data.active_subwoofer_specification! &&
+        data.thiele_small_parameters_specification2! &&
+            <div className="w-full flex items-center justify-center font-bold text-background md:h-96 h-20 text-3xl" >
             Coming Soon!
         </div>}
     </div>

@@ -225,10 +225,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       let updatedDatasheet = [...allDatasheet];
       try {
         const uploadPromises = file.map(async (value, index) => {
-          const formData = new FormData();
-          formData.append('file', value);
-          const url = await uploadProductDatasheet(formData);
-          updatedDatasheet[Number(index)].url = url;
+          if(value){
+            const formData = new FormData();
+            formData.append('file', value);
+            const url = await uploadProductDatasheet(formData);
+            updatedDatasheet[index].url = url;
+          }
         });
         await Promise.all(uploadPromises);
         return updatedDatasheet;
@@ -261,21 +263,20 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   async function handleCoverImageUpload(file: File): Promise<Cover_Image> {
     if (file) {
-      let temp: Cover_Image = {
+      let updatedCoverImage = coverImgUrl ?? {
         id: Math.random().toString(),
-        //@ts-ignore
-        productId: params.productId,
+        productId: params.productId?.toString() ?? '',
         url: '',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      };
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadCoverImage(formData);
-        temp.url = url;
-        return temp;
+        updatedCoverImage.url = url;
+        return updatedCoverImage;
       } catch (error) {
         console.error("Error uploading cover image:", error);
         let temp: Cover_Image = {
@@ -321,21 +322,20 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   async function handleDrawingImageUpload(file: File): Promise<Drawing_Image> {
     if (file) {
-      let temp: Drawing_Image = {
+      let updatedDrawingImage = drawingImgUrl ?? {
         id: Math.random().toString(),
-        //@ts-ignore
-        productId: params.productId,
+        productId: params.productId?.toString() ?? '',
         url: '',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      };
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadDrawingImage(formData);
-        temp.url = url;
-        return temp;
+        updatedDrawingImage.url = url;
+        return updatedDrawingImage;
       } catch (error) {
         console.error("Error uploading drawing image:", error);
         let temp: Drawing_Image = {
@@ -381,23 +381,30 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   async function handleFrequencyResponseImageUpload(file: File): Promise<Graph_Image> {
     if (file) {
-      let temp: Graph_Image = {
+      let updatedFrequencyResponseImage = freqResponseUrl ?? {
         id: Math.random().toString(),
-        //@ts-ignore
-        productId: params.productId,
+        productId: params.productId?.toString() ?? '',
         url: '',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      };
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadFrequencyResponseImage(formData);
-        temp.url = url;
-        return temp!;
+        updatedFrequencyResponseImage.url = url;
+        return updatedFrequencyResponseImage!;
       } catch (error) {
         console.error("Error uploading frequency response image:", error);
+        let temp: Graph_Image = {
+          id: Math.random().toString(),
+          //@ts-ignore
+          productId: params.productId,
+          url: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
         return temp;
       }
     }
@@ -435,23 +442,30 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   async function handleImpedanceImageUpload(file: File): Promise<Impedance_Image> {
     if (file) {
-      let temp: Impedance_Image = {
+      let updatedImpedanceImage = impedanceUrl ?? {
         id: Math.random().toString(),
-        //@ts-ignore
-        productId: params.productId,
+        productId: params.productId?.toString() ?? '',
         url: '',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      };
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadImpedanceImage(formData);
-        temp.url = url;
-        return temp!;
+        updatedImpedanceImage.url = url;
+        return updatedImpedanceImage;
       } catch (error) {
         console.error("Error uploading impedance image:", error);
+        let temp: Graph_Image = {
+          id: Math.random().toString(),
+          //@ts-ignore
+          productId: params.productId,
+          url: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
         return temp;
       }
     }
@@ -499,10 +513,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       let updatedImageCatalogues = [...imgCataloguesUrl];
       try {
         const uploadPromises = file.map(async (value, index) => {
-          const formData = new FormData();
-          formData.append('image', value);
-          const url = await uploadImageCatalogues(formData);
-          updatedImageCatalogues[Number(index)].url = url;
+          if (value) {
+            const formData = new FormData();
+            formData.append('image', value);
+            const url = await uploadImageCatalogues(formData);
+            updatedImageCatalogues[Number(index)].url = url;
+          }
         });
         await Promise.all(uploadPromises);
         return updatedImageCatalogues;
@@ -553,7 +569,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       }
 
       if (impedanceImg) {
-        data.impedance_img[0] = await handleFrequencyResponseImageUpload(impedanceImg)
+        data.impedance_img[0] = await handleImpedanceImageUpload(impedanceImg)
       }
       else{
         data.impedance_img[0] = impedanceUrl!
@@ -904,6 +920,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         updatedImageCatalogues[index].name = e.target.value;
                         setImgCataloguesUrl(updatedImageCatalogues);
                       }}
+                      required
                       className="border text-black bg-white p-2 rounded-md w-48"
                     />
                   </div>
@@ -1002,7 +1019,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     <FormDescription className="text-black">
                       This product will appear on the homepage slideshow. To be displayed, add the backgorund image through the <b>Featured Products</b> menu. <Link href={'/images/admin/featured_prod_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline">Check placement</Link>
                     </FormDescription>
-                    {/* <div className="text-xs font-semibold">Note: To be displayed, you need to add the backgorund image through the &quot;Featured Products&quot; menu.</div> */}
                   </div>
                 </FormItem>
               )}
@@ -1063,7 +1079,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       This will appear in hero section. <Link href={'/images/admin/single_prod_series_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline">Check placement</Link>
                     </FormDescription>
                   <FormControl>
-                    <Input disabled={loading} placeholder="What Series" {...field} className="bg-white text-black"/>
+                    <Input disabled={loading || !form.watch("isFeatured") } placeholder="What Series" {...field} className="bg-white text-black"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

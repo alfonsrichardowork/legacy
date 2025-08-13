@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
 import { Cover_Image, Drawing_Image, Graph_Image, Image_Catalogues, Impedance_Image, multipleDatasheetProduct } from "@prisma/client";
+import path from 'path';
+import fs from 'fs/promises';
 
 const slugify = (str: string): string => {
   const normalizedStr = str.replace(/["“”‟″‶〃״˝ʺ˶ˮײ]/g, "'");
@@ -68,6 +70,228 @@ export async function DELETE(
       return NextResponse.json("unauthorized");
     }    
 
+    //DELETE
+
+    //DELETE COVER IMAGE
+    const coverImages = await prismadb.cover_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete physical files
+    for (const image of coverImages) {
+      if (image.url) {
+        const imagePath = path.join(process.cwd(), 'public', image.url);
+
+        try {
+          await fs.unlink(imagePath);
+        } catch (error) {
+          console.warn(`Could not delete file ${image.url}:`, error);
+        }
+      }
+    }
+    //Delete cover_Image records
+    await prismadb.cover_Image.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+
+    
+    //DELETE DRAWING IMAGE
+    const drawingImages = await prismadb.drawing_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete physical files
+    for (const image of drawingImages) {
+      if (image.url) {
+        const imagePath = path.join(process.cwd(), 'public', image.url);
+
+        try {
+          await fs.unlink(imagePath);
+        } catch (error) {
+          console.warn(`Could not delete file ${image.url}:`, error);
+        }
+      }
+    }
+    //Delete drawing_Image records
+    await prismadb.drawing_Image.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+
+
+    //DELETE FEATURED IMAGE
+    const featuredImages = await prismadb.featured_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete physical files
+    for (const image of featuredImages) {
+      if (image.url) {
+        const imagePath = path.join(process.cwd(), 'public', image.url);
+
+        try {
+          await fs.unlink(imagePath);
+        } catch (error) {
+          console.warn(`Could not delete file ${image.url}:`, error);
+        }
+      }
+    }
+    //Delete featured_Image records
+    await prismadb.featured_Image.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    
+
+    //DELETE GRAPH IMAGE
+    const graphImages = await prismadb.graph_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete physical files
+    for (const image of graphImages) {
+      if (image.url) {
+        const imagePath = path.join(process.cwd(), 'public', image.url);
+
+        try {
+          await fs.unlink(imagePath);
+        } catch (error) {
+          console.warn(`Could not delete file ${image.url}:`, error);
+        }
+      }
+    }
+    //Delete graph_Image records
+    await prismadb.graph_Image.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+
+
+    //DELETE IMPEDANCE IMAGE
+    const impedanceImages = await prismadb.impedance_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete physical files
+    for (const image of impedanceImages) {
+      if (image.url) {
+        const imagePath = path.join(process.cwd(), 'public', image.url);
+
+        try {
+          await fs.unlink(imagePath);
+        } catch (error) {
+          console.warn(`Could not delete file ${image.url}:`, error);
+        }
+      }
+    }
+    //Delete impedance_Image records
+    await prismadb.impedance_Image.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    
+
+    //DELETE IMAGE CATALOGUES
+    const cataloguesImages = await prismadb.image_Catalogues.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete physical files
+    for (const image of cataloguesImages) {
+      if (image.url) {
+        const imagePath = path.join(process.cwd(), 'public', image.url);
+
+        try {
+          await fs.unlink(imagePath);
+        } catch (error) {
+          console.warn(`Could not delete file ${image.url}:`, error);
+        }
+      }
+    }
+    //Delete Image_catalogues records
+    await prismadb.image_Catalogues.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+
+
+    //DELETE MULTIPLE DATASHEET
+    const multipleDatasheet = await prismadb.multipleDatasheetProduct.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete physical files
+    for (const pdf of multipleDatasheet) {
+      if (pdf.url) {
+        const pdfPath = path.join(process.cwd(), 'public', pdf.url);
+
+        try {
+          await fs.unlink(pdfPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${pdf.url}:`, error);
+        }
+      }
+    }
+    //Delete multipleDatasheetProduct records
+    await prismadb.multipleDatasheetProduct.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+
+
+
+    //Delete allproductcategory
+    await prismadb.allProductCategory.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete thielesmallparameters4ohm
+    await prismadb.thieleSmallParameters4Ohm.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete tweeterspecification
+    await prismadb.tweeterSpecification.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete activesubwooferspecification
+    await prismadb.activeSubwooferSpecification.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete specification
+    await prismadb.specification.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    //Delete thielesmallparameters2ohm
+    await prismadb.thieleSmallParameters2Ohm.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+
     const product = await prismadb.product.delete({
       where: {
         id: params.productId
@@ -127,6 +351,413 @@ export async function PATCH(
 
     if(initial){
       if(initial.name ===  name){
+
+
+        //IMAGE CATALOGUES
+        const cataloguesImages = await prismadb.image_Catalogues.findMany({
+          where: {
+            productId: params.productId,
+          },
+        });
+        let finalfound : Image_Catalogues[] = []
+        cataloguesImages.forEach((val) => {
+          const found = images_catalogues.find((value: Image_Catalogues) => value.url === val.url);
+          
+          if (found && !finalfound.some((item) => item.url === found.url)) {
+            finalfound.push(found);
+          }
+        });
+        //DELETE IMAGE CATALOGUES
+        //Delete physical files
+        for (const image of cataloguesImages) {
+          const isInFinal = finalfound.some((item) => item.url === image.url);
+          if (isInFinal) continue;
+
+          if (image.url) {
+            const imagePath = path.join(process.cwd(), 'public', image.url);
+
+            try {
+              await fs.unlink(imagePath);
+            } catch (error) {
+              console.warn(`Could not delete file ${image.url}:`, error);
+            }
+          }
+        }
+        //Delete Image_catalogues records
+        await prismadb.image_Catalogues.deleteMany({
+          where: {
+            productId: params.productId,
+            url: {
+              notIn: finalfound.map((val) => val.url),
+            },
+          },
+        });
+        if (images_catalogues.length !== 0) {
+          const creations = images_catalogues.map(async (value: Image_Catalogues) => {
+            if(value !== null && value !== undefined){
+              const alreadyInDB = finalfound.some((val) => val.url === value.url);
+              if (!alreadyInDB && value.url !== '') {
+                await prismadb.image_Catalogues.create({
+                  data: {
+                    productId: params.productId,
+                    url: value.url,
+                    name: value.name,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                  }
+                });
+              }
+              else{ //UPDATE NAME
+                const image_catalogues_Id = await prismadb.image_Catalogues.findFirst({
+                  where: {
+                    url: value.url,
+                    productId: params.productId
+                  },
+                  select: {
+                    id: true
+                  }
+                })
+                if (image_catalogues_Id) {
+                  await prismadb.image_Catalogues.update({
+                    where: {
+                      id: image_catalogues_Id.id
+                    },
+                    data: {
+                      name: value.name,
+                      updatedAt: new Date()
+                    },
+                  });
+                }
+              }
+            }
+          });
+
+          await Promise.all(creations);
+        }
+
+
+        //DATASHEET
+        const datasheetOld = await prismadb.multipleDatasheetProduct.findMany({
+          where: {
+            productId: params.productId,
+          },
+        });
+        let finalfoundDatasheet : multipleDatasheetProduct[] = []
+        datasheetOld.forEach((val) => {
+          const found = multipleDatasheetProduct.find((value: multipleDatasheetProduct) => value.url === val.url);
+          
+          if (found && !finalfoundDatasheet.some((item) => item.url === found.url)) {
+            finalfoundDatasheet.push(found);
+          }
+        });
+        //DELETE DATASHEET
+        //Delete physical files
+        for (const datasheet of datasheetOld) {
+          const isInFinal = finalfoundDatasheet.some((item) => item.url === datasheet.url);
+          if (isInFinal) continue;
+
+          if (datasheet.url) {
+            const datasheetPath = path.join(process.cwd(), 'public', datasheet.url);
+
+            try {
+              await fs.unlink(datasheetPath);
+            } catch (error) {
+              console.warn(`Could not delete file ${datasheet.url}:`, error);
+            }
+          }
+        }
+        //Delete oldDatasheet records
+        await prismadb.multipleDatasheetProduct.deleteMany({
+          where: {
+            productId: params.productId,
+            url: {
+              notIn: finalfoundDatasheet.map((val) => val.url),
+            },
+          },
+        });
+        if (multipleDatasheetProduct.length !== 0) {
+          const creations = multipleDatasheetProduct.map(async (value: multipleDatasheetProduct) => {
+            if(value !== null && value !== undefined){
+              const alreadyInDB = finalfoundDatasheet.some((val) => val.url === value.url);
+              if (!alreadyInDB && value.url !== '') {
+                await prismadb.multipleDatasheetProduct.create({
+                  data: {
+                    productId: params.productId,
+                    url: value.url,
+                    name: value.name,
+                  }
+                });
+              }
+              else{ //UPDATE NAME
+                const datasheet_Id = await prismadb.multipleDatasheetProduct.findFirst({
+                  where: {
+                    url: value.url,
+                    productId: params.productId
+                  },
+                  select: {
+                    id: true
+                  }
+                })
+                if (datasheet_Id) {
+                  await prismadb.multipleDatasheetProduct.update({
+                    where: {
+                      id: datasheet_Id.id
+                    },
+                    data: {
+                      name: value.name,
+                    },
+                  });
+                }
+              }
+            }
+          });
+
+          await Promise.all(creations);
+        }
+
+
+        //COVER_IMAGE
+        const coverImageOld = await prismadb.cover_Image.findMany({
+          where: {
+            productId: params.productId,
+          },
+        });
+        let finalfoundCoverImage : Cover_Image[] = []
+        coverImageOld.forEach((val) => {
+          const found = cover_img.find((value: Cover_Image) => value.url === val.url);
+          
+          if (found && !finalfoundCoverImage.some((item) => item.url === found.url)) {
+            finalfoundCoverImage.push(found);
+          }
+        });
+        //DELETE CoverImage
+        //Delete physical files
+        for (const coverImg of coverImageOld) {
+          const isInFinal = finalfoundCoverImage.some((item) => item.url === coverImg.url);
+          if (isInFinal) continue;
+
+          if (coverImg.url) {
+            const coverImgPath = path.join(process.cwd(), 'public', coverImg.url);
+
+            try {
+              await fs.unlink(coverImgPath);
+            } catch (error) {
+              console.warn(`Could not delete file ${coverImg.url}:`, error);
+            }
+          }
+        }
+        //Delete oldCoverImage records
+        await prismadb.cover_Image.deleteMany({
+          where: {
+            productId: params.productId,
+            url: {
+              notIn: finalfoundCoverImage.map((val) => val.url),
+            },
+          },
+        });
+        if (cover_img.length !== 0) {
+          const creations = cover_img.map(async (value: Cover_Image) => {
+            if(value !== null && value !== undefined){
+              const alreadyInDB = finalfoundCoverImage.some((val) => val.url === value.url);
+              if (!alreadyInDB && value.url !== '') {
+                await prismadb.cover_Image.create({
+                  data: {
+                    productId: params.productId,
+                    url: value.url,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                  }
+                });
+              }
+            }
+          });
+
+          await Promise.all(creations);
+        }
+
+
+        //DRAWING_IMAGE
+        const drawingImageOld = await prismadb.drawing_Image.findMany({
+          where: {
+            productId: params.productId,
+          },
+        });
+        let finalfoundDrawingImage : Drawing_Image[] = []
+        drawingImageOld.forEach((val) => {
+          const found = drawing_img.find((value: Drawing_Image) => value.url === val.url);
+          
+          if (found && !finalfoundDrawingImage.some((item) => item.url === found.url)) {
+            finalfoundDrawingImage.push(found);
+          }
+        });
+        //DELETE DrawingImage
+        //Delete physical files
+        for (const drawingImg of drawingImageOld) {
+          const isInFinal = finalfoundDrawingImage.some((item) => item.url === drawingImg.url);
+          if (isInFinal) continue;
+
+          if (drawingImg.url) {
+            const drawingImgPath = path.join(process.cwd(), 'public', drawingImg.url);
+
+            try {
+              await fs.unlink(drawingImgPath);
+            } catch (error) {
+              console.warn(`Could not delete file ${drawingImg.url}:`, error);
+            }
+          }
+        }
+        //Delete oldDrawingImage records
+        await prismadb.drawing_Image.deleteMany({
+          where: {
+            productId: params.productId,
+            url: {
+              notIn: finalfoundDrawingImage.map((val) => val.url),
+            },
+          },
+        });
+        if (drawing_img.length !== 0) {
+          const creations = drawing_img.map(async (value: Drawing_Image) => {
+            if(value !== null && value !== undefined){
+              const alreadyInDB = finalfoundDrawingImage.some((val) => val.url === value.url);
+              if (!alreadyInDB && value.url !== '') {
+                await prismadb.drawing_Image.create({
+                  data: {
+                    productId: params.productId,
+                    url: value.url,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                  }
+                });
+              }
+            }
+          });
+
+          await Promise.all(creations);
+        }
+
+
+        //GRAPH_IMAGE | FREQ RES IMAGE
+        const graphImageOld = await prismadb.graph_Image.findMany({
+          where: {
+            productId: params.productId,
+          },
+        });
+        let finalfoundGraphImage : Graph_Image[] = []
+        graphImageOld.forEach((val) => {
+          const found = graph_img.find((value: Graph_Image) => value.url === val.url);
+          
+          if (found && !finalfoundGraphImage.some((item) => item.url === found.url)) {
+            finalfoundGraphImage.push(found);
+          }
+        });
+        //DELETE GraphImage
+        //Delete physical files
+        for (const graphImg of graphImageOld) {
+          const isInFinal = finalfoundGraphImage.some((item) => item.url === graphImg.url);
+          if (isInFinal) continue;
+
+          if (graphImg.url) {
+            const graphImgPath = path.join(process.cwd(), 'public', graphImg.url);
+
+            try {
+              await fs.unlink(graphImgPath);
+            } catch (error) {
+              console.warn(`Could not delete file ${graphImg.url}:`, error);
+            }
+          }
+        }
+        //Delete oldGraphImage records
+        await prismadb.graph_Image.deleteMany({
+          where: {
+            productId: params.productId,
+            url: {
+              notIn: finalfoundGraphImage.map((val) => val.url),
+            },
+          },
+        });
+        if (graph_img.length !== 0) {
+          const creations = graph_img.map(async (value: Graph_Image) => {
+            if(value !== null && value !== undefined){
+              const alreadyInDB = finalfoundGraphImage.some((val) => val.url === value.url);
+              if (!alreadyInDB && value.url !== '') {
+                await prismadb.graph_Image.create({
+                  data: {
+                    productId: params.productId,
+                    url: value.url,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                  }
+                });
+              }
+            }
+          });
+
+          await Promise.all(creations);
+        }
+
+
+
+        //IMPEDANCE_IMAGE
+        const impedanceImageOld = await prismadb.impedance_Image.findMany({
+          where: {
+            productId: params.productId,
+          },
+        });
+        let finalfoundImpedanceImage : Impedance_Image[] = []
+        impedanceImageOld.forEach((val) => {
+          const found = impedance_img.find((value: Impedance_Image) => value.url === val.url);
+          
+          if (found && !finalfoundImpedanceImage.some((item) => item.url === found.url)) {
+            finalfoundImpedanceImage.push(found);
+          }
+        });
+        //DELETE impedanceImage
+        //Delete physical files
+        for (const impedanceImg of impedanceImageOld) {
+          const isInFinal = finalfoundImpedanceImage.some((item) => item.url === impedanceImg.url);
+          if (isInFinal) continue;
+
+          if (impedanceImg.url) {
+            const impedanceImgPath = path.join(process.cwd(), 'public', impedanceImg.url);
+
+            try {
+              await fs.unlink(impedanceImgPath);
+            } catch (error) {
+              console.warn(`Could not delete file ${impedanceImg.url}:`, error);
+            }
+          }
+        }
+        //Delete oldImpedanceImage records
+        await prismadb.impedance_Image.deleteMany({
+          where: {
+            productId: params.productId,
+            url: {
+              notIn: finalfoundImpedanceImage.map((val) => val.url),
+            },
+          },
+        });
+        if (impedance_img.length !== 0) {
+          const creations = impedance_img.map(async (value: Impedance_Image) => {
+            if(value !== null && value !== undefined){
+              const alreadyInDB = finalfoundImpedanceImage.some((val) => val.url === value.url);
+              if (!alreadyInDB && value.url !== '') {
+                await prismadb.impedance_Image.create({
+                  data: {
+                    productId: params.productId,
+                    url: value.url,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                  }
+                });
+              }
+            }
+          });
+
+          await Promise.all(creations);
+        }
+
+
+        // PRODUCT OVERALL
         await prismadb.product.update({
           where: {
             id: params.productId
@@ -141,117 +772,11 @@ export async function PATCH(
             sizeId,
             description: description,
             updatedBy: session.name,
-            images_catalogues: {
-              deleteMany: {},
-            },
-            cover_img:{
-              deleteMany: {},
-            },
-            drawing_img:{
-              deleteMany: {},
-            },
-            graph_img:{
-              deleteMany: {},
-            },
-            impedance_img:{
-              deleteMany: {},
-            },
-            multipleDatasheetProduct:{
-              deleteMany: {},
-            }
+            updatedAt: new Date()
           },
         });
         
-        if(images_catalogues.length!=0){
-          images_catalogues.map(async (value: Image_Catalogues) => {
-            if(value.url!=''){
-              await prismadb.image_Catalogues.create({
-                data:{
-                  productId: params.productId,
-                  url:value.url,
-                  name: value.name,
-                  createdAt: new Date(),
-                  updatedAt: new Date()
-                }
-              })
-            }
-          })
-        }
-
-        if(multipleDatasheetProduct.length!=0){
-          multipleDatasheetProduct.map(async (datasheet: multipleDatasheetProduct) => {
-            if(datasheet.url!=''){
-              await prismadb.multipleDatasheetProduct.create({
-                data:{
-                  productId: params.productId,
-                  url:datasheet.url,
-                  name: datasheet.name
-                }
-              })
-            }
-          })
-        }
-
-        if(cover_img.length!=0){
-          cover_img.map(async (value: Cover_Image) => {
-            if(value.url!=''){
-              await prismadb.cover_Image.create({
-                data:{
-                  productId: params.productId,
-                  url:value.url,
-                  createdAt: new Date(),
-                  updatedAt: new Date()
-                }
-              })
-            }
-          })
-        }
-
-        if(drawing_img.length!=0){
-          drawing_img.map(async (value: Drawing_Image) => {
-            if(value.url!=''){
-              await prismadb.drawing_Image.create({
-                data:{
-                  productId: params.productId,
-                  url:value.url,
-                  createdAt: new Date(),
-                  updatedAt: new Date()
-                }
-              })
-            }
-          })
-        }
-
-        if(graph_img.length!=0){
-          graph_img.map(async (value: Graph_Image) => {
-            if(value.url!=''){
-              await prismadb.graph_Image.create({
-                data:{
-                  productId: params.productId,
-                  url:value.url,
-                  createdAt: new Date(),
-                  updatedAt: new Date()
-                }
-              })
-            }
-          })
-        }
-
-        if(impedance_img.length!=0){
-          impedance_img.map(async (value: Impedance_Image) => {
-            if(value.url!=''){
-              await prismadb.impedance_Image.create({
-                data:{
-                  productId: params.productId,
-                  url:value.url,
-                  createdAt: new Date(),
-                  updatedAt: new Date()
-                }
-              })
-            }
-          })
-        }
-
+        
         return NextResponse.json("same")
       }
     }
@@ -266,6 +791,411 @@ export async function PATCH(
       return NextResponse.json("duplicate")
     }
 
+
+    //IMAGE CATALOGUES
+    const cataloguesImages = await prismadb.image_Catalogues.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    let finalfound : Image_Catalogues[] = []
+    cataloguesImages.forEach((val) => {
+      const found = images_catalogues.find((value: Image_Catalogues) => value.url === val.url);
+      
+      if (found && !finalfound.some((item) => item.url === found.url)) {
+        finalfound.push(found);
+      }
+    });
+    //DELETE IMAGE CATALOGUES
+    //Delete physical files
+    for (const image of cataloguesImages) {
+      const isInFinal = finalfound.some((item) => item.url === image.url);
+      if (isInFinal) continue;
+
+      if (image.url) {
+        const imagePath = path.join(process.cwd(), 'public', image.url);
+
+        try {
+          await fs.unlink(imagePath);
+        } catch (error) {
+          console.warn(`Could not delete file ${image.url}:`, error);
+        }
+      }
+    }
+    //Delete Image_catalogues records
+    await prismadb.image_Catalogues.deleteMany({
+      where: {
+        productId: params.productId,
+        url: {
+          notIn: finalfound.map((val) => val.url),
+        },
+      },
+    });
+    if (images_catalogues.length !== 0) {
+      const creations = images_catalogues.map(async (value: Image_Catalogues) => {
+        if(value !== null && value !== undefined){
+          const alreadyInDB = finalfound.some((val) => val.url === value.url);
+          if (!alreadyInDB && value.url !== '') {
+            await prismadb.image_Catalogues.create({
+              data: {
+                productId: params.productId,
+                url: value.url,
+                name: value.name,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            });
+          }
+          else{ //UPDATE NAME
+            const image_catalogues_Id = await prismadb.image_Catalogues.findFirst({
+              where: {
+                url: value.url,
+                productId: params.productId
+              },
+              select: {
+                id: true
+              }
+            })
+            if (image_catalogues_Id) {
+              await prismadb.image_Catalogues.update({
+                where: {
+                  id: image_catalogues_Id.id
+                },
+                data: {
+                  name: value.name,
+                  updatedAt: new Date()
+                },
+              });
+            }
+          }
+        }
+      });
+
+      await Promise.all(creations);
+    }
+
+
+    //DATASHEET
+    const datasheetOld = await prismadb.multipleDatasheetProduct.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    let finalfoundDatasheet : multipleDatasheetProduct[] = []
+    datasheetOld.forEach((val) => {
+      const found = multipleDatasheetProduct.find((value: multipleDatasheetProduct) => value.url === val.url);
+      
+      if (found && !finalfoundDatasheet.some((item) => item.url === found.url)) {
+        finalfoundDatasheet.push(found);
+      }
+    });
+    //DELETE DATASHEET
+    //Delete physical files
+    for (const datasheet of datasheetOld) {
+      const isInFinal = finalfoundDatasheet.some((item) => item.url === datasheet.url);
+      if (isInFinal) continue;
+
+      if (datasheet.url) {
+        const datasheetPath = path.join(process.cwd(), 'public', datasheet.url);
+
+        try {
+          await fs.unlink(datasheetPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${datasheet.url}:`, error);
+        }
+      }
+    }
+    //Delete oldDatasheet records
+    await prismadb.multipleDatasheetProduct.deleteMany({
+      where: {
+        productId: params.productId,
+        url: {
+          notIn: finalfoundDatasheet.map((val) => val.url),
+        },
+      },
+    });
+    if (multipleDatasheetProduct.length !== 0) {
+      const creations = multipleDatasheetProduct.map(async (value: multipleDatasheetProduct) => {
+        if(value !== null && value !== undefined){
+          const alreadyInDB = finalfoundDatasheet.some((val) => val.url === value.url);
+          if (!alreadyInDB && value.url !== '') {
+            await prismadb.multipleDatasheetProduct.create({
+              data: {
+                productId: params.productId,
+                url: value.url,
+                name: value.name,
+              }
+            });
+          }
+          else{ //UPDATE NAME
+            const datasheet_Id = await prismadb.multipleDatasheetProduct.findFirst({
+              where: {
+                url: value.url,
+                productId: params.productId
+              },
+              select: {
+                id: true
+              }
+            })
+            if (datasheet_Id) {
+              await prismadb.multipleDatasheetProduct.update({
+                where: {
+                  id: datasheet_Id.id
+                },
+                data: {
+                  name: value.name,
+                },
+              });
+            }
+          }
+        }
+      });
+
+      await Promise.all(creations);
+    }
+
+
+    //COVER_IMAGE
+    const coverImageOld = await prismadb.cover_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    let finalfoundCoverImage : Cover_Image[] = []
+    coverImageOld.forEach((val) => {
+      const found = cover_img.find((value: Cover_Image) => value.url === val.url);
+      
+      if (found && !finalfoundCoverImage.some((item) => item.url === found.url)) {
+        finalfoundCoverImage.push(found);
+      }
+    });
+    //DELETE CoverImage
+    //Delete physical files
+    for (const coverImg of coverImageOld) {
+      const isInFinal = finalfoundCoverImage.some((item) => item.url === coverImg.url);
+      if (isInFinal) continue;
+
+      if (coverImg.url) {
+        const coverImgPath = path.join(process.cwd(), 'public', coverImg.url);
+
+        try {
+          await fs.unlink(coverImgPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${coverImg.url}:`, error);
+        }
+      }
+    }
+    //Delete oldCoverImage records
+    await prismadb.cover_Image.deleteMany({
+      where: {
+        productId: params.productId,
+        url: {
+          notIn: finalfoundCoverImage.map((val) => val.url),
+        },
+      },
+    });
+    if (cover_img.length !== 0) {
+      const creations = cover_img.map(async (value: Cover_Image) => {
+        if(value !== null && value !== undefined){
+          const alreadyInDB = finalfoundCoverImage.some((val) => val.url === value.url);
+          if (!alreadyInDB && value.url !== '') {
+            await prismadb.cover_Image.create({
+              data: {
+                productId: params.productId,
+                url: value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            });
+          }
+        }
+      });
+
+      await Promise.all(creations);
+    }
+
+
+    //DRAWING_IMAGE
+    const drawingImageOld = await prismadb.drawing_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    let finalfoundDrawingImage : Drawing_Image[] = []
+    drawingImageOld.forEach((val) => {
+      const found = drawing_img.find((value: Drawing_Image) => value.url === val.url);
+      
+      if (found && !finalfoundDrawingImage.some((item) => item.url === found.url)) {
+        finalfoundDrawingImage.push(found);
+      }
+    });
+    //DELETE DrawingImage
+    //Delete physical files
+    for (const drawingImg of drawingImageOld) {
+      const isInFinal = finalfoundDrawingImage.some((item) => item.url === drawingImg.url);
+      if (isInFinal) continue;
+
+      if (drawingImg.url) {
+        const drawingImgPath = path.join(process.cwd(), 'public', drawingImg.url);
+
+        try {
+          await fs.unlink(drawingImgPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${drawingImg.url}:`, error);
+        }
+      }
+    }
+    //Delete oldDrawingImage records
+    await prismadb.drawing_Image.deleteMany({
+      where: {
+        productId: params.productId,
+        url: {
+          notIn: finalfoundDrawingImage.map((val) => val.url),
+        },
+      },
+    });
+    if (drawing_img.length !== 0) {
+      const creations = drawing_img.map(async (value: Drawing_Image) => {
+        if(value !== null && value !== undefined){
+          const alreadyInDB = finalfoundDrawingImage.some((val) => val.url === value.url);
+          if (!alreadyInDB && value.url !== '') {
+            await prismadb.drawing_Image.create({
+              data: {
+                productId: params.productId,
+                url: value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            });
+          }
+        }
+      });
+
+      await Promise.all(creations);
+    }
+
+
+    //GRAPH_IMAGE | FREQ RES IMAGE
+    const graphImageOld = await prismadb.graph_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    let finalfoundGraphImage : Graph_Image[] = []
+    graphImageOld.forEach((val) => {
+      const found = graph_img.find((value: Graph_Image) => value.url === val.url);
+      
+      if (found && !finalfoundGraphImage.some((item) => item.url === found.url)) {
+        finalfoundGraphImage.push(found);
+      }
+    });
+    //DELETE GraphImage
+    //Delete physical files
+    for (const graphImg of graphImageOld) {
+      const isInFinal = finalfoundGraphImage.some((item) => item.url === graphImg.url);
+      if (isInFinal) continue;
+
+      if (graphImg.url) {
+        const graphImgPath = path.join(process.cwd(), 'public', graphImg.url);
+
+        try {
+          await fs.unlink(graphImgPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${graphImg.url}:`, error);
+        }
+      }
+    }
+    //Delete oldGraphImage records
+    await prismadb.graph_Image.deleteMany({
+      where: {
+        productId: params.productId,
+        url: {
+          notIn: finalfoundGraphImage.map((val) => val.url),
+        },
+      },
+    });
+    if (graph_img.length !== 0) {
+      const creations = graph_img.map(async (value: Graph_Image) => {
+        if(value !== null && value !== undefined){
+          const alreadyInDB = finalfoundGraphImage.some((val) => val.url === value.url);
+          if (!alreadyInDB && value.url !== '') {
+            await prismadb.graph_Image.create({
+              data: {
+                productId: params.productId,
+                url: value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            });
+          }
+        }
+      });
+
+      await Promise.all(creations);
+    }
+
+
+
+    //IMPEDANCE_IMAGE
+    const impedanceImageOld = await prismadb.impedance_Image.findMany({
+      where: {
+        productId: params.productId,
+      },
+    });
+    let finalfoundImpedanceImage : Impedance_Image[] = []
+    impedanceImageOld.forEach((val) => {
+      const found = impedance_img.find((value: Impedance_Image) => value.url === val.url);
+      
+      if (found && !finalfoundImpedanceImage.some((item) => item.url === found.url)) {
+        finalfoundImpedanceImage.push(found);
+      }
+    });
+    //DELETE impedanceImage
+    //Delete physical files
+    for (const impedanceImg of impedanceImageOld) {
+      const isInFinal = finalfoundImpedanceImage.some((item) => item.url === impedanceImg.url);
+      if (isInFinal) continue;
+
+      if (impedanceImg.url) {
+        const impedanceImgPath = path.join(process.cwd(), 'public', impedanceImg.url);
+
+        try {
+          await fs.unlink(impedanceImgPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${impedanceImg.url}:`, error);
+        }
+      }
+    }
+    //Delete oldImpedanceImage records
+    await prismadb.impedance_Image.deleteMany({
+      where: {
+        productId: params.productId,
+        url: {
+          notIn: finalfoundImpedanceImage.map((val) => val.url),
+        },
+      },
+    });
+    if (impedance_img.length !== 0) {
+      const creations = impedance_img.map(async (value: Impedance_Image) => {
+        if(value !== null && value !== undefined){
+          const alreadyInDB = finalfoundImpedanceImage.some((val) => val.url === value.url);
+          if (!alreadyInDB && value.url !== '') {
+            await prismadb.impedance_Image.create({
+              data: {
+                productId: params.productId,
+                url: value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            });
+          }
+        }
+      });
+
+      await Promise.all(creations);
+    }
+
+
     await prismadb.product.update({
       where: {
         id: params.productId
@@ -279,116 +1209,11 @@ export async function PATCH(
         series,
         sizeId,
         description: description,
-        images_catalogues: {
-          deleteMany: {},
-        },
-        cover_img:{
-          deleteMany: {},
-        },
-        drawing_img:{
-          deleteMany: {},
-        },
-        graph_img:{
-          deleteMany: {},
-        },
-        impedance_img:{
-          deleteMany: {},
-        },
-        multipleDatasheetProduct:{
-          deleteMany: {},
-        }
+        updatedBy: session.name,
+        updatedAt: new Date()
       },
     });
 
-    if(images_catalogues.length!=0){
-      images_catalogues.map(async (value: Image_Catalogues) => {
-        if(value.url!=''){
-          await prismadb.image_Catalogues.create({
-            data:{
-              productId: params.productId,
-              url:value.url,
-              name: value.name,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(multipleDatasheetProduct.length!=0){
-      multipleDatasheetProduct.map(async (datasheet: multipleDatasheetProduct) => {
-        if(datasheet.url!=''){
-          await prismadb.multipleDatasheetProduct.create({
-            data:{
-              productId: params.productId,
-              url:datasheet.url,
-              name: datasheet.name
-            }
-          })
-        }
-      })
-    }
-
-    if(cover_img.url!=''){
-      cover_img.map(async (value: Cover_Image) => {
-        if(value.url!=''){
-          await prismadb.cover_Image.create({
-            data:{
-              productId: params.productId,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(drawing_img.length!=0){
-      drawing_img.map(async (value: Drawing_Image) => {
-        if(value.url!=''){
-          await prismadb.drawing_Image.create({
-            data:{
-              productId: params.productId,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(graph_img.length!=0){
-      graph_img.map(async (value: Graph_Image) => {
-        if(value.url!=''){
-          await prismadb.graph_Image.create({
-            data:{
-              productId: params.productId,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(impedance_img.length!=0){
-      impedance_img.map(async (value: Impedance_Image) => {
-        if(value.url!=''){
-          await prismadb.impedance_Image.create({
-            data:{
-              productId: params.productId,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
     return NextResponse.json("success");
   } catch (error) {
     console.log('[PRODUCT_PATCH]', error);

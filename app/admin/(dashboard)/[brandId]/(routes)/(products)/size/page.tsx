@@ -23,7 +23,7 @@ const SizePage = async (
       brandId: params.brandId
     },
     orderBy: {
-      createdAt: 'desc'
+      updatedAt: 'desc'
     }
   });
 

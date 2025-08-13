@@ -24,7 +24,7 @@ const CategoryPage = async (
       type: "Category"
     },
     orderBy: {
-      createdAt: 'desc'
+      updatedAt: 'desc'
     }
   });
 

@@ -18,7 +18,7 @@ const getAllNavbarContent = async (): Promise<NavbarProducts[]> => {
   }
   for (let i = 0; i < data.length; i++) {
     if(data[i].url.length>0){
-      if(data[i].productName !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
+      // if(data[i].productName !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
         let allNavbarCat: Array<NavbarCategory> = []
         for(let j = 0; j < data[i].categories.length; j++){
           let cat: NavbarCategory = {
@@ -35,7 +35,7 @@ const getAllNavbarContent = async (): Promise<NavbarProducts[]> => {
         }
         allNavbarProducts.push(product)
       }
-    }
+    // }
   }
 
   return allNavbarProducts;

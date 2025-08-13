@@ -83,7 +83,8 @@ export async function PATCH(
       vas,
       no,
       sd,
-      x_max
+      x_max,
+      updatedAt: new Date()
       }
     });
 

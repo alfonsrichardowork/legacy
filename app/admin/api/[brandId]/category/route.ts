@@ -57,6 +57,8 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
         type: type,
         slug: slugify(name),
         thumbnail_url:"",
+        createdAt: new Date(),
+        updatedAt: new Date(),
         updatedBy: session.name,
       }
     });

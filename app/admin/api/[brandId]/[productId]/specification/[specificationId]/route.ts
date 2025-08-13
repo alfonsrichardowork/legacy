@@ -81,7 +81,8 @@ export async function PATCH(
       program_power ,
       voice_coil_material ,
       berat_speaker ,
-      custom_note
+      custom_note,
+      updatedAt: new Date()
       }
     });
 

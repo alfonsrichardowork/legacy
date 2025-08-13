@@ -65,7 +65,8 @@ export async function DELETE(
 
     const subCategory = await prismadb.allCategory.delete({
       where: {
-        id: params.subCategoryId
+        id: params.subCategoryId,
+        brandId: params.brandId
       }
     });
   
@@ -113,7 +114,8 @@ export async function PATCH(
     
     const initial = await prismadb.allCategory.findFirst({
       where:{
-        id: params.subCategoryId
+        id: params.subCategoryId,
+        brandId: params.brandId
       },
       select:{
         name: true
@@ -132,6 +134,7 @@ export async function PATCH(
             slug: slugify(name),
             description: description,
             thumbnail_url: "",
+            updatedAt: new Date(),
             updatedBy: session.name,
           }
         });
@@ -143,6 +146,7 @@ export async function PATCH(
           },
           data:{
             name,
+            updatedAt: new Date(),
             slug: slugify(name)
           }
         })
@@ -153,7 +157,8 @@ export async function PATCH(
     const duplicates = await prismadb.allCategory.findFirst({
       where:{
         name,
-        type
+        type,
+        brandId: params.brandId
       }
     })
 
@@ -171,6 +176,7 @@ export async function PATCH(
         slug: slugify(name),
         description: description,
         thumbnail_url: "",
+        updatedAt: new Date(),
         updatedBy: session.name,
       }
     });
@@ -181,6 +187,7 @@ export async function PATCH(
       },
       data:{
         name,
+        updatedAt: new Date(),
         slug: slugify(name)
       }
     })

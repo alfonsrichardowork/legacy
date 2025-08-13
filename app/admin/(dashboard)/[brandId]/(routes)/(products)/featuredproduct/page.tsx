@@ -24,7 +24,7 @@ const FeaturedProductPage = async (
       brandId: params.brandId
     },
     orderBy: {
-      createdAt: 'desc'
+      updatedAt: 'desc'
     },
     include:{
       featured_img: true

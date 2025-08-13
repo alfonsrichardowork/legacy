@@ -31,7 +31,7 @@ export const ThieleSpecForm: React.FC<ThieleSpecFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [need4Ohm, setneed4Ohm] = useState(false);
 
-  const title = thiele2 ? 'Edit Thiele Small Parameters' : 'Create Thiele Small Parameters';
+  const title = thiele2 ? 'Edit Thiele Small Parameters (do not add units)' : 'Create Thiele Small Parameters (do not add units)';
   const description = `For ${product_name}`;
   const toastMessage = thiele2 ? 'Thiele Small Parameters updated.' : 'Thiele Small Parameters created.';
   const action = thiele2 ? 'Save changes' : 'Create';

@@ -24,7 +24,7 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
   return (
     <div className="relative top-0 left-0 w-full z-10 h-full">
         <Swiper
-          centeredSlides={true}
+          // centeredSlides={true}
           parallax={true}
           autoplay={{
               delay: 5000,

@@ -112,7 +112,8 @@ export async function PATCH(
 
     const initial = await prismadb.allCategory.findFirst({
       where:{
-        id: params.categoryId
+        id: params.categoryId,
+        brandId: params.brandId
       },
       select:{
         name: true
@@ -131,6 +132,7 @@ export async function PATCH(
             slug: slugify(name),
             description: description,
             thumbnail_url: "",
+            updatedAt: new Date(),
             updatedBy: session.name,
           }
         });
@@ -142,7 +144,8 @@ export async function PATCH(
           },
           data:{
             name,
-            slug: slugify(name)
+            slug: slugify(name),
+            updatedAt: new Date(),
           }
         })
         return NextResponse.json("same")
@@ -152,7 +155,8 @@ export async function PATCH(
     const duplicates = await prismadb.allCategory.findFirst({
       where:{
         name,
-        type
+        type,
+        brandId: params.brandId
       }
     })
 
@@ -170,6 +174,7 @@ export async function PATCH(
         slug: slugify(name),
         description: description,
         thumbnail_url: "",
+        updatedAt: new Date(),
         updatedBy: session.name,
       }
     });
@@ -181,6 +186,7 @@ export async function PATCH(
       },
       data:{
         name,
+        updatedAt: new Date(),
         slug: slugify(name)
       }
     })

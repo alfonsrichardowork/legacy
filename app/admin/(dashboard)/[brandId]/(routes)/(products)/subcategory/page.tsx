@@ -24,7 +24,7 @@ const SubCategoryPage = async (
       type: "Sub Category"
     },
     orderBy: {
-      createdAt: 'desc'
+      updatedAt: 'desc'
     }
   });
 

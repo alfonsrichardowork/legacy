@@ -67,7 +67,8 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
         specId: "0",
         updatedBy: session.name,
         brandId: params.brandId,
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
     });
 
@@ -178,7 +179,9 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
         voice_coil_material :'',
         berat_speaker :'',
         custom_note:'',
-        productId: product.id
+        productId: product.id,
+        updatedAt: new Date(),
+        createdAt: new Date()
       }
     });
 

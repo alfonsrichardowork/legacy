@@ -23,7 +23,7 @@ const getAllProductsBySubSubCategory = async (subcategory: string, subsubcategor
     redirect('/');
   }
   for (let i = 0; i < data.length; i++) {
-    if(data[i].name !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
+    // if(data[i].name !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
       //Voice Coil Diameter
       if(data[i].specification.voice_coil_diameter!=null){
         allVoiceCoilDiameter.push(Number(data[i].specification.voice_coil_diameter))
@@ -100,7 +100,7 @@ const getAllProductsBySubSubCategory = async (subcategory: string, subsubcategor
       }
       allProducts.push(product)
     }
-  }
+  // }
 
   let allProducts_Final : AllProductsForHome = {
     allProducts,

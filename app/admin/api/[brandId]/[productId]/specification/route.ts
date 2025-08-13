@@ -59,7 +59,9 @@ export async function POST(
         voice_coil_material ,
         berat_speaker ,
         custom_note,
-        productId: params.productId
+        productId: params.productId,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     });
 

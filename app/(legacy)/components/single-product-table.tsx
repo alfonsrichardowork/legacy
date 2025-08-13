@@ -11,12 +11,12 @@ function createData(
 
 export default function SingleProductTable(spec: Specifications, styling: string) {
   const rows = [
-    createData('Diameter Speaker', spec.diameter_speaker, ''),
-    createData('Daya maksimum', spec.daya_maksimum, ''),
-    createData('Lebar Daerah Frekuensi', spec.lebar_daerah_frekuensi, ''),
+    createData('Diameter Speaker', spec.diameter_speaker, 'inch'),
+    createData('Daya maksimum*', spec.daya_maksimum, 'Watt'),
+    createData('Lebar Daerah Frekuensi', spec.lebar_daerah_frekuensi, 'Hz'),
     createData('Sensitivity', spec.spl, 'dB'),
     createData('Medan Magnet', spec.medan_magnet, 'T'),
-    createData('Berat Magnet', spec.berat_magnet, ''),
+    createData('Berat Magnet', spec.berat_magnet, 'Kg'),
     createData('Diameter Voice Coil', spec.voice_coil_diameter, 'mm'),
     createData('Impedansi', spec.impedansi, 'Ω'),
     createData('Nominal Power Handling¹', spec.nominal_power_handling, 'Watt'),

@@ -51,15 +51,15 @@ export async function POST(
           type,
           name,
           slug,
-          createdAt,
-          updatedAt,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         }
       });
       allResults.push(allproductcategory);
       
     }
 
-    const updatedproduct = await prismadb.product.update({
+    await prismadb.product.update({
       where: {
         id : params.productId
       },
@@ -134,6 +134,16 @@ export async function DELETE(
         productId: params.productId
       }
     });
+    
+    await prismadb.product.update({
+      where: {
+        id : params.productId
+      },
+      data: {
+        updatedAt: new Date(),
+        updatedBy: session.name
+      }
+    });
   
     return NextResponse.json(allproductcategory);
   } catch (error) {
@@ -200,8 +210,8 @@ export async function PATCH(
           type,
           name,
           slug,
-          createdAt,
-          updatedAt
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       });
       allResults.push(allproductcategory);

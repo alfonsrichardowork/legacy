@@ -27,7 +27,7 @@ export const TweeterSpecForm: React.FC<TweeterSpecFormProps> = ({
 
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Edit Tweeter specification' : 'Create Tweeter specification';
+  const title = initialData ? 'Edit Tweeter specification (do not add units)' : 'Create Tweeter specification (do not add units)';
   const description = `For ${product_name}`;
   const toastMessage = initialData ? 'Tweeter Specification updated.' : 'Tweeter Specification created.';
   const action = initialData ? 'Save changes' : 'Create';

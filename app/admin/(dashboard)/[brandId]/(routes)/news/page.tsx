@@ -23,7 +23,7 @@ const NewsPage = async (
       brandId: params.brandId
     },
     orderBy: {
-      createdAt: 'desc'
+      event_date: 'desc'
     },
     include: {
       news_img: true

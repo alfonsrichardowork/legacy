@@ -59,7 +59,9 @@ export async function POST(
         no,
         sd,
         x_max,
-        productId: params.productId
+        productId: params.productId,
+        updatedAt: new Date(),
+        createdAt: new Date()
       }
     });
 

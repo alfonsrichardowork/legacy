@@ -77,7 +77,8 @@ export async function PATCH(
         air_gap_height,
         sensitivity,
         magnetic_flux_density,
-        magnet_weight
+        magnet_weight,
+        updatedAt: new Date()
       }
     });
 

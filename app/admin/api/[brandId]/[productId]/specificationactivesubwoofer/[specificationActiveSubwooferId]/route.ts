@@ -74,7 +74,8 @@ export async function PATCH(
         filter_lpf_variabel,
         input_level,
         power_input,
-        box_type 
+        box_type,
+        updatedAt: new Date(),
       }
     });
 

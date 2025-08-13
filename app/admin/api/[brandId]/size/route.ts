@@ -54,6 +54,8 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
         value,
         brandId: params.brandId,
         updatedBy: session.name,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     });
   

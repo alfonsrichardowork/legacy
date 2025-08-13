@@ -15,7 +15,7 @@ const getProductsForSearchbox = async (): Promise<Searchbox[]> => {
         redirect('/');
     }
     for (let i = 0; i < data.length; i++) {
-        if(data[i].label !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
+        // if(data[i].label !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
             if(data[i].url.length>0){
                 const normalizedStr = data[i].label.replace(/["“”‟″‶〃״˝ʺ˶ˮײ]/g, ' inch');
                 let combined_val = normalizedStr.concat(" ", data[i].value)
@@ -29,7 +29,7 @@ const getProductsForSearchbox = async (): Promise<Searchbox[]> => {
                 productForSearchbox.push(temp);
             }
         }
-    }
+    // }
     return productForSearchbox;
 };
 

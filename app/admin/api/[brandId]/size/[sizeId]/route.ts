@@ -101,7 +101,8 @@ export async function PATCH(
 
     const initial = await prismadb.size.findFirst({
       where:{
-        id: params.sizeId
+        id: params.sizeId,
+        brandId: params.brandId
       },
       select:{
         name: true
@@ -118,6 +119,7 @@ export async function PATCH(
             name,
             value,
             updatedBy: session.name,
+            updatedAt: new Date()
           }
         });
         return NextResponse.json("same")
@@ -127,6 +129,7 @@ export async function PATCH(
     const duplicates = await prismadb.size.findFirst({
       where:{
         name,
+        brandId: params.brandId
       }
     })
 
@@ -141,6 +144,7 @@ export async function PATCH(
       data: {
         name,
         value,
+        updatedAt: new Date(),
         updatedBy: session.name,
       }
     });

@@ -27,7 +27,7 @@ export const SpecForm: React.FC<SpecFormProps> = ({
 
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Edit specification' : 'Create specification';
+  const title = initialData ? 'Edit specification (do not add units)' : 'Create specification (do not add units)';
   const description = initialData ? `For ${product_name}` : 'Add a new specification';
   const toastMessage = initialData ? 'Specification updated.' : 'Specification created.';
   const action = initialData ? 'Save changes' : 'Create';
@@ -129,7 +129,7 @@ export const SpecForm: React.FC<SpecFormProps> = ({
         <form onSubmit={onSubmit} className="space-y-4 w-full">
           <div className="md:grid md:grid-cols-3 rounded-lg p-4 bg-white/50 gap-4">
             <div>
-            <Label htmlFor="diameter_speaker" className="font-bold text-base">Diameter speaker (inch/mm)</Label>
+            <Label htmlFor="diameter_speaker" className="font-bold text-base">Diameter speaker (inch)</Label>
             <Input disabled={loading} id="diameter_speaker" placeholder="Diameter Speaker" className="text-black bg-white" defaultValue={spec?.diameter_speaker? spec.diameter_speaker : ""} />
             </div>
             <div>
@@ -149,7 +149,7 @@ export const SpecForm: React.FC<SpecFormProps> = ({
             <Input disabled={loading} id="medan_magnet" placeholder="Medan magnet" className="text-black bg-white" defaultValue={spec?.medan_magnet? spec.medan_magnet : ""} />
             </div>
             <div>
-            <Label htmlFor="berat_magnet" className="font-bold text-base">Berat magnet (Kg/Oz)</Label>
+            <Label htmlFor="berat_magnet" className="font-bold text-base">Berat magnet (Kg)</Label>
             <Input disabled={loading} id="berat_magnet" placeholder="Berat magnet" className="text-black bg-white" defaultValue={spec?.berat_magnet? spec.berat_magnet : ""} />
             </div>
             <div>
