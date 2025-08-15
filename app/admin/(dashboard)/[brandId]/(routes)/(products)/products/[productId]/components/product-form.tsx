@@ -649,7 +649,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <>
                   <div className="flex items-center space-x-4">
                       <Image
-                      src={coverImgUrl!.url}
+                      src={coverImgUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${coverImgUrl.url}` : coverImgUrl.url}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}
@@ -748,7 +748,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <div className="flex items-center space-x-4">
                     {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
                       <Image
-                      src={drawingImgUrl!.url}
+                      src={drawingImgUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${drawingImgUrl.url}` : drawingImgUrl.url}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}
@@ -792,7 +792,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <div className="flex items-center space-x-4">
                     {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
                       <Image
-                      src={freqResponseUrl!.url}
+                      src={freqResponseUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${freqResponseUrl.url}` : freqResponseUrl.url}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}
@@ -836,7 +836,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <div className="flex items-center space-x-4">
                     {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
                       <Image
-                      src={impedanceUrl!.url}
+                      src={impedanceUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${impedanceUrl.url}` : impedanceUrl.url}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}
@@ -891,7 +891,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <div className="flex items-center space-x-4">
                     {value.url !== '' && (
                       <Image
-                      src={value.url}
+                      src={value.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.url}` : value.url}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}

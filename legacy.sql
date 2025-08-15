@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2025 at 09:31 AM
+-- Generation Time: Aug 15, 2025 at 09:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -262,7 +262,6 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 ('02bf5ca7-666e-4322-8b8f-d848879b634b', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/productcoverimage/1732254879382-12in LG-12385-2 SPARTA Collage.webp', '2025-07-30 01:07:25.662', '2025-07-30 01:07:25.662'),
 ('05b4f87f-ffb2-4d1b-87a8-ad16cbd38b66', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/productcoverimage/1733969592789-12in LG 1277-2.webp', '2024-12-13 00:50:52.327', '2024-12-13 00:50:52.327'),
 ('075b404e-bb96-4fcf-9a17-db978c493151', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productcoverimage/1732765167247-6.5in BST 1614 collage.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315'),
-('0a42abce-73c3-4800-8880-2d25ccf668f1', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productcoverimage/1732254648921-10in LG 1077-2 collage.webp', '2024-11-28 03:10:43.881', '2024-11-28 03:10:43.881'),
 ('1ebd2c38-d1e6-49c2-9b6a-536f22d0a38c', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '/uploads/productcoverimage/1732254591415-12in LG 1292-2 collage.webp', '2024-11-28 03:19:22.606', '2024-11-28 03:19:22.606'),
 ('240ea1fa-2dc2-4a8b-9106-6bc4024df138', '164c19d2-170f-4b48-958e-68ec335392f0', '/uploads/productcoverimage/1731894853776-5in-BST-522-Mk3-2way-Collage.webp', '2024-12-09 08:58:33.637', '2024-12-09 08:58:33.637'),
 ('31bc8f9a-84d3-46cb-bdb6-d17e423ce94b', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productcoverimage/1731894927170-6X9in-BST-6981-Mk1-collage.webp', '2024-12-09 08:57:24.171', '2024-12-09 08:57:24.171'),
@@ -285,6 +284,7 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 ('a558f64e-515a-491c-9cd2-a17a27b06199', '745f44c7-888c-4919-832c-99fb176ff0fa', '/uploads/productcoverimage/1731395194632-LG 138 front.webp', '2024-11-28 03:31:33.789', '2024-11-28 03:31:33.789'),
 ('a95b18ed-faf0-4b90-a720-9d4c34eb2bd0', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', '/uploads/productcoverimage/1731395912433-12in LG 1299 collage.webp', '2024-11-28 03:20:43.407', '2024-11-28 03:20:43.407'),
 ('abdeb293-723b-4557-86ae-f56c8d628c2c', '42802840-d898-46ea-8377-7e0a9b6a060f', '/uploads/productcoverimage/1731395570075-pg 1054 2 layout.webp', '2024-11-28 03:31:53.137', '2024-11-28 03:31:53.137'),
+('aced7015-6959-4317-a7a9-95e888a8a41e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productcoverimage/1755242495810-1755242250702-1732254648921-10in-lg-1077-2-collage.webp', '2025-08-15 07:21:35.842', '2025-08-15 07:21:35.842'),
 ('b4e6e04b-e964-42e2-bd9b-1c43b2116295', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '/uploads/productcoverimage/1731893247095-4in 8347 KH collage.webp', '2024-11-28 03:34:00.594', '2024-11-28 03:34:00.594'),
 ('b592f719-7854-47b7-9cb3-9ad62a384c46', '78c76b38-9464-446b-ad93-2a10560d25b8', '/uploads/productcoverimage/1728015452703-73.jpg', '2024-11-28 03:13:07.619', '2024-11-28 03:13:07.619'),
 ('bb76a846-41fe-46dc-9c1a-ea34d7e16b37', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', '/uploads/productcoverimage/1731895876705-4in BST 1023 Dual Cone Collage.webp', '2024-12-09 08:56:57.104', '2024-12-09 08:56:57.104'),
@@ -333,9 +333,9 @@ INSERT INTO `featured_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`
 ('042af5ac-92df-46ca-818b-438f21f76822', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', '/uploads/featuredimages/1735875741756-1733969924783-PG 854-2 Red.webp', '2025-01-03 03:42:21.846', '2025-01-03 03:42:21.846'),
 ('770ca9f5-c323-41a2-86ee-0ec11048c922', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/featuredimages/1735875729044-cropped-1733969827686-Legacy1277&1299.webp', '2025-01-03 03:42:09.138', '2025-01-03 03:42:09.138'),
 ('9becc811-575d-4bd3-b317-cf2dc870fbbb', 'bd5ecf65-04d8-4b4d-813b-cffd8748b0fa', '/uploads/featuredimages/1735875720032-cropped-1733969904682-638&838.webp', '2025-02-07 06:12:02.791', '2025-02-07 06:12:02.791'),
-('d5c6138f-5749-4414-bb66-965af0573a34', 'e8b1b732-196b-4f84-9f7a-a4b24f28c521', '/uploads/featuredimages/1745463523705-Legacy 1240 Limited Edition.webp', '2025-04-24 02:58:44.886', '2025-04-24 02:58:44.886'),
+('a9cee04c-15d6-419c-b7fb-c21e2a0d9e27', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/featuredimages/1755242659957-1735875750492-cropped-1733969935616-12385-sparta.webp', '2025-08-15 07:24:19.973', '2025-08-15 07:24:19.973'),
 ('e3371df7-3225-4373-9aef-38d285fbee41', '7a0b71f7-4400-4318-af0e-fc23c27171d1', '/uploads/featuredimages/1732072219440-4in BST 422 Mk3 Collage.webp', '2024-12-03 03:01:40.041', '2024-12-03 03:01:40.041'),
-('ea4125b9-0fcf-4072-97c1-5ee06f95acca', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/featuredimages/1735875750492-cropped-1733969935616-12385 SPARTA.webp', '2025-01-03 03:42:30.585', '2025-01-03 03:42:30.585');
+('f72e89f3-485a-4ee5-8b27-dc2f48ca4754', 'e8b1b732-196b-4f84-9f7a-a4b24f28c521', '/uploads/featuredimages/1755241279921-1745463523705-legacy20limited20edition.webp', '2025-08-15 07:01:19.935', '2025-08-15 07:01:19.935');
 
 -- --------------------------------------------------------
 
@@ -398,7 +398,7 @@ CREATE TABLE `image_catalogues` (
   `url` text NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text NOT NULL DEFAULT ''
+  `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -422,7 +422,7 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('2e2b8365-ab52-41d9-a8cc-4743da0cc3ae', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '/uploads/productimagecatalogues/1731395725672-10in 1096-Mk1 magnet.webp', '2024-12-09 09:00:42.291', '2024-12-09 09:00:42.291', 'Side'),
 ('2f2e0486-e24f-46fb-85c8-1b280c923295', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productimagecatalogues/1730865885560-1727745200678-lg-696-2-cone-1024x1021.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574', 'Top'),
 ('306db6ca-74ee-49ff-b027-c897957b8ec6', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', '/uploads/productimagecatalogues/1731893197682-4in 8347 BH Magnet.webp', '2024-11-28 03:33:43.389', '2024-11-28 03:33:43.389', 'Bottom'),
-('33273d92-5bff-4dc8-b500-6e8085ffacc8', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/1732254649218-10in LG 1077-2 chasis.webp', '2024-11-28 03:10:43.881', '2024-11-28 03:10:43.881', 'Side Bottom'),
+('33273d92-5bff-4dc8-b500-6e8085ffacc8', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/1732254649218-10in LG 1077-2 chasis.webp', '2024-11-28 03:10:43.881', '2025-08-15 07:21:35.827', 'Side Bottom'),
 ('33cc154f-98ee-4308-954e-3f7d20ebb44a', '42802840-d898-46ea-8377-7e0a9b6a060f', '/uploads/productimagecatalogues/1731395570224-pg 1054 2 magnet.webp', '2024-11-28 03:31:53.137', '2024-11-28 03:31:53.137', 'Bottom'),
 ('350c14bd-6602-4f2e-aa8c-a27c53fde92d', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productimagecatalogues/1731894927292-6X9in-BST-6981-Mk1-cone-no-mesh.webp', '2024-12-09 08:57:24.170', '2024-12-09 08:57:24.170', 'Top No Mesh'),
 ('392894e8-26e2-43c5-aee9-8c2ed6ddc51f', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '/uploads/productimagecatalogues/1731395725717-10in 1096-Mk1 magnet top.webp', '2024-12-09 09:00:42.291', '2024-12-09 09:00:42.291', 'Bottom'),
@@ -434,11 +434,11 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('502e91fd-1f54-4369-8304-ded3516f0959', '963116bc-4fef-48ae-a8e6-f655be756dc7', '/uploads/productimagecatalogues/1732254919527-12in LG 1296-2 Mk1 Cone.webp', '2024-12-09 09:00:16.591', '2024-12-09 09:00:16.591', 'Top'),
 ('53623feb-62fb-4d53-aaa7-2834ef235737', '4899e144-b93b-446a-89b4-b055230545ee', '/uploads/productimagecatalogues/1731395653235-10in LG-1098-2 magnet.webp', '2024-11-28 03:12:45.627', '2024-11-28 03:12:45.627', 'Side'),
 ('53be2e67-ae3a-4ccf-a13e-3c0069e4f5c0', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/1732765167406-BST 1614 chasis.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Side'),
-('54a27c63-13e2-4b68-806a-bad86477d1f4', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/1732254649173-10in LG 1077-2 magnet.webp', '2024-11-28 03:10:43.881', '2024-11-28 03:10:43.881', 'Bottom'),
+('54a27c63-13e2-4b68-806a-bad86477d1f4', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/1732254649173-10in LG 1077-2 magnet.webp', '2024-11-28 03:10:43.881', '2025-08-15 07:21:35.827', 'Bottom'),
 ('56a3f5bf-9155-4c57-b84e-60086bf51b58', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/1732765167358-BST 1614 magnet.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Bottom'),
 ('59597d7d-ab5d-4976-8906-7bf319b741bd', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '/uploads/productimagecatalogues/1731893247136-4in 8347 KH Cone.webp', '2024-11-28 03:34:00.594', '2024-11-28 03:34:00.594', 'Top'),
 ('5de46b56-52ae-498c-9956-c93719815293', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '/uploads/productimagecatalogues/1731395781188-1095-2 Mk1 Cone.webp', '2024-12-13 01:59:24.739', '2024-12-13 01:59:24.739', 'Top'),
-('5e75580c-f0e7-41e8-bfc0-964093fff08e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/1732254649107-10in LG 1077-2 cone.webp', '2024-11-28 03:10:43.881', '2024-11-28 03:10:43.881', 'Top'),
+('5e75580c-f0e7-41e8-bfc0-964093fff08e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/1732254649107-10in LG 1077-2 cone.webp', '2024-11-28 03:10:43.881', '2025-08-15 07:21:35.827', 'Top'),
 ('613108fe-c17f-4b64-b79b-63180e0a332f', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productimagecatalogues/1731894927334-6X9in-BST-6981-Mk1-chasis.webp', '2024-12-09 08:57:24.170', '2024-12-09 08:57:24.170', 'Side'),
 ('64a5aab9-51eb-4ee2-af84-2451f0963b0d', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '/uploads/productimagecatalogues/1731395977014-6in 638 chassis.webp', '2024-11-28 03:23:18.530', '2024-11-28 03:23:18.530', 'Side'),
 ('69e4712c-7cb2-4ee0-ab1f-36c8fdb5e7f0', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productimagecatalogues/1730865885685-1727678256578-lg-696-2-magnet-1024x1024.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574', 'Bottom'),
@@ -562,8 +562,8 @@ INSERT INTO `impedance_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt
 CREATE TABLE `multipledatasheetproduct` (
   `id` varchar(191) NOT NULL,
   `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL DEFAULT '',
-  `name` text NOT NULL DEFAULT ''
+  `url` text NOT NULL,
+  `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -621,8 +621,8 @@ CREATE TABLE `news` (
   `updatedBy` varchar(191) NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `link_placeholder` text NOT NULL DEFAULT '',
-  `link_url` text NOT NULL DEFAULT ''
+  `link_placeholder` text NOT NULL,
+  `link_url` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -679,10 +679,10 @@ CREATE TABLE `product` (
   `description` text NOT NULL,
   `slug` text NOT NULL,
   `specId` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
+  `updatedBy` text NOT NULL,
   `isNewProduct` tinyint(1) NOT NULL DEFAULT 0,
-  `featuredDesc` text NOT NULL DEFAULT '',
-  `series` text NOT NULL DEFAULT '',
+  `featuredDesc` text NOT NULL,
+  `series` text NOT NULL,
   `activeSubwooferSpecId` varchar(191) NOT NULL DEFAULT '',
   `thieleSmallParameter2OhmId` varchar(191) NOT NULL DEFAULT '',
   `thieleSmallParameter4OhmId` varchar(191) NOT NULL DEFAULT '',
@@ -705,7 +705,7 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('498bc88a-d5e6-4314-ad72-499ea3f1f780', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1298-2', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:08:41.334', '2024-11-28 03:20:26.636', '-', 'lg-1298-2', '63e06e12-55c2-43f4-9381-73eb81a9f641', 'admin', 0, '', '', '', 'e6c4b1d8-3455-4b20-a4cb-d54193afaa63', '735661d3-3e31-4d2b-9d4c-2faacf55138a', ''),
 ('55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8\" LG 896-2', 0, 0, '3ceafaeb-f3e4-4034-b46a-44948d3c2062', '2024-09-25 09:14:08.427', '2024-11-28 03:22:53.632', '-', 'lg-896-2', 'd2913d7d-3632-4447-8dbf-5860c0d455c9', 'admin', 0, '', '', '', '3c001c53-df27-46f1-aa5b-75584a4a31a1', 'a20273ff-6248-4f58-b1a1-26a9aa86a7a6', ''),
 ('58e4147b-93a0-4809-955d-d04ce1161c5e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1277-2', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:04:43.154', '2025-01-03 03:42:09.130', '-', 'lg-1277-2', 'e822b9c0-c1d2-4119-adeb-6fdb19ba4f14', 'admin', 0, 'Tampilan fresh dan elegan serta jahitan antara conepaper dan surround yang kuat mampu meningkatkan performa bass yang kuat dan dalam', 'LEGACY', '', '69d8c28d-5bd5-41fa-9e34-22d19d2f1916', '6d3099c3-8102-4d9d-b184-099033a7e666', ''),
-('5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1077-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:53:37.562', '2024-11-28 03:10:43.849', '-', 'lg-1077-2', '69421bd1-1406-4768-9321-81a0521ab800', 'admin', 0, '', '', '', 'bc9187ea-506a-4186-9bef-c5b1a137bf8d', '514d985b-edd7-46f7-8d22-f9d63b8c6040', ''),
+('5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1077-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:53:37.562', '2025-08-15 07:21:35.849', '-', 'lg-1077-2', '69421bd1-1406-4768-9321-81a0521ab800', 'admin', 0, '', '', '', 'bc9187ea-506a-4186-9bef-c5b1a137bf8d', '514d985b-edd7-46f7-8d22-f9d63b8c6040', ''),
 ('62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1038-2', 0, 1, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:51:18.457', '2024-11-28 03:43:16.934', '-', 'lg-1038-2', 'af6e2faf-6204-4a72-b0e4-09b4696228bd', 'admin', 0, '', '', '', '88e64212-77a6-40ce-9dda-923b4fafeb0e', 'ae840cca-97f1-4c81-855b-a48fcd78e559', ''),
 ('69db9385-8c1f-4863-a07d-30e3fc952ec6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6\" LG 638-2 MK1', 0, 0, 'ed8a91c0-2efb-4f49-892e-5f5cb123bd86', '2024-09-25 09:11:28.844', '2024-11-28 03:23:18.524', '-', 'lg-638-2-mk1', '92af05e7-e906-4282-9509-51bcbfe5cf76', 'admin', 0, '', '', '', 'ccd3d603-9f32-4f0a-8b6a-45b23cc54ba0', '379063e4-69f1-42a1-948d-116ebcfd68ec', ''),
 ('6f3b950d-f94f-4c21-8e42-7e05251434b4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1295-2 MK1', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:06:50.888', '2024-11-28 03:19:37.764', '-', 'lg-1295-2-mk1', '9760fcb1-7c05-454a-af25-af1811a5ea44', 'admin', 0, '', '', '', 'eaef6ba7-909e-43f8-a776-09325a564ea1', 'a7f81967-64c4-457a-b4fa-013a751bada0', ''),
@@ -729,8 +729,8 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '15\" LG 1596-2', 0, 0, 'bde0763b-2624-4b11-9f5c-993cd19f68ce', '2024-09-25 09:10:34.176', '2024-11-28 03:20:58.019', '-', 'lg-1596-2', 'dac2b02b-f18d-4753-b1b6-ced5518a1b65', 'admin', 0, '', '', '', 'b7ee5964-63aa-4558-be18-1336d630371d', 'f78d1757-d2dd-4a5c-9392-b2567dbf6f6c', ''),
 ('cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 10385-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:52:29.672', '2024-12-17 05:55:19.886', '-', 'lg-10385-2', 'bd2ee54a-3648-476f-ab14-2c482566d455', 'admin', 0, '', 'SPARTA', '', '216fc431-9733-41af-aecd-9c23914c6e2a', '4ab077c1-a342-4039-a78f-793419c4a9dc', ''),
 ('e3770df5-ea15-4be2-85f5-703caecdfd36', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1095-2-MK1', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:55:57.931', '2024-12-13 01:59:24.723', '-', 'lg-1095-2-mk1', 'a91d932e-2cdf-4390-bdeb-d7e76a06417f', 'admin', 0, '', '', '', 'e395541c-4a39-4532-9b06-0ecc48909a66', '18a9f740-bec9-45eb-b316-dcf8e352f929', ''),
-('e8b1b732-196b-4f84-9f7a-a4b24f28c521', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1040 & 12\" LG 1240', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2025-04-24 02:57:33.238', '2025-04-28 01:31:19.893', '-', 'lg-1040-12', '9b3e105b-b742-4692-913b-c277e4f12f58', 'admin', 0, 'Limited Edition', 'LEGACY', '', '', '', ''),
-('fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 12\" LG 12385-2', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 06:18:42.613', '2025-07-30 01:07:25.641', '-', 'lg-12385-2', 'b2cee453-c2d5-4682-a971-cdde85e4f1be', 'admin', 0, 'Kesan elegan dan garang dari warna hitam dan kuning, serta memiliki karakter suara yang lebih akustik', 'SPARTA', '', '13bfbb5a-783b-458a-93f1-b5a2d60073de', '84048a4e-d6a5-4228-a34f-6f73e93b00f6', '');
+('e8b1b732-196b-4f84-9f7a-a4b24f28c521', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1040 & 12\" LG 1240', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2025-04-24 02:57:33.238', '2025-08-15 07:01:19.944', '-', 'lg-1040-12', '9b3e105b-b742-4692-913b-c277e4f12f58', 'admin', 0, 'Limited Edition', 'LEGACY', '', '', '', ''),
+('fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 12\" LG 12385-2', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 06:18:42.613', '2025-08-15 07:24:19.982', '-', 'lg-12385-2', 'b2cee453-c2d5-4682-a971-cdde85e4f1be', 'admin', 0, 'Kesan elegan dan garang dari warna hitam dan kuning, serta memiliki karakter suara yang lebih akustik', 'SPARTA', '', '13bfbb5a-783b-458a-93f1-b5a2d60073de', '84048a4e-d6a5-4228-a34f-6f73e93b00f6', '');
 
 -- --------------------------------------------------------
 
@@ -742,7 +742,7 @@ CREATE TABLE `roles` (
   `id` varchar(191) NOT NULL,
   `userId` varchar(191) NOT NULL,
   `brandId` varchar(191) NOT NULL,
-  `brandName` text NOT NULL DEFAULT ''
+  `brandName` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -797,7 +797,7 @@ CREATE TABLE `specification` (
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
   `productId` varchar(191) NOT NULL,
-  `custom_note` text NOT NULL DEFAULT '',
+  `custom_note` text NOT NULL,
   `berat_magnet` varchar(191) NOT NULL,
   `berat_speaker` varchar(191) NOT NULL,
   `daya_maksimum` varchar(191) NOT NULL,

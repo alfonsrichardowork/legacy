@@ -91,9 +91,9 @@ export default async function SingleNewsPage(props: Props) {
               <div className="w-full">
                 {/* Image with reserved space */}
                 <div className="relative w-full sm:w-1/3 aspect-square">
-                  <LazyImageContact src={tempData.news_img_url} alt={tempData.title}/>
+                  <LazyImageContact src={tempData.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${tempData.news_img_url}` : tempData.news_img_url} alt={tempData.title}/>
                   {/* <Image
-                    src={news.news_img_url}
+                    src={news.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${news.news_img_url}` : news.news_img_url}
                     alt={news.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

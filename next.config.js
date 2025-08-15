@@ -1,15 +1,32 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '50mb',
+    },
+  },
   compress: true,
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'img.youtube.com',
-        port: '',
-        pathname: '/**',
-      },
+    {
+      protocol: 'https',
+      hostname: 'img.youtube.com',
+      port: '',
+      pathname: '/**',
+    },
+    {
+      protocol: 'http',  // for local dev
+      hostname: 'localhost',
+      port: '3001',
+      pathname: '/uploads/**',
+    },
+    {
+      protocol: 'https', // for production
+      hostname: 'www.legacy.us.com',
+      port: '',
+      pathname: '/uploads/**',
+    },
     ],
     deviceSizes: [320, 640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 48, 64, 96],
@@ -35,10 +52,17 @@ const nextConfig = {
           { key: 'Permissions-Policy', value: 'geolocation=(), microphone=(), camera=()' },
           { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
           {
-            key: 'Content-Security-Policy',
-            value:
-              "object-src 'none'; img-src 'self' img.youtube.com data:; style-src 'self' 'unsafe-inline';",
-          },
+              key: 'Content-Security-Policy',
+              value: `
+                default-src 'self';
+                img-src 'self' data: img.youtube.com https://www.googletagmanager.com;
+                script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com;
+                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                font-src 'self' data: https://fonts.gstatic.com;
+                connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com;
+              `.replace(/\n/g, ' ')
+            }
+
         ],
       },
     ];

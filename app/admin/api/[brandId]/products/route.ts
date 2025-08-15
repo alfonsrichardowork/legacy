@@ -54,136 +54,151 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       return NextResponse.json("duplicate")
     }
 
-    const product = await prismadb.product.create({
-      data: {
-        name: name,
-        slug: slugify(name),
-        description,
-        isFeatured,
-        isArchived,
-        isNewProduct,
-        sizeId,
-        series,
-        specId: "0",
-        updatedBy: session.name,
-        brandId: params.brandId,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-    });
+    try {
+      const product = await prismadb.product.create({
+        data: {
+          name: name,
+          slug: slugify(name),
+          description,
+          isFeatured,
+          isArchived,
+          isNewProduct,
+          sizeId,
+          series,
+          specId: "0",
+          updatedBy: session.name,
+          brandId: params.brandId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+      });
 
 
-
-    if(images_catalogues.length!=0){
-      images_catalogues.map(async (value: Image_Catalogues) => {
-        if(value.url!=''){
-          await prismadb.image_Catalogues.create({
-            data:{
-              productId: product.id,
-              url:value.url,
-              name: value.name,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(multipleDatasheetProduct.length!=0){
-      multipleDatasheetProduct.map(async (datasheet: multipleDatasheetProduct) => {
-        if(datasheet.url!=''){
-          await prismadb.multipleDatasheetProduct.create({
-            data:{
-              productId: product.id,
-              url:datasheet.url,
-              name: datasheet.name
-            }
-          })
-        }
-      })
-    }
-
-    if(cover_img.length!=0){
-      cover_img.map(async (value: Cover_Image) => {
-        if(value.url!=''){
-          await prismadb.cover_Image.create({
-            data:{
-              productId: product.id,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(drawing_img.length!=0){
-      drawing_img.map(async (value: Drawing_Image) => {
-        if(value.url!=''){
-          await prismadb.drawing_Image.create({
-            data:{
-              productId: product.id,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(graph_img.length!=0){
-      graph_img.map(async (value: Graph_Image) => {
-        if(value.url!=''){
-          await prismadb.graph_Image.create({
-            data:{
-              productId: product.id,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    if(impedance_img.length!=0){
-      impedance_img.map(async (value: Impedance_Image) => {
-        if(value.url!=''){
-          await prismadb.impedance_Image.create({
-            data:{
-              productId: product.id,
-              url:value.url,
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          })
-        }
-      })
-    }
-
-    await prismadb.specification.create({
-      data: {
-        diameter_speaker:'',
-        daya_maksimum:'',
-        lebar_daerah_frekuensi  :'',
-        spl  :'',
-        medan_magnet :'',
-        berat_magnet :'',
-        voice_coil_diameter  :'',
-        impedansi :'',
-        nominal_power_handling :'',
-        program_power :'',
-        voice_coil_material :'',
-        berat_speaker :'',
-        custom_note:'',
-        productId: product.id,
-        updatedAt: new Date(),
-        createdAt: new Date()
+      if(images_catalogues.length!=0){
+        images_catalogues.map(async (value: Image_Catalogues) => {
+          if(value.url!=''){
+            await prismadb.image_Catalogues.create({
+              data:{
+                productId: product.id,
+                url:value.url,
+                name: value.name,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            })
+          }
+        })
       }
-    });
+
+      if(multipleDatasheetProduct.length!=0){
+        multipleDatasheetProduct.map(async (datasheet: multipleDatasheetProduct) => {
+          if(datasheet.url!=''){
+            await prismadb.multipleDatasheetProduct.create({
+              data:{
+                productId: product.id,
+                url:datasheet.url,
+                name: datasheet.name
+              }
+            })
+          }
+        })
+      }
+
+      if(cover_img.length!=0){
+        cover_img.map(async (value: Cover_Image) => {
+          if(value.url!=''){
+            await prismadb.cover_Image.create({
+              data:{
+                productId: product.id,
+                url:value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            })
+          }
+        })
+      }
+
+      if(drawing_img.length!=0){
+        drawing_img.map(async (value: Drawing_Image) => {
+          if(value.url!=''){
+            await prismadb.drawing_Image.create({
+              data:{
+                productId: product.id,
+                url:value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            })
+          }
+        })
+      }
+
+      if(graph_img.length!=0){
+        graph_img.map(async (value: Graph_Image) => {
+          if(value.url!=''){
+            await prismadb.graph_Image.create({
+              data:{
+                productId: product.id,
+                url:value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            })
+          }
+        })
+      }
+
+      if(impedance_img.length!=0){
+        impedance_img.map(async (value: Impedance_Image) => {
+          if(value.url!=''){
+            await prismadb.impedance_Image.create({
+              data:{
+                productId: product.id,
+                url:value.url,
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            })
+          }
+        })
+      }
+
+      const spec = await prismadb.specification.create({
+        data: {
+          diameter_speaker:'',
+          daya_maksimum:'',
+          lebar_daerah_frekuensi  :'',
+          spl  :'',
+          medan_magnet :'',
+          berat_magnet :'',
+          voice_coil_diameter  :'',
+          impedansi :'',
+          nominal_power_handling :'',
+          program_power :'',
+          voice_coil_material :'',
+          berat_speaker :'',
+          custom_note:'',
+          productId: product.id,
+          updatedAt: new Date(),
+          createdAt: new Date()
+        }
+      });
+
+      await prismadb.product.update({
+        where:{
+          id: product.id
+        },
+        data: {
+          specId: spec.id,
+          updatedBy: session.name,
+          updatedAt: new Date()
+        }
+      });
+
+    } catch (err) {
+      console.error("Database error:", err);
+    }
 
   
     return NextResponse.json("success");

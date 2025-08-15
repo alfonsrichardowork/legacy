@@ -48,7 +48,7 @@ export async function DELETE(
       return NextResponse.json("unauthorized");
     }    
 
-    const size = await prismadb.size.delete({
+    const size = await prismadb.size.deleteMany({
       where: {
         id: params.sizeId
       }

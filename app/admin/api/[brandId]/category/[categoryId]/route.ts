@@ -63,7 +63,7 @@ export async function DELETE(
       return NextResponse.json("stillused")
     }
 
-    await prismadb.allCategory.delete({
+    await prismadb.allCategory.deleteMany({
       where: {
         id: params.categoryId
       }

@@ -90,14 +90,14 @@ const impedanceSlides = impedance && impedance.length > 0
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item} 
+                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                             alt={alt.concat(" - Drawing")} 
                             width={500}
                             height={500}
                             classname="max-h-full max-w-full object-contain"
                           />
                           {/* <Image 
-                            src={item} 
+                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                             alt={alt.concat(" - Drawing")} 
                             width={1000}
                             height={1000}
@@ -119,14 +119,14 @@ const impedanceSlides = impedance && impedance.length > 0
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item} 
+                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                             alt={alt.concat(" - Frequency Response")} 
                             width={500}
                             height={500}
                             classname="max-h-full max-w-full object-contain"
                           />
                           {/* <Image 
-                            src={item} 
+                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                             alt={alt.concat(" - Frequency Response")} 
                             width={1000}
                             height={1000}
@@ -148,14 +148,14 @@ const impedanceSlides = impedance && impedance.length > 0
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item} 
+                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                             alt={alt.concat(" - Impedance")} 
                             width={500}
                             height={500}
                             classname="max-h-full max-w-full object-contain"
                           />
                           {/* <Image 
-                            src={item} 
+                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                             alt={alt.concat(" - Impedance")} 
                             width={1000}
                             height={1000}
@@ -180,7 +180,7 @@ const impedanceSlides = impedance && impedance.length > 0
                     <CardContent className="p-6 flex items-center justify-center w-full h-full">
                       <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                         <LazyImageCustom
-                          src={item}
+                          src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item}
                           alt={`${alt} - Drawing`}
                           width={500}
                           height={500}
@@ -208,7 +208,7 @@ const impedanceSlides = impedance && impedance.length > 0
                     <CardContent className="p-6 flex items-center justify-center w-full h-full">
                       <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                         <LazyImageCustom
-                          src={item}
+                          src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item}
                           alt={`${alt} - Frequency Response`}
                           width={500}
                           height={500}
@@ -236,7 +236,7 @@ const impedanceSlides = impedance && impedance.length > 0
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item}
+                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item}
                             alt={`${alt} - Impedance`}
                             width={500}
                             height={500}

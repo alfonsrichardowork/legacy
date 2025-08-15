@@ -31,7 +31,7 @@ export async function DELETE(req: Request, props: { params: Promise<{ userId: st
       }
     })
 
-    const deletedUser = await prismadb.users.delete({
+    const deletedUser = await prismadb.users.deleteMany({
       where: {
         id: params.userId
       }

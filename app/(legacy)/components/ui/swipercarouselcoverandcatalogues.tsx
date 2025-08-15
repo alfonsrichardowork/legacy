@@ -81,7 +81,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                           <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                             {/* <div className="object-contain max-h-full max-w-full"> */}
                               <LazyImageCustom
-                                src={item} 
+                                src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                                 alt={alt.concat(" - Catalogues - ", index.toString())} 
                                 width={500}
                                 height={500}
@@ -89,7 +89,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                               />
                             {/* </div> */}
                               {/* <Image 
-                                src={item} 
+                                src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                                 alt={alt} 
                                 width={1000}
                                 height={1000}
@@ -110,14 +110,14 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                               <LazyImageCustom
-                                src={cover} 
+                                src={cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover} 
                                 alt={alt.concat(" - Cover")} 
                                 width={500}
                                 height={500}
                                 classname="max-h-full max-w-full object-contain"
                               />
                               {/* <Image 
-                                src={cover} 
+                                src={cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover} 
                                 alt={alt} 
                                 width={1000}
                                 height={1000}
@@ -139,14 +139,14 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                               <LazyImageCustom
-                                src={item} 
+                                src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                                 alt={alt.concat(" - Catalogues - ", index.toString())} 
                                 width={500}
                                 height={500}
                                 classname="max-h-full max-w-full object-contain"
                               />
                               {/* <Image 
-                                src={item} 
+                                src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
                                 alt={alt} 
                                 width={1000}
                                 height={1000}
@@ -191,8 +191,8 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           index={lightboxIndex}
           slides=
           {[
-            { src: cover, title: alt.concat(" - Cover"), alt },
-            ...catalogues.map((item, index) => ({ src: item, title: alt.concat(" - ", catalogues_alt[index] == ''? (index + 1).toString() : catalogues_alt[index]), alt: alt.concat(" - ", catalogues_alt[index] == ''? (index + 1).toString() : catalogues_alt[index])}))
+            { src: cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover, title: alt.concat(" - Cover"), alt },
+            ...catalogues.map((item, index) => ({ src: item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item, title: alt.concat(" - ", catalogues_alt[index] == ''? (index + 1).toString() : catalogues_alt[index]), alt: alt.concat(" - ", catalogues_alt[index] == ''? (index + 1).toString() : catalogues_alt[index])}))
           ]}
           plugins={[Zoom, Thumbnails, Captions]}
         />
@@ -201,7 +201,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           open={lightboxOpen}
           close={() => setLightboxOpen(false)}
           index={lightboxIndex}
-          slides={[{ src: cover, title: alt.concat(" - Cover"), alt }]}
+          slides={[{ src: cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover, title: alt.concat(" - Cover"), alt }]}
           plugins={[Zoom, Captions]}
         />
       }

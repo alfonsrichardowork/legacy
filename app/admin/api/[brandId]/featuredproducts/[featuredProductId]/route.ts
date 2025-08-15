@@ -92,7 +92,7 @@ export async function PATCH(
       if (isInFinal) continue;
 
       if (featuredImg.url) {
-        const featuredImgPath = path.join(process.cwd(), 'public', featuredImg.url);
+        const featuredImgPath = path.join(process.cwd(), featuredImg.url);
 
         try {
           await fs.unlink(featuredImgPath);
@@ -135,7 +135,7 @@ export async function PATCH(
       //Delete physical files
       for (const featuredImg of featuredImageOld) {
         if (featuredImg.url) {
-          const featuredImgPath = path.join(process.cwd(), 'public', featuredImg.url);
+          const featuredImgPath = path.join(process.cwd(), featuredImg.url);
 
           try {
             await fs.unlink(featuredImgPath);

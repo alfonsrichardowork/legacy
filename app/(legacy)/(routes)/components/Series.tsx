@@ -37,7 +37,7 @@ const Series: React.FC = () => {
           <Link key={index} href={series.href} className="group cursor-pointer relative">
             <div className="rounded-lg border shadow-lg overflow-hidden flex flex-row h-full">
               <Image
-                src={series.src}
+                src={series.src.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${series.src}` : series.src }
                 alt={series.alt}
                 width={1000}
                 height={1000}

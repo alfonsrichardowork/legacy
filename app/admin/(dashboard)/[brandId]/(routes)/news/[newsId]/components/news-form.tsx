@@ -364,7 +364,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
 
     const addYoutubeVideo = () => {
       if (youtubeUrl) {
-        editor!.chain().focus().setYoutubeVideo({ src: youtubeUrl }).run()
+        editor!.chain().focus().setYoutubeVideo({ src: youtubeUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${youtubeUrl}` : youtubeUrl }).run()
         setYoutubeUrl("")
       }
     }
@@ -400,7 +400,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
       // const url = window.prompt('URL')
   
       if (url) {
-        editor!.chain().focus().setImage({ src: url }).run()
+        editor!.chain().focus().setImage({ src: url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${url}` : url }).run()
       }
     }, [editor])
   
@@ -457,7 +457,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                 <div className="text-left font-bold pb-2">Cover Image</div>
                 <div className="flex items-center space-x-4 justify-between">
                   {newsImage && newsImage.url !== '' && (
-                    <Image alt={title} src={newsImage.url} width={200} height={200} className="w-52 h-fit" priority/>
+                    <Image alt={title} src={newsImage.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${newsImage.url}` : newsImage.url} width={200} height={200} className="w-52 h-fit" priority/>
                   )}
                   {newsImage && newsImage.url === '' && (
                     <Input
@@ -469,6 +469,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                         e.target.files && handleFileChange(e) // Ensure your file upload function can handle image files
                       }
                       disabled={loading}
+                      required
                       className="border border-gray-300 p-2 rounded-md bg-white"
                     />
                   )}

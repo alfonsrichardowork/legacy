@@ -19,7 +19,7 @@ const NewsCard: React.FC<NewsCardProps> =  ({ data }) => {
       <div className="md:flex block items-center">    
         {/* <div className="w-fit">  */}
         <Image
-          src={data.news_img_url} 
+          src={data.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${data.news_img_url}` : data.news_img_url} 
           alt={data.title} 
           width={300}
           height={300}

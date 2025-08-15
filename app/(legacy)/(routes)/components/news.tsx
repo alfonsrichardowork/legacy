@@ -60,7 +60,7 @@ const News: React.FC = () => {
                   key={index}
                 >
                     <Image
-                      src={value.news_img_url}
+                      src={value.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img_url}` : value.news_img_url}
                       alt={value.title}
                       width={500}
                       height={500}

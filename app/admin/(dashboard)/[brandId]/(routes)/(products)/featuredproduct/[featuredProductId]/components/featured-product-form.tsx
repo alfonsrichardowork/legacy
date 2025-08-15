@@ -211,7 +211,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
               >
                 <div className="flex items-center space-x-4">
                   {featuredImage && featuredImage.url !== '' && (
-                    <Image alt={title} src={featuredImage.url} width={200} height={200} className="w-52 h-fit" priority/>
+                    <Image alt={title} src={featuredImage.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${featuredImage.url}` : featuredImage.url} width={200} height={200} className="w-52 h-fit" priority/>
                   )}
                   {(!featuredImage || (featuredImage.url === '')) && (
                     <Input

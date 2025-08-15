@@ -45,7 +45,7 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
               <div className="container mx-auto flex flex-col md:flex-row items-center justify-between xl:px-36 lg:px-20 px-10 pb-16 pt-6">
                 <div className="order-1 md:order-2 flex items-center justify-center md:w-2/5 w-full h-[200px] md:h-full">
                 <Image
-                  src={item.featuredImgUrl}
+                  src={item.featuredImgUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.featuredImgUrl}` : item.featuredImgUrl}
                   alt={item.name}
                   width={500}
                   height={500}

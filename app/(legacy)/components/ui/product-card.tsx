@@ -19,7 +19,7 @@ const ProductCard: React.FC<ReviewCard> = ({
       <div className="relative flex content-center justify-center h-[150px] w-full">
       <div className="w-full h-auto px-12">
         <LazyImageClickable
-          src={data.coverUrl} 
+          src={data.coverUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${data.coverUrl}` : data.coverUrl} 
           alt={data.name} 
           width={500}
           height={500}

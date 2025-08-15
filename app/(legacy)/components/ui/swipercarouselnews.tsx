@@ -29,7 +29,7 @@ export default function SwiperCarouselNews({ news }: SwiperCarouselNewsProps) {
         <SwiperSlide key={index}>
           <div className={`${index === 0 ? 'pr-4': index === news.length - 1 ? 'pl-4' : 'px-2'}`} key={index}>
           <Image
-            src={value.news_img_url}
+            src={value.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img_url}` : value.news_img_url}
             alt={value.title}
             width={500}
             height={500}

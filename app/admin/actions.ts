@@ -42,7 +42,7 @@ export async function checkBearerAPI(session: IronSession<SessionData>) {
       //ACCESS TOKEN OKE
       decoded_access = jwt.verify(apiToken, process.env.ACCESS_TOKEN_SECRET) as JwtPayload & { userId: string, name: string, email: string, role: string[], isAdmin: boolean, iat: number, exp: number };
     } catch (error) {
-      console.error('Expired API Token');
+      // console.error('Expired API Token');
       (await cookies()).delete("apiToken");
       //regenerate api Token, session is confirmed in API routes
       const userId = session.userId;

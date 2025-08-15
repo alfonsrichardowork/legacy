@@ -233,11 +233,13 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
 
                     data.forEach((product) => {
                         let productValue = ''
-                        if(checkbox.slug === 'series'){
-                            productValue = product.sub_categories[0].name
+                        if(checkbox.slug === 'series' && product.sub_categories.length > 0){
+                            productValue = product.sub_categories[0].name ?? ''
                         }
                         else{
-                            productValue = product.sub_sub_categories[0].name;
+                            if(product.sub_sub_categories.length > 0){ 
+                                productValue = product.sub_sub_categories[0].name ?? ''
+                            }
                         }
                         const checkboxValue = checkbox.name;
 
@@ -491,7 +493,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                 <div className="pr-2">
                     <div className="items-center justify-center text-center">
                         <LazyImageCustom
-                            src={activeUrlCompare[index]}
+                            src={activeUrlCompare[index].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${activeUrlCompare[index]}` : activeUrlCompare[index]}
                             width={50}
                             height={50}
                             alt={activeNameCompare[index]}

@@ -141,14 +141,14 @@ const ProductBySubCategoryPage = (
                                 <TableHead key={product.name} className="items-center text-black border-2 border-black min-w-40 p-1">
                                     <div className='max-h-full max-w-full object-contain p-2'>
                                         <LazyImage
-                                            src={product.coverUrl} 
+                                            src={product.coverUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.coverUrl}` : product.coverUrl} 
                                             alt={product.coverAlt} 
                                             width={144}
                                             height={144} 
                                         />
                                     </div>
                                     {/* <Image 
-                                        src={product.coverUrl} 
+                                        src={product.coverUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.coverUrl}` : product.coverUrl} 
                                         alt={product.coverAlt} 
                                         width={144}
                                         height={144} 
@@ -202,14 +202,14 @@ const ProductBySubCategoryPage = (
                                                 {product.graph_Url.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.graph_Url[0]}
+                                                            src={product.graph_Url[0].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph_Url[0]}` : product.graph_Url[0]}
                                                             alt={product.name}
                                                             width={300}
                                                             height={300} 
                                                         />
                                                     </div>)
                                                     // <Image
-                                                    //     src={product.graph_Url[0]}
+                                                    //     src={product.graph_Url[0].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph_Url[0]}` : product.graph_Url[0]}
                                                     //     alt={product.name}
                                                     //     width={384}
                                                     //     height={216} 
@@ -233,14 +233,14 @@ const ProductBySubCategoryPage = (
                                                 {product.impedance_Url.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.impedance_Url[0]}
+                                                            src={product.impedance_Url[0].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance_Url[0]}` : product.impedance_Url[0]}
                                                             alt={product.name}
                                                             width={300}
                                                             height={300}  
                                                         />
                                                     </div>)
                                                     // <Image
-                                                    //     src={product.impedance_Url[0]}
+                                                    //     src={product.impedance_Url[0].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance_Url[0]}` : product.impedance_Url[0]}
                                                     //     alt={product.name}
                                                     //     width={384}
                                                     //     height={216} 

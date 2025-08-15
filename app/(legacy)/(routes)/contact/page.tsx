@@ -71,7 +71,7 @@ export default function ContactUs() {
       <h1 className='sr-only'>Contact Us | Legacy Speaker</h1>
     <div className="bg-white -z-10">
      <div className="map-container">
-       <iframe src={allMapsUrl[activeMapIndex]} width="100%" height="500" loading="lazy"></iframe>
+       <iframe src={allMapsUrl[activeMapIndex].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${allMapsUrl[activeMapIndex]}` : allMapsUrl[activeMapIndex] } width="100%" height="500" loading="lazy"></iframe>
     </div>
     <div className="relative w-full container mx-auto xl:px-36 lg:px-20 px-10 pb-4 pt-16 h-fit flex justify-left">
     <div className='pb-4'>

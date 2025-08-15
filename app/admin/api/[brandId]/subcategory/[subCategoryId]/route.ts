@@ -63,7 +63,7 @@ export async function DELETE(
       return NextResponse.json("stillused")
     }
 
-    const subCategory = await prismadb.allCategory.delete({
+    const subCategory = await prismadb.allCategory.deleteMany({
       where: {
         id: params.subCategoryId,
         brandId: params.brandId

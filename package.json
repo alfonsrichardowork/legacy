@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "postbuild": "npx tsx sitemap.ts",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "start": "node server.js",
+    "postinstall": "prisma generate && prisma db push"
   },
   "dependencies": {
     "@google-analytics/data": "^5.2.0",

@@ -81,7 +81,7 @@ export async function DELETE(
     //Delete physical files
     for (const image of coverImages) {
       if (image.url) {
-        const imagePath = path.join(process.cwd(), 'public', image.url);
+        const imagePath = path.join(process.cwd(),  image.url);
 
         try {
           await fs.unlink(imagePath);
@@ -107,7 +107,7 @@ export async function DELETE(
     //Delete physical files
     for (const image of drawingImages) {
       if (image.url) {
-        const imagePath = path.join(process.cwd(), 'public', image.url);
+        const imagePath = path.join(process.cwd(),  image.url);
 
         try {
           await fs.unlink(imagePath);
@@ -133,7 +133,7 @@ export async function DELETE(
     //Delete physical files
     for (const image of featuredImages) {
       if (image.url) {
-        const imagePath = path.join(process.cwd(), 'public', image.url);
+        const imagePath = path.join(process.cwd(),  image.url);
 
         try {
           await fs.unlink(imagePath);
@@ -159,7 +159,7 @@ export async function DELETE(
     //Delete physical files
     for (const image of graphImages) {
       if (image.url) {
-        const imagePath = path.join(process.cwd(), 'public', image.url);
+        const imagePath = path.join(process.cwd(),  image.url);
 
         try {
           await fs.unlink(imagePath);
@@ -185,7 +185,7 @@ export async function DELETE(
     //Delete physical files
     for (const image of impedanceImages) {
       if (image.url) {
-        const imagePath = path.join(process.cwd(), 'public', image.url);
+        const imagePath = path.join(process.cwd(),  image.url);
 
         try {
           await fs.unlink(imagePath);
@@ -211,7 +211,7 @@ export async function DELETE(
     //Delete physical files
     for (const image of cataloguesImages) {
       if (image.url) {
-        const imagePath = path.join(process.cwd(), 'public', image.url);
+        const imagePath = path.join(process.cwd(),  image.url);
 
         try {
           await fs.unlink(imagePath);
@@ -237,7 +237,7 @@ export async function DELETE(
     //Delete physical files
     for (const pdf of multipleDatasheet) {
       if (pdf.url) {
-        const pdfPath = path.join(process.cwd(), 'public', pdf.url);
+        const pdfPath = path.join(process.cwd(),  pdf.url);
 
         try {
           await fs.unlink(pdfPath);
@@ -292,7 +292,7 @@ export async function DELETE(
       },
     });
 
-    const product = await prismadb.product.delete({
+    const product = await prismadb.product.deleteMany({
       where: {
         id: params.productId
       },
@@ -374,7 +374,7 @@ export async function PATCH(
           if (isInFinal) continue;
 
           if (image.url) {
-            const imagePath = path.join(process.cwd(), 'public', image.url);
+            const imagePath = path.join(process.cwd(),  image.url);
 
             try {
               await fs.unlink(imagePath);
@@ -457,7 +457,7 @@ export async function PATCH(
           if (isInFinal) continue;
 
           if (datasheet.url) {
-            const datasheetPath = path.join(process.cwd(), 'public', datasheet.url);
+            const datasheetPath = path.join(process.cwd(),  datasheet.url);
 
             try {
               await fs.unlink(datasheetPath);
@@ -537,7 +537,7 @@ export async function PATCH(
           if (isInFinal) continue;
 
           if (coverImg.url) {
-            const coverImgPath = path.join(process.cwd(), 'public', coverImg.url);
+            const coverImgPath = path.join(process.cwd(),  coverImg.url);
 
             try {
               await fs.unlink(coverImgPath);
@@ -597,7 +597,7 @@ export async function PATCH(
           if (isInFinal) continue;
 
           if (drawingImg.url) {
-            const drawingImgPath = path.join(process.cwd(), 'public', drawingImg.url);
+            const drawingImgPath = path.join(process.cwd(),  drawingImg.url);
 
             try {
               await fs.unlink(drawingImgPath);
@@ -657,7 +657,7 @@ export async function PATCH(
           if (isInFinal) continue;
 
           if (graphImg.url) {
-            const graphImgPath = path.join(process.cwd(), 'public', graphImg.url);
+            const graphImgPath = path.join(process.cwd(),  graphImg.url);
 
             try {
               await fs.unlink(graphImgPath);
@@ -718,7 +718,7 @@ export async function PATCH(
           if (isInFinal) continue;
 
           if (impedanceImg.url) {
-            const impedanceImgPath = path.join(process.cwd(), 'public', impedanceImg.url);
+            const impedanceImgPath = path.join(process.cwd(),  impedanceImg.url);
 
             try {
               await fs.unlink(impedanceImgPath);
@@ -813,7 +813,7 @@ export async function PATCH(
       if (isInFinal) continue;
 
       if (image.url) {
-        const imagePath = path.join(process.cwd(), 'public', image.url);
+        const imagePath = path.join(process.cwd(),  image.url);
 
         try {
           await fs.unlink(imagePath);
@@ -896,7 +896,7 @@ export async function PATCH(
       if (isInFinal) continue;
 
       if (datasheet.url) {
-        const datasheetPath = path.join(process.cwd(), 'public', datasheet.url);
+        const datasheetPath = path.join(process.cwd(),  datasheet.url);
 
         try {
           await fs.unlink(datasheetPath);
@@ -976,7 +976,7 @@ export async function PATCH(
       if (isInFinal) continue;
 
       if (coverImg.url) {
-        const coverImgPath = path.join(process.cwd(), 'public', coverImg.url);
+        const coverImgPath = path.join(process.cwd(),  coverImg.url);
 
         try {
           await fs.unlink(coverImgPath);
@@ -1036,7 +1036,7 @@ export async function PATCH(
       if (isInFinal) continue;
 
       if (drawingImg.url) {
-        const drawingImgPath = path.join(process.cwd(), 'public', drawingImg.url);
+        const drawingImgPath = path.join(process.cwd(),  drawingImg.url);
 
         try {
           await fs.unlink(drawingImgPath);
@@ -1096,7 +1096,7 @@ export async function PATCH(
       if (isInFinal) continue;
 
       if (graphImg.url) {
-        const graphImgPath = path.join(process.cwd(), 'public', graphImg.url);
+        const graphImgPath = path.join(process.cwd(),  graphImg.url);
 
         try {
           await fs.unlink(graphImgPath);
@@ -1157,7 +1157,7 @@ export async function PATCH(
       if (isInFinal) continue;
 
       if (impedanceImg.url) {
-        const impedanceImgPath = path.join(process.cwd(), 'public', impedanceImg.url);
+        const impedanceImgPath = path.join(process.cwd(),  impedanceImg.url);
 
         try {
           await fs.unlink(impedanceImgPath);

@@ -101,7 +101,7 @@ export async function PATCH(
         if (isInFinal) continue;
 
         if (newsImg.url) {
-          const newsImgPath = path.join(process.cwd(), 'public', newsImg.url);
+          const newsImgPath = path.join(process.cwd(), newsImg.url);
 
           try {
             await fs.unlink(newsImgPath);
@@ -233,7 +233,7 @@ export async function PATCH(
       //Delete physical files
       for (const image of newsImages) {
         if (image.url) {
-          const imagePath = path.join(process.cwd(), 'public', image.url);
+          const imagePath = path.join(process.cwd(), image.url);
 
           try {
             await fs.unlink(imagePath);
@@ -249,7 +249,7 @@ export async function PATCH(
         },
       });
   
-      const newsDeleted = await prismadb.news.delete({
+      const newsDeleted = await prismadb.news.deleteMany({
         where: {
           id: params.newsId
         },
