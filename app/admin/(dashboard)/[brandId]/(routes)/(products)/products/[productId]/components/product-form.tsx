@@ -229,7 +229,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             const formData = new FormData();
             formData.append('file', value);
             const url = await uploadProductDatasheet(formData);
-            updatedDatasheet[index].url = url;
+            updatedDatasheet[updatedDatasheet.length - (file.length - index)].url = url;
           }
         });
         await Promise.all(uploadPromises);
@@ -517,7 +517,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             const formData = new FormData();
             formData.append('image', value);
             const url = await uploadImageCatalogues(formData);
-            updatedImageCatalogues[Number(index)].url = url;
+            updatedImageCatalogues[updatedImageCatalogues.length - (file.length - index)].url = url;
           }
         });
         await Promise.all(uploadPromises);
