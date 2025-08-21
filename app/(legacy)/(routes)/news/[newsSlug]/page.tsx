@@ -81,7 +81,7 @@ export default async function SingleNewsPage(props: Props) {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                      <BreadcrumbPage>{tempData.title}</BreadcrumbPage>
+                      <BreadcrumbPage>{tempData.title.length > 10 ? `${tempData.title.slice(0, 10)}...` : tempData.title}</BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>
                 </Breadcrumb>

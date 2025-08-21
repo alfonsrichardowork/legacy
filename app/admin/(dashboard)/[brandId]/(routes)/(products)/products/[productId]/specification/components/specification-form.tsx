@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/app/admin/components/ui/heading"
 import { Label } from "@/app/admin/components/ui/label"
+import { Textarea } from "@/app/admin/components/ui/textarea"
 
 
 interface SpecFormProps {
@@ -178,7 +179,14 @@ export const SpecForm: React.FC<SpecFormProps> = ({
             </div>
             <div>
             <Label htmlFor="custom_note" className="font-bold text-base">Custom Note (akan ditampilkan dibawah tabel)</Label>
-            <Input disabled={loading} id="custom_note" placeholder="custom note" className="text-black bg-white" defaultValue={spec?.custom_note? spec.custom_note : ""} />
+            {/* <Input disabled={loading} id="custom_note" placeholder="custom note" className="text-black bg-white" defaultValue={spec?.custom_note? spec.custom_note : ""} /> */}
+            <Textarea
+              disabled={loading}
+              id="custom_note"
+              placeholder="custom note"
+              className="text-black bg-white" 
+              defaultValue={spec?.custom_note? spec.custom_note : ""}
+            />
             </div>
             </div>
           <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>

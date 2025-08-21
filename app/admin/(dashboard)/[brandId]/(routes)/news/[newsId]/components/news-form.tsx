@@ -350,7 +350,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
           class: "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-hidden min-h-[200px] max-w-none",
         },
       },
-      content: initialData?.description ? initialData.description : '<p>Start editing...</p><p></p><p></p><p></p><p></p><p></p>',
+      content: initialData?.description ? initialData.description : '<p></p>',
     });
   
     const addLink = () => {
@@ -627,7 +627,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                           className="border border-gray-300 p-2 rounded-md"
                         />
                       </div>
-                      <div className="border-t pt-4">
+                      {/* <div className="border-t pt-4">
                         <p className="text-sm font-medium mb-2">Or add from URL</p>
                         <div className="flex space-x-2">
                           <Input
@@ -637,7 +637,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                           />
                           <Button onClick={() => addImage} variant={'secondary'}>Add</Button>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -664,7 +664,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                 </Popover>
 
                 {/* Table Controls */}
-                <DropdownMenu>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon" className={cn(editor.isActive("table") ? "bg-muted hover:bg-white" : "hover:bg-white")}>
                       <TableIcon className="h-4 w-4" />
@@ -791,7 +791,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                       Split Cell
                     </DropdownMenuItem>
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
 
                 <div className="ml-auto flex text-black gap-2">
                   <div

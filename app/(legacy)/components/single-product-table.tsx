@@ -25,7 +25,10 @@ export default function SingleProductTable(spec: Specifications, styling: string
     createData('Berat Speaker', spec.berat_speaker, 'Kg'),
   ];
   let customNote = spec.custom_note
-  const notesArray = customNote.split(/(?=- \([\d¹²³⁴⁵⁶⁷⁸⁹]\))/g).map(note => note.trim());
+  const notesArray = customNote
+    .split(/\r?\n/)
+    .map(n => n.trim())
+    .filter(n => n);
   return (
     <>
       <Table>

@@ -39,29 +39,33 @@ export function MainNav({
       description:
         "Show All Featured Products.",
     },
-    {
-      title: "Size",
-      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/size`,
-      description:
-        "Show All Sizes.",
-    },
-    {
-      title: "Category",
-      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/category`,
-      description:
-        "Show All Categories.",
-    },
-    {
-      title: "Sub Category",
-      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subcategory`,
-      description: "Show All Sub Categories.",
-    },
-    {
-      title: "Sub Sub Category",
-      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subsubcategory`,
-      description:
-        "Show All Sub Sub Categories.",
-    },
+    ...(isadmin
+      ? [
+        {
+          title: "Size",
+          href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/size`,
+          description:
+            "Show All Sizes.",
+        },
+        {
+          title: "Category",
+          href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/category`,
+          description:
+            "Show All Categories.",
+        },
+        {
+          title: "Sub Category",
+          href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subcategory`,
+          description: "Show All Sub Categories.",
+        },
+        {
+          title: "Sub Sub Category",
+          href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subsubcategory`,
+          description:
+            "Show All Sub Sub Categories.",
+        },
+      ]
+    : []),
   ]
   
 

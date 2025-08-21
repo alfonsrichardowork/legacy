@@ -6,6 +6,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Metadata } from 'next'
+import ScrollToTop from './(legacy)/components/scrollToTop'
 const font = Inter({ subsets: ['latin'] })
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -91,6 +92,7 @@ export default function RootLayout({
         />
       </Head>
       <body className={`${font.className || ''} overflow-x-hidden`}>
+      <ScrollToTop />
       <Image src={'/images/legacy/navbarbg.webp'} alt="Legacy Speaker Navigation Bar Background" width={1920} height={1080} className='-z-10 fixed md:-top-64 sm:-top-24 -top-10 left-0' priority/>
           {children}
         <Toaster />

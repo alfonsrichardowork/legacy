@@ -54,7 +54,7 @@ const ProductBySubCategoryPage = (
                     let temp: ComparisonProductData = await getComparisonProduct(value);
                     fetchedProducts.push(temp);
                     tempAllName = tempAllName === "" ? temp.name : `${tempAllName}, ${temp.name}`;
-                    const customNoteArray = temp.specification.custom_note.split('- ').map(note => note.trim()).filter(note => note !== '');
+                    const customNoteArray = temp.specification.custom_note.split(/\r?\n/).map(n => n.trim()).filter(n => n);
                     customNoteArray.map((value) => {
                         if(!tempallNote.includes(value)) {
                             tempallNote.push(value)
