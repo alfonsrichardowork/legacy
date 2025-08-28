@@ -27,7 +27,7 @@ export default function AboutUs() {
         </div>
         <div className="pb-4 md:grid md:grid-cols-2">
           <div className="md:pl-4 md:pb-0 pb-4 flex items-center md:order-2 order-1">
-            <LazyImage src={'/images/legacy/about-us.webp'} alt="Pabrik Sinar Baja Electric" width={1000} height={1000}/>
+            <LazyImage src={'/images/legacy/SBE_Baru.webp'} alt="Pabrik Sinar Baja Electric" width={1000} height={1000}/>
           </div>
 
           <div className="pr-4 md:order-1 order-2">

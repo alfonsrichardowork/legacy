@@ -120,9 +120,9 @@ export default function ContactUs() {
 
       {/* Right Side: Image */}
       <div className="relative md:block hidden">
-        <LazyImageContact src="/images/legacy/contact-us-page.webp" alt="Pabrik Sinar Baja Electric"/>
+        <LazyImageContact src="/images/legacy/SBE_Baru.webp" alt="Pabrik Sinar Baja Electric"/>
         {/* <Image
-          src="/images/legacy/contact-us-page.webp"
+          src="/images/legacy/SBE_Baru.webp"
           alt="Contact Us Page"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
