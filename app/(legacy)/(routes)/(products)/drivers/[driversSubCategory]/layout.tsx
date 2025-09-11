@@ -1,5 +1,11 @@
 import getSubCatNameBySlug from "@/app/(legacy)/actions/get-SubCat_Name"
+import { allDriversSubCat } from "@/lib/gsp_var";
 import { Metadata, ResolvingMetadata } from "next"
+
+export const revalidate = 86400
+export async function generateStaticParams() {
+  return allDriversSubCat.map((driversSubCategory) => ({ driversSubCategory }));
+}
 
 type Props = {
   params: Promise<{ driversSubCategory: string }>

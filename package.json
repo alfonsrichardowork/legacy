@@ -62,7 +62,6 @@
     "dompurify": "^3.2.6",
     "dotenv": "^16.4.7",
     "eslint-config-next": "^15.3.0",
-    "framer-motion": "^12.7.2",
     "iron-session": "^8.0.2",
     "isomorphic-dompurify": "^2.24.0",
     "jsonwebtoken": "^9.0.2",
