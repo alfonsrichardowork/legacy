@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
+import { revalidatePath } from "next/cache";
 
 export async function GET(
   req: Request,
@@ -79,7 +80,7 @@ export async function PATCH(
       }
     });
 
-    await prismadb.product.update({
+    const updatedProduct = await prismadb.product.update({
       where:{
         id: params.productId
       },
@@ -90,6 +91,9 @@ export async function PATCH(
       }
     });
   
+    const productSlug = updatedProduct.slug;
+    revalidatePath(`/products/${productSlug}`);
+
     return NextResponse.json(activesubwooferspecification);
   } catch (error) {
     console.log('[SINGLE_SB_AUDIENCE_SPECIFICATION_PATCH]', error);

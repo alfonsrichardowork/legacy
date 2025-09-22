@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
+import { revalidatePath } from "next/cache";
 
 export async function GET(
   req: Request,
@@ -88,7 +89,7 @@ export async function PATCH(
       }
     });
 
-    await prismadb.product.update({
+    const updatedProd = await prismadb.product.update({
       where:{
         id: params.productId
       },
@@ -98,7 +99,10 @@ export async function PATCH(
         updatedBy: session.name,
       }
     });
-  
+
+    const productSlug = updatedProd.slug;
+    revalidatePath(`/products/${productSlug}`);
+
     return NextResponse.json(thielespecification);
   } catch (error) {
     console.log('[SINGLE_THIELE_SPECIFICATION_4_OHM_PATCH]', error);

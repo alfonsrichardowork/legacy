@@ -4,6 +4,7 @@ import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
 import { Cover_Image, Drawing_Image, Graph_Image, Image_Catalogues, Impedance_Image, multipleDatasheetProduct } from "@prisma/client";
 import path from 'path';
 import fs from 'fs/promises';
+import { revalidatePath } from "next/cache";
 
 const slugify = (str: string): string => {
   const normalizedStr = str.replace(/["“”‟″‶〃״˝ʺ˶ˮײ]/g, "'");
@@ -1213,6 +1214,8 @@ export async function PATCH(
         updatedAt: new Date()
       },
     });
+
+    revalidatePath(`/products/${slugify(name)}`);
 
     return NextResponse.json("success");
   } catch (error) {

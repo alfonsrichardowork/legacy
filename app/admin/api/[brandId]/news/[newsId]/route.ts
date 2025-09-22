@@ -5,6 +5,7 @@ import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
 import { News_Image } from '@prisma/client';
 import path from 'path';
 import fs from 'fs/promises';
+import { revalidatePath } from 'next/cache';
 
 const slugify = (str: string): string => {
   const normalizedStr = str.replace(/["“”‟″‶〃״˝ʺ˶ˮײ]/g, "'");
@@ -191,6 +192,8 @@ export async function PATCH(
         })
       }
     }
+
+    revalidatePath(`/news/${slugify(title)}`);
     return NextResponse.json("success");
   } catch (error) {
     console.log('[NEWS_PATCH]', error);

@@ -17,7 +17,7 @@ export default function Thiele24ProductTable(spec2: Thiele_Small_Parameters_Spec
         createData('Qts', spec2.qts, spec4.qts),
         createData('Qes', spec2.qes, spec4.qes),
         createData('Qms', spec2.qms, spec4.qms),
-        createData('Mms (g)', spec2.mms.concat(' g'), spec4.fs.concat(' g')),
+        createData('Mms (g)', spec2.mms.concat(' g'), spec4.mms.concat(' g')),
         createData('Cms (mm/N)', spec2.cms.concat(' mm/N'), spec4.cms.concat(' mm/N')),
         createData('BL Product (Tm)', spec2.bl_product.concat(' Tm'), spec4.bl_product.concat(' Tm')),
         createData('Vas (liters)', spec2.vas.concat(' liters'), spec4.vas.concat(' liters')),

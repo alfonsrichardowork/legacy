@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
+import { revalidatePath } from 'next/cache';
  
 export async function POST(
   req: Request,
@@ -65,6 +66,9 @@ export async function POST(
         updatedAt: new Date()
       }
     });
+
+    const productSlug = updatedProduct.slug;
+    revalidatePath(`/products/${productSlug}`);
 
     return NextResponse.json({activesubwooferspecification, updatedProduct});
   } catch (error) {

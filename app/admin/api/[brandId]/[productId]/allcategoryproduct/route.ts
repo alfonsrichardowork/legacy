@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
+import { revalidatePath } from 'next/cache';
 
 export async function POST(
   req: Request,
@@ -59,7 +60,7 @@ export async function POST(
       
     }
 
-    await prismadb.product.update({
+    const updatedProduct = await prismadb.product.update({
       where: {
         id : params.productId
       },
@@ -68,7 +69,19 @@ export async function POST(
         updatedBy: session.name
       }
     });
-    
+
+    const productSlug = updatedProduct.slug;
+    revalidatePath(`/products/${productSlug}`);
+    if( allResults && allResults.length > 0 ) {
+      const subCategories = allResults.filter(item => item.type === 'Sub Category') || [];
+      const subSubCategories = allResults.filter(item => item.type === 'Sub Sub Category') || [];
+      subCategories.forEach(sub => {
+        revalidatePath(`/drivers/${sub.slug}`);
+        subSubCategories.forEach(subsub => {
+          revalidatePath(`/drivers/${sub.slug}/${subsub.slug}`);
+        });
+      });
+    }
 
     return NextResponse.json("success");
   } catch (error) {
@@ -135,7 +148,7 @@ export async function DELETE(
       }
     });
     
-    await prismadb.product.update({
+    const updatedProduct = await prismadb.product.update({
       where: {
         id : params.productId
       },
@@ -144,6 +157,9 @@ export async function DELETE(
         updatedBy: session.name
       }
     });
+
+    const productSlug = updatedProduct.slug;
+    revalidatePath(`/products/${productSlug}`);
   
     return NextResponse.json(allproductcategory);
   } catch (error) {
@@ -226,6 +242,19 @@ export async function PATCH(
         updatedBy: session.name
       }
     });
+    
+    const productSlug = updatedproduct.slug;
+    revalidatePath(`/products/${productSlug}`);
+    if( allResults && allResults.length > 0 ) {
+      const subCategories = allResults.filter(item => item.type === 'Sub Category') || [];
+      const subSubCategories = allResults.filter(item => item.type === 'Sub Sub Category') || [];
+      subCategories.forEach(sub => {
+        revalidatePath(`/drivers/${sub.slug}`);
+        subSubCategories.forEach(subsub => {
+          revalidatePath(`/drivers/${sub.slug}/${subsub.slug}`);
+        });
+      });
+    }
   
     const responseData = {
       deletedCount: deleteOldCategories.count,

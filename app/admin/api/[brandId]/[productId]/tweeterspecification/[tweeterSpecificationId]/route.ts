@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function GET(
   req: Request,
@@ -92,6 +93,10 @@ export async function PATCH(
         updatedAt: new Date()
       }
     });
+
+    const productSlug = updatedProduct.slug;
+    revalidatePath(`/products/${productSlug}`);
+    
   
     return NextResponse.json(tweeterspecification);
   } catch (error) {

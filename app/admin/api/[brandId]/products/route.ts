@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
 import { Cover_Image, Drawing_Image, Graph_Image, Image_Catalogues, Impedance_Image, multipleDatasheetProduct } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 const slugify = (str: string): string => {
   const normalizedStr = str.replace(/["“”‟″‶〃״˝ʺ˶ˮײ]/g, "'");
@@ -200,6 +201,7 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       console.error("Database error:", err);
     }
 
+    revalidatePath(`/products/${slugify(name)}`);
   
     return NextResponse.json("success");
   } catch (error) {

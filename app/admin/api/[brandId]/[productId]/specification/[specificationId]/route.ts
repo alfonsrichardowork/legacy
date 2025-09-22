@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req: Request, props: { params: Promise<{ specificationId: string }> }) {
   const params = await props.params;
@@ -86,7 +87,7 @@ export async function PATCH(
       }
     });
 
-    await prismadb.product.update({
+    const updatedProduct = await prismadb.product.update({
       where:{
         id: params.productId
       },
@@ -96,6 +97,9 @@ export async function PATCH(
         specId: specification.id
       }
     });
+
+    const productSlug = updatedProduct.slug;
+    revalidatePath(`/products/${productSlug}`);
   
     return NextResponse.json(specification);
   } catch (error) {

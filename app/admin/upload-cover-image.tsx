@@ -3,20 +3,34 @@ import fs from "node:fs/promises";
 import path from "path";
 
 function sanitizeFilename(name: string) {
-  // Extract extension safely
-  const ext = path.extname(name).toLowerCase();
+  const ext = path.extname(name);
   const base = path.basename(name, ext);
 
-  // Normalize, replace spaces with dash, remove bad chars
-  const safeBase = base
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
-    .replace(/\s+/g, '-')                            // spaces → dash
-    .replace(/[^a-zA-Z0-9_-]/g, '')                  // remove non-safe chars
-    .replace(/-+/g, '-')                             // collapse dashes
-    .replace(/^[-_]+|[-_]+$/g, '')                   // trim dashes/underscores
-    .toLowerCase();
+  // Replace unsafe characters with underscore
+  const safeBase = base.replace(/[^a-zA-Z0-9 _.-]/g, "_");
 
-  return `${safeBase}${ext}`;
+  return safeBase + ext;
+}
+
+async function getUniqueFilename(dir: string, originalName: string): Promise<string> {
+  const ext = path.extname(originalName);
+  const base = path.basename(originalName, ext);
+
+  let filename = originalName;
+  let counter = 1;
+
+  // Keep looping until we find a non-existing filename
+  while (true) {
+    try {
+      await fs.access(path.join(dir, filename)); // Check if file exists
+      filename = `${base}-${counter}${ext}`;      // If exists, increment
+      counter++;
+    } catch {
+      break; // File does not exist → we can use this filename
+    }
+  }
+
+  return filename;
 }
 
 export async function uploadCoverImage(formData: FormData) {
@@ -24,14 +38,17 @@ export async function uploadCoverImage(formData: FormData) {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
-  // Create a unique filename to avoid collisions
-  const filename = `${Date.now()}-${sanitizeFilename(file.name)}`;
-  const filePath = path.join(process.cwd(), "uploads", "productcoverimage", filename);
+  const uploadDir = path.join(process.cwd(), "uploads", "productcoverimage");
 
-  // Write the file to the specified path
+  // Sanitize filename (keep case)
+  const safeName = sanitizeFilename(file.name);
+
+  // Find a unique filename by incrementing
+  const uniqueFilename = await getUniqueFilename(uploadDir, safeName);
+
+  const filePath = path.join(uploadDir, uniqueFilename);
+
   await fs.writeFile(filePath, buffer);
 
-  // Return the URL for the uploaded file
-  const fileUrl = `/uploads/productcoverimage/${filename}`;
-  return fileUrl;
+  return `/uploads/productcoverimage/${uniqueFilename}`;
 }

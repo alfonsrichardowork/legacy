@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
+import { revalidatePath } from "next/cache";
 
 const slugify = (str: string): string => str.toLowerCase()
                             .replace(/[^a-z0-9]+/g, '-')
@@ -191,6 +192,20 @@ export async function PATCH(
         slug: slugify(name)
       }
     })
+
+    if( type === "Sub Category" ){
+      revalidatePath(`/drivers/${slugify(name)}`);
+    }
+    else if( type === "Sub Sub Category" ){ 
+      const allSub = await prismadb.allProductCategory.findMany({
+        where:{
+          type: "Sub Category",
+        }
+      })
+      allSub && allSub.length > 0 && allSub.forEach(sub => {
+        revalidatePath(`/drivers/${sub.slug}/${slugify(name)}`);
+      });
+    }
   
     return NextResponse.json("success");
   } catch (error) {
