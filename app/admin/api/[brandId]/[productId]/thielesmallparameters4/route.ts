@@ -34,7 +34,7 @@ export async function POST(
       vas,
       no,
       sd,
-      xmax
+      x_max
     } = body;
     
     if(!(await checkAuth(session.isAdmin!, params.brandId, session.userId!))){
@@ -58,7 +58,7 @@ export async function POST(
         vas,
         no,
         sd,
-        x_max: xmax,
+        x_max,
         productId: params.productId,
         createdAt: new Date(),
         updatedAt: new Date()
