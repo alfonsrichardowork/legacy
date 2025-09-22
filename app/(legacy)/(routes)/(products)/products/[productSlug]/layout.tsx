@@ -2,18 +2,18 @@ import getAllProductsGSP from "@/app/(legacy)/actions/get-all-products-gsp";
 import getSingleMetadata from "@/app/(legacy)/actions/get-metadata-single-product"
 import { Metadata, ResolvingMetadata } from "next"
 
-export const revalidate = 86400
-export async function generateStaticParams() {
-  const allProducts = await getAllProductsGSP();
+// export const revalidate = 86400
+// export async function generateStaticParams() {
+//   const allProducts = await getAllProductsGSP();
 
-  if (!allProducts || allProducts.length === 0) {
-    return []; // no params generated
-  }
+//   if (!allProducts || allProducts.length === 0) {
+//     return []; // no params generated
+//   }
 
-  return allProducts.map((productSlug) => ({
-    productSlug
-  }));
-}
+//   return allProducts.map((productSlug) => ({
+//     productSlug
+//   }));
+// }
 
 type Props = {
   params: Promise<{ productSlug: string }>

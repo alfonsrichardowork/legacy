@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Sep 22, 2025 at 03:54 AM
--- Server version: 8.0.43
--- PHP Version: 8.4.11
+-- Host: 127.0.0.1
+-- Generation Time: Sep 22, 2025 at 09:59 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,34 +18,34 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sbacoust_new_legacy`
+-- Database: `legacy`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ActiveSubwooferSpecification`
+-- Table structure for table `activesubwooferspecification`
 --
 
-CREATE TABLE `ActiveSubwooferSpecification` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `speaker` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `subwoofer` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `daya_amplifier` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `filter_lpf_variabel` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `input_level` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `power_input` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `box_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `activesubwooferspecification` (
+  `id` varchar(191) NOT NULL,
+  `speaker` varchar(191) NOT NULL,
+  `subwoofer` varchar(191) NOT NULL,
+  `daya_amplifier` varchar(191) NOT NULL,
+  `filter_lpf_variabel` varchar(191) NOT NULL,
+  `input_level` varchar(191) NOT NULL,
+  `power_input` varchar(191) NOT NULL,
+  `box_type` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `ActiveSubwooferSpecification`
+-- Dumping data for table `activesubwooferspecification`
 --
 
-INSERT INTO `ActiveSubwooferSpecification` (`id`, `speaker`, `subwoofer`, `daya_amplifier`, `filter_lpf_variabel`, `input_level`, `power_input`, `box_type`, `productId`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `activesubwooferspecification` (`id`, `speaker`, `subwoofer`, `daya_amplifier`, `filter_lpf_variabel`, `input_level`, `power_input`, `box_type`, `productId`, `createdAt`, `updatedAt`) VALUES
 ('5be45e11-9b59-44dc-b299-b438b06b942b', '10 Inch, 4 Ohm', '100 Watt RMS (200 Watt max) @', '13.8 V', '50 - 250 Hz -12 dB/oct', 'High and Low level', '12 VDC (13.8 VDC)', 'Sealed', 'e91c73a4-5e61-44e5-83ac-f42de65a2c3c', '2024-09-27 01:42:03.106', '2024-10-04 03:39:09.724'),
 ('98fb9149-1e6e-48a9-a142-04e7cc08acc9', '10 Inch, 4 Ohm', '100 Watt RMS (200 Watt max) @', '13.8 V', '50 - 250 Hz -12dB/oct', 'High and Low level', '12 VDC (13.8 VDC)', 'Sealed', '84d0978c-8907-458b-a8a8-99d45b40535b', '2024-10-04 03:45:33.513', '2024-10-04 03:45:33.513'),
 ('d073bccc-78d6-4217-91f9-0d9a38d40fbf', '10 Inch, 4 Ohm', '100 Watt RMS (200 Watt max) @', '13.8 V', '50 - 250 Hz -12dB/oct', 'High and Low level', '12 VDC (13.8 VDC)', 'Sealed', '78c76b38-9464-446b-ad93-2a10560d25b8', '2024-10-04 04:18:17.265', '2024-10-04 04:18:17.265'),
@@ -54,27 +54,27 @@ INSERT INTO `ActiveSubwooferSpecification` (`id`, `speaker`, `subwoofer`, `daya_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `AllCategory`
+-- Table structure for table `allcategory`
 --
 
-CREATE TABLE `AllCategory` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `thumbnail_url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `allcategory` (
+  `id` varchar(191) NOT NULL,
+  `brandId` varchar(191) NOT NULL,
+  `type` varchar(191) NOT NULL,
+  `name` text NOT NULL,
+  `slug` text NOT NULL,
+  `description` text NOT NULL,
+  `thumbnail_url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `updatedBy` varchar(191) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `AllCategory`
+-- Dumping data for table `allcategory`
 --
 
-INSERT INTO `AllCategory` (`id`, `brandId`, `type`, `name`, `slug`, `description`, `thumbnail_url`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
+INSERT INTO `allcategory` (`id`, `brandId`, `type`, `name`, `slug`, `description`, `thumbnail_url`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
 ('2300407f-0384-4940-84d0-1ac40e76fab7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Sub Sub Category', 'Tweeter', 'tweeter', 'All Tweeter Products', '', '2024-09-24 08:55:00.225', '2024-09-24 08:55:00.225', 'admin'),
 ('2460d041-5cb5-48f1-bb18-e3edd5c225b5', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Sub Sub Category', 'Discontinued', 'discontinued', 'All Discontinued Products', '', '2024-09-24 08:54:08.693', '2024-09-24 08:54:08.693', 'admin'),
 ('54fe181e-61ad-4dad-8f8f-52593be04dc6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Sub Category', 'Legacy', 'legacy', 'Speaker dari Legacy ini sangat bermacam variannya, mulai dari warna, bentuk tampilan, serta ukurannya (6 inch – 15 inch). Tampilan Speaker dari Legacy ini memberikan wajah baru, dengan desain Dustcap yang lebih simple tapi terlihat elegan sehingga membuat tampilan menjadi lebih Fresh. Pada Conepaper didesain dengan tampilan baru, yaitu menggunakan tehnik jahitan antara Conepaper dan Surround yang berfungsi memperkuat konstruksi Conepaper terhadap Foam Surround speakernya sehingga tidak mudah sobek dan mampu bertahan lebih lama (Durability).', '', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.923', 'admin'),
@@ -91,25 +91,25 @@ INSERT INTO `AllCategory` (`id`, `brandId`, `type`, `name`, `slug`, `description
 -- --------------------------------------------------------
 
 --
--- Table structure for table `AllProductCategory`
+-- Table structure for table `allproductcategory`
 --
 
-CREATE TABLE `AllProductCategory` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `categoryId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `allproductcategory` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `categoryId` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text NOT NULL,
+  `slug` text NOT NULL,
+  `type` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `AllProductCategory`
+-- Dumping data for table `allproductcategory`
 --
 
-INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, `updatedAt`, `name`, `slug`, `type`) VALUES
+INSERT INTO `allproductcategory` (`id`, `productId`, `categoryId`, `createdAt`, `updatedAt`, `name`, `slug`, `type`) VALUES
 ('01190928-3c1c-4281-83f8-45def33baeeb', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('0647e7d8-65a8-430d-bf16-0b947781aa7d', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '8fccc11d-9a22-45cd-b3ac-0b5fe29db546', '2024-10-17 07:01:00.319', '2024-10-17 07:01:00.319', 'Sparta', 'sparta', 'Sub Category'),
 ('0d032614-7309-4690-a543-1c7aa022e942', '970f6aa5-91f5-464c-96e4-83f86280d053', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
@@ -117,7 +117,6 @@ INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 ('12fe6819-f415-43fa-84ce-02513f291ca3', '6f3b950d-f94f-4c21-8e42-7e05251434b4', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('13109e02-d431-477f-858b-14915302f49c', 'c0118d2b-ca07-4d5d-9819-42b1fdc27655', 'b2fcc14b-c60f-4bc7-913f-56bc3247fdeb', '2024-09-24 08:52:58.509', '2024-09-27 06:15:19.283', 'Prestige', 'prestige', 'Sub Category'),
 ('158ea76a-2b82-4e88-babb-50678192b45b', 'e3770df5-ea15-4be2-85f5-703caecdfd36', 'e5f21898-2a62-4131-b3ee-90962859f682', '2024-09-24 08:53:30.455', '2024-12-09 05:28:07.104', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
-('172f9eb6-a8da-42f4-aa7e-c74ec614d517', 'e1c25166-8945-4f86-a898-3795b4b44883', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2025-09-22 03:41:14.816', '2025-09-22 03:41:14.816', 'Legacy', 'legacy', 'Sub Category'),
 ('19f0c8d8-fe07-4876-8e66-f39e66aea38b', '970f6aa5-91f5-464c-96e4-83f86280d053', '60d05b2e-d9b9-4b42-91c3-b9e0c1e883e0', '2024-09-24 08:53:57.121', '2024-09-24 08:53:57.121', 'Coaxial', 'coaxial', 'Sub Sub Category'),
 ('1a57b0bc-2d59-4e75-8ee1-9a48140c4c2b', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2025-09-22 02:26:04.719', '2025-09-22 02:26:04.719', 'Legacy', 'legacy', 'Sub Category'),
 ('1ba26bfb-c0a3-40a4-ba32-8ca6fb8c1c0d', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', 'b2fcc14b-c60f-4bc7-913f-56bc3247fdeb', '2024-09-24 08:52:58.509', '2024-09-27 06:15:19.283', 'Prestige', 'prestige', 'Sub Category'),
@@ -143,7 +142,6 @@ INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 ('449204df-c3e2-4e45-888f-1408eae5e20b', '164c19d2-170f-4b48-958e-68ec335392f0', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('4944f540-6317-4377-9811-b1500ffaa74c', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.939', 'Legacy', 'legacy', 'Sub Category'),
 ('4c902b65-0086-4db4-ba5e-306e20aabcb5', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', 'e5f21898-2a62-4131-b3ee-90962859f682', '2024-09-24 08:53:30.455', '2024-12-09 05:28:07.104', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
-('543394ac-0949-4c88-ac7b-dc3cc03a89a5', 'e1c25166-8945-4f86-a898-3795b4b44883', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2025-09-22 03:41:14.811', '2025-09-22 03:41:14.811', 'Drivers', 'drivers', 'Category'),
 ('54c38e74-a045-47f4-9abc-d353fa438a65', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('5553618d-b06d-4c4e-b606-9c44dddf7246', '7a0b71f7-4400-4318-af0e-fc23c27171d1', 'b2fcc14b-c60f-4bc7-913f-56bc3247fdeb', '2024-09-24 08:52:58.509', '2024-09-27 06:15:19.283', 'Prestige', 'prestige', 'Sub Category'),
 ('5577eddf-8a23-462d-ace1-c993d7e1696d', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.939', 'Legacy', 'legacy', 'Sub Category'),
@@ -154,6 +152,7 @@ INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 ('5c587d79-5928-45be-a9b4-ad9f808352c6', '41a41be4-0044-4958-b270-7afa8207446c', '7f6266c8-762a-4110-8854-9aa985777f30', '2024-09-24 08:54:49.922', '2024-09-24 08:54:49.922', 'Full Range', 'full-range', 'Sub Sub Category'),
 ('5c77a9c2-2496-4b05-b902-190364b40b18', 'c0118d2b-ca07-4d5d-9819-42b1fdc27655', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('5edb8298-b476-48cc-a564-803116fe6573', 'c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.939', 'Legacy', 'legacy', 'Sub Category'),
+('600080ec-f0cf-4da7-af6b-15eb3b3b7981', 'e1c25166-8945-4f86-a898-3795b4b44883', 'e5f21898-2a62-4131-b3ee-90962859f682', '2025-09-22 06:40:58.904', '2025-09-22 06:40:58.904', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
 ('60d057fb-98e3-4232-b4df-33b78055cc6b', '62a47bd6-a0c2-4df9-9cd0-21c496076a5a', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('6360769a-e2f9-4b46-931d-534ae244e752', '963116bc-4fef-48ae-a8e6-f655be756dc7', 'e5f21898-2a62-4131-b3ee-90962859f682', '2024-09-24 08:53:30.455', '2024-12-09 05:28:07.104', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
 ('659856d9-e186-4bd4-ba47-053081c49ff6', '69db9385-8c1f-4863-a07d-30e3fc952ec6', 'e5f21898-2a62-4131-b3ee-90962859f682', '2024-09-24 08:53:30.455', '2024-12-09 05:28:07.104', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
@@ -187,7 +186,6 @@ INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 ('9a85b9fd-987b-4927-8d06-db98be0195ea', '6f3b950d-f94f-4c21-8e42-7e05251434b4', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.939', 'Legacy', 'legacy', 'Sub Category'),
 ('9b2304ea-add5-4498-bf20-7f437c56787b', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', '7f6266c8-762a-4110-8854-9aa985777f30', '2024-09-24 08:54:49.922', '2024-09-24 08:54:49.922', 'Full Range', 'full-range', 'Sub Sub Category'),
 ('a020bf6e-1797-449f-8b9d-85354cbe89f9', '498bc88a-d5e6-4314-ad72-499ea3f1f780', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
-('a1fd3134-c0c0-4d44-92e1-c3216acead8f', 'e1c25166-8945-4f86-a898-3795b4b44883', 'e5f21898-2a62-4131-b3ee-90962859f682', '2025-09-22 03:41:14.818', '2025-09-22 03:41:14.818', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
 ('a21d8020-117b-4259-b4b1-d071c95e7664', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.939', 'Legacy', 'legacy', 'Sub Category'),
 ('a3cd495f-1cdf-48ce-b82f-aebc91651cd7', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', 'b2fcc14b-c60f-4bc7-913f-56bc3247fdeb', '2024-09-24 08:52:58.509', '2024-09-27 06:15:19.283', 'Prestige', 'prestige', 'Sub Category'),
 ('a55868ca-d796-4b6c-a6da-63fe6425e00b', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
@@ -198,6 +196,7 @@ INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 ('b373ab82-887f-47ca-a304-85f5d3eee60c', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('b4a540a8-aceb-4fd5-81a7-b8d5c7659d53', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'b2fcc14b-c60f-4bc7-913f-56bc3247fdeb', '2024-09-24 08:52:58.509', '2024-09-27 06:15:19.283', 'Prestige', 'prestige', 'Sub Category'),
 ('b552db98-11c2-4635-a40e-626f45a19cb2', 'c0118d2b-ca07-4d5d-9819-42b1fdc27655', '2300407f-0384-4940-84d0-1ac40e76fab7', '2024-09-24 08:55:00.225', '2024-09-24 08:55:00.225', 'Tweeter', 'tweeter', 'Sub Sub Category'),
+('b7e3a4c3-c951-4d07-8bcc-785a2e7b0111', 'e1c25166-8945-4f86-a898-3795b4b44883', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2025-09-22 06:40:58.886', '2025-09-22 06:40:58.886', 'Drivers', 'drivers', 'Category'),
 ('bc8b171a-cce1-4474-858f-9eaab52d02f2', '77932324-df07-44d8-84d2-30af8ae38c0a', 'e5f21898-2a62-4131-b3ee-90962859f682', '2024-09-24 08:53:30.455', '2024-12-09 05:28:07.104', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
 ('bd0ae207-11e2-4411-8699-3d96e50dfdd3', '4899e144-b93b-446a-89b4-b055230545ee', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.939', 'Legacy', 'legacy', 'Sub Category'),
 ('bd1966d4-ef5b-4ca0-ab23-7902ac0d1396', '7a0b71f7-4400-4318-af0e-fc23c27171d1', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
@@ -211,6 +210,7 @@ INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 ('d691bc0e-f9ee-4146-94d5-c09c8666591b', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'b2fcc14b-c60f-4bc7-913f-56bc3247fdeb', '2024-09-24 08:52:58.509', '2024-09-27 06:15:19.283', 'Prestige', 'prestige', 'Sub Category'),
 ('d9bf72a9-dd5b-4c29-a0ec-98a9d08d9e62', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2025-09-22 02:26:04.713', '2025-09-22 02:26:04.713', 'Drivers', 'drivers', 'Category'),
 ('da35709a-ccd6-4cfd-8f5e-83d4b8fd0b94', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', 'e5f21898-2a62-4131-b3ee-90962859f682', '2024-09-24 08:53:30.455', '2024-12-09 05:28:07.104', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
+('db809887-8f1f-4112-a68c-39c0a6af1b3f', 'e1c25166-8945-4f86-a898-3795b4b44883', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2025-09-22 06:40:58.898', '2025-09-22 06:40:58.898', 'Legacy', 'legacy', 'Sub Category'),
 ('df1c14ea-9662-46cf-bec7-f9b661a6a3ac', '2e888496-0048-4943-982f-ebfdd4625e1f', '54fe181e-61ad-4dad-8f8f-52593be04dc6', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.939', 'Legacy', 'legacy', 'Sub Category'),
 ('e09bfb80-09b3-4c9e-8f0a-eddb2aadc8f9', '69db9385-8c1f-4863-a07d-30e3fc952ec6', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('e22e417c-748a-4586-a847-b216040cfea4', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', 'e5f21898-2a62-4131-b3ee-90962859f682', '2024-09-24 08:53:30.455', '2024-12-09 05:28:07.104', 'Subwoofer', 'subwoofer', 'Sub Sub Category'),
@@ -228,43 +228,43 @@ INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Brand`
+-- Table structure for table `brand`
 --
 
-CREATE TABLE `Brand` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `brand` (
+  `id` varchar(191) NOT NULL,
+  `name` text NOT NULL,
+  `userId` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Brand`
+-- Dumping data for table `brand`
 --
 
-INSERT INTO `Brand` (`id`, `name`, `userId`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `brand` (`id`, `name`, `userId`, `createdAt`, `updatedAt`) VALUES
 ('680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Legacy', '25cd8d0d-d185-41e8-9943-fdf1264236f2', '2024-03-28 07:42:40.393', '2024-09-24 01:37:14.138');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Cover_Image`
+-- Table structure for table `cover_image`
 --
 
-CREATE TABLE `Cover_Image` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `cover_image` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Cover_Image`
+-- Dumping data for table `cover_image`
 --
 
-INSERT INTO `Cover_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('02bf5ca7-666e-4322-8b8f-d848879b634b', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/productcoverimage/1732254879382-12in LG-12385-2 SPARTA Collage.webp', '2025-07-30 01:07:25.662', '2025-07-30 01:07:25.662'),
 ('05b4f87f-ffb2-4d1b-87a8-ad16cbd38b66', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/productcoverimage/1733969592789-12in LG 1277-2.webp', '2024-12-13 00:50:52.327', '2024-12-13 00:50:52.327'),
 ('075b404e-bb96-4fcf-9a17-db978c493151', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productcoverimage/1732765167247-6.5in BST 1614 collage.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315'),
@@ -307,36 +307,36 @@ INSERT INTO `Cover_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Drawing_Image`
+-- Table structure for table `drawing_image`
 --
 
-CREATE TABLE `Drawing_Image` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `drawing_image` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Featured_Image`
+-- Table structure for table `featured_image`
 --
 
-CREATE TABLE `Featured_Image` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `featured_image` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Featured_Image`
+-- Dumping data for table `featured_image`
 --
 
-INSERT INTO `Featured_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `featured_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('042af5ac-92df-46ca-818b-438f21f76822', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', '/uploads/featuredimages/1735875741756-1733969924783-PG 854-2 Red.webp', '2025-01-03 03:42:21.846', '2025-01-03 03:42:21.846'),
 ('6b89ba09-5b6c-4508-a653-3c58f96f2cf6', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/featuredimages/1755244504471-1735875750492-cropped-1733969935616-12385-sparta.webp', '2025-08-15 07:55:04.548', '2025-08-15 07:55:04.548'),
 ('770ca9f5-c323-41a2-86ee-0ec11048c922', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/featuredimages/1735875729044-cropped-1733969827686-Legacy1277&1299.webp', '2025-01-03 03:42:09.138', '2025-01-03 03:42:09.138'),
@@ -346,22 +346,22 @@ INSERT INTO `Featured_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Graph_Image`
+-- Table structure for table `graph_image`
 --
 
-CREATE TABLE `Graph_Image` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `graph_image` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Graph_Image`
+-- Dumping data for table `graph_image`
 --
 
-INSERT INTO `Graph_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `graph_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('1777a7f0-a192-402f-b401-9dec41a23274', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productfrequencyresponse/1733734694037-BST 1614 Respon Frekuensi.webp', '2024-12-09 08:58:14.316', '2024-12-09 08:58:14.316'),
 ('19bfc805-c2dc-4591-a428-c39a4b776d0f', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', '/uploads/productfrequencyresponse/1733734616854-4in BST 1023 Dual Cone Respon Frekuensi.webp', '2024-12-09 08:56:57.104', '2024-12-09 08:56:57.104'),
 ('203ea75b-5acd-4634-9487-c531cdd49f19', '963116bc-4fef-48ae-a8e6-f655be756dc7', '/uploads/productfrequencyresponse/1733734816340-12in LG 1296-2 Mk1 Respon Frekuensi.webp', '2024-12-09 09:00:16.591', '2024-12-09 09:00:16.591'),
@@ -397,23 +397,23 @@ INSERT INTO `Graph_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Image_Catalogues`
+-- Table structure for table `image_catalogues`
 --
 
-CREATE TABLE `Image_Catalogues` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `image_catalogues` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Image_Catalogues`
+-- Dumping data for table `image_catalogues`
 --
 
-INSERT INTO `Image_Catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedAt`, `name`) VALUES
+INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedAt`, `name`) VALUES
 ('02fa6593-e9d8-4aaa-bd45-e5cebbc2aba7', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', '/uploads/productimagecatalogues/1731893146020-8in 854 Prestige magnet cone chasis.webp', '2024-11-28 03:32:29.306', '2024-11-28 03:32:29.306', 'Side Top'),
 ('0345bb28-3bd4-4128-85aa-1c0083ad6ae4', '498bc88a-d5e6-4314-ad72-499ea3f1f780', '/uploads/productimagecatalogues/1732254362170-12in LG 1298-2 Magnet.webp', '2024-11-28 03:20:26.644', '2024-11-28 03:20:26.644', 'Bottom'),
 ('06f66b15-1948-4e2d-a51d-283e90dd16da', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '/uploads/productimagecatalogues/1734055213560-10in LG 10385 (2).webp', '2024-12-17 05:55:19.913', '2024-12-17 05:55:19.913', 'Top'),
@@ -424,7 +424,7 @@ INSERT INTO `Image_Catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('10d70a2b-1065-43e1-964d-f36f00b76a19', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '/uploads/productimagecatalogues/1732254591662-12in LG 1292-2 magnet.webp', '2024-11-28 03:19:22.605', '2024-11-28 03:19:22.605', 'Bottom'),
 ('16567a4d-f613-429b-bd3f-4e3eceebbf25', '77932324-df07-44d8-84d2-30af8ae38c0a', '/uploads/productimagecatalogues/1732254833771-12in LG 1238-2 LEGACY Chasis.webp', '2024-12-09 08:59:16.262', '2024-12-09 08:59:16.262', 'Side Bottom'),
 ('166eca3b-5654-4fe7-8075-59b775976c67', '963116bc-4fef-48ae-a8e6-f655be756dc7', '/uploads/productimagecatalogues/1732254919574-12in LG 1296-2 Mk1 Magnet.webp', '2024-12-09 09:00:16.591', '2024-12-09 09:00:16.591', 'Bottom'),
-('176018f5-d895-4742-bfd3-c0f38f354b45', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimagecatalogues/1758506382978-1040-chasis-jejeg.webp', '2025-09-22 01:59:43.304', '2025-09-22 03:22:54.089', 'Chasis Side'),
+('176018f5-d895-4742-bfd3-c0f38f354b45', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimagecatalogues/1758506382978-1040-chasis-jejeg.webp', '2025-09-22 01:59:43.304', '2025-09-22 07:35:39.265', 'Chasis Side'),
 ('19263487-976d-44d9-b3a6-a7002841d59f', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '/uploads/productimagecatalogues/1731893247174-4in 8347 KH Magnet.webp', '2024-11-28 03:34:00.594', '2024-11-28 03:34:00.594', 'Bottom'),
 ('1b4ef847-33b9-46a9-8339-68992c043df4', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '/uploads/productimagecatalogues/1732254500585-12in LG-12386-2 SPARTA Magnet.webp', '2024-11-28 03:25:39.986', '2024-11-28 03:25:39.986', 'Bottom'),
 ('2a6066f1-4756-437b-8ed3-245e4e1dbf53', '6f3b950d-f94f-4c21-8e42-7e05251434b4', '/uploads/productimagecatalogues/1732254432307-12in LG 1295-2 Mk1 Chasis.webp', '2024-11-28 03:19:37.776', '2024-11-28 03:19:37.776', 'Side Bottom'),
@@ -443,6 +443,7 @@ INSERT INTO `Image_Catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('4a2ef0b3-a232-4414-93c2-d9456318ee92', 'e1c25166-8945-4f86-a898-3795b4b44883', '/uploads/productimagecatalogues/1758512181814-1240-chasis-side.webp', '2025-09-22 03:36:22.155', '2025-09-22 03:36:22.155', 'Chasis Side'),
 ('502e91fd-1f54-4369-8304-ded3516f0959', '963116bc-4fef-48ae-a8e6-f655be756dc7', '/uploads/productimagecatalogues/1732254919527-12in LG 1296-2 Mk1 Cone.webp', '2024-12-09 09:00:16.591', '2024-12-09 09:00:16.591', 'Top'),
 ('53623feb-62fb-4d53-aaa7-2834ef235737', '4899e144-b93b-446a-89b4-b055230545ee', '/uploads/productimagecatalogues/1731395653235-10in LG-1098-2 magnet.webp', '2024-11-28 03:12:45.627', '2024-11-28 03:12:45.627', 'Side'),
+('53a7297f-14e7-47b7-98a1-a817f507a3de', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimagecatalogues/Foto Legacy Bawah.webp', '2025-09-22 07:35:39.207', '2025-09-22 07:35:39.207', 'Bottom Side'),
 ('53be2e67-ae3a-4ccf-a13e-3c0069e4f5c0', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/1732765167406-BST 1614 chasis.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Side'),
 ('54a27c63-13e2-4b68-806a-bad86477d1f4', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/1732254649173-10in LG 1077-2 magnet.webp', '2024-11-28 03:10:43.881', '2025-08-15 07:21:35.827', 'Bottom'),
 ('56a3f5bf-9155-4c57-b84e-60086bf51b58', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/1732765167358-BST 1614 magnet.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Bottom'),
@@ -499,7 +500,6 @@ INSERT INTO `Image_Catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('da77d9cc-771d-41f6-969a-0011a65fd9cb', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '/uploads/productimagecatalogues/1732254500527-12in LG-12386-2 SPARTA Cone.webp', '2024-11-28 03:25:39.986', '2024-11-28 03:25:39.986', 'Top'),
 ('dc1bc55a-8746-42c2-881a-0da27730ba3d', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', '/uploads/productimagecatalogues/1731895876917-4in BST 1023 Dual Cone Chasis.webp', '2024-12-09 08:56:57.104', '2024-12-09 08:56:57.104', 'Side'),
 ('ddc3cbd9-41bd-41bc-80a4-113e59931f36', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', '/uploads/productimagecatalogues/1732254773400-6.5in BST 615 Mk3 Magnet .webp', '2024-12-09 08:57:50.383', '2024-12-09 08:57:50.383', 'Bottom'),
-('e0585e01-753e-4a1c-93b1-6d06968a53dc', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimagecatalogues/1758506383200-foto-legacy-1040-sticker.webp', '2025-09-22 01:59:43.304', '2025-09-22 03:22:54.089', 'Bottom Side'),
 ('e1e29215-aae3-4f9e-bac6-38f215ad7290', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', '/uploads/productimagecatalogues/1732254773276-6.5in BST 615 Mk3 Cone 2.webp', '2024-12-09 08:57:50.383', '2024-12-09 08:57:50.383', 'Top'),
 ('e9cefa5d-37a6-49e3-a76b-8159c5443189', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', '/uploads/productimagecatalogues/1732254773335-6.5in BST 615 Mk3 Cone 1.webp', '2024-12-09 08:57:50.383', '2024-12-09 08:57:50.383', 'Top Without Mesh'),
 ('eb8e44ef-e418-40ea-a0ee-3710c36f2059', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productimagecatalogues/1730865885624-1727678256663-lg-696-2-chassis-1024x849.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574', 'Side'),
@@ -513,22 +513,22 @@ INSERT INTO `Image_Catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Impedance_Image`
+-- Table structure for table `impedance_image`
 --
 
-CREATE TABLE `Impedance_Image` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `impedance_image` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Impedance_Image`
+-- Dumping data for table `impedance_image`
 --
 
-INSERT INTO `Impedance_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `impedance_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('0b791520-0984-42b9-8ca5-e92981691b5a', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '/uploads/productfrequencyresponse/1731395781127-10in 1095-2 Mk1 Impedansi.webp', '2024-12-13 01:59:24.740', '2024-12-13 01:59:24.740'),
 ('0c5942b5-3e7b-452d-b9cf-fe32c3150208', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productfrequencyresponse/1732254649047-1077 Impedansi.webp', '2024-11-28 03:10:43.882', '2024-11-28 03:10:43.882'),
 ('15007fcd-ad94-46d7-b835-96b1a825ed66', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', '/uploads/productfrequencyresponse/1733734670172-6.5in BST 615 Mk3 Impedansi .webp', '2024-12-09 08:57:50.384', '2024-12-09 08:57:50.384'),
@@ -549,7 +549,6 @@ INSERT INTO `Impedance_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt
 ('7f6cde94-e5e6-41f5-bebe-595fdd201ab4', '3d4dd01e-42bc-41b7-8015-9c5d8afc8f1e', '/uploads/productfrequencyresponse/1731893093814-12in PG 1254 Impedansi.webp', '2024-11-28 03:32:11.124', '2024-11-28 03:32:11.124'),
 ('84119fff-c3ee-4059-ac4c-27fb70a7c3c0', '7a0b71f7-4400-4318-af0e-fc23c27171d1', '/uploads/productfrequencyresponse/1733734732824-4in BST 422 Impedansi.webp', '2024-12-09 08:58:52.970', '2024-12-09 08:58:52.970'),
 ('878df745-ae20-408d-9b08-2ed167cd9492', '4899e144-b93b-446a-89b4-b055230545ee', '/uploads/productfrequencyresponse/1731395653141-1098 impedansi.webp', '2024-11-28 03:12:45.628', '2024-11-28 03:12:45.628'),
-('9aeaa89d-67ee-4f5c-a7ed-0bb307a3eece', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimpedance/1758511373991-impedansi-lg-1040-2.png', '2025-09-22 03:22:54.120', '2025-09-22 03:22:54.120'),
 ('a4929b8f-91ac-46d3-be1e-47b8e9bc13d7', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', '/uploads/productfrequencyresponse/1733734616964-4in BST 1023 Dual Cone Impedansi.webp', '2024-12-09 08:56:57.104', '2024-12-09 08:56:57.104'),
 ('a6448519-34a0-420f-9d5a-d075d226ae4d', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productfrequencyresponse/1727919169341-6in-LG-696-2-LEGACY-Impedansi-1024x597.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574'),
 ('afd653d2-6553-48de-a6a0-8683d9892606', '164c19d2-170f-4b48-958e-68ec335392f0', '/uploads/productfrequencyresponse/1733734713501-5in BST 522 Mk3 Impedansi.webp', '2024-12-09 08:58:33.638', '2024-12-09 08:58:33.638'),
@@ -557,6 +556,7 @@ INSERT INTO `Impedance_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt
 ('b409e235-e607-4c98-9350-846a023f9f96', '77932324-df07-44d8-84d2-30af8ae38c0a', '/uploads/productfrequencyresponse/1733734756120-12in LG 1238-2 LEGACY Impedansi.webp', '2024-12-09 08:59:16.263', '2024-12-09 08:59:16.263'),
 ('d346af6f-51eb-43e2-8876-d15463d2e7af', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productfrequencyresponse/1733734694153-BST 1614 Impedansi.webp', '2024-12-09 08:58:14.316', '2024-12-09 08:58:14.316'),
 ('e132932d-5286-4b2c-8349-e477b042ab36', '42802840-d898-46ea-8377-7e0a9b6a060f', '/uploads/productfrequencyresponse/1731895109922-pg 1054 2 Impedansi.webp', '2024-11-28 03:31:53.137', '2024-11-28 03:31:53.137'),
+('e42a3130-92e8-4ba1-aa16-69bcc274d91d', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimpedance/Impedansi LG 1040-2.png', '2025-09-22 07:35:39.470', '2025-09-22 07:35:39.470'),
 ('ef3ebb8f-13ee-4ebf-ac69-1c97b543b61c', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productfrequencyresponse/1733734644011-6X9in BST 6981 Mk1 Impedansi.webp', '2024-12-09 08:57:24.171', '2024-12-09 08:57:24.171'),
 ('fcb59f27-e9a4-406c-a2c7-6d26a150032b', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '/uploads/productfrequencyresponse/1733734842132-1096-2 Impedansi.webp', '2024-12-09 09:00:42.292', '2024-12-09 09:00:42.292'),
 ('fdf81100-11b2-45a9-8dda-196c34dd22b5', '970f6aa5-91f5-464c-96e4-83f86280d053', '/uploads/productfrequencyresponse/1733734793305-6.5in LG 6521 Impedansi.webp', '2024-12-09 08:59:53.446', '2024-12-09 08:59:53.446');
@@ -564,21 +564,21 @@ INSERT INTO `Impedance_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt
 -- --------------------------------------------------------
 
 --
--- Table structure for table `multipleDatasheetProduct`
+-- Table structure for table `multipledatasheetproduct`
 --
 
-CREATE TABLE `multipleDatasheetProduct` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
+CREATE TABLE `multipledatasheetproduct` (
+  `id` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `multipleDatasheetProduct`
+-- Dumping data for table `multipledatasheetproduct`
 --
 
-INSERT INTO `multipleDatasheetProduct` (`id`, `productId`, `url`, `name`) VALUES
+INSERT INTO `multipledatasheetproduct` (`id`, `productId`, `url`, `name`) VALUES
 ('015a1b88-cf9b-4bce-892c-033c261381fd', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '/uploads/productdatasheet/1727255154899-44.pdf', '12\" LG 1292-2 Datasheet'),
 ('08b5d53b-3e98-4a28-808d-8c5bcd2fbd11', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productdatasheet/1727312633140-58.pdf', '6.5\" BST 1614 Datasheet'),
 ('0f27c649-4dc2-450d-8270-c636bc48c80b', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '/uploads/productdatasheet/1727255648310-24.pdf', '8\" LG 896-2 Datasheet'),
@@ -618,28 +618,28 @@ INSERT INTO `multipleDatasheetProduct` (`id`, `productId`, `url`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `News`
+-- Table structure for table `news`
 --
 
-CREATE TABLE `News` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `event_date` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `news` (
+  `id` varchar(191) NOT NULL,
+  `brandId` varchar(191) NOT NULL,
+  `title` text NOT NULL,
+  `slug` text NOT NULL,
+  `description` text NOT NULL,
+  `event_date` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `updatedBy` varchar(191) NOT NULL DEFAULT '',
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `link_placeholder` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link_url` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `link_placeholder` text NOT NULL,
+  `link_url` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `News`
+-- Dumping data for table `news`
 --
 
-INSERT INTO `News` (`id`, `brandId`, `title`, `slug`, `description`, `event_date`, `updatedBy`, `createdAt`, `updatedAt`, `link_placeholder`, `link_url`) VALUES
+INSERT INTO `news` (`id`, `brandId`, `title`, `slug`, `description`, `event_date`, `updatedBy`, `createdAt`, `updatedAt`, `link_placeholder`, `link_url`) VALUES
 ('2d535d4d-5ebd-496d-a705-976da157a9b0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'SPEAKER MOBIL LIMITED EDITION KARYA ANAK BANGSA: 10in LG 1040 dan 12in LG 1240', 'speaker-mobil-limited-edition-karya-anak-bangsa-10in-lg-1040-dan-12in-lg-1240', '<p>Selama bertahun-tahun, Sinar Baja Electric mengeluarkan speaker mobil dengan bahan berkualitas dan suara yang jernih yang bisa didapatkan dari brand adalannya: Legacy Series. Dikenal luas lewat produk best sellernya yaitu 12in LG 1277-2, Legacy Series mengeluarkan serian Limited Editionnya sebanyak 2 tipe, yaitu 10in LG 1040 dan 12in LG 1240.</p><p>&nbsp;</p><p>Setiap tipe memiliki daya magnet yang optimal yang didapat dari hasil pengukuran FEA (Finite Element Analysis), sehingga menghasilkan suara treble lebih jernih. Bass yang dalam juga membantu meningkatkan pengalaman audio yang lebih imersif sehingga pelanggan merasakan seperti di tengah konser. Material conepaper yang dibuat dari bahan PP injection khusus memiliki daya tahan yang sangat tinggi terhadap perubahan cuaca. Dengan teknologi ini, speaker bisa digunakan diberbagai macam tempat yaitu di area indoor maupun outdoor, karena speaker ini akan tetap mengeluarkan kualitas suara yang prima. Keunggulan lain yang tidak kalah penting adalah motor didesain dengan ventilasi khusus sehingga tidak ada kompresi udara dan memberikan sirkulasi udara yang berfungsi sebagai pendingin. &nbsp;Dengan sistem ini, maka pengguna dapat menggunakan speaker ini dalam jangka waktu yang lama, dan kualitas suara tetap stabil walaupun dengan volume yang tinggi.</p><p></p><p><strong>Pentingnya Memilih Speaker Berkualitas Dari Indonesia</strong></p><p></p><p>Sinar Baja Electric (SBE) merupakan produsen loudspeaker lokal terbesar di Asia Tenggara. Dengan sertifikasi <strong>ISO 9001/TS 16949</strong>, SBE fokus pada speaker mobil&nbsp;berkualitas tinggi. Dengan tagline Legacy Speaker yaitu <strong><em>The Driving Force</em></strong>, perusahaan berkomitmen untuk selalu meningkatkan pengalaman berkendaran tidak akan didapat dari brand-brand lainnya.</p><p>&nbsp;</p><p>Dengan pabrik yang berlokasi di Surabaya ini, SBE memiliki keunggulan yang tidak dimiliki oleh brand-brand ternama lainnya, yaitu adanya fasilitas jasa servis yang melewati proses quality control yang sama seperti memproduksi produk baru.</p><p>&nbsp;</p><p>Pelanggan juga dapat membeli produk dari Sinar Baja Electric melalui dealer-dealer resmi SBE. Daftar dealer resmi tersedia di aplikasi My SBE, dan dapat diunduh di Play Store.</p>', '2025-04-29 17:00:00.000', 'admin', '2025-04-30 09:07:08.816', '2025-07-30 08:49:29.385', '', ''),
 ('2e4f6cbb-f4b5-47a4-b0a0-2f9342a9382d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Undangan Kerjasama dengan Para Youtuber dan Tiktokers Sound Audio Se-Indonesia', 'undangan-kerjasama-dengan-para-youtuber-dan-tiktokers-sound-audio-se-indonesia', '<p>Tim Legacy membuka kesempatan kepada para Youtuber dan TikTokers seluruh Indonesia untuk mendapatkan speaker gratis dari Legacy untuk direview. Kami akan memilih para youtuber untuk mendapatkan kesempatan emas ini.</p><p>Berikut sistem kerjasamanya:</p><ul><li><p>Speaker yang diberikan tidak perlu dibeli, dan menjadi milik influencer yang bersangkutan</p></li><li><p>Biaya ongkir dari pabrik Sinar Baja Electric ke rumah Influencer ditanggung oleh Sinar Baja Electric</p></li></ul><p>Berikut syarat dan ketentuannya:</p><ul><li><p>Follow Youtube dan TikTok @acrspeaker-rhymeproaudio</p></li><li><p>Durasi video dan banyaknya part bebas (sekreatif dan semenarik mungkin)</p></li><li><p>Review speaker mirip dengan konten-konten dari influencer tersebut. Contoh: Jika isi konten mengenai review box dan tes suara, maka isi konten bisa ditambahkan penjelasan singkat tentang speaker yang kami kirimkan</p></li><li><p>Setelah mengupload video, mohon untuk menghubugi admin kembali untuk di-review dan di-upload di Instagram @legacy.speaker</p></li></ul><p>Berikut contoh Youtuber yang telah bekerjasama dengan kami:</p><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.youtube.com/@jossaudio\">Joss Audio</a></p></li></ul><img src=\"/uploads/newsimages/1734425192313-joss.webp\"><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.youtube.com/@Zacky_Audio88\">Zacky Audio</a></p><img src=\"/uploads/newsimages/1734425271436-zacky.webp\"></li></ul>', '2024-10-12 17:00:00.000', 'admin', '2024-10-16 00:53:00.087', '2024-12-17 08:48:44.913', '', ''),
 ('8a024495-c9e4-40b9-88b6-7fdaa8bbc209', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Merchandise Gratis untuk Youtuber Penikmat Audio Legacy', 'merchandise-gratis-untuk-youtuber-penikmat-audio-legacy', '<p>Tidak kalah dari brand-brand Sinar Baja Electric lainnya, Legacy juga membuat event khusus untuk para penikmat sound Legacy. Event ini diadakan sebagai bentuk apresiasi kepada para pecinta audio yang tetap setia menggunakan Legacy. Mereka bisa mendapatkan merchandise gratis dengan cara sebagai berikut:</p><ul><li><p>Follow instagram @legacy.speaker</p></li><li><p>Upload konten review mengenai produk Legacy di Youtube atau Tiktok semenarik dan sekreatif mungkin</p></li><li><p>Kirimkan link video ke tim Legacy melalui instagram @legacy.speaker beserta kelengkapan data untuk pengiriman merchandise (nama, alamat lengkap, kode pos, dan no hp)</p></li></ul><p>Event ini akan diadakan tiap bulan, dan konten yang mendapatkan merchandise adalah konten yang telah terupload sejak Januari 2023.</p>', '2024-12-16 17:00:00.000', 'admin', '2024-12-17 05:47:55.165', '2025-07-30 03:15:26.137', '', ''),
@@ -648,22 +648,22 @@ INSERT INTO `News` (`id`, `brandId`, `title`, `slug`, `description`, `event_date
 -- --------------------------------------------------------
 
 --
--- Table structure for table `News_Image`
+-- Table structure for table `news_image`
 --
 
-CREATE TABLE `News_Image` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `newsId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `news_image` (
+  `id` varchar(191) NOT NULL,
+  `newsId` varchar(191) NOT NULL,
+  `url` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `News_Image`
+-- Dumping data for table `news_image`
 --
 
-INSERT INTO `News_Image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `news_image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('2424b664-dc80-4ac6-a533-9848579b817e', '2d535d4d-5ebd-496d-a705-976da157a9b0', '/uploads/newsimages/1746004026600-WhatsApp Image 2025-03-14 at 5.12.33 PM(1).webp', '2025-07-30 08:49:29.392', '2025-07-30 08:49:29.392'),
 ('36bca4e7-c030-4a27-97b6-f5727d94ccb1', 'db43cd12-32f3-4236-a9a3-d93ba0f5b222', '/uploads/newsimages/1734414173133-1728983842508-berita1.webp', '2025-07-30 04:02:32.322', '2025-07-30 04:02:32.322'),
 ('56b7a292-c18d-4059-8354-ac7995c214c2', '2e4f6cbb-f4b5-47a4-b0a0-2f9342a9382d', '/uploads/newsimages/1729039980021-berita2.webp', '2024-12-17 08:48:44.957', '2024-12-17 08:48:44.957'),
@@ -674,36 +674,36 @@ INSERT INTO `News_Image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Product`
+-- Table structure for table `product`
 --
 
-CREATE TABLE `Product` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isFeatured` tinyint(1) NOT NULL DEFAULT '0',
-  `isArchived` tinyint(1) NOT NULL DEFAULT '0',
-  `sizeId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `product` (
+  `id` varchar(191) NOT NULL,
+  `brandId` varchar(191) NOT NULL,
+  `name` text NOT NULL,
+  `isFeatured` tinyint(1) NOT NULL DEFAULT 0,
+  `isArchived` tinyint(1) NOT NULL DEFAULT 0,
+  `sizeId` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `specId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isNewProduct` tinyint(1) NOT NULL DEFAULT '0',
-  `featuredDesc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `series` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `activeSubwooferSpecId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `thieleSmallParameter2OhmId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `thieleSmallParameter4OhmId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `tweeterSpecId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `description` text NOT NULL,
+  `slug` text NOT NULL,
+  `specId` varchar(191) NOT NULL DEFAULT '',
+  `updatedBy` text NOT NULL,
+  `isNewProduct` tinyint(1) NOT NULL DEFAULT 0,
+  `featuredDesc` text NOT NULL,
+  `series` text NOT NULL,
+  `activeSubwooferSpecId` varchar(191) NOT NULL DEFAULT '',
+  `thieleSmallParameter2OhmId` varchar(191) NOT NULL DEFAULT '',
+  `thieleSmallParameter4OhmId` varchar(191) NOT NULL DEFAULT '',
+  `tweeterSpecId` varchar(191) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Product`
+-- Dumping data for table `product`
 --
 
-INSERT INTO `Product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `sizeId`, `createdAt`, `updatedAt`, `description`, `slug`, `specId`, `updatedBy`, `isNewProduct`, `featuredDesc`, `series`, `activeSubwooferSpecId`, `thieleSmallParameter2OhmId`, `thieleSmallParameter4OhmId`, `tweeterSpecId`) VALUES
+INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `sizeId`, `createdAt`, `updatedAt`, `description`, `slug`, `specId`, `updatedBy`, `isNewProduct`, `featuredDesc`, `series`, `activeSubwooferSpecId`, `thieleSmallParameter2OhmId`, `thieleSmallParameter4OhmId`, `tweeterSpecId`) VALUES
 ('164c19d2-170f-4b48-958e-68ec335392f0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5\" BST 522 MK3', 0, 0, '65830f7d-49e4-40e7-875c-02f2a72e1383', '2024-09-26 01:03:09.716', '2024-12-09 08:58:33.619', '-', 'bst-522-mk3', '164ef56e-9020-47a2-9140-93f5ad5e02b3', 'admin', 0, '', '', '', '0767a25e-725f-4f81-8bfd-47461301f8f9', '', ''),
 ('2b1193f0-37cb-4576-9bfc-028cd5694d0e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1299-2-Mk1', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:09:39.014', '2024-11-28 03:20:43.401', '-', 'lg-1299-2-mk1', '1c522496-ad9e-4b96-aacc-fd1cee506b5c', 'admin', 0, '', '', '', '2e1fa33c-e1e8-4d9f-956e-0bc5fbc7be90', '8dff9604-2e5f-43a7-9fe3-b44264024b08', ''),
 ('2e888496-0048-4943-982f-ebfdd4625e1f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1009-2', 0, 1, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:49:55.751', '2024-11-28 03:12:56.212', '-', 'lg-1009-2', 'f938ce0c-2b3c-4bbc-8b5b-e63f7745c288', 'admin', 0, '', '', '', 'a3c6198c-a0d1-4df0-89b6-1c800d72bafa', '8c1d21f7-b361-45f5-84f7-242a60ef7cfd', 'fe69ccc4-2f16-4cb4-8c93-6fbeeca4f1e1'),
@@ -715,7 +715,7 @@ INSERT INTO `Product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('498bc88a-d5e6-4314-ad72-499ea3f1f780', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1298-2', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:08:41.334', '2024-11-28 03:20:26.636', '-', 'lg-1298-2', '63e06e12-55c2-43f4-9381-73eb81a9f641', 'admin', 0, '', '', '', 'e6c4b1d8-3455-4b20-a4cb-d54193afaa63', '735661d3-3e31-4d2b-9d4c-2faacf55138a', ''),
 ('55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8\" LG 896-2', 0, 0, '3ceafaeb-f3e4-4034-b46a-44948d3c2062', '2024-09-25 09:14:08.427', '2024-11-28 03:22:53.632', '-', 'lg-896-2', 'd2913d7d-3632-4447-8dbf-5860c0d455c9', 'admin', 0, '', '', '', '3c001c53-df27-46f1-aa5b-75584a4a31a1', 'a20273ff-6248-4f58-b1a1-26a9aa86a7a6', ''),
 ('58e4147b-93a0-4809-955d-d04ce1161c5e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1277-2', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:04:43.154', '2025-01-03 03:42:09.130', '-', 'lg-1277-2', 'e822b9c0-c1d2-4119-adeb-6fdb19ba4f14', 'admin', 0, 'Tampilan fresh dan elegan serta jahitan antara conepaper dan surround yang kuat mampu meningkatkan performa bass yang kuat dan dalam', 'LEGACY', '', '69d8c28d-5bd5-41fa-9e34-22d19d2f1916', '6d3099c3-8102-4d9d-b184-099033a7e666', ''),
-('5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1040-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2025-09-22 01:59:43.289', '2025-09-22 03:22:54.123', '-', 'lg-1040-2', '171084da-f7ea-4426-bb85-8e66736d4b0d', 'admin', 0, '', '', '', '23e9229c-9aff-4e2a-a496-28a7952004a3', '95d1f8e6-018a-45ce-89e5-fca6f31750bc', ''),
+('5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1040-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2025-09-22 01:59:43.289', '2025-09-22 07:35:39.480', '-', 'lg-1040-2', '171084da-f7ea-4426-bb85-8e66736d4b0d', 'admin', 0, '', '', '', '23e9229c-9aff-4e2a-a496-28a7952004a3', '95d1f8e6-018a-45ce-89e5-fca6f31750bc', ''),
 ('5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1077-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:53:37.562', '2025-08-15 07:21:35.849', '-', 'lg-1077-2', '69421bd1-1406-4768-9321-81a0521ab800', 'admin', 0, '', '', '', 'bc9187ea-506a-4186-9bef-c5b1a137bf8d', '514d985b-edd7-46f7-8d22-f9d63b8c6040', ''),
 ('62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1038-2', 0, 1, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:51:18.457', '2024-11-28 03:43:16.934', '-', 'lg-1038-2', 'af6e2faf-6204-4a72-b0e4-09b4696228bd', 'admin', 0, '', '', '', '88e64212-77a6-40ce-9dda-923b4fafeb0e', 'ae840cca-97f1-4c81-855b-a48fcd78e559', ''),
 ('69db9385-8c1f-4863-a07d-30e3fc952ec6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6\" LG 638-2 MK1', 0, 0, 'ed8a91c0-2efb-4f49-892e-5f5cb123bd86', '2024-09-25 09:11:28.844', '2024-11-28 03:23:18.524', '-', 'lg-638-2-mk1', '92af05e7-e906-4282-9509-51bcbfe5cf76', 'admin', 0, '', '', '', 'ccd3d603-9f32-4f0a-8b6a-45b23cc54ba0', '379063e4-69f1-42a1-948d-116ebcfd68ec', ''),
@@ -739,52 +739,52 @@ INSERT INTO `Product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 12386-2', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:03:39.694', '2024-11-28 03:25:39.979', '-', 'lg-12386-2', 'f0df23ba-0d5d-4958-9e65-474b4f590170', 'admin', 0, '', '', '', '53d00cf1-c109-4868-acb1-b534a66ea2ea', '5d7610fe-a116-477b-aabd-0c96968d9df4', ''),
 ('c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '15\" LG 1596-2', 0, 0, 'bde0763b-2624-4b11-9f5c-993cd19f68ce', '2024-09-25 09:10:34.176', '2024-11-28 03:20:58.019', '-', 'lg-1596-2', 'dac2b02b-f18d-4753-b1b6-ced5518a1b65', 'admin', 0, '', '', '', 'b7ee5964-63aa-4558-be18-1336d630371d', 'f78d1757-d2dd-4a5c-9392-b2567dbf6f6c', ''),
 ('cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 10385-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:52:29.672', '2024-12-17 05:55:19.886', '-', 'lg-10385-2', 'bd2ee54a-3648-476f-ab14-2c482566d455', 'admin', 0, '', 'SPARTA', '', '216fc431-9733-41af-aecd-9c23914c6e2a', '4ab077c1-a342-4039-a78f-793419c4a9dc', ''),
-('e1c25166-8945-4f86-a898-3795b4b44883', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1240-2', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2025-09-22 03:36:22.148', '2025-09-22 03:41:14.820', '-', 'lg-1240-2', '4efd8d15-9388-4f03-83a6-f18d1b240428', 'admin', 0, '', '', '', '484fa4ba-34a5-4962-a27f-550b665e7d34', '118ef366-5b59-4e27-9885-fe8c39fa32b1', ''),
+('e1c25166-8945-4f86-a898-3795b4b44883', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1240-2', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2025-09-22 03:36:22.148', '2025-09-22 06:40:58.908', '-', 'lg-1240-2', '4efd8d15-9388-4f03-83a6-f18d1b240428', 'admin', 0, '', '', '', '484fa4ba-34a5-4962-a27f-550b665e7d34', '118ef366-5b59-4e27-9885-fe8c39fa32b1', ''),
 ('e3770df5-ea15-4be2-85f5-703caecdfd36', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1095-2-MK1', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:55:57.931', '2024-12-13 01:59:24.723', '-', 'lg-1095-2-mk1', 'a91d932e-2cdf-4390-bdeb-d7e76a06417f', 'admin', 0, '', '', '', 'e395541c-4a39-4532-9b06-0ecc48909a66', '18a9f740-bec9-45eb-b316-dcf8e352f929', ''),
 ('fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 12\" LG 12385-2', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 06:18:42.613', '2025-08-18 08:51:41.145', '-', 'lg-12385-2', 'b2cee453-c2d5-4682-a971-cdde85e4f1be', 'admin', 0, 'Kesan elegan dan garang dari warna hitam dan kuning, serta memiliki karakter suara yang lebih akustik', 'SPARTA', '', '13bfbb5a-783b-458a-93f1-b5a2d60073de', '84048a4e-d6a5-4228-a34f-6f73e93b00f6', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Roles`
+-- Table structure for table `roles`
 --
 
-CREATE TABLE `Roles` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brandName` text COLLATE utf8mb4_unicode_ci NOT NULL
+CREATE TABLE `roles` (
+  `id` varchar(191) NOT NULL,
+  `userId` varchar(191) NOT NULL,
+  `brandId` varchar(191) NOT NULL,
+  `brandName` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Roles`
+-- Dumping data for table `roles`
 --
 
-INSERT INTO `Roles` (`id`, `userId`, `brandId`, `brandName`) VALUES
+INSERT INTO `roles` (`id`, `userId`, `brandId`, `brandName`) VALUES
 ('', '25cd8d0d-d185-41e8-9943-fdf1264236f2', 'admin', ''),
 ('66ea9a8e-23f2-4c5a-92ce-11c51c5c7da0', '52309261-f2b5-4c3a-bb4d-b61e90fc53ae', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Legacy');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Size`
+-- Table structure for table `size`
 --
 
-CREATE TABLE `Size` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `size` (
+  `id` varchar(191) NOT NULL,
+  `brandId` varchar(191) NOT NULL,
+  `name` text NOT NULL,
+  `value` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `updatedBy` varchar(191) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Size`
+-- Dumping data for table `size`
 --
 
-INSERT INTO `Size` (`id`, `brandId`, `name`, `value`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
+INSERT INTO `size` (`id`, `brandId`, `name`, `value`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
 ('1e7d5fe4-3644-4d31-9ef4-4755288b49bc', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '1', '1\"', '2024-11-12 07:06:50.758', '2024-11-12 07:06:50.758', 'admin'),
 ('28c45742-6d1f-44bd-915b-f940e30caf92', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'None', '-', '2024-05-08 01:45:00.573', '2024-05-08 01:45:00.573', 'admin'),
 ('2fdca373-4286-4dfc-bfa7-de77b7e1fe0d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4', '4\"', '2024-09-24 08:51:16.284', '2024-09-24 08:51:16.284', 'admin'),
@@ -799,34 +799,34 @@ INSERT INTO `Size` (`id`, `brandId`, `name`, `value`, `createdAt`, `updatedAt`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Specification`
+-- Table structure for table `specification`
 --
 
-CREATE TABLE `Specification` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `voice_coil_diameter` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `specification` (
+  `id` varchar(191) NOT NULL,
+  `voice_coil_diameter` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `custom_note` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `berat_magnet` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `berat_speaker` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `daya_maksimum` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `diameter_speaker` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `impedansi` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lebar_daerah_frekuensi` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `medan_magnet` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nominal_power_handling` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `program_power` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `spl` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `voice_coil_material` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `productId` varchar(191) NOT NULL,
+  `custom_note` text NOT NULL,
+  `berat_magnet` varchar(191) NOT NULL,
+  `berat_speaker` varchar(191) NOT NULL,
+  `daya_maksimum` varchar(191) NOT NULL,
+  `diameter_speaker` varchar(191) NOT NULL,
+  `impedansi` varchar(191) NOT NULL,
+  `lebar_daerah_frekuensi` varchar(191) NOT NULL,
+  `medan_magnet` varchar(191) NOT NULL,
+  `nominal_power_handling` varchar(191) NOT NULL,
+  `program_power` varchar(191) NOT NULL,
+  `spl` varchar(191) NOT NULL,
+  `voice_coil_material` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Specification`
+-- Dumping data for table `specification`
 --
 
-INSERT INTO `Specification` (`id`, `voice_coil_diameter`, `createdAt`, `updatedAt`, `productId`, `custom_note`, `berat_magnet`, `berat_speaker`, `daya_maksimum`, `diameter_speaker`, `impedansi`, `lebar_daerah_frekuensi`, `medan_magnet`, `nominal_power_handling`, `program_power`, `spl`, `voice_coil_material`) VALUES
+INSERT INTO `specification` (`id`, `voice_coil_diameter`, `createdAt`, `updatedAt`, `productId`, `custom_note`, `berat_magnet`, `berat_speaker`, `daya_maksimum`, `diameter_speaker`, `impedansi`, `lebar_daerah_frekuensi`, `medan_magnet`, `nominal_power_handling`, `program_power`, `spl`, `voice_coil_material`) VALUES
 ('0', '', '0000-00-00 00:00:00.000', '0000-00-00 00:00:00.000', '', '', '', '', '', '', '', '', '', '', '', '', ''),
 ('070d13c6-7c06-4045-8d3b-b71e695a0120', '', '2024-09-27 04:00:25.108', '2024-09-27 04:00:25.108', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '', '', '', '', '', '', '', '', '', '', '', ''),
 ('164ef56e-9020-47a2-9140-93f5ad5e02b3', '20.4', '2024-09-27 04:04:29.959', '2024-11-04 05:56:37.258', '164c19d2-170f-4b48-958e-68ec335392f0', '(¹) AES standard, test mode with continuous pink noise signal (6 dB crest factor; 2 hours) within the Fo to 10Fo power calculated on rated nominal impedance. Loudspeaker in free air\n(²) Power on continous program is defined as 3dB greater than nominal power handling.', '0.14', '', '', '5.25', '4', '129 - 9900', '1.03', '20', '40', '91.5', 'KRAFT SV'),
@@ -872,33 +872,33 @@ INSERT INTO `Specification` (`id`, `voice_coil_diameter`, `createdAt`, `updatedA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ThieleSmallParameters2Ohm`
+-- Table structure for table `thielesmallparameters2ohm`
 --
 
-CREATE TABLE `ThieleSmallParameters2Ohm` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fs` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dcr` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qts` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qes` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qms` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mms` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cms` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bl_product` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vas` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sd` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `x_max` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `thielesmallparameters2ohm` (
+  `id` varchar(191) NOT NULL,
+  `fs` varchar(191) NOT NULL,
+  `dcr` varchar(191) NOT NULL,
+  `qts` varchar(191) NOT NULL,
+  `qes` varchar(191) NOT NULL,
+  `qms` varchar(191) NOT NULL,
+  `mms` varchar(191) NOT NULL,
+  `cms` varchar(191) NOT NULL,
+  `bl_product` varchar(191) NOT NULL,
+  `vas` varchar(191) NOT NULL,
+  `no` varchar(191) NOT NULL,
+  `sd` varchar(191) NOT NULL,
+  `x_max` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `ThieleSmallParameters2Ohm`
+-- Dumping data for table `thielesmallparameters2ohm`
 --
 
-INSERT INTO `ThieleSmallParameters2Ohm` (`id`, `fs`, `dcr`, `qts`, `qes`, `qms`, `mms`, `cms`, `bl_product`, `vas`, `no`, `sd`, `x_max`, `productId`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `thielesmallparameters2ohm` (`id`, `fs`, `dcr`, `qts`, `qes`, `qms`, `mms`, `cms`, `bl_product`, `vas`, `no`, `sd`, `x_max`, `productId`, `createdAt`, `updatedAt`) VALUES
 ('03d0ad93-d138-42af-b116-0b00c31b84bd', '35', '1.5', '0.54', '0.61', '4.84', '81.5', '0.26', '6.6', '94.8', '0.63', '514.7', '7.05', '77932324-df07-44d8-84d2-30af8ae38c0a', '2024-09-26 09:03:31.990', '2024-10-03 03:57:47.432'),
 ('0767a25e-725f-4f81-8bfd-47461301f8f9', '117', '3.6', '1.13', '1.44', '5.33', '3.2', '0.58', '2.4', '4.6', '0.49', '75.4', '1.33', '164c19d2-170f-4b48-958e-68ec335392f0', '2024-09-27 04:05:27.352', '2024-10-03 03:59:23.296'),
 ('13bfbb5a-783b-458a-93f1-b5a2d60073de', '32', '1.5', '0.78', '0.91', '5.48', '75.2', '0.3', '5.1', '112.3', '0.44', '514.7', '8.04', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '2024-09-26 09:06:39.984', '2024-10-03 03:57:53.272'),
@@ -911,7 +911,7 @@ INSERT INTO `ThieleSmallParameters2Ohm` (`id`, `fs`, `dcr`, `qts`, `qes`, `qms`,
 ('3ea7a0d4-d423-447b-8e9e-70457c9cd3c3', '', '', '', '', '', '', '', '', '', '', '', '', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', '2024-10-03 03:59:12.987', '2024-10-03 03:59:12.987'),
 ('3fcde352-0a5f-450e-b9b9-652555c1ecf0', '36', '1.5', '0.52', '0.57', '6.97', '102.2', '0.19', '7.9', '69.6', '0.57', '514.7', '8.03', '963116bc-4fef-48ae-a8e6-f655be756dc7', '2024-09-27 00:32:59.160', '2024-10-03 03:58:11.071'),
 ('402a1d71-2ecd-4faa-a6f6-ac4065840c70', '28', '1.6', '0.33', '0.36', '4.52', '61.5', '0.54', '6.9', '94.6', '0.53', '353', '5.7', '42802840-d898-46ea-8377-7e0a9b6a060f', '2024-09-27 03:54:52.991', '2024-10-03 03:58:58.260'),
-('484fa4ba-34a5-4962-a27f-550b665e7d34', '34', '1.8', '0.5', '0.54', '7.23', '98.8', '0.22', '8.4', '75.2', '0.55', '498.8', '8.24', 'e1c25166-8945-4f86-a898-3795b4b44883', '2025-09-22 03:40:55.808', '2025-09-22 03:40:55.808'),
+('484fa4ba-34a5-4962-a27f-550b665e7d34', '34', '1.8', '0.5', '0.54', '7.23', '98.8', '0.22', '8.4', '75.2', '0.55', '498.8', '8.24', 'e1c25166-8945-4f86-a898-3795b4b44883', '2025-09-22 03:40:55.808', '2025-09-22 05:48:05.063'),
 ('53d00cf1-c109-4868-acb1-b534a66ea2ea', '43', '1.5', '0.86', '1.15', '3.4', '81.4', '0.16', '5.4', '64.5', '0.45', '530.9', '8.04', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '2024-09-26 09:10:02.471', '2024-10-03 03:57:56.646'),
 ('60282f17-3e2a-41a4-8cdb-6b604ae79ba8', '37', '1.6', '0.45', '0.48', '6.55', '109.1', '0.19', '8.9', '69.7', '0.61', '514.7', '7.87', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '2024-09-26 09:16:45.686', '2024-10-03 03:58:03.798'),
 ('61bad8b3-5512-4223-a778-2ea4e5baed26', '47.4', '1.5', '0.49', '0.53', '5.94', '21.1', '0.54', '4.2', '13.6', '0.26', '134.8', '3.5', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '2024-09-27 00:47:16.032', '2024-10-03 03:59:45.558'),
@@ -943,34 +943,34 @@ INSERT INTO `ThieleSmallParameters2Ohm` (`id`, `fs`, `dcr`, `qts`, `qes`, `qms`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ThieleSmallParameters4Ohm`
+-- Table structure for table `thielesmallparameters4ohm`
 --
 
-CREATE TABLE `ThieleSmallParameters4Ohm` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fs` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dcr` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qts` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qes` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qms` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mms` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cms` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bl_product` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vas` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sd` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `x_max` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `thielesmallparameters4ohm` (
+  `id` varchar(191) NOT NULL,
+  `fs` varchar(191) NOT NULL,
+  `dcr` varchar(191) NOT NULL,
+  `qts` varchar(191) NOT NULL,
+  `qes` varchar(191) NOT NULL,
+  `qms` varchar(191) NOT NULL,
+  `mms` varchar(191) NOT NULL,
+  `cms` varchar(191) NOT NULL,
+  `bl_product` varchar(191) NOT NULL,
+  `vas` varchar(191) NOT NULL,
+  `no` varchar(191) NOT NULL,
+  `sd` varchar(191) NOT NULL,
+  `x_max` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `ThieleSmallParameters4Ohm`
+-- Dumping data for table `thielesmallparameters4ohm`
 --
 
-INSERT INTO `ThieleSmallParameters4Ohm` (`id`, `fs`, `dcr`, `qts`, `qes`, `qms`, `mms`, `cms`, `bl_product`, `vas`, `no`, `sd`, `x_max`, `productId`, `createdAt`, `updatedAt`) VALUES
-('118ef366-5b59-4e27-9885-fe8c39fa32b1', '34', '3.6', '0.89', '1.01', '7.2', '97.8', '0.22', '8.7', '75.7', '0.3', '498.8', '8.24', 'e1c25166-8945-4f86-a898-3795b4b44883', '2025-09-22 03:40:55.898', '2025-09-22 03:40:55.898'),
+INSERT INTO `thielesmallparameters4ohm` (`id`, `fs`, `dcr`, `qts`, `qes`, `qms`, `mms`, `cms`, `bl_product`, `vas`, `no`, `sd`, `x_max`, `productId`, `createdAt`, `updatedAt`) VALUES
+('118ef366-5b59-4e27-9885-fe8c39fa32b1', '34', '3.6', '0.89', '1.01', '7.2', '97.8', '0.22', '8.7', '75.7', '0.3', '498.8', '8.24', 'e1c25166-8945-4f86-a898-3795b4b44883', '2025-09-22 03:40:55.898', '2025-09-22 05:48:05.147'),
 ('18a9f740-bec9-45eb-b316-dcf8e352f929', '38', '3.6', '1.31', '1.65', '6.31', '85.8', '0.21', '6.7', '35.9', '0.11', '353', '7.8', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '2024-09-26 08:45:25.814', '2024-10-03 03:57:32.758'),
 ('379063e4-69f1-42a1-948d-116ebcfd68ec', '49', '3', '1.38', '1.71', '7.08', '24.1', '0.44', '3.6', '11.6', '0.08', '136.8', '6.5', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '2024-09-27 00:44:45.469', '2024-10-03 03:58:27.239'),
 ('38cd38ef-218e-457a-861f-69e94ba10a98', '48.3', '3', '0.86', '1', '6.15', '19.3', '0.56', '4.2', '14.3', '0.16', '134.8', '3.5', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '2024-09-27 00:47:16.108', '2024-10-03 03:59:45.620'),
@@ -1001,29 +1001,29 @@ INSERT INTO `ThieleSmallParameters4Ohm` (`id`, `fs`, `dcr`, `qts`, `qes`, `qms`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `TweeterSpecification`
+-- Table structure for table `tweeterspecification`
 --
 
-CREATE TABLE `TweeterSpecification` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nominal_impedance` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dc_resistance` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `voice_coil_diameter` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `air_gap_height` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sensitivity` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `magnetic_flux_density` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `magnet_weight` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `tweeterspecification` (
+  `id` varchar(191) NOT NULL,
+  `nominal_impedance` varchar(191) NOT NULL,
+  `dc_resistance` varchar(191) NOT NULL,
+  `voice_coil_diameter` varchar(191) NOT NULL,
+  `air_gap_height` varchar(191) NOT NULL,
+  `sensitivity` varchar(191) NOT NULL,
+  `magnetic_flux_density` varchar(191) NOT NULL,
+  `magnet_weight` varchar(191) NOT NULL,
+  `productId` varchar(191) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `voice_coil_height` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `voice_coil_height` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `TweeterSpecification`
+-- Dumping data for table `tweeterspecification`
 --
 
-INSERT INTO `TweeterSpecification` (`id`, `nominal_impedance`, `dc_resistance`, `voice_coil_diameter`, `air_gap_height`, `sensitivity`, `magnetic_flux_density`, `magnet_weight`, `productId`, `createdAt`, `updatedAt`, `voice_coil_height`) VALUES
+INSERT INTO `tweeterspecification` (`id`, `nominal_impedance`, `dc_resistance`, `voice_coil_diameter`, `air_gap_height`, `sensitivity`, `magnetic_flux_density`, `magnet_weight`, `productId`, `createdAt`, `updatedAt`, `voice_coil_height`) VALUES
 ('08bb45bd-3f1e-473f-9223-ebd73b53cb2e', '4', '3.4', '13.28', '2', '91', '0.65', '0.015', '970f6aa5-91f5-464c-96e4-83f86280d053', '2024-09-27 03:50:56.730', '2024-10-17 06:28:02.548', '1.5'),
 ('6ceb3d58-d941-4c97-ac34-9291ed27d745', '', '', '', '', '', '', '', '4f583bcb-ae46-4e3c-9c77-5525d0f58c1f', '2024-10-03 03:55:46.925', '2024-10-03 03:55:46.925', ''),
 ('fe69ccc4-2f16-4cb4-8c93-6fbeeca4f1e1', '', '', '', '', '', '', '', '2e888496-0048-4943-982f-ebfdd4625e1f', '2024-10-03 03:56:36.017', '2024-10-03 03:56:36.017', '');
@@ -1031,25 +1031,25 @@ INSERT INTO `TweeterSpecification` (`id`, `nominal_impedance`, `dc_resistance`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Users`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `Users` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `refresh_token` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `users` (
+  `id` varchar(191) NOT NULL,
+  `name` text NOT NULL,
+  `email` text NOT NULL,
+  `password` text NOT NULL,
+  `refresh_token` text NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `expiredAt` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `expiredAt` varchar(191) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `Users` (`id`, `name`, `email`, `password`, `refresh_token`, `createdAt`, `updatedAt`, `expiredAt`) VALUES
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `refresh_token`, `createdAt`, `updatedAt`, `expiredAt`) VALUES
 ('25cd8d0d-d185-41e8-9943-fdf1264236f2', 'admin', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$xYxDy6zIa0+RKNnbO77EyQ$8cprXQw0UP+ZsbYBvklz2k+KEhTCNH1pcLfw9mQaN1M', '', '2024-10-04 08:21:24.874', '2024-10-04 08:21:24.874', ''),
 ('52309261-f2b5-4c3a-bb4d-b61e90fc53ae', 'mkt', 'mkt', '$argon2id$v=19$m=65536,t=3,p=4$o1JuB64vMl5a58jDWRVY7Q$VQrl9IC/Yw6l6h71uU9ZkzB3jyUFPzoALYoc3StGkmg', '', '2024-11-12 07:44:52.252', '2024-11-12 07:44:52.252', '');
 
@@ -1058,98 +1058,98 @@ INSERT INTO `Users` (`id`, `name`, `email`, `password`, `refresh_token`, `create
 --
 
 --
--- Indexes for table `ActiveSubwooferSpecification`
+-- Indexes for table `activesubwooferspecification`
 --
-ALTER TABLE `ActiveSubwooferSpecification`
+ALTER TABLE `activesubwooferspecification`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `AllCategory`
+-- Indexes for table `allcategory`
 --
-ALTER TABLE `AllCategory`
+ALTER TABLE `allcategory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `AllCategory_brandId_idx` (`brandId`);
 
 --
--- Indexes for table `AllProductCategory`
+-- Indexes for table `allproductcategory`
 --
-ALTER TABLE `AllProductCategory`
+ALTER TABLE `allproductcategory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `AllProductCategory_productId_idx` (`productId`);
 
 --
--- Indexes for table `Brand`
+-- Indexes for table `brand`
 --
-ALTER TABLE `Brand`
+ALTER TABLE `brand`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `Cover_Image`
+-- Indexes for table `cover_image`
 --
-ALTER TABLE `Cover_Image`
+ALTER TABLE `cover_image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Cover_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `Drawing_Image`
+-- Indexes for table `drawing_image`
 --
-ALTER TABLE `Drawing_Image`
+ALTER TABLE `drawing_image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Drawing_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `Featured_Image`
+-- Indexes for table `featured_image`
 --
-ALTER TABLE `Featured_Image`
+ALTER TABLE `featured_image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Featured_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `Graph_Image`
+-- Indexes for table `graph_image`
 --
-ALTER TABLE `Graph_Image`
+ALTER TABLE `graph_image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Graph_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `Image_Catalogues`
+-- Indexes for table `image_catalogues`
 --
-ALTER TABLE `Image_Catalogues`
+ALTER TABLE `image_catalogues`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Image_Catalogues_productId_idx` (`productId`);
 
 --
--- Indexes for table `Impedance_Image`
+-- Indexes for table `impedance_image`
 --
-ALTER TABLE `Impedance_Image`
+ALTER TABLE `impedance_image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Impedance_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `multipleDatasheetProduct`
+-- Indexes for table `multipledatasheetproduct`
 --
-ALTER TABLE `multipleDatasheetProduct`
+ALTER TABLE `multipledatasheetproduct`
   ADD PRIMARY KEY (`id`),
   ADD KEY `multipleDatasheetProduct_productId_idx` (`productId`);
 
 --
--- Indexes for table `News`
+-- Indexes for table `news`
 --
-ALTER TABLE `News`
+ALTER TABLE `news`
   ADD PRIMARY KEY (`id`),
   ADD KEY `News_brandId_idx` (`brandId`);
 
 --
--- Indexes for table `News_Image`
+-- Indexes for table `news_image`
 --
-ALTER TABLE `News_Image`
+ALTER TABLE `news_image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `News_Image_newsId_idx` (`newsId`);
 
 --
--- Indexes for table `Product`
+-- Indexes for table `product`
 --
-ALTER TABLE `Product`
+ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Product_brandId_idx` (`brandId`),
   ADD KEY `Product_sizeId_idx` (`sizeId`),
@@ -1160,47 +1160,47 @@ ALTER TABLE `Product`
   ADD KEY `Product_thieleSmallParameter4OhmId_idx` (`thieleSmallParameter4OhmId`);
 
 --
--- Indexes for table `Roles`
+-- Indexes for table `roles`
 --
-ALTER TABLE `Roles`
+ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Roles_userId_idx` (`userId`);
 
 --
--- Indexes for table `Size`
+-- Indexes for table `size`
 --
-ALTER TABLE `Size`
+ALTER TABLE `size`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Size_brandId_idx` (`brandId`);
 
 --
--- Indexes for table `Specification`
+-- Indexes for table `specification`
 --
-ALTER TABLE `Specification`
+ALTER TABLE `specification`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ThieleSmallParameters2Ohm`
+-- Indexes for table `thielesmallparameters2ohm`
 --
-ALTER TABLE `ThieleSmallParameters2Ohm`
+ALTER TABLE `thielesmallparameters2ohm`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ThieleSmallParameters4Ohm`
+-- Indexes for table `thielesmallparameters4ohm`
 --
-ALTER TABLE `ThieleSmallParameters4Ohm`
+ALTER TABLE `thielesmallparameters4ohm`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `TweeterSpecification`
+-- Indexes for table `tweeterspecification`
 --
-ALTER TABLE `TweeterSpecification`
+ALTER TABLE `tweeterspecification`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `Users`
+-- Indexes for table `users`
 --
-ALTER TABLE `Users`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 COMMIT;
 
