@@ -1,3 +1,4 @@
+import { ChildSpecificationProp, SpecificationProp } from "@/app/(legacy)/types";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
@@ -10,106 +11,113 @@ export async function GET(req: Request, props: { params: Promise<{ productSlug: 
 
 
     const product = await prismadb.product.findFirst({
-      where: {
-        slug: params.productSlug
-      },
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        description: true,
-        allCat: {
-          select:{
-            id: true,
-            name: true,
-            slug:true,
-            type: true
-          }
+        where: {
+          slug: params.productSlug,
+          isArchived: false
         },
-        specification: true,
-        images_catalogues: {
-          select:{
-            url: true,
-            name: true
-          }
-        },
-        drawing_img: {
-          select: {
-            url: true
-          }
-        },
-        graph_img: {
-          select: {
-            url: true
-          }
-        },
-        impedance_img: {
-          select: {
-            url: true
-          }
-        },
-        cover_img: {
-          select: {
-            url: true
-          }
-        },
-        size: {
-          select: {
-            value: true,
-            name: true
-          }
-        },
-        multipleDatasheetProduct: {
-          select: {
-            id: true,
-            productId: true,
-            url: true,
-            name: true
+        include: {
+          allCat: true,
+          images_catalogues: true,
+          drawing_img: true,
+          graph_img: true,
+          impedance_img: true,
+          cover_img: true,
+          multipleDatasheetProduct: true,
+          size: true,
+          connectorSpecifications: {
+            include: {
+              dynamicspecification: true,
+              dynamicspecificationParent: true,
+              dynamicspecificationSubParent: true
+            }
           }
         }
-      }
-    });
+      });
 
     if (!product) {
       return new NextResponse("Product not found", { status: 404 });
     }
 
-    // Fetch specifications if available
-    const tweeterSpecification = await prismadb.tweeterSpecification.findFirst({
-      where: {
-        productId: product.id
-      }
-    });
+    const specsCombined = (product?.connectorSpecifications ?? []).reduce<SpecificationProp[]>(
+        (acc, connector) => {
+          const parentname = connector.dynamicspecificationParent?.name ?? "";
+          const subparentname = connector.dynamicspecificationSubParent?.name ?? "";
 
-    const activesubwooferSpecification = await prismadb.activeSubwooferSpecification.findFirst({
-      where: {
-        productId: product.id
-      }
-    });
+          const child: ChildSpecificationProp = {
+            childname: connector.dynamicspecification?.name ?? "",
+            value: connector.value ?? "",
+            notes: connector.notes ?? "",
+            slug: connector.dynamicspecification?.slug ?? "",
+            unit: connector.dynamicspecification?.unit ?? "",
+          };
 
-    const thielesmallparameter2 = await prismadb.thieleSmallParameters2Ohm.findFirst({
-      where: {
-        productId: product.id
-      }
-    });
+          const existingGroup = acc.find(
+            (group) =>
+              group.parentname === parentname &&
+              group.subparentname === subparentname
+          );
 
-    const thielesmallparameter4 = await prismadb.thieleSmallParameters4Ohm.findFirst({
-      where: {
-        productId: product.id
-      }
-    });
+          if (existingGroup) {
+            existingGroup.child.push(child);
+          } else {
+            acc.push({ parentname, subparentname, child: [child] });
+          }
 
-    const responseData = {
-      product,
-      tweeterSpecification: tweeterSpecification || null,
-      activesubwooferSpecification: activesubwooferSpecification || null,
-      thielesmallparameter2: thielesmallparameter2 || null,
-      thielesmallparameter4: thielesmallparameter4 || null,
-      tes: ""
-    };
+          return acc;
+        },
+        []
+      );
 
+      // ✅ Build lookup maps for faster access
+      const parentPriorityMap = new Map(
+        product?.connectorSpecifications.map((c) => [
+          c.dynamicspecificationParent?.name ?? "",
+          c.dynamicspecificationParent?.priority ?? 0,
+        ])
+      );
 
-    return NextResponse.json(responseData);
+      const subParentPriorityMap = new Map(
+        product?.connectorSpecifications.map((c) => [
+          c.dynamicspecificationSubParent?.name ?? "",
+          c.dynamicspecificationSubParent?.priority ?? 0,
+        ])
+      );
+
+      const childPriorityMap = new Map(
+        product?.connectorSpecifications.map((c) => [
+          c.dynamicspecification?.name ?? "",
+          c.dynamicspecification?.priority ?? 0,
+        ])
+      );
+
+      // ✅ Sort parent/subparent groups by priority
+      specsCombined.sort((a, b) => {
+        const aParentPriority = Number(parentPriorityMap.get(a.parentname)) ?? 0;
+        const bParentPriority = Number(parentPriorityMap.get(b.parentname)) ?? 0;
+        if (aParentPriority !== bParentPriority)
+          return aParentPriority - bParentPriority;
+
+        const aSubPriority = Number(subParentPriorityMap.get(a.subparentname)) ?? 0;
+        const bSubPriority = Number(subParentPriorityMap.get(b.subparentname)) ?? 0;
+        if (aSubPriority !== bSubPriority)
+          return aSubPriority - bSubPriority;
+
+        return 0;
+      });
+
+      // ✅ Sort children inside each group by their own priority
+      specsCombined.forEach((group) => {
+        group.child.sort((a, b) => {
+          const aPriority = Number(childPriorityMap.get(a.childname)) ?? 0;
+          const bPriority = Number(childPriorityMap.get(b.childname)) ?? 0;
+          return aPriority - bPriority;
+        });
+      });
+
+      return NextResponse.json({
+        product,
+        specifications: specsCombined
+      });
   } catch (error) {
     console.log('[PRODUCT_GET]', error);
     return new NextResponse("Internal error", { status: 500 });

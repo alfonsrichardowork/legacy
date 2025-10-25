@@ -2,18 +2,18 @@ import getAllNewsGSP from "@/app/(legacy)/actions/get-all-news-gsp";
 import getOneNews from "@/app/(legacy)/actions/get-one-news"
 import { Metadata, ResolvingMetadata } from "next"
 
-// export const revalidate = 86400
-// export async function generateStaticParams() {
-//   const allNews = await getAllNewsGSP();
+export const revalidate = 86400
+export async function generateStaticParams() {
+  const allNews = await getAllNewsGSP();
 
-//   if (!allNews || allNews.length === 0) {
-//     return []; // no params generated
-//   }
+  if (!allNews || allNews.length === 0) {
+    return []; // no params generated
+  }
 
-//   return allNews.map((newsSlug) => ({
-//     newsSlug
-//   }));
-// }
+  return allNews.map((newsSlug) => ({
+    newsSlug
+  }));
+}
 
 type Props = {
   params: Promise<{ newsSlug: string }>
@@ -32,7 +32,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
   const product = await getOneNews(params.newsSlug)
   const previousImages = (await parent).openGraph?.images || []
   const truncatedDescription = stripHtmlAndTruncate(product.description, 30);
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   return {
     title: product.title.concat(" | Legacy Speaker"),
     description: truncatedDescription,

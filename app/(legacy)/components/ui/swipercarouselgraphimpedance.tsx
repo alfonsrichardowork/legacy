@@ -14,16 +14,16 @@ import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import { useRef, useState } from 'react';
 import { LazyImageCustom } from '../lazyImageCustom';
+import { FilesProp } from '../../types';
 
 type PropType = {
-  alt: string,
-  drawing: string[],
-  graph: string[],
-  impedance: string[],
+  drawing: FilesProp[],
+  graph: FilesProp[],
+  impedance: FilesProp[],
 }
 
 const SwiperCarouselGraphImpedance: React.FC<PropType> = (props) => {
-  const { alt, drawing, graph, impedance } = props
+  const { drawing, graph, impedance } = props
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
 
@@ -32,26 +32,26 @@ const SwiperCarouselGraphImpedance: React.FC<PropType> = (props) => {
     setLightboxOpen(true)
   }
   const drawingSlides = drawing && drawing.length > 0 
-  ? drawing.map((item) => ({
-      src: item,
-      title: `${alt} - Drawing`,
-      alt: `${alt} - Drawing`
+  ? drawing.map((item, index) => ({
+      src: item.url,
+      title: `${item.name} - ${index + 1}`,
+      alt: `${item.name} - ${index + 1}`
     }))
   : [];
 
 const graphSlides = graph && graph.length > 0 
-  ? graph.map((item) => ({
-      src: item,
-      title: `${alt} - Graph`,
-      alt: `${alt} - Graph`
+  ? graph.map((item, index) => ({
+      src: item.url,
+      title: `${item.name} - ${index + 1}`,
+      alt: `${item.name} - ${index + 1}`
     }))
   : [];
 
 const impedanceSlides = impedance && impedance.length > 0 
-  ? impedance.map((item) => ({
-      src: item,
-      title: `${alt} - Impedance`,
-      alt: `${alt} - Impedance`
+  ? impedance.map((item, index) => ({
+      src: item.url,
+      title: `${item.name} - ${index + 1}`,
+      alt: `${item.name} - ${index + 1}`
     }))
   : [];
 
@@ -83,15 +83,15 @@ const impedanceSlides = impedance && impedance.length > 0
         }}
       >
           {drawing && drawing.length > 0 && drawing.map((item, index) => (
-            <SwiperSlide key={alt.concat(" - Drawing - ", index.toString())}>
+            <SwiperSlide key={`${item.name} - ${index + 1}`}>
                   <div className="h-full flex justify-center items-center cursor-pointer"
                     onClick={() => openLightbox(0)}>
                   <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
-                            alt={alt.concat(" - Drawing")} 
+                            src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url} 
+                            alt={`${item.name} - ${index + 1}`} 
                             width={500}
                             height={500}
                             classname="max-h-full max-w-full object-contain"
@@ -111,7 +111,7 @@ const impedanceSlides = impedance && impedance.length > 0
             </SwiperSlide>
           ))}
           {graph && graph.length > 0 && graph.map((item, index) => (
-            <SwiperSlide key={alt.concat(" - Frequency Response - ", index.toString())}>
+            <SwiperSlide key={`${item.name} - ${index + 1}`}>
              
                 <div className="h-full flex justify-center items-center cursor-pointer"
                     onClick={() => drawing && drawing.length > 0? openLightbox(drawing.length + 1) : openLightbox(0)}>
@@ -119,8 +119,8 @@ const impedanceSlides = impedance && impedance.length > 0
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
-                            alt={alt.concat(" - Frequency Response")} 
+                            src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url} 
+                            alt={`${item.name} - ${index + 1}`} 
                             width={500}
                             height={500}
                             classname="max-h-full max-w-full object-contain"
@@ -141,15 +141,15 @@ const impedanceSlides = impedance && impedance.length > 0
             </SwiperSlide>
           ))}
           {impedance && impedance.length > 0 && impedance.map((item, index) => (
-            <SwiperSlide key={alt.concat(" - Impedance - ", index.toString())}>
+            <SwiperSlide key={`${item.name} - ${index + 1}`}>
                 <div className="h-full flex justify-center items-center cursor-pointer"
                 onClick={() => drawing && drawing.length > 0 && graph && graph.length > 0? openLightbox(2) : (drawing && drawing.length > 0) || (graph && graph.length>0) ? openLightbox(1)  : openLightbox(0)}>
                     <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
-                            alt={alt.concat(" - Impedance")} 
+                            src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url} 
+                            alt={`${item.name} - ${index + 1}`} 
                             width={500}
                             height={500}
                             classname="max-h-full max-w-full object-contain"
@@ -170,8 +170,8 @@ const impedanceSlides = impedance && impedance.length > 0
           ))}
          <>
           {repeated && drawing?.length > 0 &&
-            drawing.map((item: string, index: number) => (
-              <SwiperSlide key={`${alt} - Drawing - ${index} - 2`}>
+            drawing.map((item, index) => (
+              <SwiperSlide key={`${item.name} - ${index + 1} - Drawing`}>
                 <div
                   className="h-full flex justify-center items-center cursor-pointer"
                   onClick={() => openLightbox(0)}
@@ -180,8 +180,8 @@ const impedanceSlides = impedance && impedance.length > 0
                     <CardContent className="p-6 flex items-center justify-center w-full h-full">
                       <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                         <LazyImageCustom
-                          src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item}
-                          alt={`${alt} - Drawing`}
+                          src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url}
+                          alt={`${item.name} - ${index + 1}`}
                           width={500}
                           height={500}
                           classname="max-h-full max-w-full object-contain"
@@ -194,8 +194,8 @@ const impedanceSlides = impedance && impedance.length > 0
             ))}
 
           {graph?.length > 0 &&
-            graph.map((item: string, index: number) => (
-              <SwiperSlide key={`${alt} - Frequency Response - ${index} - 2`}>
+            graph.map((item, index) => (
+              <SwiperSlide key={`${item.name} - ${index + 1} - Graph`}>
                 <div
                   className="h-full flex justify-center items-center cursor-pointer"
                   onClick={() =>
@@ -208,8 +208,8 @@ const impedanceSlides = impedance && impedance.length > 0
                     <CardContent className="p-6 flex items-center justify-center w-full h-full">
                       <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                         <LazyImageCustom
-                          src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item}
-                          alt={`${alt} - Frequency Response`}
+                          src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url}
+                          alt={`${item.name} - ${index + 1}`}
                           width={500}
                           height={500}
                           classname="max-h-full max-w-full object-contain"
@@ -222,12 +222,12 @@ const impedanceSlides = impedance && impedance.length > 0
             ))}
 
           {impedance?.length > 0 &&
-            impedance.map((item: string, index: number) => {
+            impedance.map((item, index) => {
               const baseIndex =
                 (drawing?.length || 0) + (graph?.length || 0) + index;
 
               return (
-                <SwiperSlide key={`${alt} - Impedance - ${index} - 2`}>
+                <SwiperSlide key={`${item.name} - ${index + 1} - Impedance`}>
                   <div
                     className="h-full flex justify-center items-center cursor-pointer"
                     onClick={() => openLightbox(baseIndex)}
@@ -236,8 +236,8 @@ const impedanceSlides = impedance && impedance.length > 0
                       <CardContent className="p-6 flex items-center justify-center w-full h-full">
                         <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                           <LazyImageCustom
-                            src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item}
-                            alt={`${alt} - Impedance`}
+                            src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url}
+                            alt={`${item.name} - ${index + 1}`}
                             width={500}
                             height={500}
                             classname="max-h-full max-w-full object-contain"

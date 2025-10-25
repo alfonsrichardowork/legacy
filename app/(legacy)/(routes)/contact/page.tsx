@@ -12,7 +12,7 @@ const allMapsUrl: string[] = [
 ]
 
 export default function ContactUs() {
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const [activeMapIndex, setActiveMapIndex] = useState<number>(0)
   const [_, setIsScrolling] = useState(false);
 

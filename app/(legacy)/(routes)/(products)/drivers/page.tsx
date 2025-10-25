@@ -3,7 +3,7 @@ import ProductByCategoryPage from "./pageClient";
 
 export default async function DriversPage() {
   const allprodserver = await getAllProductsJsonld(); // SSR fetch
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -19,7 +19,7 @@ export default async function DriversPage() {
         "url": `${baseUrl}/products/${driver.slug}`,
         "name": driver.name,
         "description": driver.name,
-        "image": `${baseUrl}${driver.coverUrl}`,
+        "image": `${baseUrl}${driver.cover_img.url}`,
         "sku": driver.slug || driver.id,
         "brand": {
           "@type": "Brand",

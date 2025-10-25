@@ -18,7 +18,7 @@ type Props = {
 export default async function SingleNewsPage(props: Props) {
   let slug = (await props.params).newsSlug
 
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const tempData = await getOneNews(slug);
 
   const formatDate = (isoDate: string): string => {

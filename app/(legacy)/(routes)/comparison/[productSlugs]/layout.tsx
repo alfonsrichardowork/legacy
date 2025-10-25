@@ -7,7 +7,7 @@ type Props = {
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
   const slugs = decodeURIComponent(params.productSlugs); 
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   return {
   title: 'Comparison | Legacy Speaker',
   description: 'Bandingkan produk Legacy Speaker yang telah Anda pilih untuk menemukan pilihan terbaik.',

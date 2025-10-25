@@ -7,7 +7,7 @@ import Distributor from './components/distributor';
 import Keunggulan from './components/keunggulan';
 
 export default function LandingPageLegacy() {  
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",

@@ -2,7 +2,7 @@
 
 import * as z from "zod"
 import axios, { AxiosResponse } from "axios"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
@@ -33,7 +33,20 @@ import { uploadDrawingImage } from "@/app/admin/upload-drawing-image"
 import { uploadFrequencyResponseImage } from "@/app/admin/upload-frequency-response-image"
 import { uploadImageCatalogues } from "@/app/admin/upload-image-catalogues"
 import { uploadImpedanceImage } from "@/app/admin/upload-impedance-image"
-import { CirclePlus, File, Trash } from "lucide-react"
+import { Bold, CirclePlus, File, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Italic, List, ListOrdered, LucideLink, LucideUnlink, Strikethrough, Trash } from "lucide-react"
+
+
+import { EditorContent, useEditor } from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
+import HeadingTiptap from '@tiptap/extension-heading';
+import ImageTiptap from '@tiptap/extension-image';
+import LinkTiptap from '@tiptap/extension-link'
+import BulletList from '@tiptap/extension-bullet-list'
+import OrderedList from '@tiptap/extension-ordered-list'
+import Text from '@tiptap/extension-text'
+import TextStyle from '@tiptap/extension-text-style'
+import './styles.scss'
+import { Toggle } from "@/app/admin/components/ui/toggle"
 
 
 const formSchema = z.object({
@@ -581,6 +594,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       else{
         data.images_catalogues = imgCataloguesUrl
       }
+      data.description =  editor && editor.getHTML() ? editor.getHTML() : '';
 
       let response: AxiosResponse;
       if (initialData) {
@@ -626,6 +640,117 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     }
   };
 
+
+
+  const editor = useEditor({
+      immediatelyRender: false,
+      extensions: [
+        StarterKit,
+        HeadingTiptap.configure({
+          levels: [1, 2, 3, 4, 5, 6],
+        }),
+        ImageTiptap,
+        BulletList,
+        OrderedList,
+        LinkTiptap.configure({
+          openOnClick: false,
+          autolink: true,
+          defaultProtocol: 'https',
+          protocols: ['http', 'https'],
+          isAllowedUri: (url: string, ctx:any) => {
+            try {
+              // construct URL
+              const parsedUrl = url.includes(':') ? new URL(url) : new URL(`${ctx.defaultProtocol}://${url}`)
+  
+              // use default validation
+              if (!ctx.defaultValidate(parsedUrl.href)) {
+                return false
+              }
+  
+              // disallowed protocols
+              const disallowedProtocols = ['ftp', 'file', 'mailto']
+              const protocol = parsedUrl.protocol.replace(':', '')
+  
+              if (disallowedProtocols.includes(protocol)) {
+                return false
+              }
+  
+              // only allow protocols specified in ctx.protocols
+              const allowedProtocols = ctx.protocols.map((p: string | { scheme: string }) => (typeof p === 'string' ? p : p.scheme))
+  
+              if (!allowedProtocols.includes(protocol)) {
+                return false
+              }
+  
+              // disallowed domains
+              const disallowedDomains = ['example-phishing.com', 'malicious-site.net']
+              const domain = parsedUrl.hostname
+  
+              if (disallowedDomains.includes(domain)) {
+                return false
+              }
+  
+              // all checks have passed
+              return true
+            } catch (error) {
+              return false
+            }
+          },
+          shouldAutoLink: url => {
+            try {
+              // construct URL
+              const parsedUrl = url.includes(':') ? new URL(url) : new URL(`https://${url}`)
+  
+              // only auto-link if the domain is not in the disallowed list
+              const disallowedDomains = ['example-no-autolink.com', 'another-no-autolink.com']
+              const domain = parsedUrl.hostname
+  
+              return !disallowedDomains.includes(domain)
+            } catch (error) {
+              return false
+            }
+          },
+  
+        }),
+        Text,
+        TextStyle,
+      ],
+      editorProps: {
+        attributes: {
+          class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-hidden',
+        },
+      },
+      content: initialData?.description ? initialData.description : '<p>Start editing...</p>',
+    });
+  
+    
+  
+    const setLink = useCallback(() => {
+      const previousUrl = editor!.getAttributes('link').href
+      const url = window.prompt('Change the root URL to {temp}. Ex: https://sbacoustics.com/products/sb12pac25-4 => {temp}products/sb12pac25-4', previousUrl)
+  
+      // cancelled
+      if (url === null) {
+        return
+      }
+  
+      // empty
+      if (url === '') {
+        editor!.chain().focus().extendMarkRange('link').unsetLink()
+          .run()
+  
+        return
+      }
+  
+      // update link
+      editor!.chain().focus().extendMarkRange('link').setLink({ href: url })
+        .run()
+    }, [editor])
+  
+    if (!editor) {
+      return null
+    }
+  
 
   
   return (  
@@ -717,7 +842,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
@@ -730,10 +855,90 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
         </div>
 
+
+      <div className="grid grid-cols-1 gap-4 border rounded-lg p-4 shadow-lg bg-white/50">
+        <div className="font-bold text-base pb-2">Description | <Link href={'/images/admin/description_placement.png'} target="blank" className="text-primary hover:underline font-normal text-sm  ">See where this will be shown</Link></div>
+        {/* <FormControl> */}
+          <div>
+          <div className="flex gap-2 mb-4 flex-wrap">
+            <Toggle
+              pressed={editor.isActive('bold')}
+              onClick={() => editor.chain().focus().toggleBold().run()}
+            >
+              <Bold className="w-4 h-4" />
+            </Toggle>
+            <Toggle
+              pressed={editor.isActive('italic')}
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+            >
+              <Italic className="w-4 h-4" />
+            </Toggle>
+            <Toggle
+              pressed={editor.isActive('strike')}
+              onClick={() => editor.chain().focus().toggleStrike().run()}
+            >
+              <Strikethrough className="w-4 h-4" />
+            </Toggle>
+            <Toggle
+              pressed={editor.isActive('bulletList')}
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+            >
+              <List className="w-4 h-4" />
+            </Toggle>
+            <Toggle
+              pressed={editor.isActive('orderedList')}
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+            >
+              <ListOrdered className="w-4 h-4" />
+            </Toggle>
+            {[1, 2, 3, 4, 5, 6].map((level) => (
+              <Toggle
+                key={level}
+                pressed={editor.isActive('heading', { level })}
+                onClick={() => editor.chain().focus().toggleHeading({ level: level as 1 | 2 | 3 | 4 | 5 | 6 }).run()}
+              >
+                {level === 1 && <Heading1 className="w-4 h-4" />}
+                {level === 2 && <Heading2 className="w-4 h-4" />}
+                {level === 3 && <Heading3 className="w-4 h-4" />}
+                {level === 4 && <Heading4 className="w-4 h-4" />}
+                {level === 5 && <Heading5 className="w-4 h-4" />}
+                {level === 6 && <Heading6 className="w-4 h-4" />}
+              </Toggle>
+            ))}
+            
+            <Toggle
+              pressed={editor.isActive('link')}
+              onClick={setLink}
+            >
+                <LucideLink className="w-4 h-4" />
+            </Toggle>
+            <Toggle
+              pressed={!editor.isActive('link')}
+              onClick={() => editor.chain().focus().unsetLink().run()}
+            >
+                <LucideUnlink className="w-4 h-4" />
+            </Toggle>
+            {/* <Toggle
+              onClick={() => editor.chain().focus().setColor('#e60013').run()}
+              pressed={false}
+              // className={editor.isActive('textStyle', { color: '#ed3237' }) ? 'is-active' : ''}
+            >
+              <p className="text-primary">Red</p>
+            </Toggle>
+            <Toggle
+              onClick={() => editor.chain().focus().unsetColor().run()}
+              pressed={false}
+            >
+              Black
+            </Toggle> */}
+          </div>
+          <EditorContent editor={editor} className="border p-4 bg-white text-black rounded-md"/>
+          </div>
+        </div>
 
           
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

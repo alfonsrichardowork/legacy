@@ -3,7 +3,7 @@ import NewsClient from "./pageClient";
 
 
 export default async function News() { 
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   let allnewsserver = await getAllNews('all');
   
   const jsonLd = {

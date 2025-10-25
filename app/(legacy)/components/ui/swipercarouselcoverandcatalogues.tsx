@@ -14,8 +14,6 @@ import 'swiper/css/thumbs';
 // import required modules
 import { FreeMode, Navigation, Thumbs, Pagination } from 'swiper/modules';
 import { Card, CardContent } from './card';
-import Image from 'next/image';
-import { Eye, Loader2 } from 'lucide-react';
 
 
 import Lightbox from 'yet-another-react-lightbox'
@@ -25,15 +23,13 @@ import Captions from "yet-another-react-lightbox/plugins/captions";
 import 'yet-another-react-lightbox/styles.css'
 import 'yet-another-react-lightbox/plugins/thumbnails.css'
 import "yet-another-react-lightbox/plugins/captions.css";
-import { LazyImage } from '../lazyImage';
 import { LazyImageCustom } from '../lazyImageCustom';
+import { FilesProp } from '../../types';
 
 
 type PropType = {
-  cover: string,
-  alt: string,
-  catalogues: string[],
-  catalogues_alt: string[],
+  cover: FilesProp
+  image_catalogues: FilesProp[]
 }
 
 const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
@@ -45,7 +41,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
     setLightboxOpen(true)
   }
 
-  const { cover, alt, catalogues, catalogues_alt } = props
+  const { cover, image_catalogues } = props
   const swiperRef = useRef<SwiperClass | null>(null);
   const [realIndex, setRealIndex] = useState(0);
 
@@ -71,9 +67,9 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper2 h-full flex items-center"
         >
-              {catalogues && catalogues.length > 0 && catalogues.map((item, index) => (
-                catalogues_alt[index] === 'Top' &&
-                  <SwiperSlide key={alt.concat(" - Catalogues - ", index.toString())}>
+              {image_catalogues && image_catalogues.length > 0 && image_catalogues.map((item, index) => (
+                item.name === 'Top' &&
+                  <SwiperSlide key={`${item.name} - Catalogues - ${index}`}>
                     <div className="h-full flex justify-center items-center cursor-pointer"
                     onClick={() => openLightbox(index + 1)}>
                       <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
@@ -81,8 +77,8 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                           <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                             {/* <div className="object-contain max-h-full max-w-full"> */}
                               <LazyImageCustom
-                                src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
-                                alt={alt.concat(" - Catalogues - ", index.toString())} 
+                                src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url} 
+                                alt={`${item.name} - Catalogues - ${index}`} 
                                 width={500}
                                 height={500}
                                 classname="max-h-full max-w-full object-contain"
@@ -102,16 +98,16 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                       </div>
                   </SwiperSlide>
               ))}
-              {cover != '' && 
-                  <SwiperSlide key={alt.concat(" - Cover")}>
+              {cover && 
+                  <SwiperSlide key={cover.name}>
                     <div className="h-full flex justify-center items-center cursor-pointer"
                     onClick={() => openLightbox(0)}>
                       <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                               <LazyImageCustom
-                                src={cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover} 
-                                alt={alt.concat(" - Cover")} 
+                                src={cover.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover.url}` : cover.url} 
+                                alt={cover.name} 
                                 width={500}
                                 height={500}
                                 classname="max-h-full max-w-full object-contain"
@@ -130,17 +126,17 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                       </div>
                   </SwiperSlide>
               }
-              {catalogues && catalogues.length > 0 && catalogues.map((item, index) => (
-                catalogues_alt[index] !== 'Top' &&
-                  <SwiperSlide key={alt.concat(" - Catalogues - ", index.toString())}>
+              {image_catalogues && image_catalogues.length > 0 && image_catalogues.map((item, index) => (
+                item.name !== 'Top' &&
+                  <SwiperSlide key={`${item.name} - Catalogues - ${index}`}>
                     <div className="h-full flex justify-center items-center cursor-pointer"
                     onClick={() => openLightbox(index + 1)}>
                       <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                               <LazyImageCustom
-                                src={item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item} 
-                                alt={alt.concat(" - Catalogues - ", index.toString())} 
+                                src={item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url} 
+                                alt={`${item.name} - Catalogues - ${index}`} 
                                 width={500}
                                 height={500}
                                 classname="max-h-full max-w-full object-contain"
@@ -171,7 +167,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
             realIndex === 0 ? 'bg-foreground scale-125' : 'bg-slate-300'
           }`}
         ></button>
-        {catalogues.map((_, index) => (
+        {image_catalogues.map((_, index) => (
           <button
             key={index+1}
             onClick={() => swiperRef.current?.slideToLoop(index+1)}
@@ -184,15 +180,22 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
 
 
       {/* </div> */}
-      {catalogues && catalogues.length > 0 ?
+      {image_catalogues && image_catalogues.length > 0 ?
         <Lightbox
           open={lightboxOpen}
           close={() => setLightboxOpen(false)}
           index={lightboxIndex}
           slides=
           {[
-            { src: cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover, title: alt.concat(" - Cover"), alt },
-            ...catalogues.map((item, index) => ({ src: item.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item}` : item, title: alt.concat(" - ", catalogues_alt[index] == ''? (index + 1).toString() : catalogues_alt[index]), alt: alt.concat(" - ", catalogues_alt[index] == ''? (index + 1).toString() : catalogues_alt[index])}))
+            { 
+              src: cover.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover.url}` : cover.url,
+              title: cover.name,
+              alt: cover.name
+            },
+            ...image_catalogues.map((item, index) => ({ 
+              src: item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url, 
+              title: `${item.name} - Catalogues - ${index}`, 
+              alt: `${item.name} - Catalogues - ${index}`}))
           ]}
           plugins={[Zoom, Thumbnails, Captions]}
         />
@@ -201,7 +204,11 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           open={lightboxOpen}
           close={() => setLightboxOpen(false)}
           index={lightboxIndex}
-          slides={[{ src: cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover, title: alt.concat(" - Cover"), alt }]}
+          slides={[{ 
+            src: cover.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover.url}` : cover.url, 
+            title: cover.name, 
+            alt: cover.name
+          }]}
           plugins={[Zoom, Captions]}
         />
       }

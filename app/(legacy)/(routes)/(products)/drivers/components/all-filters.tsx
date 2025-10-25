@@ -1,6 +1,6 @@
 "use client";
 
-import { activeCheckbox, activeSlider, CheckBoxData, Products, SliderData } from "@/app/(legacy)/types";
+import { activeCheckbox, activeSlider, AllFilterProductsOnlyType, CheckBoxData, SliderData } from "@/app/(legacy)/types";
 import { Slider } from "@/app/(legacy)/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -34,7 +34,7 @@ type SliderSheetValue = {
   };
 
 interface MainProps {
-  data: (Products)[];
+  data: (AllFilterProductsOnlyType)[];
   slider: (SliderData)[]
   checkbox: (CheckBoxData)[]
   showFilters: (boolean)
@@ -56,7 +56,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
     const [SelectedSlugComparison, setSelectedSlugComparison] = useState<string>();
     const [SelectedUrlComparison, setSelectedUrlComparison] = useState<string>();
     const [SelectedNameComparison, setSelectedNameComparison] = useState<string>();
-    const [allFeaturedProducts, setAllFeaturedProducts] = useState<Products[]>([])
+    const [allFeaturedProducts, setAllFeaturedProducts] = useState<AllFilterProductsOnlyType[]>([])
 
     const { toast } = useToast()
     const [url, setUrl] = useState<string>('')
@@ -167,9 +167,9 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
     useEffect(() => {
         const fetchData = async () => {
           try {
-            let finishedSliderProducts: Products[] = []
-            let finishedCheckboxProducts: Products[] = []
-            let tempShowed: Products[][] = [];
+            let finishedSliderProducts: AllFilterProductsOnlyType[] = []
+            let finishedCheckboxProducts: AllFilterProductsOnlyType[] = []
+            let tempShowed: AllFilterProductsOnlyType[][] = [];
             if (allActiveSlider.length !== 0) {
                 allActiveSlider.forEach((slider, indexslider) => {
                     if (!tempShowed[indexslider]) {
@@ -182,8 +182,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                 productValue = Number(product.size.value)
                             }
                             else{
-                                //@ts-ignore
-                                productValue = Number(product.specification[slider.slug]);
+                                productValue = Number(product.specs.find((val) => val.slug === slider.slug)?.value);
                             }
                             const bottomValue = Number(slider.bottomRealVal);
                             const topValue = Number(slider.topRealVal);
@@ -199,8 +198,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                 productValue = Number(product.size.value)
                             }
                             else{
-                                //@ts-ignore
-                                productValue = Number(product.specification[slider.slug]);
+                                productValue = Number(product.specs.find((val) => val.slug === slider.slug)?.value);
                             }
                             const bottomValue = Number(slider.bottomRealVal);
                             const topValue = Number(slider.topRealVal);
@@ -217,7 +215,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
             }
 
             if (allActiveCheckbox.length !== 0) {
-                let finalTempProduct: Record<string, Products[]> = {};
+                let finalTempProduct: Record<string, AllFilterProductsOnlyType[]> = {};
                 let checkboxCategories: string[] = [];
 
                 allActiveCheckbox.forEach((checkbox) => {
@@ -232,19 +230,21 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                     }
 
                     data.forEach((product) => {
-                        let productValue = ''
-                        if(checkbox.slug === 'series' && product.sub_categories.length > 0){
-                            productValue = product.sub_categories[0].name ?? ''
-                        }
-                        else{
-                            if(product.sub_sub_categories.length > 0){ 
-                                productValue = product.sub_sub_categories[0].name ?? ''
-                            }
-                        }
+                        // let productValue = ''
+                        // if(checkbox.slug === 'series' && product.specs.length > 0){
+                        //     productValue = product.specs.find((val) => val.slug === checkbox.slug)?.value ?? ''
+                        // }
+                        // else{
+                        //     if(product.sub_sub_categories.length > 0){ 
+                        //         productValue = product.sub_sub_categories[0].name ?? ''
+                        //     }
+                        // }
+                        
+                        const productValue = product.specs.find((val) => val.slug === checkbox.slug)?.value;
                         const checkboxValue = checkbox.name;
 
                         if (productValue === checkboxValue) {
-                            const productExists = finalTempProduct[category].some(item => item.name === product.name);
+                            const productExists = finalTempProduct[category].some(item => item.products.name === product.products.name);
 
                             if (!productExists) {
                                 finalTempProduct[category].push(product);
@@ -253,20 +253,20 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                     });
                 });
 
-                let tempFinished: Products[] = [];
+                let tempFinished: AllFilterProductsOnlyType[] = [];
                 let productCountMap = new Map<string, number>();
 
                 checkboxCategories.map((category, indexcategory) => {
                     finalTempProduct[category].map((product) => {
                         tempFinished.push(product);
-                        const count = productCountMap.get(product.name) || 0;
-                        productCountMap.set(product.name, count + 1);
+                        const count = productCountMap.get(product.products.name) || 0;
+                        productCountMap.set(product.products.name, count + 1);
                     });
                 });
 
                 productCountMap.forEach((count, productName) => {
                     if (count === checkboxCategories.length) {
-                        const product = tempFinished.find(p => p.name === productName);
+                        const product = tempFinished.find(p => p.products.name === productName);
                         if (product) {
                             finishedCheckboxProducts.push(product);
                         }
@@ -277,16 +277,16 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                 finishedCheckboxProducts = data
             }
 
-            let FinalFeatured: Products[] = []
+            let FinalFeatured: AllFilterProductsOnlyType[] = []
             for (const checkboxproducts of finishedCheckboxProducts) {
                 for (const sliderproducts of finishedSliderProducts) {
-                    if(checkboxproducts.name === sliderproducts.name){
+                    if(checkboxproducts.products.name === sliderproducts.products.name){
                         FinalFeatured.push(sliderproducts)
                         break
                     }
                 }
             }
-            FinalFeatured.sort((a, b) => a.name.localeCompare(b.name));
+            FinalFeatured.sort((a, b) => a.products.name.localeCompare(b.products.name));
 
             setAllFeaturedProducts(FinalFeatured)
 
@@ -843,26 +843,26 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                 </div>
             :
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full">
-                    {allFeaturedProducts.map((item: Products, i) => (
+                    {allFeaturedProducts.map((item: AllFilterProductsOnlyType, i) => (
                         <div key={i} className="pt-4 pb-12">
-                            <ProductCard key={item.id} data={item}/>
+                            <ProductCard key={item.products.id} data={item}/>
                             <div className="w-full flex justify-center pb-2">
                                 <Button                                            
                                 variant="default"
                                 className="bg-secondary border-foreground border-4 sm:w-2/3 w-screen"
                                 asChild
                                 >
-                                    <Link href={`/products/${item.slug}`}>
+                                    <Link href={`/products/${item.products.slug}`}>
                                         <b>DETAIL</b>
                                     </Link>
                                 </Button>
                             </div>
-                            {!activeSlugCompare.includes(item.slug) ?  
+                            {!activeSlugCompare.includes(item.products.slug) ?  
                                 <div className="w-full flex justify-center pb-4">
                                     <Button
                                         onClick={() => 
                                             activeSlugCompare.length < maxCompare?
-                                                addComparison(item.slug, item.name, item.coverUrl)
+                                                addComparison(item.products.slug, item.products.name, item.products.cover_img.url)
                                             :
                                                 toast({
                                                     title: "Tabel Perbandingan Full!",

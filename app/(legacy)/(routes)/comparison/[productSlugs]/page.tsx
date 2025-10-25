@@ -1,7 +1,7 @@
 "use client"
 
-import { ComparisonProductData } from '@/app/(legacy)/types';
-import { useEffect, useState, use } from 'react';
+import { SingleProducts } from '@/app/(legacy)/types';
+import React, { useEffect, useState, use } from 'react';
 import {
     Table,
     TableBody,
@@ -16,9 +16,9 @@ import Link from 'next/link';
 import { Plus } from 'lucide-react';
 import { ScrollArea, ScrollBar } from '@/app/(legacy)/components/ui/scroll-area';
 import { useRouter } from 'next/navigation';
-import getComparisonProduct from '@/app/(legacy)/actions/get-comparison-product';
 import { LazyImage } from '@/app/(legacy)/components/lazyImage';
 import FullScreenLoader from '@/app/(legacy)/components/loadingNoScroll';
+import getProduct from '@/app/(legacy)/actions/get-one-product';
 
 function createData(
     name: string,
@@ -28,74 +28,88 @@ function createData(
     return { name, attribute, unit };
 }
 
+function groupAllSpecifications(products: SingleProducts[]) {
+  const grouped: Record<string, Record<string, Record<string, string>>> = {};
+
+  products.forEach((product) => {
+    product.specification.forEach((spec) => {
+      const parent = spec.parentname;
+      const sub = spec.subparentname || "";
+
+      if (!grouped[parent]) grouped[parent] = {};
+      if (!grouped[parent][sub]) grouped[parent][sub] = {};
+
+      spec.child.map((child) => {
+        if (!grouped[parent][sub][child.childname]) {
+          grouped[parent][sub][child.childname] = child.childname;
+        }
+      });
+    });
+  });
+
+  return grouped;
+}
+
 const ProductBySubCategoryPage = (
     props: {
       params: Promise<{ productSlugs: string }>
     }
 ) => {
     const params = use(props.params);
-    const [finalFetchedProducts, setFinalFetchedProducts] = useState<ComparisonProductData[]>([])
+    const [finalFetchedProducts, setFinalFetchedProducts] = useState<SingleProducts[]>([])
     const router = useRouter()
-    const [allNote, setAllNote] = useState<string[]>([])
     const [allDriversName, setAllDriversName] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
-
-
-    useEffect( () => {
-        async function fetchData(){
-            let fetchedProducts: ComparisonProductData[] = []
-            let tempallNote: string[] = []
-            let tempAllName: string = ''
-            const decodedSlugs = decodeURIComponent(params.productSlugs);
-            const slugArray = decodedSlugs.split(',');
-            slugArray.pop()
-            await Promise.all(
-                slugArray.map(async (value) => {
-                    let temp: ComparisonProductData = await getComparisonProduct(value);
-                    fetchedProducts.push(temp);
-                    tempAllName = tempAllName === "" ? temp.name : `${tempAllName}, ${temp.name}`;
-                    const customNoteArray = temp.specification.custom_note.split(/\r?\n/).map(n => n.trim()).filter(n => n);
-                    customNoteArray.map((value) => {
-                        if(!tempallNote.includes(value)) {
-                            tempallNote.push(value)
-                        }
+    const [allSpecsUsed, setAllSpecsUsed] = useState<Record<string, Record<string, Record<string, string>>>>({});
+    
+     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                document.body.style.overflow = 'hidden';
+                let fetchedProducts: SingleProducts[] = []
+                let tempAllName: string = ''
+                const decodedSlugs = decodeURIComponent(params.productSlugs);
+                const slugArray = decodedSlugs.split(',');
+                slugArray.pop()
+                await Promise.all(
+                    slugArray.map(async (value) => {
+                        let temp: SingleProducts = await getProduct(value);
+                        fetchedProducts.push(temp);
+                        tempAllName = tempAllName === "" ? temp.name : `${tempAllName}, ${temp.name}`;
                     })
-                })
-            );
-            setFinalFetchedProducts(fetchedProducts)
-            setAllNote(tempallNote)
-            setAllDriversName(tempAllName);
-            setLoading(false)
+                );
+                setFinalFetchedProducts(fetchedProducts)
+                setAllSpecsUsed(groupAllSpecifications(fetchedProducts))
+                setAllDriversName(tempAllName);
+                
+                document.body.style.overflow = '';
+                setLoading(false);  
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.body.style.overflow = '';
+            }
         }
 
         fetchData()
-    }, [params.productSlugs]);
+    }, []);
 
     const rows = [
-        createData('Seri Speaker', 'name', ""),
+        createData('Name', 'name', ""),
         createData('Tipe Speaker', 'subCategory', ""),
-        createData('Diameter Speaker', 'diameter_speaker', ""),
-        createData('Daya Maksimum', 'daya_maksimum', ""),
-        createData('Lebar Daerah Frekuensi', 'lebar_daerah_frekuensi', ""),
-        createData('Sensitivity', 'spl', "dB"),
-        createData('Medan Magnet', 'medan_magnet', "T"),
-        createData('Berat Magnet', 'berat_magnet', ""),
-        createData('Diameter Voice Coil', 'voice_coil_diameter', "mm"),
-        createData('Impedansi', 'impedansi', "Ω"),
-        createData('Nominal Power Handling¹', 'nominal_power_handling', "Watt"),
-        createData('Program Power²', 'program_power', "Watt"),
-        createData('Material Voice Coil', 'voice_coil_material', ""),
+    ];
+
+    const rowsImage = [
+        createData('Drawing', 'drawing_url', ""),
         createData('Respon Frekuensi', 'frequency_url', ""),
         createData('Impedansi', 'impedance_url', ""),
-      ];
+    ]
 
     function resetComparison() {
       router.push('/drivers?reset=true');
   }
 
-
-    return (<>
-        {loading?
+    return (
+        loading?
             <FullScreenLoader isVisible={loading} />
         :
         <div className='bg-white -z-10'>
@@ -141,33 +155,26 @@ const ProductBySubCategoryPage = (
                                 <TableHead key={product.name} className="items-center text-black border-2 border-black min-w-40 p-1">
                                     <div className='max-h-full max-w-full object-contain p-2'>
                                         <LazyImage
-                                            src={product.coverUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.coverUrl}` : product.coverUrl} 
-                                            alt={product.coverAlt} 
+                                            src={product.coverImg.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.coverImg.url}` : product.coverImg.url} 
+                                            alt={product.coverImg.name} 
                                             width={144}
                                             height={144} 
                                         />
                                     </div>
-                                    {/* <Image 
-                                        src={product.coverUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.coverUrl}` : product.coverUrl} 
-                                        alt={product.coverAlt} 
-                                        width={144}
-                                        height={144} 
-                                        className=" h-fit w-36 mx-auto"
-                                    /> */}
                                 </TableHead>
                             ))}
                         </TableRow>
                     </TableHeader>
                     <TableBody className=' border-2 border-black'>
+
+
                         {rows.map((row,index)=> {
                             if (row.attribute === 'name') {
-                                //@ts-ignore
                                 const hasValue = finalFetchedProducts.some(product => product.name != "");
                                 return hasValue && (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            //@ts-ignore
                                             (<TableCell key={product.name} className='text-center border-2 border-black'>{product.name !== ''? `${product.name}`: '-'
                                                     }
                                             </TableCell>)
@@ -176,13 +183,11 @@ const ProductBySubCategoryPage = (
                                 );
                             }
                             else if (row.attribute === 'subCategory') {
-                                //@ts-ignore
                                 const hasValue = finalFetchedProducts.some(product => product.sub_sub_categories.length>0);
                                 return hasValue && (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            //@ts-ignore
                                             (<TableCell key={product.name} className='text-center border-2 border-black p-2'>{product.sub_sub_categories.length > 0? `${product.sub_sub_categories[0].name}`: '-'
                                                     }
                                             </TableCell>)
@@ -190,20 +195,85 @@ const ProductBySubCategoryPage = (
                                     </TableRow>
                                 );
                             }
-                            else if (row.attribute === 'frequency_url') {
-                                //@ts-ignore
-                                const hasValue = finalFetchedProducts.some(product => product.graph_Url.length>0);
+                        })}
+
+
+
+
+
+
+                        {Object.entries(allSpecsUsed).map(([parentKey, subRecord]) =>
+                            parentKey !== "Additional Notes" &&
+                            Object.entries(subRecord).map(([subKey, childRecord]) => (
+                                <React.Fragment key={`${parentKey}-${subKey}`}>
+                                {/* Parent/Sub header row */}
+                                <TableRow className="border-y-2 border-black">
+                                    <TableCell
+                                    colSpan={finalFetchedProducts.length + 1}
+                                    className="font-bold text-lg bg-gray-200 text-black"
+                                    >
+                                    {parentKey}
+                                    {subKey !== "" && (
+                                        <> - <span className="font-semibold text-base text-black">{subKey}</span></>
+                                    )}
+                                    </TableCell>
+                                </TableRow>
+
+                                {/* Child spec rows */}
+                                {Object.entries(childRecord).map(([childKey, _]) => (
+                                    <TableRow key={`${parentKey}-${subKey}-${childKey}`} className='hover:bg-secondary'>
+                                    {/* Spec name cell */}
+                                    <TableCell className="font-bold text-black border-2 border-black bg-gray-200">{parentKey !== 'Additional Notes' && childKey}</TableCell>
+
+                                    {/* Each product value */}
+                                    {finalFetchedProducts.map((product) => {
+                                        const foundChild = product.specification.find(
+                                        (spec) =>
+                                            spec.parentname === parentKey &&
+                                            spec.subparentname === subKey &&
+                                            spec.child.some(
+                                            (subval) => subval.childname === childKey
+                                            )
+                                        );
+
+                                        const matchedChild = foundChild?.child.find(
+                                        (subval) => subval.childname === childKey
+                                        );
+
+                                        const value = matchedChild?.value ?? "-";
+                                        const unit = matchedChild?.unit ?? "";
+
+                                        return (
+                                        <TableCell
+                                            key={`${product.id}-${childKey}`}
+                                            className="text-sm text-black text-center min-w-[250px] max-w-[400px] break-all whitespace-normal px-2 border-2 border-black"
+                                        >
+                                            {value !== "-" ? `${value} ${unit}` : value}
+                                        </TableCell>
+                                        );
+                                    })}
+                                    </TableRow>
+                                ))}
+                                </React.Fragment>
+                            ))
+                        )}
+
+
+
+
+                        {rowsImage.map((row,index)=> {
+                            if (row.attribute === 'frequency_url') {
+                                const hasValue = finalFetchedProducts.some(product => product.graph.length>0);
                                 return hasValue && (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            //@ts-ignore
-                                            (<TableCell key={product.name} className="justify-center items-center border-2 border-black p-2">
-                                                {product.graph_Url.length > 0 && (
+                                            (<TableCell key={product.graph[0].name} className="justify-center items-center border-2 border-black p-2">
+                                                {product.graph.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.graph_Url[0].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph_Url[0]}` : product.graph_Url[0]}
-                                                            alt={product.name}
+                                                            src={product.graph[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph[0].url}` : product.graph[0].url}
+                                                            alt={product.graph[0].name}
                                                             width={300}
                                                             height={300} 
                                                         />
@@ -221,20 +291,40 @@ const ProductBySubCategoryPage = (
                                     </TableRow>
                                 );
                             }
-                            else if (row.attribute === 'impedance_url') {
-                                //@ts-ignore
-                                const hasValue = finalFetchedProducts.some(product => product.impedance_Url.length>0);
+                            else if (row.attribute === 'drawing_url') {
+                                const hasValue = finalFetchedProducts.some(product => product.drawing.length>0);
                                 return hasValue && (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            //@ts-ignore
-                                            (<TableCell key={product.name} className="justify-center items-center border-2 border-black p-2">
-                                                {product.impedance_Url.length > 0 && (
+                                            (<TableCell key={product.drawing[0].name} className="justify-center items-center border-2 border-black p-2">
+                                                {product.drawing.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.impedance_Url[0].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance_Url[0]}` : product.impedance_Url[0]}
-                                                            alt={product.name}
+                                                            src={product.drawing[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.drawing[0].url}` : product.drawing[0].url}
+                                                            alt={product.drawing[0].name}
+                                                            width={300}
+                                                            height={300} 
+                                                        />
+                                                    </div>)
+                                                    )}
+                                            </TableCell>)
+                                        ))}
+                                    </TableRow>
+                                );
+                            }
+                            else if (row.attribute === 'impedance_url') {
+                                const hasValue = finalFetchedProducts.some(product => product.impedance.length>0);
+                                return hasValue && (
+                                    <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
+                                        <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
+                                        {finalFetchedProducts.map((product) => (
+                                            (<TableCell key={product.impedance[0].name} className="justify-center items-center border-2 border-black p-2">
+                                                {product.impedance.length > 0 && (
+                                                    (<div className='h-full w-56 mx-auto'>
+                                                        <LazyImage
+                                                            src={product.impedance[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance[0].url}` : product.impedance[0].url}
+                                                            alt={product.impedance[0].name}
                                                             width={300}
                                                             height={300}  
                                                         />
@@ -252,40 +342,18 @@ const ProductBySubCategoryPage = (
                                     </TableRow>
                                 );
                             }
-                            else{
-                                //@ts-ignore
-                                const hasValue = finalFetchedProducts.some(product => product.specification[row.attribute] !== '');
-                                return hasValue && (
-                                    <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
-                                        <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
-                                        {finalFetchedProducts.map((product) => (
-                                            //@ts-ignore
-                                            (<TableCell key={product.name} className='text-center border-2 border-black p-2'>{product.specification[row.attribute] !== ''? `${product.specification[row.attribute]} ${row.unit}`
-                                                        : '-'
-                                                    }
-                                            </TableCell>)
-                                        ))}
-                                    </TableRow>
-                                );
-                            }
                         })}
+
+
                     </TableBody>
                 </Table>
                 <ScrollBar orientation="horizontal" />
                 </ScrollArea>
             </div>
             }
-            <div className='text-black pt-8 text-center'>
-                {allNote.map((value, index) => 
-                    <div key={index}>
-                        - {value}
-                    </div>
-                )}
-            </div>
         </div>
         </div>
-        }
-    </>);
+        );
 }
 
 export default ProductBySubCategoryPage;

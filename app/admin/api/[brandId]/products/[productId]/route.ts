@@ -29,7 +29,6 @@ export async function GET(req: Request, props: { params: Promise<{ productId: st
       },
       include: {
         allCat: true,
-        specification: true,
         images_catalogues: true,
         cover_img: true,
         drawing_img: true,
@@ -258,36 +257,6 @@ export async function DELETE(
 
     //Delete allproductcategory
     await prismadb.allProductCategory.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete thielesmallparameters4ohm
-    await prismadb.thieleSmallParameters4Ohm.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete tweeterspecification
-    await prismadb.tweeterSpecification.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete activesubwooferspecification
-    await prismadb.activeSubwooferSpecification.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete specification
-    await prismadb.specification.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete thielesmallparameters2ohm
-    await prismadb.thieleSmallParameters2Ohm.deleteMany({
       where: {
         productId: params.productId,
       },

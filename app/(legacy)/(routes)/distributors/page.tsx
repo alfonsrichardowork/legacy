@@ -2,7 +2,7 @@ import { Phone } from "lucide-react";
 import { Separator } from "../../../../components/ui/separator";
 
 export default function Distributors() {
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
 
   const jsonLd = {
     "@context": "https://schema.org",

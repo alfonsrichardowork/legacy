@@ -1,15 +1,4 @@
-export interface Products {
-    id: string;
-    name: string;
-    slug: string;
-    coverUrl: string;
-    CoverAlt: string;
-    size: Size;
-    categories: AllCategory[];
-    sub_categories: AllCategory[];
-    sub_sub_categories: AllCategory[];
-    specification: Specifications;
-}
+import { Prisma } from "@prisma/client";
 
 export interface FeaturedProducts {
     id: string;
@@ -56,17 +45,6 @@ export interface NavbarCategory {
     type: string;
 }
 
-export interface SubCategoryFilters {
-    id: string;
-    productId: string;
-    categoryId: string;
-    type: string;
-    name: string;
-    slug: string;
-    createdAt: string;
-    updatedAt: string;
-}
-
 export interface NavbarProducts {
     name: string;
     href: string;
@@ -74,95 +52,22 @@ export interface NavbarProducts {
     url: string;
 }
 
-export interface Specifications {
-    diameter_speaker: string;
-    daya_maksimum: string;
-    lebar_daerah_frekuensi: string;
-    spl: string;
-    medan_magnet: string;
-    berat_magnet: string;
-    voice_coil_diameter: string;
-    impedansi: string;
-    nominal_power_handling: string;
-    program_power: string;
-    voice_coil_material: string;
-    berat_speaker: string;
-    custom_note: string;
-}
-
-export interface Tweeter_Specifications {
-    nominal_impedance: string
-    dc_resistance: string
-    voice_coil_diameter: string
-    voice_coil_height: string
-    air_gap_height: string
-    sensitivity: string
-    magnetic_flux_density: string
-    magnet_weight: string
-}
-
-export interface Active_Subwoofer_Specifications {
-    speaker: string
-    subwoofer: string
-    daya_amplifier: string
-    filter_lpf_variabel: string
-    input_level: string
-    power_input: string
-    box_type: string
-}
-
-export interface Thiele_Small_Parameters_Specifications {
-    fs: string
-    dcr: string
-    qts: string
-    qes: string
-    qms: string
-    mms: string
-    cms: string
-    bl_product: string
-    vas: string
-    no: string
-    sd: string
-    x_max: string
-}
-
-export interface Datasheet_Prod {
-    productId: string
-    name: string
-    url: string
-    id: string
-}
-
-export interface AllProductsForHome {
-    allProducts: Products[];
-    allSPL: number[];
-    allVoiceCoilDiameter: number[];
-    allSubSubCategory: string[];
-    allSubCategory: string[];
-}
-
 export interface SingleProducts {
+    coverImg: FilesProp;
+    size: Size;
+    images_Catalogues: FilesProp[];
+    drawing: FilesProp[];
+    graph: FilesProp[];
+    impedance: FilesProp[];
+    categories: AllCategory[];
+    sub_categories: AllCategory[];
+    sub_sub_categories: AllCategory[];
+    datasheet: FilesProp[];
+    specification: SpecificationProp[];
     id: string;
     name: string;
     desc: string;
     slug: string;
-    coverUrl: string;
-    coverAlt: string;
-    datasheet: Datasheet_Prod[];
-    images_Catalogues_Url: string[];
-    images_Catalogues_Alt: string[];
-    drawing_Url: string[];
-    graph_Url: string[];
-    impedance_Url: string[];
-    size: Size;
-    categories: AllCategory[];
-    sub_categories: AllCategory[];
-    sub_sub_categories: AllCategory[];
-    specification: Specifications;
-    tweeter_specification: Tweeter_Specifications;
-    active_subwoofer_specification: Active_Subwoofer_Specifications;
-    thiele_small_parameters_specification2: Thiele_Small_Parameters_Specifications;
-    thiele_small_parameters_specification4: Thiele_Small_Parameters_Specifications;
 }
 
 export interface MetadataSingleProducts {
@@ -173,24 +78,6 @@ export interface MetadataSingleProducts {
     coverUrl: string;
     coverAlt: string;
     size: Size;
-}
-
-export interface ComparisonProductData {
-    id: string;
-    name: string;
-    desc: string;
-    slug: string;
-    coverUrl: string;
-    coverAlt: string;
-    graph_Url: string[];
-    impedance_Url: string[];
-    sub_sub_categories: AllCategory[];
-    specification: Specifications;
-}
-
-export interface CachedAllProducts {
-    allproduct: AllProductsForHome;
-    allsizes: number[];
 }
 
 export interface activeSlider{
@@ -250,4 +137,66 @@ export interface NavbarComponents{
     href: string,
     parent: string,
     url: string
+}
+
+export interface PriorityMenu{
+    priorityId: string,
+    productId: string,
+    productName: string,
+    priority: string,
+    menuType: string //["Kits", "Drivers", "Sub Drivers", "Sub Sub Drivers"],
+    categoryId: string,
+    categoryName: string
+}
+
+export interface SpecificationProp {
+  parentname: string
+  subparentname: string
+  child: ChildSpecificationProp[]
+}
+
+export interface ChildSpecificationProp {
+  childname: string
+  value: string
+  slug: string
+  notes: string
+  unit: string
+}
+
+export type SingleProductsType = Prisma.ProductGetPayload<{
+  include: {
+    cover_img: true;
+    size: true,
+    images_catalogues: true,
+    drawing_img: true,
+    graph_img: true,
+    impedance_img: true,
+    allCat: true,
+    multipleDatasheetProduct: true,
+    connectorSpecifications: true
+  };
+}>;
+
+export interface FilesProp{
+    name: string
+    url: string
+    productId: string
+}
+
+export interface AllProductsJsonType {
+  name: string
+  id: string
+  slug: string
+  cover_img: {
+    url: string
+  }
+};
+
+export interface AllFilterProductsOnlyType {
+  products: AllProductsJsonType
+  size: {
+    name: string
+    value: string
+  },
+  specs: ChildSpecificationProp[]
 }

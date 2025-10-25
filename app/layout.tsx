@@ -10,7 +10,7 @@ import ScrollToTop from './(legacy)/components/scrollToTop'
 const font = Inter({ subsets: ['latin'] })
 
 export async function generateMetadata(): Promise<Metadata> {
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   return {
     title: {
       template: '%s | Legacy Speaker',

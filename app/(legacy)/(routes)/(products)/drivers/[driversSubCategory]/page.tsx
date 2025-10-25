@@ -1,6 +1,7 @@
 import getSubCatNameBySlug from "@/app/(legacy)/actions/get-SubCat_Name";
 import ProductBySubCategoryPage from "./pageClient";
 import getAllProductsBySubCategoryJsonld from "@/app/(legacy)/actions/jsonLd/get-all-products-by-sub-category-jsonld";
+import { AllProductsJsonType } from "@/app/(legacy)/types";
 
 type Props = {
   params: Promise<{ driversSubCategory: string }>
@@ -10,7 +11,7 @@ export default async function SubDriversPage(props: Props) {
   let driversubcat = (await props.params).driversSubCategory
   const subCatName = await getSubCatNameBySlug(driversubcat)
   const allprodserver = await getAllProductsBySubCategoryJsonld(driversubcat); // SSR fetch
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -18,7 +19,7 @@ export default async function SubDriversPage(props: Props) {
     "name": "Legacy Speaker Drivers",
     "description":  driversubcat && driversubcat!= "" ? "The best ".concat(driversubcat, " series from Legacy Speaker."): 'All drivers from Legacy Speaker.',
     "url": driversubcat && driversubcat!= "" ? `${baseUrl}/drivers/${driversubcat}` : `${baseUrl}/drivers`,
-    "itemListElement": allprodserver.map((driver, index) => ({
+    "itemListElement": allprodserver.map((driver: AllProductsJsonType, index) => ({
       "@type": "ListItem",
       "position": index + 1,
       "item": {
@@ -26,7 +27,7 @@ export default async function SubDriversPage(props: Props) {
         "url": `${baseUrl}/products/${driver.slug}`,
         "name": driver.name,
         "description": driver.name,
-        "image": `${baseUrl}${driver.coverUrl}`,
+        "image": `${baseUrl}${driver.cover_img?.url}`,
         "sku": driver.slug || driver.id,
         "brand": {
           "@type": "Brand",

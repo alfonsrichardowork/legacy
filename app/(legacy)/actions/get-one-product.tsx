@@ -1,7 +1,12 @@
-import { Active_Subwoofer_Specifications, AllCategory, Datasheet_Prod, SingleProducts, Size, Specifications, Thiele_Small_Parameters_Specifications, Tweeter_Specifications } from "@/app/(legacy)/types";
+import { AllCategory, FilesProp, SingleProducts, SingleProductsType, Size, SpecificationProp  } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
 const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ONE_PRODUCT}`;
+
+type SingleProductsTypeComplete = {
+  product: SingleProductsType;
+  specifications: SpecificationProp[]
+};
 
 const getProduct = async (productSlug: string): Promise<SingleProducts> => {
   const API_EDITED = API.replace('{productSlug}', productSlug)
@@ -10,19 +15,24 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
     redirect('/');
     // throw new Error('Failed to fetch one product');
   }
-  const data = await response.json();
+  const data: SingleProductsTypeComplete = await response.json();
   if (!data) {
     redirect('/');
   }
   let prod_cat: AllCategory[] = []
   let prod_sub_cat: AllCategory[] = []
   let prod_sub_sub_cat: AllCategory[] = []
-  let all_url : string[] = []
-  let all_drawing_url : string[] = []
-  let all_graph_url : string[] = []
-  let all_impedance_url : string[] = []
-  let all_alt : string[] = []
-  let alldatasheet : Datasheet_Prod[] = []
+  let cover_image: FilesProp = {
+    name: '',
+    url: '',
+    productId: ''
+  }
+  let all_image_catalogues : Array<FilesProp> = []
+  let all_drawing : Array<FilesProp> = []
+  let all_graph : Array<FilesProp> = []
+  let all_impedance : Array<FilesProp> = []
+  let all_datasheet : Array<FilesProp> = []
+
   if (data && data.product){
     if(data.product.allCat){
       for (let i = 0; i < data.product.allCat.length; i++) {
@@ -43,41 +53,54 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       }
     }
 
-    if(data.product.images_catalogues!=undefined){
-      for(let i = 0; i< data.product.images_catalogues.length;i++){
-        all_url.push(data.product.images_catalogues[i].url.toString())
-        all_alt.push(data.product.images_catalogues[i].name.toString())
+    data.product.cover_img && data.product.cover_img.length > 0 && data.product.cover_img.map((img) => {
+      cover_image = {
+        name: `${data.product.name} - Cover`,
+        url: img.url,
+        productId: img.id
       }
-    }
-    
-    if(data.product.drawing_img!=undefined){
-      for(let i = 0; i< data.product.drawing_img.length;i++){
-        all_drawing_url.push(data.product.drawing_img[i].url.toString())
-      }
-    }
-    
-    if(data.product.graph_img!=undefined){
-      for(let i = 0; i< data.product.graph_img.length;i++){
-        all_graph_url.push(data.product.graph_img[i].url.toString())
-      }
-    }
+    })
 
-    if(data.product.impedance_img!=undefined){
-      for(let i = 0; i< data.product.impedance_img.length;i++){
-        all_impedance_url.push(data.product.impedance_img[i].url.toString())
-      }
-    }
+    data.product.images_catalogues && data.product.images_catalogues.length > 0 && data.product.images_catalogues.map((img) => {
+      all_image_catalogues.push({
+        name: img.name,
+        url: img.url,
+        productId: img.id
+      })
+    })
+    
+    data.product.drawing_img && data.product.drawing_img.length > 0 && data.product.drawing_img.map((img) => {
+      all_drawing.push({
+        name: `${data.product.name} - Drawing`,
+        url: img.url,
+        productId: img.id
+      })
+    })
+    
+    data.product.graph_img && data.product.graph_img.length > 0 && data.product.graph_img.map((img) => {
+      all_graph.push({
+        name: `${data.product.name} - Frequency Response`,
+        url: img.url,
+        productId: img.id
+      })
+    })
+    
+    data.product.impedance_img && data.product.impedance_img.length > 0 && data.product.impedance_img.map((img) => {
+      all_impedance.push({
+        name: `${data.product.name} - Impedance`,
+        url: img.url,
+        productId: img.id
+      })
+    })
 
-    if(data.product.multipleDatasheetProduct!=undefined){
-      for(let i = 0; i< data.product.multipleDatasheetProduct.length;i++){
-        alldatasheet.push({
-          id: data.product.multipleDatasheetProduct[i].id,
-          productId: data.product.multipleDatasheetProduct[i].productId,
-          url: data.product.multipleDatasheetProduct[i].url,
-          name: data.product.multipleDatasheetProduct[i].name
-        })
-      }
-    }
+    data.product.multipleDatasheetProduct && data.product.multipleDatasheetProduct.length > 0 && data.product.multipleDatasheetProduct.map((img) => {
+      all_datasheet.push({
+        name: img.name,
+        url: img.url,
+        productId: img.id
+      })
+    })
+
 
     let size = {} as Size;
     if(data.product.size!=null){
@@ -88,258 +111,45 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       size = size2  
     }
 
-    let specific: Specifications = {
-      diameter_speaker: "",
-      daya_maksimum: "",
-      lebar_daerah_frekuensi: "",
-      spl: "",
-      medan_magnet: "",
-      berat_magnet: "",
-      voice_coil_diameter: "",
-      impedansi: "",
-      nominal_power_handling: "",
-      program_power: "",
-      voice_coil_material: "",
-      berat_speaker: "",
-      custom_note: "",
-    }
-    if(data.product.specification){
-      specific = {
-        diameter_speaker: data.product.specification.diameter_speaker,
-        daya_maksimum: data.product.specification.daya_maksimum,
-        lebar_daerah_frekuensi: data.product.specification.lebar_daerah_frekuensi,
-        spl: data.product.specification.spl,
-        medan_magnet: data.product.specification.medan_magnet,
-        berat_magnet: data.product.specification.berat_magnet,
-        voice_coil_diameter: data.product.specification.voice_coil_diameter,
-        impedansi: data.product.specification.impedansi,
-        nominal_power_handling: data.product.specification.nominal_power_handling,
-        program_power: data.product.specification.program_power,
-        voice_coil_material: data.product.specification.voice_coil_material,
-        berat_speaker: data.product.specification.berat_speaker,
-        custom_note: data.product.specification.custom_note,
-      }
-    }
-
-
-    let tweeter_specific: Tweeter_Specifications = {
-      nominal_impedance: "",
-      dc_resistance: "",
-      voice_coil_diameter: "",
-      voice_coil_height: "",
-      air_gap_height: "",
-      sensitivity: "",
-      magnetic_flux_density: "",
-      magnet_weight: "",
-    }
-    if(data.tweeterSpecification){
-      tweeter_specific = {
-        nominal_impedance: data.tweeterSpecification.nominal_impedance,
-        dc_resistance: data.tweeterSpecification.dc_resistance,
-        voice_coil_diameter: data.tweeterSpecification.voice_coil_diameter,
-        voice_coil_height: data.tweeterSpecification.voice_coil_height,
-        air_gap_height: data.tweeterSpecification.air_gap_height,
-        sensitivity: data.tweeterSpecification.sensitivity,
-        magnetic_flux_density: data.tweeterSpecification.magnetic_flux_density,
-        magnet_weight: data.tweeterSpecification.magnet_weight,
-      }
-    }
-
-
-    let active_subwoofer_specific: Active_Subwoofer_Specifications = {
-      speaker: "",
-      subwoofer: "",
-      daya_amplifier: "",
-      filter_lpf_variabel: "",
-      input_level: "",
-      power_input: "",
-      box_type: "",
-    }
-    if(data.activesubwooferSpecification){
-      active_subwoofer_specific = {
-        speaker: data.activesubwooferSpecification.speaker,
-        subwoofer: data.activesubwooferSpecification.subwoofer,
-        daya_amplifier: data.activesubwooferSpecification.daya_amplifier,
-        filter_lpf_variabel: data.activesubwooferSpecification.filter_lpf_variabel,
-        input_level: data.activesubwooferSpecification.input_level,
-        power_input: data.activesubwooferSpecification.power_input,
-        box_type: data.activesubwooferSpecification.box_type,
-      }
-    }
-
-
-    let thiele_2_specific: Thiele_Small_Parameters_Specifications = {
-      fs: "",
-      dcr: "",
-      qts: "",
-      qes: "",
-      qms: "",
-      mms: "",
-      cms: "",
-      bl_product: "",
-      vas: "",
-      no: "",
-      sd: "",
-      x_max: "",
-    }
-    if(data.thielesmallparameter2){
-      thiele_2_specific = {
-        fs: data.thielesmallparameter2.fs,
-        dcr: data.thielesmallparameter2.dcr,
-        qts: data.thielesmallparameter2.qts,
-        qes: data.thielesmallparameter2.qes,
-        qms: data.thielesmallparameter2.qms,
-        mms: data.thielesmallparameter2.mms,
-        cms: data.thielesmallparameter2.cms,
-        bl_product: data.thielesmallparameter2.bl_product,
-        vas: data.thielesmallparameter2.vas,
-        no: data.thielesmallparameter2.no,
-        sd: data.thielesmallparameter2.sd,
-        x_max: data.thielesmallparameter2.x_max,
-      }
-    }
-
-
-
-    let thiele_4_specific: Thiele_Small_Parameters_Specifications = {
-      fs: "",
-      dcr: "",
-      qts: "",
-      qes: "",
-      qms: "",
-      mms: "",
-      cms: "",
-      bl_product: "",
-      vas: "",
-      no: "",
-      sd: "",
-      x_max: "",
-    }
-    if(data.thielesmallparameter4){
-      thiele_4_specific = {
-        fs: data.thielesmallparameter4.fs,
-        dcr: data.thielesmallparameter4.dcr,
-        qts: data.thielesmallparameter4.qts,
-        qes: data.thielesmallparameter4.qes,
-        qms: data.thielesmallparameter4.qms,
-        mms: data.thielesmallparameter4.mms,
-        cms: data.thielesmallparameter4.cms,
-        bl_product: data.thielesmallparameter4.bl_product,
-        vas: data.thielesmallparameter4.vas,
-        no: data.thielesmallparameter4.no,
-        sd: data.thielesmallparameter4.sd,
-        x_max: data.thielesmallparameter4.x_max,
-      }
-    }
-
-    
+   
     let product: SingleProducts = {
-      id: data.product.id,
-      coverUrl: data.product.cover_img? data.product.cover_img[0].url: '',
-      coverAlt: data.product.name,
-      images_Catalogues_Url: all_url.length!=0?all_url:[],
-      images_Catalogues_Alt: all_alt,
-      drawing_Url: all_drawing_url.length!=0?all_drawing_url:[],
-      graph_Url: all_graph_url.length!=0?all_graph_url:[],
-      impedance_Url: all_impedance_url.length!=0?all_impedance_url:[],
-      name: data.product.name,
-      desc: data.product.description,
-      datasheet: alldatasheet,
-      slug: data.product.slug,
+      coverImg: cover_image,
       size: size,
+      images_Catalogues: all_image_catalogues,
+      drawing: all_drawing,
+      graph: all_graph,
+      impedance: all_impedance,
       categories: prod_cat,
       sub_categories: prod_sub_cat,
       sub_sub_categories: prod_sub_sub_cat,
-      specification: specific,
-      tweeter_specification: tweeter_specific,
-      active_subwoofer_specification: active_subwoofer_specific,
-      thiele_small_parameters_specification2: thiele_2_specific,
-      thiele_small_parameters_specification4: thiele_4_specific
+      datasheet: all_datasheet,
+      specification: data.specifications,
+      id: data.product.id,
+      name: data.product.name,
+      desc: data.product.description,
+      slug: data.product.slug,
     }
     return product;
   }
   let product: SingleProducts = {
-    id: "",
-    coverUrl: "",
-    coverAlt: "",
-    images_Catalogues_Url: [],
-    images_Catalogues_Alt: [],
-    drawing_Url: [],
-    graph_Url: [],
-    impedance_Url: [],
-    name: "",
-    desc: "",
-    datasheet: [],
-    slug: "",
+    coverImg: cover_image,
     size: {
       value:0,
       label:'',
     },
-    categories: [],
-    sub_categories: [],
-    sub_sub_categories: [],
-    specification: {
-      diameter_speaker: "",
-      daya_maksimum: "",
-      lebar_daerah_frekuensi: "",
-      spl: "",
-      medan_magnet: "",
-      berat_magnet: "",
-      voice_coil_diameter: "",
-      impedansi: "",
-      nominal_power_handling: "",
-      program_power: "",
-      voice_coil_material: "",
-      berat_speaker: "",
-      custom_note: "",
-    },
-    tweeter_specification:{
-      nominal_impedance: "",
-      dc_resistance: "",
-      voice_coil_diameter: "",
-      voice_coil_height: "",
-      air_gap_height: "",
-      sensitivity: "",
-      magnetic_flux_density: "",
-      magnet_weight: "",
-    },
-    active_subwoofer_specification:{
-      speaker: "",
-      subwoofer: "",
-      daya_amplifier: "",
-      filter_lpf_variabel: "",
-      input_level: "",
-      power_input: "",
-      box_type: "",
-    },
-    thiele_small_parameters_specification2:{
-      fs: "",
-      dcr: "",
-      qts: "",
-      qes: "",
-      qms: "",
-      mms: "",
-      cms: "",
-      bl_product: "",
-      vas: "",
-      no: "",
-      sd: "",
-      x_max: "",
-    },    
-    thiele_small_parameters_specification4:{
-      fs: "",
-      dcr: "",
-      qts: "",
-      qes: "",
-      qms: "",
-      mms: "",
-      cms: "",
-      bl_product: "",
-      vas: "",
-      no: "",
-      sd: "",
-      x_max: "",
-    }
+    images_Catalogues: all_image_catalogues,
+    drawing: all_drawing,
+    graph: all_graph,
+    impedance: all_impedance,
+    categories: prod_cat,
+    sub_categories: prod_sub_cat,
+    sub_sub_categories: prod_sub_sub_cat,
+    datasheet: all_datasheet,
+    specification: [],
+    id: "",
+    name: "",
+    desc: "",
+    slug: "",
   }
   return product;
 };

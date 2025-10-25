@@ -2,10 +2,10 @@ import getSubCatNameBySlug from "@/app/(legacy)/actions/get-SubCat_Name"
 import { allDriversSubCat } from "@/lib/gsp_var";
 import { Metadata, ResolvingMetadata } from "next"
 
-// export const revalidate = 86400
-// export async function generateStaticParams() {
-//   return allDriversSubCat.map((driversSubCategory) => ({ driversSubCategory }));
-// }
+export const revalidate = 86400
+export async function generateStaticParams() {
+  return allDriversSubCat.map((driversSubCategory) => ({ driversSubCategory }));
+}
 
 type Props = {
   params: Promise<{ driversSubCategory: string }>
@@ -13,7 +13,7 @@ type Props = {
  
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const subCatName = await getSubCatNameBySlug(params.driversSubCategory)
   const previousImages = (await parent).openGraph?.images || []
   const logo_URL = subCatName.name.toLowerCase() === 'legacy' ? `${baseUrl}/images/legacy/logo_legacy.webp` : subCatName.name.toLowerCase() === 'prestige' ? `${baseUrl}/images/legacy/prestige_logo.webp` : subCatName.name.toLowerCase() === 'energy' ? `${baseUrl}/images/legacy/energy_logo.webp` : subCatName.name.toLowerCase() === 'sparta' ? `${baseUrl}/images/legacy/sparta_logo.webp` : `${baseUrl}/images/legacy/logo_legacy.webp`

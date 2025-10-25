@@ -1,18 +1,16 @@
-import getAllProductsGSP from "@/app/(legacy)/actions/get-all-products-gsp";
 import getSingleMetadata from "@/app/(legacy)/actions/get-metadata-single-product"
+import getAllProductsJsonld from "@/app/(legacy)/actions/jsonLd/get-all-products-jsonld";
+import { AllProductsJsonType } from "@/app/(legacy)/types";
 import { Metadata, ResolvingMetadata } from "next"
 
 // export const revalidate = 86400
 // export async function generateStaticParams() {
-//   const allProducts = await getAllProductsGSP();
-
+//   const allProducts = await getAllProductsJsonld();
 //   if (!allProducts || allProducts.length === 0) {
 //     return []; // no params generated
 //   }
-
-//   return allProducts.map((productSlug) => ({
-//     productSlug
-//   }));
+//   //@ts-ignore
+//   return allProducts.products.map((productSlug) => productSlug.slug);
 // }
 
 type Props = {
@@ -21,7 +19,7 @@ type Props = {
 
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const product = await getSingleMetadata(params.productSlug)
   const previousImages = (await parent).openGraph?.images || []
   return {

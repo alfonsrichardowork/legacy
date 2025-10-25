@@ -1,14 +1,9 @@
-import { AllCategory, AllProductsForHome, CachedAllProducts, Products, Size, Specifications, SubCategoryFilters } from "@/app/(legacy)/types";
+import { AllProductsJsonType } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS_BY_SUB_SUB_CATEGORY}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS_JSON_BY_SUB_SUB_CATEGORY}`;
 
-const getAllProductsBySubSubCategoryJsonld = async (subcategory: string, subsubcategory: string): Promise<Products[]> => {
-  let allProducts: Array<Products> = []
-
-  let size = {} as Size;
-  let parentSize: Array<number> = []
-
+const getAllProductsBySubSubCategoryJsonld = async (subcategory: string, subsubcategory: string): Promise<AllProductsJsonType[]> => {
   const API_EDITED_FIRST = API.replace('{productSubCategory}', subcategory)
   const API_EDITED = API_EDITED_FIRST.replace('{productSubSubCategory}', subsubcategory)
   const response = await fetch(API_EDITED, {cache: "no-store"});
@@ -16,83 +11,12 @@ const getAllProductsBySubSubCategoryJsonld = async (subcategory: string, subsubc
       redirect('/');
     // throw new Error(`Failed to fetch products by ${subsubcategory}`);
   }
-  const data = await response.json();
+  const data : AllProductsJsonType[] = await response.json();
   if (!data) {
     redirect('/');
   }
-  for (let i = 0; i < data.length; i++) {
-    // if(data[i].name !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
-      //Size
-      if(data[i].size!=null){
-        let size2: Size = {
-          label: data[i].size.value,
-          value: Number(data[i].size.name)
-        }
-        if (!parentSize.some((size) => size === size2.value)) {
-          parentSize.push(size2.value);
-        }
-        size = size2
-      }
 
-      let specific: Specifications = {
-        diameter_speaker: "",
-        daya_maksimum: "",
-        lebar_daerah_frekuensi: "",
-        spl: "",
-        medan_magnet: "",
-        berat_magnet: "",
-        voice_coil_diameter: "",
-        impedansi: "",
-        nominal_power_handling: "",
-        program_power: "",
-        voice_coil_material: "",
-        berat_speaker: "",
-        custom_note: "",
-      }
-
-      let tempCat: Array<AllCategory> = []
-      let tempSubCat: Array<AllCategory> = []
-      let tempSubSubCat: Array<AllCategory> = []
-      data[i].allCat && data[i].allCat.map((value: SubCategoryFilters) => {
-        if(value.type === "Category"){
-          tempCat.push({
-            id: value.id,
-            name: value.name,
-            slug: value.slug
-          })
-        }
-        else if(value.type === "Sub Category"){
-          tempSubCat.push({
-            id: value.id,
-            name: value.name,
-            slug: value.slug
-          })
-        }
-        else if(value.type === "Sub Sub Category"){
-          tempSubSubCat.push({
-            id: value.id,
-            name: value.name,
-            slug: value.slug
-          })
-        }
-      })
-      let product: Products = {
-        id: data[i].id,
-        coverUrl: data[i].cover_img[0].url,
-        CoverAlt: data[i].name,
-        name: data[i].name,
-        slug: data[i].slug,
-        size: size,
-        categories: tempCat,
-        sub_categories: tempSubCat,
-        sub_sub_categories: tempSubSubCat,
-        specification: specific
-      }
-      allProducts.push(product)
-    }
-  // }
-
-  return allProducts;
+  return data;
 };
 
 export default getAllProductsBySubSubCategoryJsonld;

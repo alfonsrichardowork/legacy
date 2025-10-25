@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   return {
     title: 'Distributors',
     description: 'Temukan semua distributor resmi Legacy Speaker di seluruh Indonesia',

@@ -107,26 +107,11 @@ export const CellAction: React.FC<CellActionProps> = ({
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/${data.id}/specification`)}
-            >
-              <Settings2 className="mr-2 h-4 w-4" /> Set Specification
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/${data.id}/thiele_specification`)}
-            >
-              <Settings2 className="mr-2 h-4 w-4" /> Set Thiele Small Parameters
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/${data.id}/active_subwoofer_specification`)}
-            >
-              <Settings2 className="mr-2 h-4 w-4" /> Set Active Subwoofer Specification
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/${data.id}/tweeter_specification`)}
-            >
-              <Settings2 className="mr-2 h-4 w-4" /> Set Tweeter Specification
-            </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/${data.id}/dynamic_specification`)}
+          >
+            <Edit className="mr-2 h-4 w-4" /> Set Dynamic Specifications
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/${data.id}/categories`)}
           >

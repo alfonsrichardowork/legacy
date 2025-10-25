@@ -39,6 +39,7 @@ model Brand {
   sizes           Size[]        @relation("BrandToSize")
   allcategories   AllCategory[] @relation("BrandToAllCategory")
   allnews         News[]        @relation("BrandToNews")
+  connectorSpecifications specificationconnector[] @relation("BrandToConnectorSpecification")
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 }
@@ -65,21 +66,7 @@ model Product {
   featured_img   Featured_Image[]
   allCat      AllProductCategory[]
   multipleDatasheetProduct multipleDatasheetProduct[]
-
-  specId      String    @default("")
-  specification    Specification  @relation(fields: [specId], references: [id], onDelete: Cascade)
-
-  tweeterSpecId  String    @default("")
-  tweeterSpecification    TweeterSpecification  @relation(fields: [tweeterSpecId], references: [id], onDelete: Cascade)
-
-  activeSubwooferSpecId  String    @default("")
-  activeSubwooferSpecification    ActiveSubwooferSpecification  @relation(fields: [activeSubwooferSpecId], references: [id], onDelete: Cascade)
-
-  thieleSmallParameter2OhmId  String    @default("")  
-  thieleSmallParameter2OhmSpecification    ThieleSmallParameters2Ohm  @relation(fields: [thieleSmallParameter2OhmId], references: [id], onDelete: Cascade)
-
-  thieleSmallParameter4OhmId  String    @default("")
-  thieleSmallParameter4OhmSpecification    ThieleSmallParameters4Ohm  @relation(fields: [thieleSmallParameter4OhmId], references: [id], onDelete: Cascade)
+  connectorSpecifications specificationconnector[] @relation("ProductToConnectorSpecification")
 
   updatedBy   String    @db.Text  @default("")
   createdAt   DateTime  @default(now())
@@ -87,11 +74,6 @@ model Product {
 
   @@index([brandId])
   @@index([sizeId])
-  @@index([specId])
-  @@index([tweeterSpecId])
-  @@index([activeSubwooferSpecId])
-  @@index([thieleSmallParameter2OhmId])
-  @@index([thieleSmallParameter4OhmId])
 }
 
 model News {
@@ -222,98 +204,6 @@ model Featured_Image {
   @@index([productId])
 }
 
-model Specification {
-  id          String    @id @default(uuid())
-  diameter_speaker   String
-  daya_maksimum  String
-  lebar_daerah_frekuensi  String
-  spl  String
-  medan_magnet String
-  berat_magnet String
-  voice_coil_diameter  String
-  impedansi String
-  nominal_power_handling String
-  program_power String
-  voice_coil_material String
-  berat_speaker String
-  custom_note String @db.Text @default("")
-  productId   String   // Foreign Key to Product
-  product     Product[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model TweeterSpecification {
-  id  String @id @default(uuid())
-  nominal_impedance String
-  dc_resistance String
-  voice_coil_diameter String
-  voice_coil_height String
-  air_gap_height String
-  sensitivity String
-  magnetic_flux_density String
-  magnet_weight String
-  productId   String   // Foreign Key to Product
-  product     Product[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model ActiveSubwooferSpecification {
-  id  String @id @default(uuid())
-  speaker String
-  subwoofer String
-  daya_amplifier String
-  filter_lpf_variabel String
-  input_level String
-  power_input String
-  box_type String
-  productId   String   // Foreign Key to Product
-  product     Product[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model ThieleSmallParameters2Ohm {
-  id  String @id @default(uuid())
-  fs String
-  dcr  String
-  qts String
-  qes String
-  qms String
-  mms String
-  cms String
-  bl_product String
-  vas String
-  no String
-  sd String
-  x_max String
-  productId   String   // Foreign Key to Product
-  product     Product[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model ThieleSmallParameters4Ohm {
-  id  String @id @default(uuid())
-  fs String
-  dcr  String
-  qts String
-  qes String
-  qms String
-  mms String
-  cms String
-  bl_product String
-  vas String
-  no String
-  sd String
-  x_max String
-  productId   String   // Foreign Key to Product
-  product     Product[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
 model multipleDatasheetProduct {
   id          String    @id @default(uuid())
   productId  String   // Foreign Key to Product
@@ -337,4 +227,62 @@ model AllProductCategory {
   updatedAt   DateTime  @updatedAt
   
   @@index([productId])
+}
+
+
+model specificationconnector {
+  id        String    @id @default(uuid())
+  brandId   String    
+  brand     Brand     @relation("BrandToConnectorSpecification", fields: [brandId], references: [id])
+  productId   String    
+  product     Product     @relation("ProductToConnectorSpecification", fields: [productId], references: [id])
+  dynamicspecificationParentId   String    
+  dynamicspecificationParent     dynamicspecificationparent   @relation("DynamicSpecificationParentToConnectorSpecification", fields: [dynamicspecificationParentId], references: [id])
+  dynamicspecificationSubParentId   String?    
+  dynamicspecificationSubParent     dynamicspecificationsubparent?   @relation("DynamicSpecificationSubParentToConnectorSpecification", fields: [dynamicspecificationSubParentId], references: [id])
+  dynamicspecificationId   String    
+  dynamicspecification     dynamicspecification     @relation("DynamicSpecificationToConnectorSpecification", fields: [dynamicspecificationId], references: [id])
+  notes   String    @db.Text
+  value   String    @db.Text
+
+  @@index([brandId])
+  @@index([productId])
+  @@index([dynamicspecificationParentId])
+  @@index([dynamicspecificationSubParentId])
+  @@index([dynamicspecificationId])
+}
+
+model dynamicspecificationparent {
+  id        String    @id @default(uuid())
+  name      String    @db.Text
+  slug      String    @db.Text
+  priority  String    @default("")
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  connectorSpecifications specificationconnector[] @relation("DynamicSpecificationParentToConnectorSpecification")
+}
+
+model dynamicspecificationsubparent {
+  id        String    @id @default(uuid())
+  name      String    @db.Text
+  slug      String    @db.Text
+  priority  String    @default("")
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  connectorSpecifications specificationconnector[] @relation("DynamicSpecificationSubParentToConnectorSpecification")
+}
+
+model dynamicspecification {
+  id        String    @id @default(uuid())
+  name      String    @db.Text
+  slug      String    @db.Text
+  unit      String    @db.Text
+  priority  String    @default("")
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  connectorSpecifications specificationconnector[] @relation("DynamicSpecificationToConnectorSpecification")
+
 }

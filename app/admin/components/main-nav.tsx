@@ -99,6 +99,39 @@ export function MainNav({
           News
         </NavigationMenuLink>
         </NavigationMenuItem>
+
+         <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Specification</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[150px] gap-3 p-4">
+                  <ListItem
+                    key={'Parent Specification'}
+                    title={'Parent'}
+                    href={`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/parentspec`}>
+                  </ListItem>
+                  <ListItem
+                    key={'Sub Parent Specification'}
+                    title={'Sub Parent'}
+                    href={`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subparentspec`}>
+                  </ListItem>
+                  <ListItem
+                    key={'Child Specification'}
+                    title={'Child'}
+                    href={`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/childspec`}>
+                  </ListItem>
+                  <ListItem
+                    key={'Specification Priority'}
+                    title={'Priority'}
+                    href={`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/spec/priority`}>
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        
         {isadmin? (
           <>
           <NavigationMenuItem>

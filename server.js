@@ -4,7 +4,7 @@ const { readFile } = require('fs/promises');
 const { join } = require('path');
 const next = require('next');
 
-const dev = false;
+const dev = true;
 const hostname = 'localhost';
 const port = 3001;
 
@@ -26,7 +26,7 @@ app.prepare().then(() => {
       if (pathname.startsWith('/uploads/')) {
         // Use the raw URL to avoid double decoding
         const rawPath = decodeURIComponent(reqUrl.split('?')[0]); // remove query string, decode %20 -> space
-        const filePath = join(__dirname, rawPath.replace(/^\/+/, ''));
+        const filePath = join(process.cwd(), rawPath.replace(/^\/+/, ''));
         try {
           const data = await readFile(filePath);
           res.statusCode = 200;
