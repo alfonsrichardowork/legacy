@@ -5,12 +5,12 @@ import { Metadata, ResolvingMetadata } from "next"
 
 // export const revalidate = 86400
 // export async function generateStaticParams() {
-//   const allProducts = await getAllProductsJsonld();
+//   const allProducts : AllProductsJsonType[] = await getAllProductsJsonld();
 //   if (!allProducts || allProducts.length === 0) {
 //     return []; // no params generated
 //   }
-//   //@ts-ignore
-//   return allProducts.products.map((productSlug) => productSlug.slug);
+//   const onlySlug = allProducts.map((product) => product.slug);
+//   return onlySlug.map((productSlug) => ({ productSlug }));
 // }
 
 type Props = {

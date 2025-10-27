@@ -1,8 +1,9 @@
 import getAllProductsJsonld from "@/app/(legacy)/actions/jsonLd/get-all-products-jsonld";
 import ProductByCategoryPage from "./pageClient";
+import { AllProductsJsonType } from "@/app/(legacy)/types";
 
 export default async function DriversPage() {
-  const allprodserver = await getAllProductsJsonld(); // SSR fetch
+  const allprodserver: AllProductsJsonType[] = await getAllProductsJsonld(); // SSR fetch
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
 
   const jsonLd = {

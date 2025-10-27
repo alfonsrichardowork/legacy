@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 25, 2025 at 05:31 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Oct 27, 2025 at 12:05 AM
+-- Server version: 8.0.44
+-- PHP Version: 8.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,33 +18,33 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `legacy`
+-- Database: `sbacoust_new_legacy`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `allcategory`
+-- Table structure for table `AllCategory`
 --
 
-CREATE TABLE `allcategory` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `type` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `description` text NOT NULL,
-  `thumbnail_url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `AllCategory` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail_url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `updatedBy` varchar(191) NOT NULL DEFAULT ''
+  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `allcategory`
+-- Dumping data for table `AllCategory`
 --
 
-INSERT INTO `allcategory` (`id`, `brandId`, `type`, `name`, `slug`, `description`, `thumbnail_url`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
+INSERT INTO `AllCategory` (`id`, `brandId`, `type`, `name`, `slug`, `description`, `thumbnail_url`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
 ('2300407f-0384-4940-84d0-1ac40e76fab7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Sub Sub Category', 'Tweeter', 'tweeter', 'All Tweeter Products', '', '2024-09-24 08:55:00.225', '2024-09-24 08:55:00.225', 'admin'),
 ('2460d041-5cb5-48f1-bb18-e3edd5c225b5', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Sub Sub Category', 'Discontinued', 'discontinued', 'All Discontinued Products', '', '2024-09-24 08:54:08.693', '2024-09-24 08:54:08.693', 'admin'),
 ('54fe181e-61ad-4dad-8f8f-52593be04dc6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Sub Category', 'Legacy', 'legacy', 'Speaker dari Legacy ini sangat bermacam variannya, mulai dari warna, bentuk tampilan, serta ukurannya (6 inch – 15 inch). Tampilan Speaker dari Legacy ini memberikan wajah baru, dengan desain Dustcap yang lebih simple tapi terlihat elegan sehingga membuat tampilan menjadi lebih Fresh. Pada Conepaper didesain dengan tampilan baru, yaitu menggunakan tehnik jahitan antara Conepaper dan Surround yang berfungsi memperkuat konstruksi Conepaper terhadap Foam Surround speakernya sehingga tidak mudah sobek dan mampu bertahan lebih lama (Durability).', '', '2024-09-24 08:53:10.959', '2024-09-27 06:14:54.923', 'admin'),
@@ -61,25 +61,25 @@ INSERT INTO `allcategory` (`id`, `brandId`, `type`, `name`, `slug`, `description
 -- --------------------------------------------------------
 
 --
--- Table structure for table `allproductcategory`
+-- Table structure for table `AllProductCategory`
 --
 
-CREATE TABLE `allproductcategory` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `categoryId` varchar(191) NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `AllProductCategory` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `categoryId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `type` varchar(191) NOT NULL
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `allproductcategory`
+-- Dumping data for table `AllProductCategory`
 --
 
-INSERT INTO `allproductcategory` (`id`, `productId`, `categoryId`, `createdAt`, `updatedAt`, `name`, `slug`, `type`) VALUES
+INSERT INTO `AllProductCategory` (`id`, `productId`, `categoryId`, `createdAt`, `updatedAt`, `name`, `slug`, `type`) VALUES
 ('01190928-3c1c-4281-83f8-45def33baeeb', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
 ('0647e7d8-65a8-430d-bf16-0b947781aa7d', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '8fccc11d-9a22-45cd-b3ac-0b5fe29db546', '2024-10-17 07:01:00.319', '2024-10-17 07:01:00.319', 'Sparta', 'sparta', 'Sub Category'),
 ('0d032614-7309-4690-a543-1c7aa022e942', '970f6aa5-91f5-464c-96e4-83f86280d053', 'a197ed73-8307-4ffa-9a3b-0aac190e1452', '2024-09-24 08:52:40.206', '2024-09-24 08:52:40.206', 'Drivers', 'drivers', 'Category'),
@@ -198,43 +198,43 @@ INSERT INTO `allproductcategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `brand`
+-- Table structure for table `Brand`
 --
 
-CREATE TABLE `brand` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `userId` varchar(191) NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Brand` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `brand`
+-- Dumping data for table `Brand`
 --
 
-INSERT INTO `brand` (`id`, `name`, `userId`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Brand` (`id`, `name`, `userId`, `createdAt`, `updatedAt`) VALUES
 ('680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Legacy', '25cd8d0d-d185-41e8-9943-fdf1264236f2', '2024-03-28 07:42:40.393', '2024-09-24 01:37:14.138');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cover_image`
+-- Table structure for table `Cover_Image`
 --
 
-CREATE TABLE `cover_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Cover_Image` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `cover_image`
+-- Dumping data for table `Cover_Image`
 --
 
-INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Cover_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('02bf5ca7-666e-4322-8b8f-d848879b634b', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/productcoverimage/12in LG-12385-2 SPARTA Collage-1732254879382.webp', '2025-07-30 01:07:25.662', '2025-07-30 01:07:25.662'),
 ('05b4f87f-ffb2-4d1b-87a8-ad16cbd38b66', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/productcoverimage/12in LG 1277-2-1733969592789.webp', '2024-12-13 00:50:52.327', '2024-12-13 00:50:52.327'),
 ('075b404e-bb96-4fcf-9a17-db978c493151', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productcoverimage/6.5in BST 1614 collage-1732765167247.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315'),
@@ -277,14 +277,14 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `drawing_image`
+-- Table structure for table `Drawing_Image`
 --
 
-CREATE TABLE `drawing_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Drawing_Image` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -295,13 +295,13 @@ CREATE TABLE `drawing_image` (
 --
 
 CREATE TABLE `dynamicspecification` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `unit` text NOT NULL,
-  `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unit` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -353,12 +353,12 @@ INSERT INTO `dynamicspecification` (`id`, `name`, `slug`, `unit`, `priority`, `u
 --
 
 CREATE TABLE `dynamicspecificationparent` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -378,12 +378,12 @@ INSERT INTO `dynamicspecificationparent` (`id`, `name`, `slug`, `priority`, `upd
 --
 
 CREATE TABLE `dynamicspecificationsubparent` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -398,22 +398,22 @@ INSERT INTO `dynamicspecificationsubparent` (`id`, `name`, `slug`, `priority`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `featured_image`
+-- Table structure for table `Featured_Image`
 --
 
-CREATE TABLE `featured_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Featured_Image` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `featured_image`
+-- Dumping data for table `Featured_Image`
 --
 
-INSERT INTO `featured_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Featured_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('042af5ac-92df-46ca-818b-438f21f76822', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', '/uploads/featuredimages/1733969924783-PG 854-2 Red-1735875741756.webp', '2025-01-03 03:42:21.846', '2025-01-03 03:42:21.846'),
 ('6b89ba09-5b6c-4508-a653-3c58f96f2cf6', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/featuredimages/1735875750492-cropped-1733969935616-12385-sparta-1755244504471.webp', '2025-08-15 07:55:04.548', '2025-08-15 07:55:04.548'),
 ('770ca9f5-c323-41a2-86ee-0ec11048c922', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/featuredimages/cropped-1733969827686-Legacy1277&1299-1735875729044.webp', '2025-01-03 03:42:09.138', '2025-01-03 03:42:09.138'),
@@ -423,22 +423,22 @@ INSERT INTO `featured_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `graph_image`
+-- Table structure for table `Graph_Image`
 --
 
-CREATE TABLE `graph_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Graph_Image` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `graph_image`
+-- Dumping data for table `Graph_Image`
 --
 
-INSERT INTO `graph_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Graph_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('1777a7f0-a192-402f-b401-9dec41a23274', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productfrequencyresponse/BST 1614 Respon Frekuensi-1733734694037.webp', '2024-12-09 08:58:14.316', '2024-12-09 08:58:14.316'),
 ('19bfc805-c2dc-4591-a428-c39a4b776d0f', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', '/uploads/productfrequencyresponse/4in BST 1023 Dual Cone Respon Frekuensi-1733734616854.webp', '2024-12-09 08:56:57.104', '2024-12-09 08:56:57.104'),
 ('203ea75b-5acd-4634-9487-c531cdd49f19', '963116bc-4fef-48ae-a8e6-f655be756dc7', '/uploads/productfrequencyresponse/12in LG 1296-2 Mk1 Respon Frekuensi-1733734816340.webp', '2024-12-09 09:00:16.591', '2024-12-09 09:00:16.591'),
@@ -474,23 +474,23 @@ INSERT INTO `graph_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `image_catalogues`
+-- Table structure for table `Image_Catalogues`
 --
 
-CREATE TABLE `image_catalogues` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Image_Catalogues` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text NOT NULL DEFAULT ''
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `image_catalogues`
+-- Dumping data for table `Image_Catalogues`
 --
 
-INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedAt`, `name`) VALUES
+INSERT INTO `Image_Catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedAt`, `name`) VALUES
 ('02fa6593-e9d8-4aaa-bd45-e5cebbc2aba7', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', '/uploads/productimagecatalogues/8in 854 Prestige magnet cone chasis-1731893146020.webp', '2024-11-28 03:32:29.306', '2024-11-28 03:32:29.306', 'Side Top'),
 ('0345bb28-3bd4-4128-85aa-1c0083ad6ae4', '498bc88a-d5e6-4314-ad72-499ea3f1f780', '/uploads/productimagecatalogues/12in LG 1298-2 Magnet-1732254362170.webp', '2024-11-28 03:20:26.644', '2024-11-28 03:20:26.644', 'Bottom'),
 ('06f66b15-1948-4e2d-a51d-283e90dd16da', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '/uploads/productimagecatalogues/10in LG 10385 (2)-1734055213560.webp', '2024-12-17 05:55:19.913', '2024-12-17 05:55:19.913', 'Top'),
@@ -590,22 +590,22 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `impedance_image`
+-- Table structure for table `Impedance_Image`
 --
 
-CREATE TABLE `impedance_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Impedance_Image` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `impedance_image`
+-- Dumping data for table `Impedance_Image`
 --
 
-INSERT INTO `impedance_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Impedance_Image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('0b791520-0984-42b9-8ca5-e92981691b5a', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '/uploads/productfrequencyresponse/10in 1095-2 Mk1 Impedansi-1731395781127.webp', '2024-12-13 01:59:24.740', '2024-12-13 01:59:24.740'),
 ('0c5942b5-3e7b-452d-b9cf-fe32c3150208', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productfrequencyresponse/1077 Impedansi-1732254649047.webp', '2024-11-28 03:10:43.882', '2024-11-28 03:10:43.882'),
 ('15007fcd-ad94-46d7-b835-96b1a825ed66', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', '/uploads/productfrequencyresponse/6.5in BST 615 Mk3 Impedansi -1733734670172.webp', '2024-12-09 08:57:50.384', '2024-12-09 08:57:50.384'),
@@ -641,21 +641,21 @@ INSERT INTO `impedance_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt
 -- --------------------------------------------------------
 
 --
--- Table structure for table `multipledatasheetproduct`
+-- Table structure for table `multipleDatasheetProduct`
 --
 
-CREATE TABLE `multipledatasheetproduct` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL DEFAULT '',
-  `name` text NOT NULL DEFAULT ''
+CREATE TABLE `multipleDatasheetProduct` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `multipledatasheetproduct`
+-- Dumping data for table `multipleDatasheetProduct`
 --
 
-INSERT INTO `multipledatasheetproduct` (`id`, `productId`, `url`, `name`) VALUES
+INSERT INTO `multipleDatasheetProduct` (`id`, `productId`, `url`, `name`) VALUES
 ('015a1b88-cf9b-4bce-892c-033c261381fd', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '/uploads/productdatasheet/44-1727255154899.pdf', '12\" LG 1292-2 Datasheet'),
 ('08b5d53b-3e98-4a28-808d-8c5bcd2fbd11', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productdatasheet/58-1727312633140.pdf', '6.5\" BST 1614 Datasheet'),
 ('0f27c649-4dc2-450d-8270-c636bc48c80b', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '/uploads/productdatasheet/24-1727255648310.pdf', '8\" LG 896-2 Datasheet'),
@@ -695,28 +695,28 @@ INSERT INTO `multipledatasheetproduct` (`id`, `productId`, `url`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news`
+-- Table structure for table `News`
 --
 
-CREATE TABLE `news` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `title` text NOT NULL,
-  `slug` text NOT NULL,
-  `description` text NOT NULL,
-  `event_date` datetime(3) NOT NULL DEFAULT current_timestamp(3),
-  `updatedBy` varchar(191) NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `News` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `event_date` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `link_placeholder` text NOT NULL DEFAULT '',
-  `link_url` text NOT NULL DEFAULT ''
+  `link_placeholder` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `link_url` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `news`
+-- Dumping data for table `News`
 --
 
-INSERT INTO `news` (`id`, `brandId`, `title`, `slug`, `description`, `event_date`, `updatedBy`, `createdAt`, `updatedAt`, `link_placeholder`, `link_url`) VALUES
+INSERT INTO `News` (`id`, `brandId`, `title`, `slug`, `description`, `event_date`, `updatedBy`, `createdAt`, `updatedAt`, `link_placeholder`, `link_url`) VALUES
 ('2d535d4d-5ebd-496d-a705-976da157a9b0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'SPEAKER MOBIL LIMITED EDITION KARYA ANAK BANGSA: 10in LG 1040 dan 12in LG 1240', 'speaker-mobil-limited-edition-karya-anak-bangsa-10in-lg-1040-dan-12in-lg-1240', '<p>Selama bertahun-tahun, Sinar Baja Electric mengeluarkan speaker mobil dengan bahan berkualitas dan suara yang jernih yang bisa didapatkan dari brand adalannya: Legacy Series. Dikenal luas lewat produk best sellernya yaitu 12in LG 1277-2, Legacy Series mengeluarkan serian Limited Editionnya sebanyak 2 tipe, yaitu 10in LG 1040 dan 12in LG 1240.</p><p>&nbsp;</p><p>Setiap tipe memiliki daya magnet yang optimal yang didapat dari hasil pengukuran FEA (Finite Element Analysis), sehingga menghasilkan suara treble lebih jernih. Bass yang dalam juga membantu meningkatkan pengalaman audio yang lebih imersif sehingga pelanggan merasakan seperti di tengah konser. Material conepaper yang dibuat dari bahan PP injection khusus memiliki daya tahan yang sangat tinggi terhadap perubahan cuaca. Dengan teknologi ini, speaker bisa digunakan diberbagai macam tempat yaitu di area indoor maupun outdoor, karena speaker ini akan tetap mengeluarkan kualitas suara yang prima. Keunggulan lain yang tidak kalah penting adalah motor didesain dengan ventilasi khusus sehingga tidak ada kompresi udara dan memberikan sirkulasi udara yang berfungsi sebagai pendingin. &nbsp;Dengan sistem ini, maka pengguna dapat menggunakan speaker ini dalam jangka waktu yang lama, dan kualitas suara tetap stabil walaupun dengan volume yang tinggi.</p><p></p><p><strong>Pentingnya Memilih Speaker Berkualitas Dari Indonesia</strong></p><p></p><p>Sinar Baja Electric (SBE) merupakan produsen loudspeaker lokal terbesar di Asia Tenggara. Dengan sertifikasi <strong>ISO 9001/TS 16949</strong>, SBE fokus pada speaker mobil&nbsp;berkualitas tinggi. Dengan tagline Legacy Speaker yaitu <strong><em>The Driving Force</em></strong>, perusahaan berkomitmen untuk selalu meningkatkan pengalaman berkendaran tidak akan didapat dari brand-brand lainnya.</p><p>&nbsp;</p><p>Dengan pabrik yang berlokasi di Surabaya ini, SBE memiliki keunggulan yang tidak dimiliki oleh brand-brand ternama lainnya, yaitu adanya fasilitas jasa servis yang melewati proses quality control yang sama seperti memproduksi produk baru.</p><p>&nbsp;</p><p>Pelanggan juga dapat membeli produk dari Sinar Baja Electric melalui dealer-dealer resmi SBE. Daftar dealer resmi tersedia di aplikasi My SBE, dan dapat diunduh di Play Store.</p>', '2025-04-29 17:00:00.000', 'admin', '2025-04-30 09:07:08.816', '2025-07-30 08:49:29.385', '', ''),
 ('2e4f6cbb-f4b5-47a4-b0a0-2f9342a9382d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Undangan Kerjasama dengan Para Youtuber dan Tiktokers Sound Audio Se-Indonesia', 'undangan-kerjasama-dengan-para-youtuber-dan-tiktokers-sound-audio-se-indonesia', '<p>Tim Legacy membuka kesempatan kepada para Youtuber dan TikTokers seluruh Indonesia untuk mendapatkan speaker gratis dari Legacy untuk direview. Kami akan memilih para youtuber untuk mendapatkan kesempatan emas ini.</p><p>Berikut sistem kerjasamanya:</p><ul><li><p>Speaker yang diberikan tidak perlu dibeli, dan menjadi milik influencer yang bersangkutan</p></li><li><p>Biaya ongkir dari pabrik Sinar Baja Electric ke rumah Influencer ditanggung oleh Sinar Baja Electric</p></li></ul><p>Berikut syarat dan ketentuannya:</p><ul><li><p>Follow Youtube dan TikTok @acrspeaker-rhymeproaudio</p></li><li><p>Durasi video dan banyaknya part bebas (sekreatif dan semenarik mungkin)</p></li><li><p>Review speaker mirip dengan konten-konten dari influencer tersebut. Contoh: Jika isi konten mengenai review box dan tes suara, maka isi konten bisa ditambahkan penjelasan singkat tentang speaker yang kami kirimkan</p></li><li><p>Setelah mengupload video, mohon untuk menghubugi admin kembali untuk di-review dan di-upload di Instagram @legacy.speaker</p></li></ul><p>Berikut contoh Youtuber yang telah bekerjasama dengan kami:</p><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.youtube.com/@jossaudio\">Joss Audio</a></p></li></ul><img src=\"/uploads/newsimages/1734425192313-joss.webp\"><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.youtube.com/@Zacky_Audio88\">Zacky Audio</a></p><img src=\"/uploads/newsimages/1734425271436-zacky.webp\"></li></ul>', '2024-10-12 17:00:00.000', 'admin', '2024-10-16 00:53:00.087', '2024-12-17 08:48:44.913', '', ''),
 ('8a024495-c9e4-40b9-88b6-7fdaa8bbc209', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Merchandise Gratis untuk Youtuber Penikmat Audio Legacy', 'merchandise-gratis-untuk-youtuber-penikmat-audio-legacy', '<p>Tidak kalah dari brand-brand Sinar Baja Electric lainnya, Legacy juga membuat event khusus untuk para penikmat sound Legacy. Event ini diadakan sebagai bentuk apresiasi kepada para pecinta audio yang tetap setia menggunakan Legacy. Mereka bisa mendapatkan merchandise gratis dengan cara sebagai berikut:</p><ul><li><p>Follow instagram @legacy.speaker</p></li><li><p>Upload konten review mengenai produk Legacy di Youtube atau Tiktok semenarik dan sekreatif mungkin</p></li><li><p>Kirimkan link video ke tim Legacy melalui instagram @legacy.speaker beserta kelengkapan data untuk pengiriman merchandise (nama, alamat lengkap, kode pos, dan no hp)</p></li></ul><p>Event ini akan diadakan tiap bulan, dan konten yang mendapatkan merchandise adalah konten yang telah terupload sejak Januari 2023.</p>', '2024-12-16 17:00:00.000', 'admin', '2024-12-17 05:47:55.165', '2025-07-30 03:15:26.137', '', ''),
@@ -725,22 +725,22 @@ INSERT INTO `news` (`id`, `brandId`, `title`, `slug`, `description`, `event_date
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news_image`
+-- Table structure for table `News_Image`
 --
 
-CREATE TABLE `news_image` (
-  `id` varchar(191) NOT NULL,
-  `newsId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `News_Image` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `newsId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `news_image`
+-- Dumping data for table `News_Image`
 --
 
-INSERT INTO `news_image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `News_Image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUES
 ('2424b664-dc80-4ac6-a533-9848579b817e', '2d535d4d-5ebd-496d-a705-976da157a9b0', '/uploads/newsimages/1746004026600-WhatsApp Image 2025-03-14 at 5.12.33 PM(1).webp', '2025-07-30 08:49:29.392', '2025-07-30 08:49:29.392'),
 ('36bca4e7-c030-4a27-97b6-f5727d94ccb1', 'db43cd12-32f3-4236-a9a3-d93ba0f5b222', '/uploads/newsimages/1734414173133-1728983842508-berita1.webp', '2025-07-30 04:02:32.322', '2025-07-30 04:02:32.322'),
 ('56b7a292-c18d-4059-8354-ac7995c214c2', '2e4f6cbb-f4b5-47a4-b0a0-2f9342a9382d', '/uploads/newsimages/1729039980021-berita2.webp', '2024-12-17 08:48:44.957', '2024-12-17 08:48:44.957'),
@@ -751,31 +751,31 @@ INSERT INTO `news_image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Table structure for table `Product`
 --
 
-CREATE TABLE `product` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `isFeatured` tinyint(1) NOT NULL DEFAULT 0,
-  `isArchived` tinyint(1) NOT NULL DEFAULT 0,
-  `sizeId` varchar(191) NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Product` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isFeatured` tinyint(1) NOT NULL DEFAULT '0',
+  `isArchived` tinyint(1) NOT NULL DEFAULT '0',
+  `sizeId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `description` text NOT NULL,
-  `slug` text NOT NULL,
-  `updatedBy` text NOT NULL DEFAULT '',
-  `isNewProduct` tinyint(1) NOT NULL DEFAULT 0,
-  `featuredDesc` text NOT NULL DEFAULT '',
-  `series` text NOT NULL DEFAULT ''
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isNewProduct` tinyint(1) NOT NULL DEFAULT '0',
+  `featuredDesc` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `series` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `product`
+-- Dumping data for table `Product`
 --
 
-INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `sizeId`, `createdAt`, `updatedAt`, `description`, `slug`, `updatedBy`, `isNewProduct`, `featuredDesc`, `series`) VALUES
+INSERT INTO `Product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `sizeId`, `createdAt`, `updatedAt`, `description`, `slug`, `updatedBy`, `isNewProduct`, `featuredDesc`, `series`) VALUES
 ('164c19d2-170f-4b48-958e-68ec335392f0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5\" BST 522 MK3', 0, 0, '65830f7d-49e4-40e7-875c-02f2a72e1383', '2024-09-26 01:03:09.716', '2025-10-24 13:38:59.668', '<p></p>', 'bst-522-mk3', 'admin', 0, '', ''),
 ('2b1193f0-37cb-4576-9bfc-028cd5694d0e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1299-2-Mk1', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:09:39.014', '2025-10-24 13:35:58.534', '<p></p>', 'lg-1299-2-mk1', 'admin', 0, '', ''),
 ('2e888496-0048-4943-982f-ebfdd4625e1f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1009-2', 0, 1, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:49:55.751', '2024-11-28 03:12:56.212', '<p></p>', 'lg-1009-2', 'admin', 0, '', ''),
@@ -818,45 +818,45 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Table structure for table `Roles`
 --
 
-CREATE TABLE `roles` (
-  `id` varchar(191) NOT NULL,
-  `userId` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `brandName` text NOT NULL DEFAULT ''
+CREATE TABLE `Roles` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandName` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `roles`
+-- Dumping data for table `Roles`
 --
 
-INSERT INTO `roles` (`id`, `userId`, `brandId`, `brandName`) VALUES
+INSERT INTO `Roles` (`id`, `userId`, `brandId`, `brandName`) VALUES
 ('', '25cd8d0d-d185-41e8-9943-fdf1264236f2', 'admin', ''),
 ('66ea9a8e-23f2-4c5a-92ce-11c51c5c7da0', '52309261-f2b5-4c3a-bb4d-b61e90fc53ae', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Legacy');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `size`
+-- Table structure for table `Size`
 --
 
-CREATE TABLE `size` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `value` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Size` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `updatedBy` varchar(191) NOT NULL DEFAULT ''
+  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `size`
+-- Dumping data for table `Size`
 --
 
-INSERT INTO `size` (`id`, `brandId`, `name`, `value`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
+INSERT INTO `Size` (`id`, `brandId`, `name`, `value`, `createdAt`, `updatedAt`, `updatedBy`) VALUES
 ('1e7d5fe4-3644-4d31-9ef4-4755288b49bc', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '1', '1\"', '2024-11-12 07:06:50.758', '2024-11-12 07:06:50.758', 'admin'),
 ('28c45742-6d1f-44bd-915b-f940e30caf92', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'None', '-', '2024-05-08 01:45:00.573', '2024-05-08 01:45:00.573', 'admin'),
 ('2fdca373-4286-4dfc-bfa7-de77b7e1fe0d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4', '4\"', '2024-09-24 08:51:16.284', '2024-09-24 08:51:16.284', 'admin'),
@@ -875,14 +875,14 @@ INSERT INTO `size` (`id`, `brandId`, `name`, `value`, `createdAt`, `updatedAt`, 
 --
 
 CREATE TABLE `specificationconnector` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `dynamicspecificationParentId` varchar(191) NOT NULL,
-  `dynamicspecificationSubParentId` varchar(191) DEFAULT NULL,
-  `dynamicspecificationId` varchar(191) NOT NULL,
-  `notes` text NOT NULL,
-  `value` text NOT NULL
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dynamicspecificationParentId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dynamicspecificationSubParentId` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dynamicspecificationId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notes` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1990,25 +1990,25 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `Users`
 --
 
-CREATE TABLE `users` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `email` text NOT NULL,
-  `password` text NOT NULL,
-  `refresh_token` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+CREATE TABLE `Users` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `refresh_token` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `expiredAt` varchar(191) NOT NULL DEFAULT ''
+  `expiredAt` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `Users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `refresh_token`, `createdAt`, `updatedAt`, `expiredAt`) VALUES
+INSERT INTO `Users` (`id`, `name`, `email`, `password`, `refresh_token`, `createdAt`, `updatedAt`, `expiredAt`) VALUES
 ('25cd8d0d-d185-41e8-9943-fdf1264236f2', 'admin', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$xYxDy6zIa0+RKNnbO77EyQ$8cprXQw0UP+ZsbYBvklz2k+KEhTCNH1pcLfw9mQaN1M', '', '2024-10-04 08:21:24.874', '2024-10-04 08:21:24.874', ''),
 ('52309261-f2b5-4c3a-bb4d-b61e90fc53ae', 'mkt', 'mkt', '$argon2id$v=19$m=65536,t=3,p=4$o1JuB64vMl5a58jDWRVY7Q$VQrl9IC/Yw6l6h71uU9ZkzB3jyUFPzoALYoc3StGkmg', '', '2024-11-12 07:44:52.252', '2024-11-12 07:44:52.252', '');
 
@@ -2017,36 +2017,36 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `refresh_token`, `create
 --
 
 --
--- Indexes for table `allcategory`
+-- Indexes for table `AllCategory`
 --
-ALTER TABLE `allcategory`
+ALTER TABLE `AllCategory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `AllCategory_brandId_idx` (`brandId`);
 
 --
--- Indexes for table `allproductcategory`
+-- Indexes for table `AllProductCategory`
 --
-ALTER TABLE `allproductcategory`
+ALTER TABLE `AllProductCategory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `AllProductCategory_productId_idx` (`productId`);
 
 --
--- Indexes for table `brand`
+-- Indexes for table `Brand`
 --
-ALTER TABLE `brand`
+ALTER TABLE `Brand`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cover_image`
+-- Indexes for table `Cover_Image`
 --
-ALTER TABLE `cover_image`
+ALTER TABLE `Cover_Image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Cover_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `drawing_image`
+-- Indexes for table `Drawing_Image`
 --
-ALTER TABLE `drawing_image`
+ALTER TABLE `Drawing_Image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Drawing_Image_productId_idx` (`productId`);
 
@@ -2069,73 +2069,73 @@ ALTER TABLE `dynamicspecificationsubparent`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `featured_image`
+-- Indexes for table `Featured_Image`
 --
-ALTER TABLE `featured_image`
+ALTER TABLE `Featured_Image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Featured_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `graph_image`
+-- Indexes for table `Graph_Image`
 --
-ALTER TABLE `graph_image`
+ALTER TABLE `Graph_Image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Graph_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `image_catalogues`
+-- Indexes for table `Image_Catalogues`
 --
-ALTER TABLE `image_catalogues`
+ALTER TABLE `Image_Catalogues`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Image_Catalogues_productId_idx` (`productId`);
 
 --
--- Indexes for table `impedance_image`
+-- Indexes for table `Impedance_Image`
 --
-ALTER TABLE `impedance_image`
+ALTER TABLE `Impedance_Image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Impedance_Image_productId_idx` (`productId`);
 
 --
--- Indexes for table `multipledatasheetproduct`
+-- Indexes for table `multipleDatasheetProduct`
 --
-ALTER TABLE `multipledatasheetproduct`
+ALTER TABLE `multipleDatasheetProduct`
   ADD PRIMARY KEY (`id`),
   ADD KEY `multipleDatasheetProduct_productId_idx` (`productId`);
 
 --
--- Indexes for table `news`
+-- Indexes for table `News`
 --
-ALTER TABLE `news`
+ALTER TABLE `News`
   ADD PRIMARY KEY (`id`),
   ADD KEY `News_brandId_idx` (`brandId`);
 
 --
--- Indexes for table `news_image`
+-- Indexes for table `News_Image`
 --
-ALTER TABLE `news_image`
+ALTER TABLE `News_Image`
   ADD PRIMARY KEY (`id`),
   ADD KEY `News_Image_newsId_idx` (`newsId`);
 
 --
--- Indexes for table `product`
+-- Indexes for table `Product`
 --
-ALTER TABLE `product`
+ALTER TABLE `Product`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Product_brandId_idx` (`brandId`),
   ADD KEY `Product_sizeId_idx` (`sizeId`);
 
 --
--- Indexes for table `roles`
+-- Indexes for table `Roles`
 --
-ALTER TABLE `roles`
+ALTER TABLE `Roles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Roles_userId_idx` (`userId`);
 
 --
--- Indexes for table `size`
+-- Indexes for table `Size`
 --
-ALTER TABLE `size`
+ALTER TABLE `Size`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Size_brandId_idx` (`brandId`);
 
@@ -2151,9 +2151,9 @@ ALTER TABLE `specificationconnector`
   ADD KEY `specificationconnector_dynamicspecificationId_idx` (`dynamicspecificationId`);
 
 --
--- Indexes for table `users`
+-- Indexes for table `Users`
 --
-ALTER TABLE `users`
+ALTER TABLE `Users`
   ADD PRIMARY KEY (`id`);
 COMMIT;
 

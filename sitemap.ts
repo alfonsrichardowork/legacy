@@ -1,19 +1,19 @@
 import { MetadataRoute } from "next";
-import "dotenv/config"; // Load .env.local variables
+import "dotenv/config";
 import { writeFile } from "fs/promises";
 import path from "path";
-import { AllProductsJsonType } from "./app/(legacy)/types";
 import { redirect } from "next/navigation";
+import { AllProductsJsonType } from "./app/(legacy)/types";
 
 // Fetch your dynamic URLs (from a database, API, or local data)
 async function getProductsDynamicUrls() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS_JSON}`);
   if (!response.ok) {
         redirect('/');
       // throw new Error(`Failed to fetch all products`);
     }
-  const data = await response.json();
-  return data.products.map((product: any) => ({
+  const data : AllProductsJsonType[] = await response.json();
+  return data.map((product) => ({
     url: `${process.env.NEXT_PUBLIC_ROOT_URL}/products/${product.slug}`,
     lastModified: new Date().toISOString(),
   }));

@@ -1,9 +1,9 @@
 import { AllProductsJsonType } from "@/app/(legacy)/types";
 import { redirect } from "next/navigation";
 
-const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS}`;
+const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS_JSON}`;
 
-const getAllProductsJsonld = async (): Promise<any[]> => {
+const getAllProductsJsonld = async (): Promise<AllProductsJsonType[]> => {
   const response = await fetch(API, {cache: "no-store"});
   if (!response.ok) {
       redirect('/');
