@@ -98,7 +98,7 @@ export default function Page(props:{params: Promise<{brandId: string}>}) {
                       <FormItem>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
-                          <Input disabled={loading} placeholder="Input Name" {...field} />
+                          <Input disabled={loading} placeholder="Input Name" {...field} className="bg-white text-black"/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -111,7 +111,7 @@ export default function Page(props:{params: Promise<{brandId: string}>}) {
                       <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl>
-                          <Input disabled={loading} placeholder="Input username" {...field} />
+                          <Input disabled={loading} placeholder="Input username" {...field} className="bg-white text-black"/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -124,7 +124,7 @@ export default function Page(props:{params: Promise<{brandId: string}>}) {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input disabled={loading} type="password" placeholder="********" {...field} />
+                          <Input disabled={loading} type="password" placeholder="********" {...field} className="bg-white text-black"/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -137,14 +137,16 @@ export default function Page(props:{params: Promise<{brandId: string}>}) {
                       <FormItem>
                         <FormLabel>Confirm your password</FormLabel>
                         <FormControl>
-                          <Input disabled={loading} type="password" placeholder="********" {...field} />
+                          <Input disabled={loading} type="password" placeholder="********" {...field} className="bg-white text-black"/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                   <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                    <Button disabled={loading} variant="secondary" type="submit" className="w-full">Create User</Button>
+                    <Button disabled={loading} type="submit" variant={'default'} className="w-full flex gap-2 bg-green-500 text-white hover:bg-green-600 transition-colors">
+                      Create User
+                    </Button>
                   </div>
                 </form>
               </Form> 

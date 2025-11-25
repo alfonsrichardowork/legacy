@@ -136,7 +136,7 @@ export const UserForm: React.FC<UserFormProps> = ({
               </div>
             ))}
           </div>
-          <Button disabled={loading} variant="secondary" className="ml-auto" type="submit">
+          <Button disabled={loading} type="submit" variant={'default'} className="w-full flex gap-2 bg-green-500 text-white hover:bg-green-600 transition-colors">
             {action}
           </Button>
         </form>

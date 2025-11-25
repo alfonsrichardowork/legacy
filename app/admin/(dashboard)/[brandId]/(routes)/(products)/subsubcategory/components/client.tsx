@@ -27,20 +27,20 @@ export const SubSubCategoriesClient: React.FC<SubSubCategoriesClientProps> = ({
     <>
       <div className="flex items-center justify-between">
         <Heading title={`Sub Sub Category (${data.length})`} description="Manage Sub Sub Category for your products" />
-        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subsubcategory/new`)} variant={'secondary'}>
+        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subsubcategory/new`)} variant={'default'} className="bg-green-500 text-white hover:bg-green-600 transition-colors">
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
-      {userRole? (<>
+      {/* {userRole? (<>
         <Heading title="API" description="API Calls for Sub Sub Category" />
         <Separator />
         <ApiList entityName="subsubcategory" entityIdName="subSubCategoryId" />
       </>)
         : 
         (<></>)
-      }
+      } */}
     </>
   );
 };

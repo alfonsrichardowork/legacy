@@ -26,7 +26,7 @@ export const ChildSpecClient: React.FC<ChildSpecClientProps> = ({
     <> 
       <div className="flex items-center justify-between">
         <Heading title={`Child Specifications (${sentData.length})`} description="Manage Child Specifications" />
-        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/childspec/new`)}>
+        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/childspec/new`)} variant={'default'} className="bg-green-500 text-white hover:bg-green-600 transition-colors">
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>

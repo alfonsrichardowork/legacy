@@ -132,24 +132,24 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Brand name" {...field} />
+                    <Input disabled={loading} placeholder="Brand name" {...field} className="bg-white text-black"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
-            Save changes
+          <Button disabled={loading} type="submit" variant={'default'} className="w-full flex gap-2 bg-green-500 text-white hover:bg-green-600 transition-colors">
+            Save Changes
           </Button>
         </form>
       </Form>
-      <Separator />
+      {/* <Separator />
       <ApiAlert 
         title="NEXT_PUBLIC_API_URL" 
         variant="public" 
         description={`${origin}${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/api/${params.brandId}`}
-      />
+      /> */}
     </>
   );
 };

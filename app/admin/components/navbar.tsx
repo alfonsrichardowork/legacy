@@ -32,7 +32,7 @@ const Navbar = async () => {
   }
 
   return (
-    <div className="border-b">
+    <div className="border-b bg-background">
       <div className="flex h-16 items-center px-4">
         <div className="px-4">
           <Link href={'/admin'}>

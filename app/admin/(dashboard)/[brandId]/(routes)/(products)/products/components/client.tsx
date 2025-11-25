@@ -43,8 +43,8 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
   return (
     <> 
       <div className="flex items-center justify-between">
-        <Heading title={`Products (${sentData.length})`} description="Manage products for your brand" />
-        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/new`)} variant={'secondary'}>
+        <Heading title={`Products Management (${sentData.length})`} description="Manage products for your brand" />
+        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/products/new`)} variant={'default'} className="bg-green-500 text-white hover:bg-green-600 transition-colors">
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
@@ -72,14 +72,14 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
         </ToggleGroupItem>
       </ToggleGroup>
       <DataTable searchKey="name" columns={columns} data={sentData} />
-      {userRole? (<>
+      {/* {userRole? (<>
         <Heading title="API" description="API Calls for Products" />
         <Separator />
         <ApiList entityName="products" entityIdName="productId" />
       </>)
         : 
         (<></>)
-      }
+      } */}
     </>
   );
 };

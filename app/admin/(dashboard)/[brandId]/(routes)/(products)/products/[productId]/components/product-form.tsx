@@ -28,11 +28,6 @@ import { Textarea } from "@/app/admin/components/ui/textarea"
 import Link from "next/link"
 import { uploadProductDatasheet } from "@/app/admin/upload-product-datasheet"
 import Image from "next/image"
-import { uploadCoverImage } from "@/app/admin/upload-cover-image"
-import { uploadDrawingImage } from "@/app/admin/upload-drawing-image"
-import { uploadFrequencyResponseImage } from "@/app/admin/upload-frequency-response-image"
-import { uploadImageCatalogues } from "@/app/admin/upload-image-catalogues"
-import { uploadImpedanceImage } from "@/app/admin/upload-impedance-image"
 import { Bold, CirclePlus, File, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Italic, List, ListOrdered, LucideLink, LucideUnlink, Strikethrough, Trash } from "lucide-react"
 
 
@@ -45,8 +40,9 @@ import BulletList from '@tiptap/extension-bullet-list'
 import OrderedList from '@tiptap/extension-ordered-list'
 import Text from '@tiptap/extension-text'
 import TextStyle from '@tiptap/extension-text-style'
-import './styles.scss'
+import '@/app/css/styles.scss'
 import { Toggle } from "@/app/admin/components/ui/toggle"
+import { uploadImage } from "@/app/admin/upload-image"
 
 
 const formSchema = z.object({
@@ -287,7 +283,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         const formData = new FormData();
         formData.append('image', file);
   
-        const url = await uploadCoverImage(formData);
+        const url = await uploadImage(formData, 'productcoverimage');
         updatedCoverImage.url = url;
         return updatedCoverImage;
       } catch (error) {
@@ -346,7 +342,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         const formData = new FormData();
         formData.append('image', file);
   
-        const url = await uploadDrawingImage(formData);
+        const url = await uploadImage(formData, 'productdrawing');
         updatedDrawingImage.url = url;
         return updatedDrawingImage;
       } catch (error) {
@@ -405,7 +401,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         const formData = new FormData();
         formData.append('image', file);
   
-        const url = await uploadFrequencyResponseImage(formData);
+        const url = await uploadImage(formData, 'productfrequencyresponse');
         updatedFrequencyResponseImage.url = url;
         return updatedFrequencyResponseImage!;
       } catch (error) {
@@ -466,7 +462,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         const formData = new FormData();
         formData.append('image', file);
   
-        const url = await uploadImpedanceImage(formData);
+        const url = await uploadImage(formData, 'productimpedance');
         updatedImpedanceImage.url = url;
         return updatedImpedanceImage;
       } catch (error) {
@@ -529,7 +525,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           if (value) {
             const formData = new FormData();
             formData.append('image', value);
-            const url = await uploadImageCatalogues(formData);
+            const url = await uploadImage(formData, 'productimagecatalogues');
             updatedImageCatalogues[updatedImageCatalogues.length - (file.length - index)].url = url;
           }
         });
@@ -762,7 +758,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-lg p-4 bg-white/50">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <div className="text-center pb-2">
               <div className="text-left font-bold">Cover Image</div>
             </div>
@@ -806,7 +802,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             </div>
           </div>
           
-          <div className="flex flex-col w-full justify-center rounded-lg p-4 bg-white/50 gap-4">
+          <div className="flex flex-col w-full justify-center rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
             <FormField
               control={form.control}
               name="name"
@@ -860,8 +856,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         </div>
 
 
-      <div className="grid grid-cols-1 gap-4 border rounded-lg p-4 shadow-lg bg-white/50">
-        <div className="font-bold text-base pb-2">Description | <Link href={'/images/admin/description_placement.png'} target="blank" className="text-primary hover:underline font-normal text-sm  ">See where this will be shown</Link></div>
+      <div className="grid grid-cols-1 gap-4 border rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30">
+        <div className="font-bold text-base pb-2">Description | <Link href={'/images/admin/description_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline font-normal text-sm  ">See where this will be shown</Link></div>
         {/* <FormControl> */}
           <div>
           <div className="flex gap-2 mb-4 flex-wrap">
@@ -942,7 +938,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
           
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-lg p-4 bg-white/50">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <div className="text-center pb-2">
               <div className="text-left font-bold">Drawing Image</div>
             </div>
@@ -986,7 +982,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
 
           
-          <div className="rounded-lg p-4 bg-white/50">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <div className="text-center pb-2">
               <div className="text-left font-bold">Frequency Response Image</div>
             </div>
@@ -1030,7 +1026,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
 
 
-          <div className="rounded-lg p-4 bg-white/50">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <div className="text-center pb-2">
               <div className="text-left font-bold">Impedance Image</div>
             </div>
@@ -1077,7 +1073,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-lg p-4 bg-white/50">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <div className="text-center pb-2 flex justify-between items-center">
               <div className="text-left pb-2 font-bold">Image Catalogues</div>
               <div
@@ -1140,7 +1136,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             ))}
           </div>
 
-          <div className="rounded-lg p-4 bg-white/50">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <div className="text-center pb-2 flex justify-between items-center">
               <div className="text-left pb-2 font-bold">Datasheet</div>
               <div
@@ -1203,7 +1199,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             ))}
           </div>
         </div>
-          <div className="md:grid md:grid-cols-3 gap-4 rounded-lg p-4 bg-white/50">
+          <div className="md:grid md:grid-cols-3 gap-4 rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             
             <FormField
               control={form.control}
@@ -1221,7 +1217,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     <FormLabel className="font-bold text-base">
                       Featured
                     </FormLabel>
-                    <FormDescription className="text-black">
+                    <FormDescription className="text-white">
                       This product will appear on the homepage slideshow. To be displayed, add the backgorund image through the <b>Featured Products</b> menu. <Link href={'/images/admin/featured_prod_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline">Check placement</Link>
                     </FormDescription>
                   </div>
@@ -1244,7 +1240,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     <FormLabel className="font-bold text-base">
                       Archived
                     </FormLabel>
-                    <FormDescription className="text-black">
+                    <FormDescription className="text-white">
                       This product will not appear anywhere in the website.
                     </FormDescription>
                   </div>
@@ -1280,7 +1276,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-bold text-base">Series</FormLabel>
-                  <FormDescription className="text-black">
+                  <FormDescription className="text-white">
                       This will appear in hero section. <Link href={'/images/admin/single_prod_series_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline">Check placement</Link>
                     </FormDescription>
                   <FormControl>
@@ -1290,8 +1286,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-            </div>
-          <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
+            </div>         
+          <Button disabled={loading} type="submit" variant={'default'} className="w-full flex gap-2 bg-green-500 text-white hover:bg-green-600 transition-colors">
             {action}
           </Button>
         </form>

@@ -1,6 +1,5 @@
 import LogoutButtonNoBrands from '@/app/admin/components/logout-no-brands';
-import Navbar from '@/app/admin/components/navbar'
-import BannerUpdateObjek from '../../components/banners-update-objek';
+import Navbar from '@/app/admin/components/navbar';
 
 export default async function DashboardLayout(
   props: {
@@ -24,11 +23,12 @@ export default async function DashboardLayout(
         </div>
       </div>
     ):(
-      <div className='bg-primary'>
-      <BannerUpdateObjek />
-      <Navbar />
-      {children}
-      </div>
+      <>
+        <Navbar />
+        <div className='lg:px-40 md:px-24 sm:px-12 px-4'>
+          {children}
+        </div>
+      </>
     )}
     </>
   );

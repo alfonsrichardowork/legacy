@@ -27,20 +27,20 @@ export const NewsClient: React.FC<NewsClientProps> = ({
     <>
       <div className="flex items-center justify-between">
         <Heading title={`News (${data.length})`} description="Manage Your News" />
-        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/news/new`)} variant={'secondary'}>
+        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/news/new`)} variant={'default'} className="bg-green-500 text-white hover:bg-green-600 transition-colors">
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
-      {userRole? (<>
+      {/* {userRole? (<>
         <Heading title="API" description="API Calls for News" />
         <Separator />
         <ApiList entityName="news" entityIdName="newsId" />
       </>)
         : 
         (<></>)
-      }
+      } */}
     </>
   );
 };

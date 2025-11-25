@@ -59,7 +59,7 @@ const nextConfig = {
                 script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com;
                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                 font-src 'self' data: https://fonts.gstatic.com;;
-                connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com;
+                connect-src 'self' https://venkatmcajj.github.io https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com;
               `.replace(/\n/g, ' ')
             }
 

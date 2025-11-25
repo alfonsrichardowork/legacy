@@ -22,8 +22,6 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/app/admin/components/ui/heading"
 import Image from "next/image"
-import { uploadNewsImage } from "@/app/admin/upload-news-image"
-import { Textarea } from "@/app/admin/components/ui/textarea"
 import { Label } from "@/app/admin/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/admin/components/ui/popover"
 import { Bold, CalendarIcon, Heading1, Heading4, Heading5, Heading6, Italic, List, ListOrdered, Strikethrough, Link as LinkLucide, Unlink as UnlinkLucide, Redo, Undo, UnderlineIcon, ImageIcon, YoutubeIcon, TableIcon, ArrowDown, ArrowUp, ArrowLeft, ArrowRight, GripVertical, Trash2, GripHorizontal, Plus, Trash } from "lucide-react"
@@ -45,10 +43,9 @@ import TableRow from "@tiptap/extension-table-row"
 import TableCell from "@tiptap/extension-table-cell"
 import TableHeader from "@tiptap/extension-table-header"
 import Underline from "@tiptap/extension-underline"
-import './styles.scss'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/app/admin/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
+import '@/app/css/styles.scss'
 import { Calendar } from "@/components/ui/calendar"
+import { uploadImage } from "@/app/admin/upload-image"
 
 
 const formSchema = z.object({
@@ -153,7 +150,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
         const formData = new FormData();
         formData.append('image', file);
 
-        const url = await uploadNewsImage(formData);
+        const url = await uploadImage(formData, 'newsimages');
         updatednewsImage!.url = url
         return updatednewsImage!;
         } catch (error) {
@@ -412,7 +409,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
             const formData = new FormData();
             formData.append('image', file);
     
-            const url = await uploadNewsImage(formData);
+            const url = await uploadImage(formData, 'newsimages');
             return url
             } catch (error) {
               return ''
@@ -453,7 +450,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
             {/* <div
               className="flex items-center justify-between rounded-md shadow-xs"
             > */}
-              <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+              <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
                 <div className="text-left font-bold pb-2">Cover Image</div>
                 <div className="flex items-center space-x-4 justify-between">
                   {newsImage && newsImage.url !== '' && (
@@ -485,7 +482,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
               </div>
             
             
-              <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4 items-center w-full">
+              <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4 items-center w-full">
                 <div className="pb-2">
                   <FormField
                     control={form.control}
@@ -503,7 +500,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                 </div>
                 <Label className="block p-0 font-bold text-base pb-2">Publication Date</Label>
                 <Popover>
-                  <PopoverTrigger asChild className="flex">
+                  <PopoverTrigger asChild className="flex text-black bg-white">
                     <Button
                       variant={"outline"}
                     >
@@ -527,43 +524,49 @@ export const NewsForm: React.FC<NewsFormProps> = ({
          
 
 
-            <div className="rounded-lg p-4 shadow-lg gap-4 bg-white/50">
+            <div className="rounded-lg p-4 gap-4 bg-background shadow-lg shadow-primary-foreground/30 border">
               <div className="font-bold mb-2">Content</div>
               {/* Toolbar */}
               <div className="flex gap-2 mb-4 flex-wrap text-black">
                 <Toggle
                   pressed={editor.isActive('bold')}
                   onClick={() => editor.chain().focus().toggleBold().run()}
+                  className="text-white hover:text-black"
                 >
                   <Bold className="w-4 h-4" />
                 </Toggle>
                 <Toggle
                   pressed={editor.isActive('italic')}
                   onClick={() => editor.chain().focus().toggleItalic().run()}
+                  className="text-white hover:text-black"
                 >
                   <Italic className="w-4 h-4" />
                 </Toggle>
                 <Toggle
                   pressed={editor.isActive('underline')}
                   onClick={() => editor.chain().focus().toggleUnderline().run()}
+                  className="text-white hover:text-black"
                 >
                   <UnderlineIcon className="w-4 h-4" />
                 </Toggle>
                 <Toggle
                   pressed={editor.isActive('strike')}
                   onClick={() => editor.chain().focus().toggleStrike().run()}
+                  className="text-white hover:text-black"
                 >
                   <Strikethrough className="w-4 h-4" />
                 </Toggle>
                 <Toggle
                   pressed={editor.isActive('bulletList')}
                   onClick={() => editor.chain().focus().toggleBulletList().run()}
+                  className="text-white hover:text-black"
                 >
                   <List className="w-4 h-4" />
                 </Toggle>
                 <Toggle
                   pressed={editor.isActive('orderedList')}
                   onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                  className="text-white hover:text-black"
                 >
                   <ListOrdered className="w-4 h-4" />
                 </Toggle>
@@ -572,6 +575,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                     key={level}
                     pressed={editor.isActive('heading', { level })}
                     onClick={() => editor.chain().focus().toggleHeading({ level: level as 1 | 2 | 3 | 4 | 5 | 6 }).run()}
+                  className="text-white hover:text-black"
                   >
                     {level === 1 && <Heading1 className="w-4 h-4" />}
                     {level === 2 && <Heading2 className="w-4 h-4" />}
@@ -585,6 +589,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                   <PopoverTrigger asChild>
                     <Toggle
                       pressed={editor.isActive('link')}
+                      className="text-white hover:text-black"
                     >
                       <LinkLucide className="w-4 h-4" />
                     </Toggle>
@@ -602,13 +607,15 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                 <Toggle
                   pressed={!editor.isActive('link')}
                   onClick={() => editor.chain().focus().unsetLink().run()}
+                  className="text-white hover:text-black"
                 >
                     <UnlinkLucide className="w-4 h-4" />
                 </Toggle>
 
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="ghost" size="icon" className="hover:bg-white">
+                    <Button variant="ghost" size="icon" 
+                  className="text-white hover:text-black hover:bg-white">
                       <ImageIcon className="h-4 w-4" />
                     </Button>
                   </PopoverTrigger>
@@ -644,7 +651,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
 
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="ghost" size="icon" className="hover:bg-white">
+                    <Button variant="ghost" size="icon" className="text-white hover:text-black hover:bg-white">
                       <YoutubeIcon className="h-4 w-4" />
                     </Button>
                   </PopoverTrigger>
@@ -797,25 +804,23 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                   <div
                     onClick={() => editor.chain().focus().undo().run()}
                     // disabled={!editor.can().undo()}
-                    className={`p-4 ${!editor.can().undo() ? 'disabled' : 'hover:bg-secondary hover:cursor-pointer rounded-md duration-300 ease-in-out'}`}
+                    className={`p-4 ${!editor.can().undo() ? 'disabled' : 'text-white hover:text-black hover:bg-white hover:cursor-pointer rounded-md duration-300 ease-in-out'}`}
                   >
                     <Undo className="h-4 w-4" />
                   </div>
                   <div
                     onClick={() => editor.chain().focus().redo().run()}
                     // disabled={!editor.can().redo()}
-                    className={`p-4 ${!editor.can().redo() ? 'disabled' : 'hover:bg-secondary hover:cursor-pointer rounded-md duration-300 ease-in-out'}`}
+                    className={`p-4 ${!editor.can().redo() ? 'disabled' : 'text-white hover:text-black hover:bg-white hover:cursor-pointer rounded-md duration-300 ease-in-out'}`}
                   >
                     <Redo className="h-4 w-4" />
                   </div>
                 </div>
               </div>
-              <EditorContent editor={editor} className="border rounded-md text-black p-4"/>
+              <EditorContent editor={editor} className="border rounded-md bg-white text-black p-4"/>
             </div>
 
-
-
-          <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
+          <Button disabled={loading} type="submit" variant={'default'} className="w-full flex gap-2 bg-green-500 text-white hover:bg-green-600 transition-colors">
             {action}
           </Button>
         </form>

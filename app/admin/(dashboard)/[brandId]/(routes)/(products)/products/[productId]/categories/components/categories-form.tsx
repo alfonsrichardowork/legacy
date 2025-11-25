@@ -212,7 +212,7 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
         <div className="md:grid md:grid-cols-3 gap-4">
 
 
-          <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
             <div className="font-bold mb-2">Selected Categories</div>
             <Popover open={openCat} onOpenChange={setOpenCat}>
             <PopoverTrigger asChild>
@@ -270,7 +270,7 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
             </div>
           </div>
 
-          <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
             <div className="font-bold mb-2">Selected Sub Categories</div>
             <Popover open={openSubCat} onOpenChange={setOpenSubCat}>
               <PopoverTrigger asChild>
@@ -329,7 +329,7 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
           </div>
 
 
-          <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+          <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
             <div className="font-bold mb-2">Selected Sub Sub Categories</div>
             <Popover open={openSubSubCat} onOpenChange={setOpenSubSubCat}>
               <PopoverTrigger asChild>
@@ -390,7 +390,7 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
 
         </div>
         <div className="pt-4">
-          <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
+          <Button disabled={loading} type="submit" variant={'default'} className="w-full flex gap-2 bg-green-500 text-white hover:bg-green-600 transition-colors">
             {action}
           </Button>
         </div>

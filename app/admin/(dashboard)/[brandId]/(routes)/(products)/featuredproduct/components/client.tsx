@@ -28,14 +28,14 @@ export const FeaturedProductClient: React.FC<FeaturedProductClientProps> = ({
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
-      {userRole? (<>
+      {/* {userRole? (<>
         <Heading title="API" description="API Calls for Featured Products" />
         <Separator />
         <ApiList entityName="featuredproducts" entityIdName="featuredProductId" />
       </>)
         : 
         (<></>)
-      }
+      } */}
     </>
   );
 };

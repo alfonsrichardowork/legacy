@@ -254,7 +254,7 @@ export const SpecForm: React.FC<SBAudienceCompressionDimensionSpecFormProps> = (
             {groups.map((group, groupIndex) => (
               <section
                 key={group.key}
-                className="rounded-lg border-4 p-4 border-black"
+                className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border-4"
                 aria-labelledby={`group-title-${group.key}`}
               >
                 <div className="pb-4 font-bold text-2xl">Group {groupIndex + 1}</div>
@@ -276,7 +276,7 @@ export const SpecForm: React.FC<SBAudienceCompressionDimensionSpecFormProps> = (
                       <SelectTrigger
                         id={`parent-${group.key}`}
                         aria-required="true"
-                        className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className="h-10 rounded-md border border-input bg-white text-black px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       >
                       <SelectValue placeholder="Select a parent specification" />
                       </SelectTrigger>
@@ -303,7 +303,7 @@ export const SpecForm: React.FC<SBAudienceCompressionDimensionSpecFormProps> = (
                       <SelectTrigger
                         id={`subparent-${group.key}`}
                         aria-required="true"
-                        className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className="h-10 rounded-md border border-input bg-white text-black px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       >
                       <SelectValue placeholder="Select a sub parent specification" />
                       </SelectTrigger>
@@ -334,7 +334,7 @@ export const SpecForm: React.FC<SBAudienceCompressionDimensionSpecFormProps> = (
                 </div>
 
                 {/* Specs list for this group */}
-                <div className="space-y-4 rounded-md p-4 border-black border-2">
+                <div className="space-y-4 rounded-md p-4 border-white border-2">
                   <div className="flex items-center justify-start">
                     <div
                       onClick={() => addSpecRowToGroup(group.key)}
@@ -362,7 +362,7 @@ export const SpecForm: React.FC<SBAudienceCompressionDimensionSpecFormProps> = (
                               <SelectTrigger
                                 id={`spec-${group.key}-${row.id}`}
                                 aria-required="true"
-                                className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                                className="h-10 rounded-md border border-input bg-white text-black px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                               >
                                 <SelectValue placeholder="Select a specification" />
                               </SelectTrigger>
@@ -383,7 +383,7 @@ export const SpecForm: React.FC<SBAudienceCompressionDimensionSpecFormProps> = (
                               value={row.value}
                               onChange={(e) => updateSpecRow(group.key, row.id, { value: e.target.value })}
                               placeholder="Value"
-                              className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                              className="h-10 rounded-md border border-input bg-white px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring text-background" 
                             />
                           </div>
                           <div className="grid gap-2 col-span-1 justify-start items-center">
@@ -397,7 +397,7 @@ export const SpecForm: React.FC<SBAudienceCompressionDimensionSpecFormProps> = (
                               value={row.notes}
                               onChange={(e) => updateSpecRow(group.key, row.id, { notes: e.target.value })}
                               placeholder="Notes (optional)"
-                              className="rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                              className="rounded-md border border-input bg-white text-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                             />
                           </div>
                           <div className="grid gap-2 col-span-1">

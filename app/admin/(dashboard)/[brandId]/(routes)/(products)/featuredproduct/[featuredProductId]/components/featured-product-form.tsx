@@ -23,10 +23,10 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/app/admin/components/ui/heading"
 import { Checkbox } from "@/components/ui/checkbox"
-import { uploadFeaturedImage } from "@/app/admin/upload-featured-image"
 import Image from "next/image"
 import { Trash } from "lucide-react"
 import Link from "next/link"
+import { uploadImage } from "@/app/admin/upload-image"
 
 
 const formSchema = z.object({
@@ -115,7 +115,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
         const formData = new FormData();
         formData.append('image', file);
 
-        const url = await uploadFeaturedImage(formData);
+        const url = await uploadImage(formData, 'featuredimages');
         updatedFeaturedImage!.url = url
         return updatedFeaturedImage!;
         } catch (error) {
@@ -204,7 +204,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
           <div className="md:grid md:grid-cols-2 gap-4">
             
-            <div className="rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+            <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
               <div className="text-left font-bold pb-2">Cover Image | <Link href={'/images/admin/cover_image_featured_prod_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline font-normal text-sm">Check placement</Link></div>
               <div
                 className="flex items-center justify-between rounded-md shadow-xs"
@@ -238,7 +238,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
               </div>
             </div>
             
-            <div className=" rounded-lg p-4 shadow-lg bg-white/50 gap-4">
+            <div className=" rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
               <div className="pb-4">
               <FormField
                 control={form.control}
@@ -258,7 +258,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
                 control={form.control}
                 name="isFeatured"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md shadow-md p-4">
+                  <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border shadow-lg shadow-primary-foreground/30 p-4">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
@@ -279,8 +279,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
               />
             </div>
           </div>
-           
-          <Button disabled={loading} className="ml-auto" type="submit" variant={'secondary'}>
+          <Button disabled={loading} type="submit" variant={'default'} className="w-full flex gap-2 bg-green-500 text-white hover:bg-green-600 transition-colors">
             {action}
           </Button>
         </form>

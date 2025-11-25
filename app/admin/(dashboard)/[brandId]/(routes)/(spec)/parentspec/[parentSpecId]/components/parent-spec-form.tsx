@@ -103,7 +103,7 @@ export const ParentSpecForm: React.FC<ParentSpecFormProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
 
-          <div className="gap-4 border rounded-lg p-4 shadow-lg">
+          <div className="gap-4 rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <div className="pb-2">
               <FormField
                 control={form.control}

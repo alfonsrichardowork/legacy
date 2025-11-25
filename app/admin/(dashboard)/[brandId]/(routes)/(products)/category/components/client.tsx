@@ -27,20 +27,20 @@ export const CategoriesClient: React.FC<CategoriesClientProps> = ({
     <>
       <div className="flex items-center justify-between">
         <Heading title={`Category (${data.length})`} description="Manage Category for your products" />
-        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/category/new`)} variant={'secondary'}>
+        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/category/new`)} variant={'default'} className="bg-green-500 text-white hover:bg-green-600 transition-colors">
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
-      {userRole? (<>
+      {/* {userRole? (<>
         <Heading title="API" description="API Calls for Category" />
         <Separator />
         <ApiList entityName="category" entityIdName="categoryId" />
       </>)
         : 
         (<></>)
-      }
+      } */}
     </>
   );
 };

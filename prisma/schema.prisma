@@ -35,6 +35,11 @@ model Brand {
   id              String        @id @default(uuid())
   name            String        @db.Text
   userId          String
+  img             String        @default("")
+  title           String        @default("")
+  desc            String    @db.Text        @default("")
+  imgHomePage     String        @default("")
+  descHomePage    String        @db.Text    @default("")
   products        Product[]     @relation("BrandToProduct")
   sizes           Size[]        @relation("BrandToSize")
   allcategories   AllCategory[] @relation("BrandToAllCategory")
@@ -285,4 +290,35 @@ model dynamicspecification {
   updatedAt   DateTime  @updatedAt
   connectorSpecifications specificationconnector[] @relation("DynamicSpecificationToConnectorSpecification")
 
+}
+
+model distributors {
+  id        String    @id @default(uuid())
+  name      String    @db.Text
+  contactPerson    String    @db.Text
+  phoneNumber      String    @db.Text
+  email     String    @db.Text
+  country   String    @db.Text @default("")
+  state   String    @db.Text @default("")
+  city   String    @db.Text @default("")
+  joinDate  DateTime  @default(now())
+  active    Boolean   @default(false)
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model contacts {
+  id        String    @id @default(uuid())
+  type      String    @db.Text
+  locationUrl String  @db.Text @default("")
+  country   String    @db.Text @default("")
+  state   String    @db.Text @default("")
+  city   String    @db.Text @default("")
+  address String   @db.Text @default("")
+  img     String    @db.Text @default("")
+  phone   String    @db.Text @default("")
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

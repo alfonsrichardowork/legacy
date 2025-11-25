@@ -6,7 +6,6 @@ import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, X
 type Props = {
   LiveVisitor: { year: string, month: string, date: string, users: number }[],
   counterMonth: number,
-  loading: boolean
 };
 
 function groupByMonth(data: { year: string, month: string, date: string, users: number }[], counterMonth: number) {
@@ -36,17 +35,12 @@ function groupByMonth(data: { year: string, month: string, date: string, users: 
 export function LiveVisitor(props: Props) {
   return (
     <div className="h-[300px] w-full">
-         {props.loading ? (
-          <div className="h-full w-full flex items-center justify-center">
-            <Skeleton className="w-full h-full rounded-md" />
-          </div>
-        ) : (
         <ResponsiveContainer width="100%" height="100%">
             <LineChart data={props.LiveVisitor.length > 30 ? groupByMonth(props.LiveVisitor, props.counterMonth) : props.LiveVisitor}>
             <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
             <XAxis dataKey="date"/>
             <YAxis dataKey="users"/>
-            <Tooltip
+            {/* <Tooltip
                 content={({ active, payload }) => {
                 if (active && payload && payload.length) {
                     return (
@@ -66,11 +60,10 @@ export function LiveVisitor(props: Props) {
                 }
                 return null
                 }}
-            />
+            /> */}
             <Line type="monotone" dataKey="users" stroke="#1352db" strokeWidth={2} dot={props.LiveVisitor.length > 30 ? false : true} />
             </LineChart>
         </ResponsiveContainer>
-        )}
     </div>
   )
 }

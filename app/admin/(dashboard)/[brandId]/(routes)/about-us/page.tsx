@@ -1,13 +1,11 @@
 import { redirect } from "next/navigation";
 
 import prismadb from "@/lib/prismadb";
-import { CustomApiList } from "@/app/admin/components/ui/custom-api-list";
-import { Heading } from "@/app/admin/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
+
 import { getSession } from "@/app/admin/actions";
+import { AboutUsForm } from "./components/about-us-form";
 
-
-const CustomApiPage = async (
+const AboutUsPage = async (
   props: {
     params: Promise<{ brandId: string }>
   }
@@ -17,7 +15,7 @@ const CustomApiPage = async (
 
   if(!session.isLoggedIn){
     redirect("/admin")
-  }
+  } 
 
   const brand = await prismadb.brand.findFirst({
     where: {
@@ -33,12 +31,10 @@ const CustomApiPage = async (
   return ( 
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-      <Heading title="API" description="API Calls for Custom Usage" />
-      <Separator />
-        <CustomApiList entityName="searchbox" entityIdName="productId" />
+        <AboutUsForm initialData={brand} />
       </div>
     </div>
   );
 }
 
-export default CustomApiPage;
+export default AboutUsPage;

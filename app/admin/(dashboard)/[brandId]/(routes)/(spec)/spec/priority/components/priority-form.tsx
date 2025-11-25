@@ -212,8 +212,8 @@ export const PriorityForm: React.FC<PriorityFormProps> = ({
       <Separator />
 
       {/* {allCat.map((cat) => ( */}
-        <div className="p-4 rounded-lg shadow-md border-2 shadow-primary border-primary w-full">
-          <h2 className="text-2xl font-bold mb-2 flex items-center justify-center text-primary rounded-lg">Spec Priority</h2>
+        <div className="p-4 rounded-lg w-full bg-background shadow-lg shadow-primary-foreground/30 border">
+          <h2 className="text-2xl font-bold mb-2 flex items-center justify-center text-white rounded-lg">Spec Priority</h2>
           {initialLoading ? 
             <div className="w-full flex items-center justify-center"><Loader/></div> 
           :
@@ -230,7 +230,7 @@ export const PriorityForm: React.FC<PriorityFormProps> = ({
                     key={groupKey}
                     type="single"
                     collapsible
-                    className="w-full px-4 border border-foreground rounded-lg"
+                    className="w-full px-4 border border-foreground rounded-lg bg-white text-black"
                     defaultValue="item-1"
                   >
                     <AccordionItem value={groupKey}>
@@ -246,7 +246,7 @@ export const PriorityForm: React.FC<PriorityFormProps> = ({
                         onDragStart={() => handleDragStart(groupKey, index)}
                         onDragOver={handleDragOver}
                         onDrop={(e) => handleDrop(e, groupKey, index)}
-                        className={`flex items-center justify-between w-full hover:bg-zinc-100 hover:shadow-primary duration-200 ease-in-out py-2 px-2 rounded-lg cursor-move shadow-sm ${
+                        className={`flex items-center justify-between w-full hover:bg-zinc-100 hover:shadow-primary duration-200 ease-in-out py-2 px-2 rounded-lg cursor-move shadow-sm border border-black ${
                           draggedIndex[groupKey] === index ? "opacity-50" : ""
                         }`}
                       >

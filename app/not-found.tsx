@@ -9,6 +9,8 @@ export const metadata = {
 
 export default function NotFound() {
   return (
+    <html>
+      <body>
     <div className="w-screen h-screen bg-white flex items-center justify-center">
       <div className="w-full text-center">
         <div className="text-3xl font-bold text-black pb-3">
@@ -39,5 +41,7 @@ export default function NotFound() {
         </div>
       </div>
     </div>
+     </body>
+     </html>
   );
 }

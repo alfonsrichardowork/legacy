@@ -27,7 +27,7 @@ export const SubParentSpecClient: React.FC<SubParentSpecClientProps> = ({
     <> 
       <div className="flex items-center justify-between">
         <Heading title={`Sub Parent Specifications (${sentData.length})`} description="Manage Sub Parent Specifications" />
-        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subparentspec/new`)}>
+        <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/subparentspec/new`)} variant={'default'} className="bg-green-500 text-white hover:bg-green-600 transition-colors">
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
