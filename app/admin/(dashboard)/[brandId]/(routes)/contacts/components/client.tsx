@@ -31,7 +31,7 @@ export const ContactClient: React.FC<ContactClientProps> = ({
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data} />
+      <DataTable searchKey="type" columns={columns} data={data} />
     </>
   );
 };

@@ -536,7 +536,7 @@ if (!editor || !editor2) return null
 
 
    <Accordion type="single" collapsible>
-            <AccordionItem value="item-2" className="w-full shadow-lg rounded-xl p-2 border bg-background">
+            <AccordionItem value="item-2" className="w-full rounded-xl p-2 bg-background shadow-lg shadow-primary-foreground/30 border">
               <AccordionTrigger className="flex items-center justify-center gap-2">About Us Home Page</AccordionTrigger>
               <AccordionContent>
                 <div className="block gap-4">
@@ -726,7 +726,7 @@ if (!editor || !editor2) return null
 
 
           <Accordion type="single" collapsible>
-            <AccordionItem value="item-1" className="w-full shadow-lg rounded-xl p-2 border bg-background">
+            <AccordionItem value="item-1" className="w-full rounded-xl p-2 bg-background shadow-lg shadow-primary-foreground/30 border">
               <AccordionTrigger className="flex items-center justify-center gap-2">About Us Main Page</AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

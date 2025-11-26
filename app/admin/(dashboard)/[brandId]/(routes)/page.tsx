@@ -132,13 +132,13 @@ function DashboardPage () {
                     <div className="flex items-center justify-between">
                       <h2 className="text-base font-bold">{visitorConstraint} Visitor Trends</h2>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Weekly'), setTotalVisitorPerDay(totalVisitor.slice(totalVisitor.length - 7, totalVisitor.length))]} className={`${visitorConstraint === 'Weekly' ? 'bg-primary text-white' : ''}`}>
+                        <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Weekly'), setTotalVisitorPerDay(totalVisitor.slice(totalVisitor.length - 7, totalVisitor.length))]} className={`${visitorConstraint === 'Weekly' ? 'bg-secondary text-primary' : ''}`}>
                           Weekly
                         </Button>
-                        <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Monthly'), setTotalVisitorPerDay(getLastMonths(totalVisitor, 2))]} className={`${visitorConstraint === 'Monthly' ? 'bg-primary text-white' : ''}`}>
+                        <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Monthly'), setTotalVisitorPerDay(getLastMonths(totalVisitor, 2))]} className={`${visitorConstraint === 'Monthly' ? 'bg-secondary text-primary' : ''}`}>
                           Monthly
                         </Button>
-                        <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Yearly'), setTotalVisitorPerDay(getLastMonths(totalVisitor, 13)), setCounterMonth(12)]} className={`${visitorConstraint === 'Yearly' ? 'bg-primary text-white' : ''}`}>
+                        <Button size="sm" variant="ghost" onClick={() => [setVisitorConstraint('Yearly'), setTotalVisitorPerDay(getLastMonths(totalVisitor, 13)), setCounterMonth(12)]} className={`${visitorConstraint === 'Yearly' ? 'bg-secondary text-primary' : ''}`}>
                           Yearly
                         </Button>
                       </div>

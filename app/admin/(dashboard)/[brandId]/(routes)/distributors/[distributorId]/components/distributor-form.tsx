@@ -164,7 +164,7 @@ export const DistributorForm: React.FC<DistributorFormProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="border rounded-lg p-4 shadow-lg gap-4 flex items-center w-full bg-background">
+            <div className="rounded-lg p-4 gap-4 flex items-center w-full bg-background shadow-lg shadow-primary-foreground/30 border">
               <div className="w-full">
                 <div className="py-2">
                   <FormField
@@ -258,7 +258,7 @@ export const DistributorForm: React.FC<DistributorFormProps> = ({
                 </div>
               </div>
             </div>
-            <div className="border rounded-lg p-4 shadow-lg gap-4 flex items-center w-full bg-background">
+            <div className="rounded-lg p-4 gap-4 flex items-center w-full bg-background shadow-lg shadow-primary-foreground/30 border">
               <div className="w-full">
                 <div className="py-2">
                   <FormField

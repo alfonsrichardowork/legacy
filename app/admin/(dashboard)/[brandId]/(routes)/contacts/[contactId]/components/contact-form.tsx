@@ -238,7 +238,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="border rounded-lg p-4 shadow-lg gap-4 flex items-center w-full bg-background">
+            <div className="rounded-lg p-4 gap-4 flex items-center w-full bg-background shadow-lg shadow-primary-foreground/30 border">
               <div className="w-full">
                 <div className="py-2">
                   <FormField
@@ -314,7 +314,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                 </div>
               </div>
             </div>
-            <div className="border rounded-lg p-4 shadow-lg gap-4 flex items-center w-full bg-background">
+            <div className="rounded-lg p-4 gap-4 flex items-center w-full bg-background shadow-lg shadow-primary-foreground/30 border">
               <div className="w-full">   
                 <div className="py-2">
                   <FormField
@@ -357,7 +357,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
                             {allPhone.map((row, rowIndex) => 
                                 <div key={rowIndex}>
-                                  <div className="grid gap-3 md:grid-cols-6">
+                                  <div className="grid gap-3 grid-cols-6">
                                     <div className="grid gap-2 col-span-5">
                                       <Input
                                         id={`value-${rowIndex}`}
@@ -371,7 +371,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                                       <div
                                         onClick={() => removeRowFromGroup(rowIndex)}
                                         aria-label={`Remove phone number ${rowIndex + 1}`}
-                                        className="bg-primary rounded-xl p-2 hover:cursor-pointer text-background flex items-center justify-center"
+                                        className="bg-red-500 rounded-xl p-2 hover:cursor-pointer hover:bg-red-400 text-white flex items-center justify-center duration-150 transition ease-in-out"
                                       >
                                         <Trash width={20} height={20} />
                                       </div>

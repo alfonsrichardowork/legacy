@@ -29,6 +29,9 @@ export async function POST(
       data: {
         name,
         userId: session.userId!,
+        img:'',
+        title:'',
+        desc: ''
       }
     });
   

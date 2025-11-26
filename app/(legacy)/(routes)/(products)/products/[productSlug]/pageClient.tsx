@@ -11,8 +11,9 @@ import DOMPurify from 'dompurify';
 import { useEffect, useState } from "react";
 import { SingleProducts } from "@/app/(legacy)/types";
 import { Loader } from "@/app/(legacy)/components/ui/loader";
-import "./styles.scss";
+import "@/app/css/styles.scss";
 import SpecificationTable from "@/app/(legacy)/components/spec-table";
+import DompurifyContent from "@/app/(legacy)/components/dompurifyText";
 
 const all_desc_style = "text-left xl:text-base sm:text-sm text-xs text-black p-0 py-1"
 const all_sub_title_style = "text-left font-bold xl:text-4xl text-2xl text-black"
@@ -161,14 +162,8 @@ export default function SingleProductClient(props: Props) {
                     {data.desc && data.desc != '' && data.desc != '-' && data.desc != '<p></p>' && 
                         <>
                             <h2 className="text-2xl text-gray-500 font-bold py-4">Deskripsi</h2>
-                            <h3 className={`${all_desc_style} desc-content`} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.desc, {
-                                ALLOWED_TAGS: [
-                                    'a', 'b', 'i', 'u', 'em', 'strong', 'p', 'div', 'span', 'ul', 'ol', 'li', 'br'
-                                ],
-                                ALLOWED_ATTR: [
-                                    'href', 'target', 'rel', 'class', 'id', 'style'
-                                ],
-                            }) }}>
+                            <h3 className={`${all_desc_style} tiptap`}>
+                                <DompurifyContent text={data.desc} />
                             </h3>
                         </>
                     }

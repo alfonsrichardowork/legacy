@@ -7,9 +7,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/app/(legacy)/components/ui/breadcrumb";
-import "./styles.scss";
 import { LazyImageContact } from "@/app/(legacy)/components/lazyImageContact";
-import { SanitizedHtml } from "./sanitizedHtml";
+import DompurifyContent from "@/app/(legacy)/components/dompurifyText";
 
 type Props = {
   params: Promise<{ newsSlug: string }>
@@ -88,7 +87,7 @@ export default async function SingleNewsPage(props: Props) {
               </div>
 
               {/* Content Section */}
-              <div className="w-full">
+              <div className="w-full text-black">
                 {/* Image with reserved space */}
                 <div className="relative w-full sm:w-1/3 aspect-square">
                   <LazyImageContact src={tempData.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${tempData.news_img_url}` : tempData.news_img_url} alt={tempData.title}/>
@@ -111,7 +110,7 @@ export default async function SingleNewsPage(props: Props) {
                 </h2>
 
                 {/* Description */}
-                <SanitizedHtml html={tempData.description} />
+                <DompurifyContent text={tempData.description} />
               </div>
             </div>
           )}

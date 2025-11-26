@@ -63,7 +63,7 @@
     "dotenv": "^16.4.7",
     "eslint-config-next": "^15.3.0",
     "iron-session": "^8.0.2",
-    "isomorphic-dompurify": "^2.24.0",
+    "isomorphic-dompurify": "^2.33.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.488.0",
     "next": "^15.3.0",

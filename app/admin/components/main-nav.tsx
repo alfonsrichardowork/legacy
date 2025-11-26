@@ -110,6 +110,12 @@ export function MainNav({
 
 
   const Others: Menu[] = [
+    {
+      title: "Superiority (Home Screen)",
+      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/superior`,
+      description: "Show All Superiority",
+      icon: ArrowUp,
+    },
     // {
     //   title: "Superiority (Home Screen)",
     //   href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/superior`,

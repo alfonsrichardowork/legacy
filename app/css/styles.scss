@@ -173,16 +173,9 @@
       }
   }
 
-  // /* Add this to your global CSS */
- 
-  // a {
-  //   color: var(--purple);
-  //   cursor: pointer;
-  //   text-decoration: underline; // Adds underline
-  
-  //   &:hover {
-  //     color: var(--purple-contrast);
-  //     text-decoration: underline; // Keeps underline on hover
-  //   }
-  // }
+.disable-pointer {
+  pointer-events: none;
+  cursor: wait;
+  overflow: hidden;
+}
   

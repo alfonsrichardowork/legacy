@@ -26,11 +26,11 @@ export function VisitorDevice(props: Props) {
                   fill={
                     [
                       '#1c00bd', // blue
-                      '#1352db',
-                      '#674dff',
-                      '#8f94ff', 
-                      '#b5b8ff',
-                      '#ffffff', 
+                      '#fcba03',
+                      '#f56505',
+                      '#fc1c03', 
+                      '#03fc0f',
+                      '#f5e505', 
                     ][index % 6]
                   }
                 />

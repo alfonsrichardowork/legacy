@@ -3,6 +3,7 @@ import { FindUs } from './FindUs';
 import { Separator } from '../../../components/ui/separator';
 import Link from 'next/link';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import DynamicContactFooter from './ui/dynamicfootercontact';
 
 export default function Footer() {
   return (
@@ -76,7 +77,7 @@ export default function Footer() {
             <div className="py-4">
               <Separator className="bg-foreground w-56 h-2 mx-auto md:mx-0" />
             </div>
-            <div className="text-xs text-white pb-4 font-light space-y-2 sm:block hidden">
+            {/* <div className="text-xs text-white pb-4 font-light space-y-2 sm:block hidden">
               <div className="flex items-center justify-center md:justify-start">
                 <MapPin size={15} className="mr-2" />
                 <h4>Jl. Margomulyo No.5, Surabaya 60186, Jawa Timur, Indonesia</h4>
@@ -95,7 +96,10 @@ export default function Footer() {
             </h4>
             <h4 className="text-xs text-white pb-1 font-light  sm:block hidden">
               Showroom Surabaya: Jl. Genteng Besar No. 15A - Genteng, Surabaya
-            </h4>
+            </h4> */}
+            
+            <DynamicContactFooter/>
+            
           </div>
         </div>
         <div className="md:order-2 order-1 flex flex-col items-center md:items-end w-full h-full">
@@ -112,7 +116,7 @@ export default function Footer() {
       </div>
 
         <div className='text-center text-xs justify-center text-white md:pt-16 pt-8 font-light'>
-          ©2025 LEGACY SPEAKER - ALL RIGHTS RESERVED
+          ©{new Date().getFullYear()} LEGACY SPEAKER - ALL RIGHTS RESERVED
         </div>
       </div>
     </div>

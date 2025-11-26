@@ -292,6 +292,15 @@ model dynamicspecification {
 
 }
 
+model superior {
+  id        String    @id @default(uuid())
+  name      String    @db.Text
+  url         String   @db.Text
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
 model distributors {
   id        String    @id @default(uuid())
   name      String    @db.Text
@@ -318,6 +327,18 @@ model contacts {
   address String   @db.Text @default("")
   img     String    @db.Text @default("")
   phone   String    @db.Text @default("")
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model featuredseries {
+  id        String    @id @default(uuid())
+  name      String    @db.Text
+  href      String    @db.Text
+  img       String  @db.Text
+  alt   String   @db.Text
+  desc   String   @db.Text
   updatedBy   String    @db.Text  @default("")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
