@@ -116,34 +116,34 @@ export function MainNav({
       description: "Show All Superiority",
       icon: ArrowUp,
     },
-    // {
-    //   title: "Superiority (Home Screen)",
-    //   href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/superior`,
-    //   description: "Show All Superiority",
-    //   icon: ArrowUp,
-    // },
     {
       title: "Catalogues",
       href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/catalogues`,
-      description: "Show All ACR Catalogues.",
+      description: "Show All Legacy Catalogues.",
       icon: FileText,
     },
     {
       title: "Distributors",
       href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/distributors`,
-      description: "Show All ACR Distributors.",
+      description: "Show All Legacy Distributors.",
       icon: Users,
     },
     {
       title: "About Us",
       href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/about-us`,
-      description: "Edit About ACR Speaker",
+      description: "Edit About Legacy Speaker",
       icon: Info,
     },
     {
       title: "Contacts",
       href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/contacts`,
-      description: "Edit Contact for ACR Speaker",
+      description: "Edit Contact for Legacy Speaker",
+      icon: Phone,
+    },
+    {
+      title: "Featured Series",
+      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/featuredseries`,
+      description: "Edit Featured Series for Legacy Speaker",
       icon: Phone,
     }
   ];
@@ -304,7 +304,7 @@ export function MainNav({
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className={`flex gap-1.5 text-xs ${pathSegments[3] === 'superior' || pathSegments[3] === 'catalogues' || pathSegments[3] === 'distributors' || pathSegments[3] === 'about-us' || pathSegments[3] === 'contacts' ? 'bg-foreground text-background hover:text-background' : ''}`}>
+              <NavigationMenuTrigger className={`flex gap-1.5 text-xs ${pathSegments[3] === 'superior' || pathSegments[3] === 'catalogues' || pathSegments[3] === 'distributors' || pathSegments[3] === 'about-us' || pathSegments[3] === 'contacts' || pathSegments[3] === 'featuredseries' || pathSegments[3] === '' ? 'bg-foreground text-background hover:text-background' : ''}`}>
                 <List size={16} /> Others
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -315,7 +315,7 @@ export function MainNav({
                       <ListItem
                         key={component.title}
                         href={component.href}
-                        className={`${pathSegments[3] === component.href.split('/')[3] ? 'bg-foreground' : 'hover:bg-transparent'} ${component.title === 'Catalogues' && 'cursor-not-allowed pointer-events-none opacity-50'}`}
+                        className={`${pathSegments[3] === component.href.split('/')[3] ? 'bg-foreground' : 'hover:bg-transparent'}`}
                       >
                         <div className={`flex items-center gap-1.5 ${pathSegments[3] === component.href.split('/')[3] ? "text-background hover:text-background" : "text-foreground hover:text-[rgba(19,82,219,1)]"}`}>
                           <Icon size={14}/>

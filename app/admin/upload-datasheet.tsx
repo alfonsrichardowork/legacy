@@ -33,12 +33,12 @@ async function getUniqueFilename(dir: string, originalName: string): Promise<str
   return filename;
 }
 
-export async function uploadProductDatasheet(formData: FormData) {
+export async function uploadDatasheet(formData: FormData, folder: string) {
   const file = formData.get("file") as File;
   const arrayBuffer = await file.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
-  const uploadDir = path.join(process.cwd(), "uploads", "productdatasheet");
+  const uploadDir = path.join(process.cwd(), "uploads", folder);
 
   // Sanitize filename (keep case)
   const safeName = sanitizeFilename(file.name);
@@ -50,5 +50,5 @@ export async function uploadProductDatasheet(formData: FormData) {
 
   await fs.writeFile(filePath, buffer);
 
-  return `/uploads/productdatasheet/${uniqueFilename}`;
+  return `/uploads/${folder}/${uniqueFilename}`;
 }

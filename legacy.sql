@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2025 at 10:20 AM
+-- Generation Time: Nov 27, 2025 at 08:39 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -220,6 +220,29 @@ CREATE TABLE `brand` (
 
 INSERT INTO `brand` (`id`, `name`, `userId`, `createdAt`, `updatedAt`, `desc`, `descHomePage`, `img`, `imgHomePage`, `title`) VALUES
 ('680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Legacy', '25cd8d0d-d185-41e8-9943-fdf1264236f2', '2024-03-28 07:42:40.393', '2025-11-26 07:22:36.407', '<p><strong>Legacy dan Prestige Series: Warisan dan Inovasi Berkelas</strong></p><p>Menonjol dengan dedikasinya terhadap warisan dan kualitas selama 30 tahun, <strong>Legacy Series</strong> menghadirkan suara yang jernih dan mendalam, ideal bagi mereka yang menginginkan kesempurnaan audio. Sementara itu, <strong>Prestige Series</strong> menawarkan perpaduan antara desain elegan dan teknologi mutakhir, menjadikannya pilihan tepat untuk mereka yang menginginkan performa tinggi dengan tampilan yang mewah. Kedua seri ini tidak hanya menawarkan kekuatan suara, tetapi juga estetika yang memperkaya ruang interior kendaraan Anda.</p><p></p><p><strong>Tweeter dan Active Speaker: Detail dan Fleksibilitas Maksimal</strong></p><p>Untuk detail suara yang lebih halus, <strong>Tweeter</strong> dirancang untuk menonjolkan nada tinggi dengan kejernihan maksimal, melengkapi sistem audio Anda dengan frekuensi yang tajam dan jelas. Di sisi lain, <strong>Active Speaker</strong> menawarkan fleksibilitas dan kemudahan instalasi, dengan amplifier built-in yang memastikan performa optimal tanpa perlu perangkat tambahan. Kombinasi ini memberikan solusi audio yang komprehensif, sesuai untuk berbagai kebutuhan dan preferensi pengguna.</p>', '<p>Sinar Baja Electric (SBE), berdiri sejak 1981, kini menjadi produsen loudspeaker terbesar di Asia Tenggara. Dengan sertifikasi <strong>ISO 9001</strong>, <strong>ISO 14001</strong>, <strong>ISO 45001</strong>, dan <strong>IATF 16949</strong>, SBE fokus pada produk berkualitas tinggi.</p><p>Merek lokalnya, Legacy, Sphinx, dan Prestige, dikenal dalam segmen Car Audio berkat desain berkualitas, bahan premium, dan variasi model yang memenuhi kebutuhan konsumen.</p>', '/uploads/other/SBE_Baru-1.webp', '/uploads/other/tentang-kami-white-2.webp', 'Mengenal Ragam Speaker Legacy untuk Semua Kebutuhan Audio Mobil');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `catalogues`
+--
+
+CREATE TABLE `catalogues` (
+  `id` varchar(191) NOT NULL,
+  `name` text NOT NULL,
+  `pdf` text NOT NULL,
+  `publicationDate` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `updatedBy` text NOT NULL DEFAULT '',
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `updatedAt` datetime(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `catalogues`
+--
+
+INSERT INTO `catalogues` (`id`, `name`, `pdf`, `publicationDate`, `updatedBy`, `createdAt`, `updatedAt`) VALUES
+('c7644d96-ca43-484a-b526-b70ee379e0f8', 'Brosur Legacy', '/uploads/other/legacy_brosur.pdf', '2025-11-27 06:48:38.737', 'admin', '2025-11-27 06:48:58.261', '2025-11-27 06:48:58.261');
 
 -- --------------------------------------------------------
 
@@ -484,6 +507,15 @@ CREATE TABLE `featuredseries` (
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `featuredseries`
+--
+
+INSERT INTO `featuredseries` (`id`, `name`, `href`, `img`, `alt`, `desc`, `updatedBy`, `createdAt`, `updatedAt`) VALUES
+('0dbf7b24-089c-4746-a381-ae06dd0e6acb', 'LEGACY', '/drivers/legacy', '/uploads/other/legacychoice2crop.webp', 'Legacy Series Logo', 'Presisi Suara di Setiap Nada.', 'admin', '2025-11-27 01:47:20.050', '2025-11-27 01:47:20.050'),
+('812a8b1d-39df-45b8-a66c-b75ac1419868', 'SPARTA', '/drivers/sparta', '/uploads/other/spartachoicecrop.webp', 'Sparta Series Logo', 'Performa Handal, Harga Optimal.', 'admin', '2025-11-27 01:48:10.125', '2025-11-27 01:48:10.125'),
+('fb656a73-b36a-4ee2-850d-3deca3f94e81', 'ENERGY', '/drivers/energy', '/uploads/other/energychoicecrop.webp', 'Energy Series Logo', 'Tenaga Maksimal, Energi Efisien.', 'admin', '2025-11-27 01:46:39.975', '2025-11-27 01:46:39.975');
 
 -- --------------------------------------------------------
 
@@ -2146,6 +2178,12 @@ ALTER TABLE `allproductcategory`
 -- Indexes for table `brand`
 --
 ALTER TABLE `brand`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `catalogues`
+--
+ALTER TABLE `catalogues`
   ADD PRIMARY KEY (`id`);
 
 --

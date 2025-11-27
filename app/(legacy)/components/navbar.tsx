@@ -9,7 +9,7 @@ import { Loader, Menu, Search } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from './ui/sheet';
 
 const DynamicSearchboxLoad = dynamic(() => import('./searchbox'), {
   ssr: false,
@@ -193,6 +193,7 @@ function Navbar() {
                 </Button>
             </SheetTrigger>
             <SheetContent className="w-screen h-auto p-0 overflow-y-auto bg-black">
+              <SheetTitle></SheetTitle>
               {navbarContentMobileOpen && <DynamicNavbarContentMobileLoad/>}
             </SheetContent>
           </Sheet>

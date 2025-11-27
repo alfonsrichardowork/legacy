@@ -8,7 +8,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function GET(
   req: Request,
-  props: { params: Promise<{ brandId: string, featuredSeriesId: string }> }
+  props: { params: Promise<{ brandId: string, cataloguesId: string }> }
 ) {
   const params = await props.params;
   try {
@@ -17,18 +17,18 @@ export async function GET(
       return new NextResponse("brand id is required", { status: 400 });
     }
 
-    const featured = await prismadb.featuredseries.findMany({
+    const catalogue = await prismadb.catalogues.findMany({
       where: {
-        id: params.featuredSeriesId
+        id: params.cataloguesId
       },
       orderBy: {
         createdAt: 'desc',
       }
     });
 
-    return NextResponse.json(featured);
+    return NextResponse.json(catalogue);
   } catch (error) {
-    console.log('[SINGLE_FEATURED_SERIES_GET]', error);
+    console.log('[SINGLE_CATALOGUE_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
@@ -36,7 +36,7 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  props: { params: Promise<{ featuredSeriesId: string, brandId: string }> }
+  props: { params: Promise<{ cataloguesId: string, brandId: string }> }
 ) {
   const params = await props.params;
   try {
@@ -53,10 +53,10 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { name, href, img, alt, desc } = body;
+    const { name, pdf, publicationDate } = body;
 
-    if (!params.featuredSeriesId) {
-      return new NextResponse("Featured Series id is required", { status: 400 });
+    if (!params.cataloguesId) {
+      return new NextResponse("Catalogues id is required", { status: 400 });
     }
 
     if(!(await checkAuth(session.isAdmin!, params.brandId, session.userId!))){
@@ -65,39 +65,37 @@ export async function PATCH(
 
 
 
-    if(params.featuredSeriesId != 'new'){
-      const oldUrl = await prismadb.featuredseries.findMany({
+    if(params.cataloguesId != 'new'){
+      const oldUrl = await prismadb.catalogues.findMany({
         where: {
-          id: params.featuredSeriesId
+          id: params.cataloguesId
         },
         select:{
-          img: true
+          pdf: true
         }
       })
       //Delete physical files
       if(oldUrl && oldUrl.length > 0) {
         oldUrl.map( async (val) => {
-          if(val.img != img) {
-            const featuredSeriesImgPath = path.join(process.cwd(), val.img);
+          if(val.pdf != pdf) {
+            const pdfPath = path.join(process.cwd(), val.pdf);
             try {
-              await fs.unlink(featuredSeriesImgPath);
+              await fs.unlink(pdfPath);
             } catch (error) {
-              console.warn(`Could not delete file ${val.img}:`, error);
+              console.warn(`Could not delete file ${val.pdf}:`, error);
             }
           }
         })
       }
 
-      await prismadb.featuredseries.update({
+      await prismadb.catalogues.update({
         where: {
-          id: params.featuredSeriesId
+          id: params.cataloguesId
         },
         data: {
           name, 
-          href, 
-          img, 
-          alt, 
-          desc,
+          pdf,
+          publicationDate,
           updatedAt: new Date(),
           updatedBy: session.name,
         },
@@ -106,7 +104,7 @@ export async function PATCH(
     }
     else{
 
-      const duplicates = await prismadb.featuredseries.findFirst({
+      const duplicates = await prismadb.catalogues.findFirst({
         where:{
           name
         }
@@ -116,13 +114,11 @@ export async function PATCH(
         return NextResponse.json("duplicate")
       }
 
-      await prismadb.featuredseries.create({
+      await prismadb.catalogues.create({
         data: {
           name, 
-          href, 
-          img, 
-          alt, 
-          desc,
+          pdf,
+          publicationDate,
           updatedAt: new Date(),
           createdAt: new Date(),
           updatedBy: session.name,
@@ -134,7 +130,7 @@ export async function PATCH(
     revalidatePath('/en')
     return NextResponse.json("success");
   } catch (error) {
-    console.log('[FEATURED_SERIES_PATCH]', error);
+    console.log('[CATALOGUES_PATCH]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
@@ -142,7 +138,7 @@ export async function PATCH(
 
   export async function DELETE(
     req: Request,
-    props: { params: Promise<{ brandId: string, featuredSeriesId: string }> }
+    props: { params: Promise<{ brandId: string, cataloguesId: string }> }
   ) {
     const params = await props.params;
     try {
@@ -157,41 +153,41 @@ export async function PATCH(
         return NextResponse.json("invalid_token")
       }
   
-      if (!params.featuredSeriesId) {
-        return new NextResponse("Featured Series id is required", { status: 400 });
+      if (!params.cataloguesId) {
+        return new NextResponse("Catalogues id is required", { status: 400 });
       }
       
       if(!(await checkAuth(session.isAdmin!, params.brandId, session.userId!))){
         return NextResponse.json("unauthorized");
       }    
 
-      const toBeDeleted = await prismadb.featuredseries.findMany({
+      const toBeDeleted = await prismadb.catalogues.findMany({
         where:{
-          id: params.featuredSeriesId
+          id: params.cataloguesId
         }
       })
 
       if (toBeDeleted) {
         toBeDeleted.map( async (val) => {
-          const imagePath = path.join(process.cwd(), val.img);
+          const pdfPath = path.join(process.cwd(), val.pdf);
 
           try {
-            await fs.unlink(imagePath);
+            await fs.unlink(pdfPath);
           } catch (error) {
-            console.warn(`Could not delete file ${val.img}:`, error);
+            console.warn(`Could not delete file ${val.pdf}:`, error);
           }
         })
       }
         
-      const deleted = await prismadb.featuredseries.deleteMany({
+      const deleted = await prismadb.catalogues.deleteMany({
         where: {
-          id: params.featuredSeriesId
+          id: params.cataloguesId
         },
       });
   
       return NextResponse.json(deleted);
     } catch (error) {
-      console.log('[FEATURED_SERIES_DELETE]', error);
+      console.log('[CATALOGUES_DELETE]', error);
       return new NextResponse("Internal error", { status: 500 });
     }
   };

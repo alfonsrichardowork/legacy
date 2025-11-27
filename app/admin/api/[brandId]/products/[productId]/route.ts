@@ -253,7 +253,13 @@ export async function DELETE(
       },
     });
 
-
+    //Delete specificationConnector
+    await prismadb.specificationconnector.deleteMany({
+      where: {
+        brandId: params.brandId,
+        productId: params.productId,
+      },
+    });
 
     //Delete allproductcategory
     await prismadb.allProductCategory.deleteMany({

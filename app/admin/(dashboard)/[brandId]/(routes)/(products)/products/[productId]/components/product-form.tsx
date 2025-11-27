@@ -24,9 +24,7 @@ import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/app/admin/components/ui/heading"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/admin/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Textarea } from "@/app/admin/components/ui/textarea"
 import Link from "next/link"
-import { uploadProductDatasheet } from "@/app/admin/upload-product-datasheet"
 import Image from "next/image"
 import { Bold, CirclePlus, File, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Italic, List, ListOrdered, LucideLink, LucideUnlink, Strikethrough, Trash } from "lucide-react"
 
@@ -43,6 +41,7 @@ import TextStyle from '@tiptap/extension-text-style'
 import '@/app/css/styles.scss'
 import { Toggle } from "@/app/admin/components/ui/toggle"
 import { uploadImage } from "@/app/admin/upload-image"
+import { uploadDatasheet } from "@/app/admin/upload-datasheet"
 
 
 const formSchema = z.object({
@@ -237,7 +236,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           if(value){
             const formData = new FormData();
             formData.append('file', value);
-            const url = await uploadProductDatasheet(formData);
+            const url = await uploadDatasheet(formData, 'productdatasheet');
             updatedDatasheet[updatedDatasheet.length - (file.length - index)].url = url;
           }
         });
