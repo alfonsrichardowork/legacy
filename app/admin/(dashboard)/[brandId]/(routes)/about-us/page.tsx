@@ -19,8 +19,7 @@ const AboutUsPage = async (
 
   const brand = await prismadb.brand.findFirst({
     where: {
-      id: params.brandId,
-      userId: session.userId
+      id: params.brandId
     }
   });
 
