@@ -243,6 +243,12 @@ export const NewsForm: React.FC<NewsFormProps> = ({
 
 
 
+  const cleanHTML = initialData?.description
+    ?.replace(/<pre><code>/gi, '<p>')
+    ?.replace(/<\/code><\/pre>/gi, '</p>')
+    ?.replace(/<pre>/gi, '<p>')
+    ?.replace(/<\/pre>/gi, '</p>')
+
     const editor = useEditor({
       immediatelyRender: false,
       extensions: [
@@ -347,7 +353,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
           class: "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-hidden min-h-[200px] max-w-none",
         },
       },
-      content: initialData?.description ? initialData.description : '<p></p>',
+      content: cleanHTML ? cleanHTML : '<p></p>',
     });
   
     const addLink = () => {

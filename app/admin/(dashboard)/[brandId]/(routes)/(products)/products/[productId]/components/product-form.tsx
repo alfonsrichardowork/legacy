@@ -636,6 +636,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
 
+  const cleanHTML = initialData?.description
+    ?.replace(/<pre><code>/gi, '<p>')
+    ?.replace(/<\/code><\/pre>/gi, '</p>')
+    ?.replace(/<pre>/gi, '<p>')
+    ?.replace(/<\/pre>/gi, '</p>')
 
   const editor = useEditor({
       immediatelyRender: false,
@@ -715,7 +720,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-hidden',
         },
       },
-      content: initialData?.description ? initialData.description : '<p>Start editing...</p>',
+      content: cleanHTML ? cleanHTML : '<p></p>',
     });
   
     

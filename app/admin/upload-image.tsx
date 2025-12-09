@@ -12,9 +12,49 @@ function sanitizeFilename(name: string) {
   return safeBase + ext;
 }
 
+const ALLOWED_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "image/svg+xml",
+  "image/bmp",
+  "image/tiff",
+  "image/avif"
+];
+
+const ALLOWED_EXTENSIONS = [
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".webp",
+  ".gif",
+  ".svg",
+  ".bmp",
+  ".tif",
+  ".tiff",
+  ".avif"
+];
+
+const ALLOWED_FOLDERS = [
+  "featuredimages", 
+  "newsimages", 
+  "other", 
+  "productcoverimage",
+  "productdatasheet",
+  "productdrawing",
+  "productfrequencyresponse",
+  "productimagecatalogues",
+  "productimpedance"
+];
+
 async function getUniqueFilename(dir: string, originalName: string): Promise<string> {
   const ext = path.extname(originalName);
   const base = path.basename(originalName, ext);
+
+  if (!ALLOWED_EXTENSIONS.includes(ext.toLowerCase())) {
+    throw new Error("Invalid file extension");
+  }
 
   let filename = originalName;
   let counter = 1;
@@ -38,6 +78,10 @@ export async function uploadImage(formData: FormData, folder: string) {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
+  if (!ALLOWED_FOLDERS.includes(folder)) {
+    throw new Error("Invalid folder");
+  }
+
   const uploadDir = path.join(process.cwd(), "uploads", folder);
 
   // Sanitize filename (keep case)
@@ -46,6 +90,10 @@ export async function uploadImage(formData: FormData, folder: string) {
   // Find a unique filename by incrementing
   const uniqueFilename = await getUniqueFilename(uploadDir, safeName);
 
+  if (!ALLOWED_TYPES.includes(file.type)) {
+    throw new Error("Invalid file type");
+  }
+  
   const filePath = path.join(uploadDir, uniqueFilename);
 
   await fs.writeFile(filePath, buffer);

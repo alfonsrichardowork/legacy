@@ -210,6 +210,13 @@ useEffect(() => {
   };
 
 
+
+  const cleanHTML = initialData?.desc
+    ?.replace(/<pre><code>/gi, '<p>')
+    ?.replace(/<\/code><\/pre>/gi, '</p>')
+    ?.replace(/<pre>/gi, '<p>')
+    ?.replace(/<\/pre>/gi, '</p>')
+
     const editor = useEditor({
       immediatelyRender: false,
       extensions: [
@@ -314,9 +321,15 @@ useEffect(() => {
           class: "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-hidden min-h-[200px] max-w-none",
         },
       },
-      content: initialData?.desc ? initialData.desc : '<p></p>',
+      content: cleanHTML ? cleanHTML : '<p></p>',
     });
 
+    
+  const cleanHTML2 = initialData?.descHomePage
+    ?.replace(/<pre><code>/gi, '<p>')
+    ?.replace(/<\/code><\/pre>/gi, '</p>')
+    ?.replace(/<pre>/gi, '<p>')
+    ?.replace(/<\/pre>/gi, '</p>')
 
     const editor2 = useEditor({
       immediatelyRender: false,
@@ -422,7 +435,7 @@ useEffect(() => {
           class: "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-hidden min-h-[200px] max-w-none",
         },
       },
-      content: initialData?.descHomePage ? initialData.descHomePage : '<p></p>',
+      content: cleanHTML2 ? cleanHTML2 : '<p></p>',
     });
 
 
