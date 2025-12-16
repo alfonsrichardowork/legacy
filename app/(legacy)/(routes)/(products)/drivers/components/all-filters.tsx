@@ -846,17 +846,6 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                     {allFeaturedProducts.map((item: AllFilterProductsOnlyType, i) => (
                         <div key={i} className="pt-4 pb-12">
                             <ProductCard key={item.products.id} data={item}/>
-                            <div className="w-full flex justify-center pb-2">
-                                <Button                                            
-                                variant="default"
-                                className="bg-secondary border-foreground border-4 sm:w-2/3 w-screen"
-                                asChild
-                                >
-                                    <Link href={`/products/${item.products.slug}`}>
-                                        <b>DETAIL</b>
-                                    </Link>
-                                </Button>
-                            </div>
                             {!activeSlugCompare.includes(item.products.slug) ?  
                                 <div className="w-full flex justify-center pb-4">
                                     <Button

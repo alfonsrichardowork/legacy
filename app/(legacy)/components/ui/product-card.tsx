@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AllFilterProductsOnlyType } from "../../types";
 import { LazyImageClickable } from "../lazyImageClickable";
+import { Button } from "@/components/ui/button";
 
 interface ReviewCard {
   data: AllFilterProductsOnlyType
@@ -10,12 +11,10 @@ const ProductCard: React.FC<ReviewCard> = ({
   data
 }) => {
   return ( 
-    <Link href={{
-      pathname: `/products/${data?.products.slug}`,
-      // query: { name : data.name },
-    }} 
+    <Link href={`/products/${data?.products.slug}`} 
     className="bg-white group cursor-pointer"
     >
+      <div>
       <div className="relative flex content-center justify-center h-[150px] w-full">
       <div className="w-full h-auto px-12">
         <LazyImageClickable
@@ -38,6 +37,20 @@ const ProductCard: React.FC<ReviewCard> = ({
         } */}
       </div>
       {/* </div> */}
+    {/* </Link> */}
+      </div>
+      
+    <div className="w-full flex justify-center pb-2">
+        <Button                                            
+        variant="default"
+        className="bg-secondary border-foreground border-4 sm:w-2/3 w-screen"
+        asChild
+        >
+            {/* <Link href={`/products/${item.products.slug}`}> */}
+                <b>DETAIL</b>
+            {/* </Link> */}
+        </Button>
+      </div>
     </Link>
   );
 }

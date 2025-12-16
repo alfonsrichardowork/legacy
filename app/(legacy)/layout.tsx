@@ -1,4 +1,3 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
 import Footer from './components/footer'
 import Navbar from './components/navbar'
 import NextTopLoader from "nextjs-toploader";
@@ -7,6 +6,9 @@ import ScrollToTop from './components/scrollToTop';
 import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
 import '@/app/globals.css'
+import Script from 'next/script';
+import GAListener from './components/GAListener';
+import { Suspense } from 'react';
 
 const font = Inter({ subsets: ['latin'] })
 
@@ -77,22 +79,39 @@ export default function RootlegacyLayout({
     
   <html lang="en">
     <body className={`${font.className || ''} overflow-x-hidden`}>
-    <ScrollToTop />
-    <div className='min-h-screen'>
-      <NextTopLoader color='#f0ad4e' showSpinner={false}/>
-      <div className="sticky top-0 z-50 bg-transparent bg-cover bg-center">
-        <Navbar />
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="ga-init" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+      debug_mode: ${process.env.NODE_ENV === 'development'},
+    });
+        `}
+      </Script>
+      <Suspense fallback={null}>
+        <GAListener />
+      </Suspense>
+
+      <ScrollToTop />
+      <div className='min-h-screen'>
+        <NextTopLoader color='#f0ad4e' showSpinner={false}/>
+        <div className="sticky top-0 z-50 bg-transparent bg-cover bg-center">
+          <Navbar />
+        </div>
+        <div className="flex flex-col min-h-screen">
+          <main className="grow">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </div>
-      <div className="flex flex-col min-h-screen">
-        <main className="grow">
-          {children}
-        </main>
-        <Footer />
-      </div>
-    </div>
-     <Toaster />
-    </body>
-    <GoogleAnalytics gaId="G-5HMPXRHGVL" />
-  </html>
+      <Toaster />
+      </body>
+    </html>
   )
 }

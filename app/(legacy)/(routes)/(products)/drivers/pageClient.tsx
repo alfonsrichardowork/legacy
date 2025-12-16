@@ -1,7 +1,7 @@
 "use client"
 import { AllFilterProductsOnlyType, CheckBoxData, ChildSpecificationProp, SliderData } from "@/app/(legacy)/types";
 import AllDriversandFiltersProducts from "./components/all-filters";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Loader } from "@/app/(legacy)/components/ui/loader";
 import getAllProductsForFilterPage from "@/app/(legacy)/actions/get-all-products-for-filter-page";
 
@@ -98,10 +98,10 @@ export default function ProductByCategoryPage() {
         <div className="bg-white -z-10">
         <div className="relative w-full py-8 h-fit">
           {showserver?
-            <AllDriversandFiltersProducts data={allprodserver} slider={sliderRows} checkbox={checkboxRows} showFilters={showserver} />
+              <AllDriversandFiltersProducts data={allprodserver} slider={sliderRows} checkbox={checkboxRows} showFilters={showserver} />
           :
             <div className="md:grid md:grid-cols-4">
-              <AllDriversandFiltersProducts data={allprodserver} slider={sliderRows} checkbox={checkboxRows} showFilters={showserver} />
+                <AllDriversandFiltersProducts data={allprodserver} slider={sliderRows} checkbox={checkboxRows} showFilters={showserver} />
             </div>
           }
         </div>

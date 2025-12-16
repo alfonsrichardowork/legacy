@@ -66,7 +66,7 @@ const redirectMapCateg: Record<string, string> = {
   'K8': '/drivers',
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const url = req.nextUrl.clone()
 
   //Reroute permanent

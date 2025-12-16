@@ -417,7 +417,6 @@ function NavbarContent (){
           </div>
         </div>
 
-        {/* <Suspense fallback={<><Loader size={20} className='animate-spin' /></>}> */}
         {driversubsubMenu.length!=0 &&
           <div className={`${hoveredDriverMenu === 'Legacy' ? 'pt-[36px]' : hoveredDriverMenu === 'Prestige' ? 'pt-[72px]' : hoveredDriverMenu === 'Energy' ? 'pt-[108px]' : hoveredDriverMenu === 'Sparta' ? 'pt-[144px]' : 'pt-0'} z-20`}>
           <div style={{ paddingTop: `calc(${hoveredDriverSubMenuIndex} * 36px)` }}>

@@ -1,7 +1,7 @@
 "use client"
 import { AllFilterProductsOnlyType, CheckBoxData, ChildSpecificationProp, SliderData } from '@/app/(legacy)/types';
 import AllDriversandFiltersProducts from '../../components/all-filters';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Loader } from '@/app/(legacy)/components/ui/loader';
 import getAllProductsForFilterPage from '@/app/(legacy)/actions/get-all-products-for-filter-page';
 
@@ -99,7 +99,7 @@ const [allprodserver, setallprodserver] = useState<AllFilterProductsOnlyType[]>(
     :
     <>
       <div className="w-full bg-white py-8 h-fit">
-        <AllDriversandFiltersProducts data={allprodserver} slider={sliderRows} checkbox={[]} showFilters={showserver}/>
+          <AllDriversandFiltersProducts data={allprodserver} slider={sliderRows} checkbox={[]} showFilters={showserver}/>
       </div>
     </>
   );
