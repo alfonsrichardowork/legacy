@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { Loader } from './ui/loader';
 
 const FullScreenLoader = ({ isVisible }: { isVisible: boolean }) => {
-  useEffect(() => {
-    if (isVisible) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+  // useEffect(() => {
+  //   if (isVisible) {
+  //     document.body.style.overflow = 'hidden';
+  //   } else {
+  //     document.body.style.overflow = '';
+  //   }
 
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isVisible]);
+  //   return () => {
+  //     document.body.style.overflow = '';
+  //   };
+  // }, [isVisible]);
 
   return (
     isVisible && (

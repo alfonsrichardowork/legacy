@@ -5,7 +5,9 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_S
 
 const getSubSubCatNameBySlug = async (slug: string): Promise<categoriesHeader> => {
     const API_EDITED = API.replace('{subSubCategorySlug}', slug)
-    const response = await fetch(API_EDITED);
+    const response = await fetch(API_EDITED, {
+    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  });
     if (!response.ok) {
       redirect('/');
       // throw new Error('Failed to fetch SubSubCat Name by Slug');

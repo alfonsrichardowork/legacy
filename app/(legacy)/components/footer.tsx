@@ -7,8 +7,14 @@ import DynamicContactFooter from './ui/dynamicfootercontact';
 
 export default function Footer() {
   return (
+    <div className="relative min-h-[300px] md:min-h-[200px]">
     <div className='relative md:py-0 py-10'>
-      <img src={'/images/legacy/footerbg.webp'} alt='Background Footer Legacy Speaker' className='object-cover bg-center absolute inset-0 z-0 w-screen h-full' width={1000} height={1000} loading='lazy'/>
+      <div
+        className="absolute inset-0 h-full bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/legacy/footerbg.webp')",
+        }}
+      />
       <div className='relative z-10 container mx-auto xl:px-36 lg:px-20 px-10 xl:py-8 lg:py-6 py-4'>
       <div className="text-white font-bold sm:text-2xl text-lg text-center">
         <h2>Brand Lain Dari CV. Sinar Baja Electric</h2>
@@ -66,6 +72,7 @@ export default function Footer() {
                 alt="Legacy Speaker Logo"
                 width={800}
                 height={600}
+                sizes='250px'
                 className="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
                 loading="lazy"
               />
@@ -119,6 +126,7 @@ export default function Footer() {
           ©{new Date().getFullYear()} LEGACY SPEAKER - ALL RIGHTS RESERVED
         </div>
       </div>
+    </div>
     </div>
   );
 }

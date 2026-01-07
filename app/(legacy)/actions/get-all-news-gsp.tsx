@@ -2,7 +2,9 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_A
 
 const getAllNewsGSP = async (): Promise<string[]> => {
 
-  const response = await fetch(API, {cache: "no-store"});
+  const response = await fetch(API, {
+    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  });
   if (!response.ok) {
     // Instead of redirect, just return empty array
     return [];

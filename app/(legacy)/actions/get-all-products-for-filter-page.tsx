@@ -4,7 +4,9 @@ import { AllFilterProductsOnlyType, ChildSpecificationProp } from "../types";
 const getAllProductsForFilterPage = async (api: string): Promise<[AllFilterProductsOnlyType[], Record<string, ChildSpecificationProp[]>]> => {
 
   let allSizes : string[] = []
-  const response = await fetch(api);
+  const response = await fetch(api, {
+    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  });
   if (!response.ok) {
     redirect('/');
     // throw new Error(`Failed to fetch products by ${subsubcategory}`);

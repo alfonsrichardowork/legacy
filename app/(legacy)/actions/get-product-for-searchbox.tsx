@@ -5,7 +5,9 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_REACT_A
 
 const getProductsForSearchbox = async (): Promise<Searchbox[]> => {
     let productForSearchbox: Array<Searchbox> = [];
-    const response = await fetch(API);
+    const response = await fetch(API, {
+    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  });
     if (!response.ok) {
       redirect('/');
     //   throw new Error('Failed to fetch searchbox');

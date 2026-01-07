@@ -1,7 +1,4 @@
-import GAListener from "@/app/(legacy)/components/GAListener";
 import { Metadata } from "next"
-import Script from "next/script";
-import { Suspense } from "react";
 
  
 export async function generateMetadata(): Promise<Metadata> {

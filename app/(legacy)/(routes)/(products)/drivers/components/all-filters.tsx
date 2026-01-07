@@ -560,9 +560,9 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
             <div className='pb-4'>
                 <Sheet open={isLgScreen?false:undefined}>
                     <SheetTrigger asChild className="hover:cursor-pointer" onClick={() => setSheetOpenedForSlider(true)}>
-                    <div className="w-full text-center font-bold text-lg bg-transparent p-2 rounded-lg text-foreground border-foreground border-4 hover:shadow-lg">
+                    <Button className="w-full text-center font-bold text-lg bg-transparent p-2 rounded-lg text-foreground border-foreground border-4 hover:shadow-lg">
                        Edit Filters
-                    </div>
+                    </Button>
                     </SheetTrigger>
                     <SheetContent side={'left'} className="w-full max-w-[300px] sm:max-w-[300px] bg-white">
                     <SheetTitle/>

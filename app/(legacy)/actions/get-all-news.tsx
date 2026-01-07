@@ -7,7 +7,9 @@ const getAllNews = async (totalNews: string): Promise<NewsType[]> => {
   let allNews: Array<NewsType> = []
 
   const API_EDITED = API.replace('{totalNews}', totalNews)
-  const response = await fetch(API_EDITED, {cache: "no-store"});
+  const response = await fetch(API_EDITED, {
+    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  });
   if (!response.ok) {
     redirect('/');
     // throw new Error(`Failed to fetch news`);

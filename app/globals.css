@@ -428,3 +428,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Swiper styles to ensure proper visibility and sizing */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: stretch;
+  height: auto;
+}
+
+.mySwiper {
+  display: flex;
+}

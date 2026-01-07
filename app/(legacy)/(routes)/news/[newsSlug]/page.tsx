@@ -41,7 +41,7 @@ export default async function SingleNewsPage(props: Props) {
     "dateModified": tempData?.updatedAt ? tempData.updatedAt : '',
     "author": {
       "@type": "Organization",
-      "name": "ACR"
+      "name": "Legacy Speaker"
     },
     "publisher": {
       "@type": "Organization",

@@ -22,6 +22,9 @@ export const LazyImageCustom = ({ src, alt, width, height, classname }: { src: s
         width={width}
         height={height}
         className={classname}
+        sizes="(max-width: 640px) 150px,
+              (max-width: 1024px) 200px,
+              250px"
         onLoad={() => setIsLoading(false)}
         loading="lazy"
       />

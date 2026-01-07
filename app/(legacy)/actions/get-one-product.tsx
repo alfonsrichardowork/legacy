@@ -10,7 +10,9 @@ type SingleProductsTypeComplete = {
 
 const getProduct = async (productSlug: string): Promise<SingleProducts> => {
   const API_EDITED = API.replace('{productSlug}', productSlug)
-  const response = await fetch(API_EDITED!);
+  const response = await fetch(API_EDITED!, {
+    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  });
   if (!response.ok) {
     redirect('/');
     // throw new Error('Failed to fetch one product');

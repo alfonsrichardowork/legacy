@@ -78,21 +78,40 @@ export default function RootlegacyLayout({
   return (
     
   <html lang="en">
+    <head>
+      <link
+        rel="preload"
+        as="image"
+        href="/images/legacy/navbarbg.webp"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/legacy/footerbg.webp"
+        fetchPriority="high"
+      />
+    </head>
     <body className={`${font.className || ''} overflow-x-hidden`}>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
         strategy="afterInteractive"
       />
+
       <Script id="ga-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-      debug_mode: ${process.env.NODE_ENV === 'development'},
-    });
-        `}
-      </Script>
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+
+        gtag('js', new Date());
+
+        gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+          send_page_view: false,
+          debug_mode: ${process.env.NODE_ENV === 'development'},
+        });
+      `}
+      </Script> 
       <Suspense fallback={null}>
         <GAListener />
       </Suspense>

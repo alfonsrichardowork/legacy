@@ -188,7 +188,7 @@ function Navbar() {
           </Button>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant={null} className={`w-fit p-0 ${navbarBg ? 'text-black' : 'text-white'} hover:text-[rgba(19,82,219,1)] hover:cursor-pointer`} onClick={() => setnavbarContentMobileOpen(true)}>
+              <Button variant={null} className={`w-fit p-0 ${navbarBg ? 'text-black' : 'text-white'} hover:text-[rgba(19,82,219,1)] hover:cursor-pointer`} onClick={() => setnavbarContentMobileOpen(true)} id='Mobile Menu Legacy' title='Mobile Menu'>
                   <Menu size={30} className="" />
                 </Button>
             </SheetTrigger>

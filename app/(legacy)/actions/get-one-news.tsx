@@ -6,7 +6,9 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_O
 const getOneNews = async (slug: string): Promise<NewsType> => {
 
   const API_EDITED = API.replace('{newsSlug}', slug)
-  const response = await fetch(API_EDITED, {cache: "no-store"});
+  const response = await fetch(API_EDITED, {
+    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  });
   if (!response.ok) {
     redirect('/');
     // throw new Error(`Failed to fetch news`);

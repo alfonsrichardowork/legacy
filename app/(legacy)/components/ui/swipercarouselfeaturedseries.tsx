@@ -21,7 +21,11 @@ const SwiperCarouselFeaturedSeries: React.FC<PropType> = (props) => {
   const { seri } = props
   return (
     <Swiper
-      slidesPerView={seri.length < 3 ? seri.length : 3}
+      breakpoints={{
+        0: { slidesPerView: 1 },
+        768: { slidesPerView: 1 },
+        1024: { slidesPerView: Math.min(3, seri.length) },
+      }}
       spaceBetween={10}
       modules={[FreeMode, Navigation, Autoplay]}
       className="mySwiper"
@@ -31,12 +35,6 @@ const SwiperCarouselFeaturedSeries: React.FC<PropType> = (props) => {
         delay: 2000,
         disableOnInteraction: false,
       }}
-      // style={{
-      //   //@ts-ignore
-      //   "--swiper-navigation-color": "#ee3239",
-      //   "--swiper-navigation-size": "15px",
-      //   "--swiper-navigation-sides-offset": "0px",
-      // }}
     >
       {seri && seri.length > 0 && seri.map((val: featuredseries, index) => 
         <SwiperSlide key={index} className=' my-4 shadow-lg rounded-lg'>

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { NewsType } from "../../types";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import DOMPurify from 'dompurify'; 
+import Image from "next/image"; 
+import DompurifyContent from "../dompurifyText";
 
 interface NewsCardProps {
   data: NewsType;
@@ -33,9 +33,10 @@ const NewsCard: React.FC<NewsCardProps> =  ({ data }) => {
           <h3 className="text-sm py-2 text-black">
             {eventDate}
           </h3>
-          <h3 className="text-base py-2 text-black"  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description.length > 150
+          <h3 className="text-base py-2 text-black">
+            <DompurifyContent text={data.description.length > 150
               ? `${data.description.slice(0, 150)}...`
-              : data.description)}}>
+              : data.description}/>
           </h3>
           <div className="text-base py-2 text-black">
             <Button asChild size={'lg'} variant={'secondary'} className="sm:w-fit w-full">

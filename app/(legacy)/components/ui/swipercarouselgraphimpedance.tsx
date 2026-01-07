@@ -261,6 +261,8 @@ const impedanceSlides = impedance && impedance.length > 0
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               realIndex === index || (repeated && realIndex === (index + originalSlides.length)) ? 'bg-foreground scale-125' : 'bg-slate-300'
             }`}
+            id={`swiper-graph-impedance-dot-${index}`}
+            title={`Go to slide ${index + 1}`}
           ></button>
         ))}
       </div>

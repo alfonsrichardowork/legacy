@@ -96,6 +96,8 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
               className={`w-6 h-6 rounded-full transition-all duration-300 ${
                 realIndex === index ? 'bg-foreground' : 'bg-white'
               }`}
+              id={`swiper-dot-${index}`}
+              title={`Go to slide ${index + 1}`}
             ></button>
           ))}
         </div>

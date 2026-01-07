@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Separator } from '../../../../components/ui/separator';
 import { FindUs } from '../../components/FindUs';
 
-const Distributor: React.FC = () => {
+export function Distributor() {
   return (
     <div className="relative w-full h-fit bg-white">
      <div className="container mx-auto xl:px-36 lg:px-20 px-10 md:py-10 py-8 h-fit block items-center lg:grid lg:grid-cols-2">
@@ -35,5 +35,3 @@ const Distributor: React.FC = () => {
     </div>
   );
 }
-
-export default Distributor;

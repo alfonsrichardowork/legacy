@@ -166,14 +166,17 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           className={`w-2 h-2 rounded-full transition-all duration-300 ${
             realIndex === 0 ? 'bg-foreground scale-125' : 'bg-slate-300'
           }`}
+          id={`swiper-one-product-dot-${0}`}
+          title={`Go to slide ${1}`}
         ></button>
         {image_catalogues.map((_, index) => (
           <button
             key={index+1}
             onClick={() => swiperRef.current?.slideToLoop(index+1)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              realIndex === index+1 ? 'bg-foreground scale-125' : 'bg-slate-300'
-            }`}
+              realIndex === index+1 ? 'bg-foreground scale-125' : 'bg-slate-300'}`}
+              id={`swiper-one-product-dot-${index+1}`}
+              title={`Go to slide ${index + 2}`}
           ></button>
         ))}
       </div>

@@ -41,7 +41,7 @@ export const FindUs: React.FC<PropType> = (props) => {
         blackLogos.map((logo, index) => (
           (index!=1 && index!=0 && index!=4) &&
           <div key={index}>
-            <Link target='_blank' href={logo} className={`flex items-center`}>
+            <Link target='_blank' aria-label="Footer Contact Us" href={logo} className={`flex items-center`}>
             {index==0 ? 
                 <>
                   <MailIcon size={30} className='text-white hover:text-[rgba(19,82,219,1)]'/>
@@ -77,6 +77,7 @@ export const FindUs: React.FC<PropType> = (props) => {
           <div key={index}>
             <Link 
               target="_blank" 
+              aria-label="Footer Contact Us"
               href={logo} 
               className="flex items-center"
             >

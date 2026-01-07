@@ -115,21 +115,22 @@ model Size {
 }
 
 model AllCategory {
-  id          String    @id @default(uuid())
-  brandId     String    // Foreign Key to Brand
-  brand       Brand     @relation("BrandToAllCategory", fields: [brandId], references: [id])
-  type        String    //Category, Sub Category, Sub Sub Category
-  name        String    @db.Text
-  slug        String    @db.Text
-  description String    @db.Text
-  thumbnail_url String  @db.Text
-  updatedBy   String    @default("")
-  // products    Product[] // Relation to Product model
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            String   @id @default(uuid())
+  brandId       String
+  brand         Brand    @relation("BrandToAllCategory", fields: [brandId], references: [id])
+  type          String
+  name          String   @db.Text
+  slug          String   @db.Text
+  description   String   @db.Text
+  thumbnail_url String   @db.Text
+  updatedBy     String   @default("")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
+  @@unique([brandId, name(length: 191)])
   @@index([brandId])
 }
+
 
 model Image_Catalogues {
   id          String   @id @default(uuid())
