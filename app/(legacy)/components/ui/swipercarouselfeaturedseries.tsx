@@ -26,6 +26,7 @@ const SwiperCarouselFeaturedSeries: React.FC<PropType> = (props) => {
         768: { slidesPerView: 1 },
         1024: { slidesPerView: Math.min(3, seri.length) },
       }}
+      // slidesPerView={3}
       spaceBetween={10}
       modules={[FreeMode, Navigation, Autoplay]}
       className="mySwiper"

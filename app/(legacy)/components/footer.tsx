@@ -2,8 +2,10 @@ import Image from 'next/image';
 import { FindUs } from './FindUs';
 import { Separator } from '../../../components/ui/separator';
 import Link from 'next/link';
-import { Mail, MapPin, Phone } from 'lucide-react';
 import DynamicContactFooter from './ui/dynamicfootercontact';
+import FooterClient from './footerRightsClient';
+import { Suspense } from 'react';
+import { Loader } from './ui/loader';
 
 export default function Footer() {
   return (
@@ -81,31 +83,12 @@ export default function Footer() {
             <h3 className="text-lg lg:text-2xl font-bold text-white pb-1">
               CV. Sinar Baja Electric Surabaya
             </h3>
-            <div className="py-4">
-              <Separator className="bg-foreground w-56 h-2 mx-auto md:mx-0" />
+            <div className="py-4 h-50">
+              <Separator className="bg-foreground w-56 h-2 mx-auto md:mx-0 mb-4" />
+              <Suspense fallback={<div className='h-full w-full flex items-center justify-center'><Loader/></div>}>
+                <DynamicContactFooter/>
+              </Suspense>
             </div>
-            {/* <div className="text-xs text-white pb-4 font-light space-y-2 sm:block hidden">
-              <div className="flex items-center justify-center md:justify-start">
-                <MapPin size={15} className="mr-2" />
-                <h4>Jl. Margomulyo No.5, Surabaya 60186, Jawa Timur, Indonesia</h4>
-              </div>
-              <div className="flex items-center justify-center md:justify-start">
-                <Phone size={15} className="mr-2" />
-                <h4>+62 812-3183-3504</h4>
-              </div>
-              <div className="flex items-center justify-center md:justify-start">
-                <Mail size={15} className="mr-2" />
-                <h4>legacyspeaker01@gmail.com</h4>
-              </div>
-            </div>
-            <h4 className="text-xs text-white pb-1 font-light  sm:block hidden">
-              Showroom Jakarta: Ruko Glodok Plaza F-97, Jl. Raya Pinangsia 1, Glodok, Tamansari, Jakarta Barat
-            </h4>
-            <h4 className="text-xs text-white pb-1 font-light  sm:block hidden">
-              Showroom Surabaya: Jl. Genteng Besar No. 15A - Genteng, Surabaya
-            </h4> */}
-            
-            <DynamicContactFooter/>
             
           </div>
         </div>
@@ -122,8 +105,14 @@ export default function Footer() {
         </div>
       </div>
 
-        <div className='text-center text-xs justify-center text-white md:pt-16 pt-8 font-light'>
-          ©{new Date().getFullYear()} LEGACY SPEAKER - ALL RIGHTS RESERVED
+
+        <div className='text-center text-xs justify-center text-white md:pt-16 pt-8 font-light flex'>
+          <div className='mr-1'>
+            <Suspense fallback={<></>}>
+              <FooterClient />
+            </Suspense>
+          </div>
+          LEGACY SPEAKER - ALL RIGHTS RESERVED
         </div>
       </div>
     </div>

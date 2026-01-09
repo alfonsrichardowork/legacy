@@ -13,8 +13,7 @@ export function Youtube() {
     // { id: 'KIV-nLkEeKE', title: 'ACR Rhyme SMEX' },
   ];
   return (
-    <div className="bg-slate-100 -z-10">
-      <div className="relative w-full container mx-auto xl:px-36 lg:px-20 px-10 pb-4 pt-4 h-fit">
+      <div className="container mx-auto xl:px-36 lg:px-20 px-10 pb-4 pt-4 h-fit">
         <div className="w-full justify-center flex">
           <Link href="https://youtube.com/@acrspeaker-rhymeproaudio?si=jABUOuZOZV6axnPt" target="_blank">
             <div className="sm:flex block items-center hover:bg-slate-200 p-4 rounded-lg w-fit">
@@ -54,6 +53,5 @@ export function Youtube() {
           ))}
         </div>
       </div>
-    </div>
   );
 };

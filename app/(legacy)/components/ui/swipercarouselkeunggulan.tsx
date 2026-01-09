@@ -42,7 +42,7 @@ const SwiperCarouselKeunggulan: React.FC<PropType> = (props) => {
           <div className="flex flex-col items-center justify-center h-full">
             <Image src={val.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${val.url}` : val.url} alt={val.name} width={50} height={50} className="w-auto h-10" />
             <div className="pt-4">
-              <p className="md:text-base text-sm text-black text-center">
+              <p className="md:text-base text-sm text-black text-center line-clamp-1">
                 {val.name}
               </p>
             </div>

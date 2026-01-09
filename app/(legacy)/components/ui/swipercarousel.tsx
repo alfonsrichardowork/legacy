@@ -26,10 +26,10 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
         <Swiper
           // centeredSlides={true}
           parallax={true}
-          autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //     delay: 5000,
+          //     disableOnInteraction: false,
+          // }}
           loop={true}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => {
@@ -38,11 +38,11 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
             setRealIndex(real);
           }}
           modules={[Autoplay, Navigation]}
-          className="swiper"
+          className="swiper h-100"
         >
           {slides && slides.length > 0 && slides.map((item, indexParent) => (
             <SwiperSlide key={item.name.concat(` ${indexParent}`)}>
-              <div className="container mx-auto flex flex-col md:flex-row items-center justify-between xl:px-36 lg:px-20 px-10 pb-16 pt-6">
+              <div className="container mx-auto flex flex-col md:flex-row items-center justify-between xl:px-36 lg:px-20 px-10 pb-18 h-full">
                 <div className="order-1 md:order-2 flex items-center justify-center md:w-2/5 w-full h-[200px] md:h-full">
                 <Image
                   src={item.featuredImgUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.featuredImgUrl}` : item.featuredImgUrl}
@@ -55,11 +55,11 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
                 />
                 </div>
                 <div className="order-2 md:order-1 flex flex-col justify-center items-center md:items-start text-center md:text-left gap-2 md:w-3/5 w-full">
-                  <div className="text-3xl md:text-4xl font-bold text-white">
+                  <div className="text-3xl md:text-4xl font-bold text-white line-clamp-1">
                     {item.series} SERIES
                   </div>
                   <Separator className="bg-foreground w-56 h-2 md:block hidden" />
-                  <h3 className="text-2xl xl:text-3xl font-bold text-foreground">
+                  <h3 className="text-2xl xl:text-3xl font-bold text-foreground line-clamp-1">
                     {item.name}
                   </h3>
                   <h4 className='sr-only'>{item.series} SERIES</h4>
