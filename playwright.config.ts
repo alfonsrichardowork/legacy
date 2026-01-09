@@ -12,21 +12,66 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
+    /* ================= DESKTOP ================= */
     {
-      name: "chromium",
+      name: "Desktop Chromium",
       use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: "firefox",
+      name: "Desktop Firefox",
       use: { ...devices["Desktop Firefox"] },
     },
     {
-      name: "webkit",
+      name: "Desktop Safari",
       use: { ...devices["Desktop Safari"] },
+    },
+
+    /* ================= TABLET ================= */
+    {
+      name: "Tablet Safari Portrait",
+      use: { ...devices["iPad (gen 7)"] },
+    },
+    {
+      name: "Tablet Safari Landscape",
+      use: { ...devices["iPad (gen 7) landscape"] },
+    },
+    {
+      name: "Tablet Android Portrait",
+      use: { ...devices["Galaxy Tab S4"] },
+    },
+    {
+      name: "Tablet Android Landscape",
+      use: { ...devices["Galaxy Tab S4 landscape"] },
+    },
+
+    /* ================= MOBILE ================= */
+    {
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
+    },
+    {
+      name: "Mobile Safari",
+      use: { ...devices["iPhone 12"] },
+    },
+
+    /* ================= BRANDED ================= */
+    {
+      name: "Microsoft Edge",
+      use: {
+        ...devices["Desktop Edge"],
+        channel: "msedge",
+      },
+    },
+    {
+      name: "Google Chrome",
+      use: {
+        ...devices["Desktop Chrome"],
+        channel: "chrome",
+      },
     },
   ],
   webServer: {
-    command: "npm run dev",
+    command: "npm run start",
     url: "http://localhost:3001",
     reuseExistingServer: !process.env.CI,
   },

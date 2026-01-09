@@ -111,13 +111,15 @@ export default function SwiperCarouselNews({ news }: SwiperCarouselNewsProps) {
               width={500}
               height={500}
               className="w-fit h-[300px] mx-auto rounded-xl"
-              data-testid="news-image"
+              data-testid={`news-image-${index}`} 
             />
-            <div className="text-2xl font-bold text-black w-full line-clamp-2 my-4">{value.title}</div>
-
-            <h3 className="text-black w-full line-clamp-3 my-4" data-testid="news-description">
-              <DompurifyContent text={value.description} />
+            <h3 className="text-2xl font-bold text-black w-full line-clamp-2 my-4">
+              {value.title}
             </h3>
+
+            <h4 className="text-black w-full line-clamp-3 my-4" data-testid={`news-description-${index}`}>
+              <DompurifyContent text={value.description} />
+            </h4>
             <div className="items-start pb-4 pt-2 w-full mt-auto">
               <Button asChild size={"lg"} variant={"secondary"} className="w-full">
                 <Link
