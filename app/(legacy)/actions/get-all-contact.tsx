@@ -1,11 +1,11 @@
-import { contacts, distributors } from "@prisma/client";
+import { contacts } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_CONTACT}`;
 
 const getAllContact = async (): Promise<contacts[]> => {
   const response = await fetch(API
-    // , {next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) }}
+    , {next: { revalidate: 86400 }}
   );
   if (!response.ok) {
     redirect('/');

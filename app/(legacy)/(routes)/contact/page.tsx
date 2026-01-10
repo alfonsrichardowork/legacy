@@ -4,18 +4,12 @@ import getAllContact from "../../actions/get-all-contact"
 import ContactUsClient from "./pageClient"
 import { Loader } from "../../components/ui/loader"
 
-async function getContactData() {
-  // "use cache"
-  const contactData: contacts[] = await getAllContact()
-  return contactData
-}
-
 function formatPhoneNumbers(phone: string): string {
   return phone.split("||").join(", ")
 }
 
 async function ContactJsonLd() {
-  const contactData = await getContactData()
+  const contactData: contacts[] = await getAllContact()
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? "http://localhost:3001"
 
   const subContacts = contactData.map((val: contacts) => ({
@@ -39,7 +33,7 @@ async function ContactJsonLd() {
 }
 
 export default function ContactUsJsonLd() {
-  const contactDataPromise = getContactData()
+  const contactDataPromise = getAllContact()
 
   return (
     <>

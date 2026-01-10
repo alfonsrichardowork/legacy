@@ -1,11 +1,11 @@
-import { Brand, distributors } from "@prisma/client";
+import { Brand } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ABOUT_US}`;
 
 const getAboutUs = async (): Promise<Brand> => {
   const response = await fetch(API, {
-    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+    next: { revalidate: 86400 }
   });
   if (!response.ok) {
     redirect('/');

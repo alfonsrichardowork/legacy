@@ -10,15 +10,15 @@ import {
 import { LazyImageContact } from "@/app/(legacy)/components/lazyImageContact";
 import DompurifyContent from "@/app/(legacy)/components/dompurifyText";
 
-type Props = {
+export default async function SingleNewsPage({
+  params,
+}: {
   params: Promise<{ newsSlug: string }>
-}
-
-export default async function SingleNewsPage(props: Props) {
-  let slug = (await props.params).newsSlug
+}) {
+  const { newsSlug } = await params
 
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
-  const tempData = await getOneNews(slug);
+  const tempData = await getOneNews(newsSlug);
 
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
