@@ -26,6 +26,7 @@ export const LazyImageCustom = ({ src, alt, width, height, classname }: { src: s
               (max-width: 1024px) 200px,
               250px"
         onLoad={() => setIsLoading(false)}
+        data-testid="lazy-image-custom"
         loading="lazy"
       />
     </div>

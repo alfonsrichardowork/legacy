@@ -5,10 +5,10 @@ import { Metadata, ResolvingMetadata } from "next"
 import Script from "next/script";
 import { Suspense } from "react";
 
-// export const revalidate = 86400
-// export async function generateStaticParams() {
-//   return allDriversSubCat.map((driversSubCategory) => ({ driversSubCategory }));
-// }
+export const revalidate = 86400
+export async function generateStaticParams() {
+  return allDriversSubCat.map((driversSubCategory) => ({ driversSubCategory }));
+}
 
 type Props = {
   params: Promise<{ driversSubCategory: string }>

@@ -2,18 +2,18 @@ import getAllNewsGSP from "@/app/(legacy)/actions/get-all-news-gsp";
 import getOneNews from "@/app/(legacy)/actions/get-one-news"
 import { Metadata, ResolvingMetadata } from "next"
 
-// export const revalidate = 86400
-// export async function generateStaticParams() {
-//   const allNews = await getAllNewsGSP();
+export const revalidate = 86400
+export async function generateStaticParams() {
+  const allNews = await getAllNewsGSP();
 
-//   if (!allNews || allNews.length === 0) {
-//     return []; // no params generated
-//   }
+  if (!allNews || allNews.length === 0) {
+    return []; // no params generated
+  }
 
-//   return allNews.map((newsSlug) => ({
-//     newsSlug
-//   }));
-// }
+  return allNews.map((newsSlug) => ({
+    newsSlug
+  }));
+}
 
 type Props = {
   params: Promise<{ newsSlug: string }>

@@ -1,3 +1,5 @@
+// export const dynamic = "force-dynamic";
+
 import getAboutUs from "../../actions/get-about-us";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";

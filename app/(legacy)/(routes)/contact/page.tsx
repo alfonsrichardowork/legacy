@@ -1,3 +1,5 @@
+// export const dynamic = "force-dynamic";
+
 import type { contacts } from "@prisma/client"
 import { Suspense } from "react"
 import getAllContact from "../../actions/get-all-contact"

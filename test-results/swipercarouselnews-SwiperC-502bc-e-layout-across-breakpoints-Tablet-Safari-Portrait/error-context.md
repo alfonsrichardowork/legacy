@@ -1,0 +1,276 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e8]:
+      - generic [ref=e9]:
+        - link "Legacy Speaker Logo" [ref=e11]:
+          - /url: /
+          - img "Legacy Speaker Logo" [ref=e12] [cursor=pointer]
+        - generic [ref=e13]:
+          - img [ref=e16]
+          - button "Mobile Menu" [ref=e19]:
+            - img [ref=e20]
+    - generic [ref=e21]:
+      - main [ref=e22]:
+        - heading "Welcome to Legacy Speaker Official Website!" [level=1] [ref=e23]
+        - generic [ref=e24]:
+          - heading "Featured Products by Legacy Speakers!" [level=2] [ref=e25]
+          - generic [ref=e27]:
+            - generic [ref=e29]:
+              - generic [ref=e31]:
+                - img "8\" LG 838-2 MK1" [ref=e33]
+                - generic [ref=e34]:
+                  - heading "ENERGY SERIES" [level=4] [ref=e35]
+                  - heading "8\" LG 838-2 MK1" [level=3] [ref=e36]
+                  - heading "Ciri khas warna orange yang dilengkapi dengan magnet rubber cover dan conepaper menggunakan teknik jahitan yang memaksimalkan durability speaker" [level=4] [ref=e37]
+                  - link "LEARN MORE" [ref=e39]:
+                    - /url: /products/lg-838-2-mk1
+              - generic [ref=e41]:
+                - img "12\" LG 1277-2" [ref=e43]
+                - generic [ref=e44]:
+                  - heading "LEGACY SERIES" [level=4] [ref=e45]
+                  - heading "12\" LG 1277-2" [level=3] [ref=e46]
+                  - heading "Tampilan fresh dan elegan serta jahitan antara conepaper dan surround yang kuat mampu meningkatkan performa bass yang kuat dan dalam" [level=4] [ref=e47]
+                  - link "LEARN MORE" [ref=e49]:
+                    - /url: /products/lg-1277-2
+              - generic [ref=e51]:
+                - img "8\" PG 854-2 RED" [ref=e53]
+                - generic [ref=e54]:
+                  - heading "PRESTIGE SERIES" [level=4] [ref=e55]
+                  - heading "8\" PG 854-2 RED" [level=3] [ref=e56]
+                  - heading "Tipe speaker yang mampu meningkatkan pengalaman konser di mobilmu yang didapat dari material berkualitas tinggi" [level=4] [ref=e57]
+                  - link "LEARN MORE" [ref=e59]:
+                    - /url: /products/pg-854-2-red
+              - generic [ref=e61]:
+                - img "12\" LG 12385-2" [ref=e63]
+                - generic [ref=e64]:
+                  - heading "SPARTA SERIES" [level=4] [ref=e65]
+                  - heading "12\" LG 12385-2" [level=3] [ref=e66]
+                  - heading "Kesan elegan dan garang dari warna hitam dan kuning, serta memiliki karakter suara yang lebih akustik" [level=4] [ref=e67]
+                  - link "LEARN MORE" [ref=e69]:
+                    - /url: /products/lg-12385-2
+            - generic [ref=e70]:
+              - button "Go to slide 1" [ref=e71]
+              - button "Go to slide 2" [ref=e72]
+              - button "Go to slide 3" [ref=e73]
+              - button "Go to slide 4" [ref=e74]
+        - generic [ref=e75]:
+          - heading "PILIH SPEAKER ANDA" [level=2] [ref=e77]
+          - generic [ref=e79]:
+            - link "Legacy Series Logo LEGACY Presisi Suara di Setiap Nada." [ref=e80] [cursor=pointer]:
+              - /url: /drivers/legacy
+              - generic [ref=e81]:
+                - img "Legacy Series Logo" [ref=e82]
+                - generic [ref=e83]:
+                  - heading "LEGACY" [level=3] [ref=e84]
+                  - heading "Presisi Suara di Setiap Nada." [level=4] [ref=e85]
+            - link "Sparta Series Logo SPARTA Performa Handal, Harga Optimal." [ref=e86] [cursor=pointer]:
+              - /url: /drivers/sparta
+              - generic [ref=e87]:
+                - img "Sparta Series Logo" [ref=e88]
+                - generic [ref=e89]:
+                  - heading "SPARTA" [level=3] [ref=e90]
+                  - heading "Performa Handal, Harga Optimal." [level=4] [ref=e91]
+            - link "Energy Series Logo ENERGY Tenaga Maksimal, Energi Efisien." [ref=e92] [cursor=pointer]:
+              - /url: /drivers/energy
+              - generic [ref=e93]:
+                - img "Energy Series Logo" [ref=e94]
+                - generic [ref=e95]:
+                  - heading "ENERGY" [level=3] [ref=e96]
+                  - heading "Tenaga Maksimal, Energi Efisien." [level=4] [ref=e97]
+        - generic [ref=e99]:
+          - heading "BERITA TERBARU" [level=2] [ref=e100]
+          - generic [ref=e102]:
+            - generic [ref=e103]:
+              - 'img "SPEAKER MOBIL LIMITED EDITION KARYA ANAK BANGSA: 10in LG 1040 dan 12in LG 1240" [ref=e104]'
+              - 'heading "SPEAKER MOBIL LIMITED EDITION KARYA ANAK BANGSA: 10in LG 1040 dan 12in LG 1240" [level=3] [ref=e105]'
+              - heading [level=4] [ref=e106]:
+                - generic [ref=e107]:
+                  - paragraph [ref=e108]: "Selama bertahun-tahun, Sinar Baja Electric mengeluarkan speaker mobil dengan bahan berkualitas dan suara yang jernih yang bisa didapatkan dari brand adalannya: Legacy Series. Dikenal luas lewat produk best sellernya yaitu 12in LG 1277-2, Legacy Series mengeluarkan serian Limited Editionnya sebanyak 2 tipe, yaitu 10in LG 1040 dan 12in LG 1240."
+                  - paragraph [ref=e109]: Setiap tipe memiliki daya magnet yang optimal yang didapat dari hasil pengukuran FEA (Finite Element Analysis), sehingga menghasilkan suara treble lebih jernih. Bass yang dalam juga membantu meningkatkan pengalaman audio yang lebih imersif sehingga pelanggan merasakan seperti di tengah konser. Material conepaper yang dibuat dari bahan PP injection khusus memiliki daya tahan yang sangat tinggi terhadap perubahan cuaca. Dengan teknologi ini, speaker bisa digunakan diberbagai macam tempat yaitu di area indoor maupun outdoor, karena speaker ini akan tetap mengeluarkan kualitas suara yang prima. Keunggulan lain yang tidak kalah penting adalah motor didesain dengan ventilasi khusus sehingga tidak ada kompresi udara dan memberikan sirkulasi udara yang berfungsi sebagai pendingin. Dengan sistem ini, maka pengguna dapat menggunakan speaker ini dalam jangka waktu yang lama, dan kualitas suara tetap stabil walaupun dengan volume yang tinggi.
+                  - paragraph [ref=e110]
+                  - paragraph [ref=e111]
+                  - paragraph [ref=e112]:
+                    - strong [ref=e113]: Pentingnya Memilih Speaker Berkualitas Dari Indonesia
+                  - paragraph [ref=e114]:
+                    - text: Sinar Baja Electric (SBE) merupakan produsen loudspeaker lokal terbesar di Asia Tenggara. Dengan sertifikasi
+                    - strong [ref=e115]: ISO 9001/TS 16949
+                    - text: ", SBE fokus pada speaker mobil berkualitas tinggi. Dengan tagline Legacy Speaker yaitu"
+                    - strong [ref=e116]:
+                      - emphasis [ref=e117]: The Driving Force
+                    - text: ", perusahaan berkomitmen untuk selalu meningkatkan pengalaman berkendaran tidak akan didapat dari brand-brand lainnya."
+                  - paragraph [ref=e118]: Dengan pabrik yang berlokasi di Surabaya ini, SBE memiliki keunggulan yang tidak dimiliki oleh brand-brand ternama lainnya, yaitu adanya fasilitas jasa servis yang melewati proses quality control yang sama seperti memproduksi produk baru.
+                  - paragraph [ref=e119]: Pelanggan juga dapat membeli produk dari Sinar Baja Electric melalui dealer-dealer resmi SBE. Daftar dealer resmi tersedia di aplikasi My SBE, dan dapat diunduh di Play Store.
+              - link "READ MORE" [ref=e121]:
+                - /url: /news/speaker-mobil-limited-edition-karya-anak-bangsa-10in-lg-1040-dan-12in-lg-1240
+            - generic [ref=e122]:
+              - img "Merchandise Gratis untuk Youtuber Penikmat Audio Legacy" [ref=e123]
+              - heading "Merchandise Gratis untuk Youtuber Penikmat Audio Legacy" [level=3] [ref=e124]
+              - 'heading "Tidak kalah dari brand-brand Sinar Baja Electric lainnya, Legacy juga membuat event khusus untuk para penikmat sound Legacy. Event ini diadakan sebagai bentuk apresiasi kepada para pecinta audio yang tetap setia menggunakan Legacy. Mereka bisa mendapatkan merchandise gratis dengan cara sebagai berikut: Follow instagram @legacy.speaker Upload konten review mengenai produk Legacy di Youtube atau Tiktok semenarik dan sekreatif mungkin Kirimkan link video ke tim Legacy melalui instagram @legacy.speaker beserta kelengkapan data untuk pengiriman merchandise (nama, alamat lengkap, kode pos, dan no hp) Event ini akan diadakan tiap bulan, dan konten yang mendapatkan merchandise adalah konten yang telah terupload sejak Januari 2023." [level=4] [ref=e125]':
+                - generic [ref=e126]:
+                  - paragraph [ref=e127]: "Tidak kalah dari brand-brand Sinar Baja Electric lainnya, Legacy juga membuat event khusus untuk para penikmat sound Legacy. Event ini diadakan sebagai bentuk apresiasi kepada para pecinta audio yang tetap setia menggunakan Legacy. Mereka bisa mendapatkan merchandise gratis dengan cara sebagai berikut:"
+                  - list [ref=e128]:
+                    - listitem [ref=e129]:
+                      - paragraph [ref=e130]: Follow instagram @legacy.speaker
+                    - listitem [ref=e131]:
+                      - paragraph [ref=e132]: Upload konten review mengenai produk Legacy di Youtube atau Tiktok semenarik dan sekreatif mungkin
+                    - listitem [ref=e133]:
+                      - paragraph [ref=e134]: Kirimkan link video ke tim Legacy melalui instagram @legacy.speaker beserta kelengkapan data untuk pengiriman merchandise (nama, alamat lengkap, kode pos, dan no hp)
+                  - paragraph [ref=e135]: Event ini akan diadakan tiap bulan, dan konten yang mendapatkan merchandise adalah konten yang telah terupload sejak Januari 2023.
+              - link "READ MORE" [ref=e137]:
+                - /url: /news/merchandise-gratis-untuk-youtuber-penikmat-audio-legacy
+            - generic [ref=e138]:
+              - img "Langkah Mengikuti Undian Poin My SBE" [ref=e139]
+              - heading "Langkah Mengikuti Undian Poin My SBE" [level=3] [ref=e140]
+              - heading [level=4] [ref=e141]:
+                - generic [ref=e142]:
+                  - paragraph [ref=e143]: "Setelah keberhasilan acara Undian Poin My SBE 2023, event ini akan diadakan setiap tahun oleh tim ACR. Event ini diperuntukkan kepada konsumen lama dan konsumen baru jika membeli produk ACR, Legacy, Curve berdasarkan periode yang ditetapkan, maka bisa mendapatkan hadiah. Hadiah tersebut didapat dari poin-poin yang sudah dikumpulkan dengan cara sebagai berikut:"
+                  - paragraph [ref=e144]
+                  - list [ref=e145]:
+                    - listitem [ref=e146]:
+                      - paragraph [ref=e147]:
+                        - text: Download app My SBE pada Play Store, lalu registrasi terlebih dahulu. Berikut
+                        - link "link app My SBE" [ref=e148]:
+                          - /url: https://play.google.com/store/apps/details?id=id.sbe.mysbe.customer&hl=id
+                      - img "Image" [ref=e149]
+                    - listitem [ref=e150]:
+                      - paragraph [ref=e151]: Pada halaman Beranda klik “Pindai” dan scan QR-Code yang ada pada speaker ACR. QR-Code biasanya terletak pada magnet atau yoke speaker
+                      - img "Image" [ref=e152]
+                      - img "Image" [ref=e153]
+                    - listitem [ref=e154]:
+                      - paragraph [ref=e155]: Lalu pilih toko pembelian
+                      - img "Image" [ref=e156]
+                    - listitem [ref=e157]:
+                      - paragraph [ref=e158]: Setelah memilih toko, maka akan muncul pop up message bahwa poin berhasil didapatkan. Banyaknya poin tergantung dari ukuran dan tipe speaker
+                      - img "Image" [ref=e159]
+                    - listitem [ref=e160]:
+                      - paragraph [ref=e161]: Jika QR Barcode sudah pernah discan sebelumnya maka akan muncul pop up message yang menyatakan voucher gagal di-scan
+                      - img "Image" [ref=e162]
+                    - listitem [ref=e163]:
+                      - paragraph [ref=e164]: Poin yang berhasil didapatkan akan tersimpan pada “Poin Anda” di halaman Beranda. Untuk melihat riwayat scan, langsung klik pada kolom “Poin Anda”
+                      - img "Image" [ref=e165]
+              - link "READ MORE" [ref=e167]:
+                - /url: /news/langkah-mengikuti-undian-poin-my-sbe
+        - generic [ref=e170]:
+          - img "Tentang Legacy Speaker" [ref=e172]
+          - generic [ref=e173]:
+            - heading "TENTANG KAMI" [level=2] [ref=e174]
+            - heading "Sinar Baja Electric (SBE), berdiri sejak 1981, kini menjadi produsen loudspeaker terbesar di Asia Tenggara. Dengan sertifikasi ISO 9001, ISO 14001, ISO 45001, dan IATF 16949, SBE fokus pada produk berkualitas tinggi. Merek lokalnya, Legacy, Sphinx, dan Prestige, dikenal dalam segmen Car Audio berkat desain berkualitas, bahan premium, dan variasi model yang memenuhi kebutuhan konsumen." [level=3] [ref=e175]:
+              - generic [ref=e176]:
+                - paragraph [ref=e177]:
+                  - text: Sinar Baja Electric (SBE), berdiri sejak 1981, kini menjadi produsen loudspeaker terbesar di Asia Tenggara. Dengan sertifikasi
+                  - strong [ref=e178]: ISO 9001
+                  - text: ","
+                  - strong [ref=e179]: ISO 14001
+                  - text: ","
+                  - strong [ref=e180]: ISO 45001
+                  - text: ", dan"
+                  - strong [ref=e181]: IATF 16949
+                  - text: ", SBE fokus pada produk berkualitas tinggi."
+                - paragraph [ref=e182]: Merek lokalnya, Legacy, Sphinx, dan Prestige, dikenal dalam segmen Car Audio berkat desain berkualitas, bahan premium, dan variasi model yang memenuhi kebutuhan konsumen.
+            - link "ABOUT US" [ref=e183]:
+              - /url: /about-us
+        - generic [ref=e185]:
+          - link "ACR Rhyme Youtube YOUTUBE CHANNEL ACR Speaker - Rhyme Pro Audio" [ref=e187]:
+            - /url: https://youtube.com/@acrspeaker-rhymeproaudio?si=jABUOuZOZV6axnPt
+            - generic [ref=e188]:
+              - img "ACR Rhyme Youtube" [ref=e190]
+              - generic [ref=e191]:
+                - heading "YOUTUBE CHANNEL" [level=2] [ref=e192]
+                - generic [ref=e193]: ACR Speaker - Rhyme Pro Audio
+          - generic [ref=e194]:
+            - link "COMING SOON LEGACY LIMITED EDITION BY SINAR BAJA ELECTRIC" [ref=e195]:
+              - /url: https://www.youtube.com/watch?v=0tSGZBU71gc
+              - generic [ref=e196]:
+                - img "COMING SOON LEGACY LIMITED EDITION BY SINAR BAJA ELECTRIC" [ref=e197]
+                - img [ref=e199]
+            - link "Tur Pabrik SBE" [ref=e201]:
+              - /url: https://www.youtube.com/watch?v=MdXTBWAba6I
+              - generic [ref=e202]:
+                - img "Tur Pabrik SBE" [ref=e203]
+                - img [ref=e205]
+            - link "ACR Rhyme Desibel Lumajang" [ref=e207]:
+              - /url: https://www.youtube.com/watch?v=xbs1qcUuAZc
+              - generic [ref=e208]:
+                - img "ACR Rhyme Desibel Lumajang" [ref=e209]
+                - img [ref=e211]
+            - link "ACR Rhyme Desibel Ngawi" [ref=e213]:
+              - /url: https://www.youtube.com/watch?v=oxL7PB9yZ70
+              - generic [ref=e214]:
+                - img "ACR Rhyme Desibel Ngawi" [ref=e215]
+                - img [ref=e217]
+            - link "Toys Paradise Rhyme" [ref=e219]:
+              - /url: https://www.youtube.com/watch?v=D8z5V0Y4kIs
+              - generic [ref=e220]:
+                - img "Toys Paradise Rhyme" [ref=e221]
+                - img [ref=e223]
+            - link "Showroom Lokal SBE Surabaya" [ref=e225]:
+              - /url: https://www.youtube.com/watch?v=M8QOSdspAqs
+              - generic [ref=e226]:
+                - img "Showroom Lokal SBE Surabaya" [ref=e227]
+                - img [ref=e229]
+        - generic [ref=e236]:
+          - img "100% Karya Anak Bangsa" [ref=e237]
+          - paragraph [ref=e239]: 100% Karya Anak Bangsa
+        - generic [ref=e242]:
+          - heading "TOKO & DISTRIBUTOR" [level=2] [ref=e243]
+          - generic [ref=e244]: Chanel pembelian speaker legacy bisa diperoleh melalui Toko & Distributor berikut.
+          - link "CONTACT US" [ref=e245]:
+            - /url: /distributors
+      - generic [ref=e249]:
+        - generic [ref=e250]:
+          - heading "Brand Lain Dari CV. Sinar Baja Electric" [level=2] [ref=e251]
+          - generic [ref=e253]:
+            - heading "ACR Speaker Website" [level=3] [ref=e254]
+            - link "Visit ACR Speaker Website" [ref=e255]:
+              - /url: https://acrspeaker.com/
+              - img "Logo ACR Speaker" [ref=e256]
+            - heading "Rhyme Audio Website" [level=3] [ref=e257]
+            - link "Visit Rhyme Audio Website" [ref=e258]:
+              - /url: https://rhymeaudio.com/
+              - img "Logo Rhyme Audio" [ref=e259]
+        - generic [ref=e260]:
+          - generic [ref=e262]:
+            - link "Legacy Speaker Logo" [ref=e264]:
+              - /url: /
+              - img "Legacy Speaker Logo" [ref=e265]
+            - heading "CV. Sinar Baja Electric Surabaya" [level=3] [ref=e266]
+            - generic [ref=e267]:
+              - generic [ref=e268]:
+                - 'heading "MAIN OFFICE: Jl. Margomulyo No.5, Tandes - Surabaya 60186" [level=4] [ref=e269]'
+                - 'heading ": +62 31 748 0011, +62 31 749 3777" [level=4] [ref=e270]':
+                  - img [ref=e271]
+                  - text: ": +62 31 748 0011, +62 31 749 3777"
+              - generic [ref=e273]:
+                - 'heading "SHOWROOM - JKT: Ruko Glodok Plaza F-97, Jl. Raya Pinangsia 1, Glodok, Tamansari, West Jakarta" [level=4] [ref=e274]'
+                - 'heading ": +62 811 3077 6724, +62 21 649 3139" [level=4] [ref=e275]':
+                  - img [ref=e276]
+                  - text: ": +62 811 3077 6724, +62 21 649 3139"
+              - generic [ref=e278]:
+                - 'heading "SHOWROOM - SBY: Jl. Genteng Besar No. 15A - Genteng" [level=4] [ref=e279]'
+                - 'heading ": +62 81 231 833 504, +62 81 217 334 084" [level=4] [ref=e280]':
+                  - img [ref=e281]
+                  - text: ": +62 81 231 833 504, +62 81 217 334 084"
+          - generic [ref=e284]:
+            - generic [ref=e285]:
+              - link "Footer Contact Us" [ref=e287]:
+                - /url: https://wa.me/6281231833504?text=Halo,%20saya%20mau%20bertanya%20mengenai%20produk%20Legacy.
+                - img [ref=e288]
+              - link "Footer Contact Us" [ref=e291]:
+                - /url: https://www.instagram.com/legacy.speaker?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==
+                - img [ref=e292]
+            - generic [ref=e295]: Download Aplikasinya Sekarang
+            - link "Logo Aplikasi MySBE" [ref=e296]:
+              - /url: https://play.google.com/store/apps/details?id=id.sbe.mysbe.customer&hl=id&pli=1
+              - img "Logo Aplikasi MySBE" [ref=e297]
+        - generic [ref=e298]:
+          - generic [ref=e299]: ©2026
+          - text: LEGACY SPEAKER - ALL RIGHTS RESERVED
+  - region "Notifications (F8)":
+    - list
+  - button "Open Next.js Dev Tools" [ref=e305] [cursor=pointer]:
+    - img [ref=e306]
+  - alert [ref=e311]
+```

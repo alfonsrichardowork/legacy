@@ -9,6 +9,7 @@ import '@/app/globals.css'
 import Script from 'next/script';
 import GAListener from './components/GAListener';
 import { Suspense } from 'react';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const font = Inter({ subsets: ['latin'] })
 
@@ -93,7 +94,7 @@ export default function RootlegacyLayout({
       />
     </head>
     <body className={`${font.className || ''} overflow-x-hidden`}>
-      <Script
+      {/* <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
         strategy="afterInteractive"
       />
@@ -114,7 +115,7 @@ export default function RootlegacyLayout({
       </Script> 
       <Suspense fallback={null}>
         <GAListener />
-      </Suspense>
+      </Suspense> */}
 
       <ScrollToTop />
       <div className='min-h-screen'>
@@ -131,6 +132,7 @@ export default function RootlegacyLayout({
       </div>
       <Toaster />
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ''} />
     </html>
   )
 }

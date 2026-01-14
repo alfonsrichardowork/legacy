@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FindUs } from './FindUs';
 import { Separator } from '../../../components/ui/separator';
 import Link from 'next/link';
-import DynamicContactFooter from './ui/dynamicfootercontact';
+import DynamicContactFooter from './dynamicfootercontact';
 import FooterClient from './footerRightsClient';
 import { Suspense } from 'react';
 import { Loader } from './ui/loader';

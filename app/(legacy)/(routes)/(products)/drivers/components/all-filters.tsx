@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/app/(legacy)/components/ui/sheet";
 import { ScrollArea } from "@/app/(legacy)/components/ui/scroll-area";
-import NoResults from "@/app/(legacy)/components/ui/no-results";
-import ProductCard from "@/app/(legacy)/components/ui/product-card";
+import NoResults from "@/app/(legacy)/components/no-results";
+import ProductCard from "@/app/(legacy)/components/product-card";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/app/(legacy)/components/hooks/use-toast";
@@ -18,6 +18,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { LazyImage } from "@/app/(legacy)/components/lazyImage";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { LazyImageCustom } from "@/app/(legacy)/components/lazyImageCustom";
+import { Loader } from "@/app/(legacy)/components/ui/loader";
 
 
 let activeSlugCompare: string[] = [];
@@ -68,6 +69,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
     // console.log("allFeaturedProducts: ", allFeaturedProducts)
     const [sliderValue, setSliderValue] = useState<SliderData[]>([])
     const [loadingSlider, setLoadingSlider] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         const fetchDataSlider = async () => {
@@ -229,17 +231,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                         finalTempProduct[category] = [];
                     }
 
-                    data.forEach((product) => {
-                        // let productValue = ''
-                        // if(checkbox.slug === 'series' && product.specs.length > 0){
-                        //     productValue = product.specs.find((val) => val.slug === checkbox.slug)?.value ?? ''
-                        // }
-                        // else{
-                        //     if(product.sub_sub_categories.length > 0){ 
-                        //         productValue = product.sub_sub_categories[0].name ?? ''
-                        //     }
-                        // }
-                        
+                    data.forEach((product) => {                        
                         const productValue = product.specs.find((val) => val.slug === checkbox.slug)?.value;
                         const checkboxValue = checkbox.name;
 
@@ -289,6 +281,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
             FinalFeatured.sort((a, b) => a.products.name.localeCompare(b.products.name));
 
             setAllFeaturedProducts(FinalFeatured)
+            setLoading(false)
 
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -459,20 +452,8 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
         setSelectedUrlComparison("")
     }
 
-
-
-
-    
-
-
-
-
-
     return ( 
         <>
-
-
-        {/* FLOATING ACTION BUTTON UNTUK PERBANDINGAN  */}
             <div
                 className={`fixed bottom-4 right-4 z-40 transform duration-700 ${
                     activeSlugCompare.length === 0 ? 'translate-y-56' : 'translate-y-0'
@@ -789,103 +770,65 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                             <hr/>
                         </div>
                     )}
-                    {/* {activeSlugCompare.length > 0 && activeSlugCompare[0] !='' && (
-                        <>
-                            <div className="font-bold text-lg text-center text-black pt-4">
-                                PERBANDINGAN PRODUK
-                            </div>
-                            {activeSlugCompare.map((slug, index) => (
-                                <div
-                                    key={slug}
-                                    className="flex justify-between items-center py-2 "
-                                >
-                                    <Image src={activeUrlCompare[index]}
-                                        width={100}
-                                        height={100}
-                                        className="h-[70px] w-fit"
-                                        alt={activeNameCompare[index]}
-                                    />
-                                    <span className="text-base text-black truncate">
-                                        {activeNameCompare[index]}
-                                    </span>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        className="hover:bg-transparent"
-                                        onClick={() => deleteComparison(slug)}
-                                        aria-label={`Remove ${activeNameCompare[index]} from comparison`}
-                                    >
-                                        <X size={20} className="bg-red-500 rounded-sm"/>
-                                    </Button>
-                                </div>
-                            ))}
-                            <div className="w-full flex justify-center">
-                                <Button
-                                    variant="default"
-                                    className="bg-secondary border-foreground border-2 w-full"
-                                    asChild
-                                >
-                                    <Link href={`/comparison/${url}`}> 
-                                        <b>HASIL PERBANDINGAN</b>
-                                    </Link>
-                                </Button>
-                            </div>
-                        </>
-                    )} */}
                 </div>
             </>
             :
                 <div className="hidden md:block pr-16"></div>
             }
-            {allFeaturedProducts.length === 0 ?        
-                <div className="w-full">
-                    <NoResults />
+            
+            {loading ? 
+                <div className="w-full flex items-center justify-center h-screen">
+                    <Loader/>
                 </div>
             :
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full">
-                    {allFeaturedProducts.map((item: AllFilterProductsOnlyType, i) => (
-                        <div key={i} className="pt-4 pb-12">
-                            <ProductCard key={item.products.id} data={item}/>
-                            {!activeSlugCompare.includes(item.products.slug) ?  
-                                <div className="w-full flex justify-center pb-4">
-                                    <Button
-                                        onClick={() => 
-                                            activeSlugCompare.length < maxCompare?
-                                                addComparison(item.products.slug, item.products.name, item.products.cover_img.url)
-                                            :
-                                                toast({
-                                                    title: "Tabel Perbandingan Full!",
-                                                    description: "Total tidak lebih dari 5",
-                                                    className: "border-none"
-                                                })
-                                            }
-                                            
-                                        variant="outline"
-                                        className="bg-transparent border-foreground border-4 sm:w-2/3 w-screen"
-                                    >
-                                        <b>BANDINGKAN</b>
-                                    </Button>
-                                </div>
-                                :
-                                <>
-                                    <div className="w-full flex justify-center pb-4 gap-3">
-                                        <Button
-                                            disabled
-                                            className="bg-secondary/70 sm:w-2/3 w-screen"
-                                            
-                                        >
-                                                {/* <Check size={25} className="pr-2" strokeWidth={3}/> */}
-                                                <b>PERBANDINGAN</b>
-                                        </Button>
-                                        {/* <Button variant="destructive" size="icon" onClick={() => deleteComparison(item.slug)}>
-                                            <X size={25} />
-                                        </Button> */}
-                                    </div>
-                                </>
-                            }
+                <>
+                    {allFeaturedProducts.length === 0 ?        
+                        <div className="w-full">
+                            <NoResults />
                         </div>
-                    ))}
-                </div>
+                    :
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full">
+                            {allFeaturedProducts.map((item: AllFilterProductsOnlyType, i) => (
+                                <div key={i} className="pt-4 pb-12">
+                                    <ProductCard key={item.products.id} data={item}/>
+                                    {!activeSlugCompare.includes(item.products.slug) ?  
+                                        <div className="w-full flex justify-center pb-4">
+                                            <Button
+                                                onClick={() => 
+                                                    activeSlugCompare.length < maxCompare?
+                                                        addComparison(item.products.slug, item.products.name, item.products.cover_img.url)
+                                                    :
+                                                        toast({
+                                                            title: "Tabel Perbandingan Full!",
+                                                            description: "Total tidak lebih dari 5",
+                                                            className: "border-none"
+                                                        })
+                                                    }
+                                                    
+                                                variant="outline"
+                                                className="bg-transparent border-foreground border-4 sm:w-2/3 w-screen"
+                                            >
+                                                <b>BANDINGKAN</b>
+                                            </Button>
+                                        </div>
+                                        :
+                                        <>
+                                            <div className="w-full flex justify-center pb-4 gap-3">
+                                                <Button
+                                                    disabled
+                                                    className="bg-secondary/70 sm:w-2/3 w-screen"
+                                                    
+                                                >
+                                                    <b>PERBANDINGAN</b>
+                                                </Button>
+                                            </div>
+                                        </>
+                                    }
+                                </div>
+                            ))}
+                        </div>
+                    }
+                </>
             }
             </div>
         </>

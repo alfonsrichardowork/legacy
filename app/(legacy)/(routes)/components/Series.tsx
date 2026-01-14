@@ -1,5 +1,5 @@
 import { featuredseries } from '@prisma/client';
-import SwiperCarouselFeaturedSeries from '../../components/ui/swipercarouselfeaturedseries';
+import SwiperCarouselFeaturedSeries from '../../components/swipercarouselfeaturedseries';
 import Link from 'next/link';
 import Image from 'next/image';
 import { use } from 'react';

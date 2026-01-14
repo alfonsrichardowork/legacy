@@ -23,6 +23,7 @@ export const LazyImageContact = ({ src, alt }: { src: string; alt: string; }) =>
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
         className="object-cover h-full"
         onLoad={() => setIsLoading(false)}
+        data-testid="lazy-image-contact"
         priority
       />
     </div>

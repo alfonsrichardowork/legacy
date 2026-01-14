@@ -25,6 +25,7 @@ export const LazyImage = ({ src, alt, width, height }: { src: string; alt: strin
         height={height}
         className={clsx("h-fit w-full object-cover", { "opacity-0": isLoading })} // Fade in effect
         onLoad={() => setIsLoading(false)}
+        data-testid="lazy-image"
         priority
       />
     </div>

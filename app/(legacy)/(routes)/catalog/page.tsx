@@ -1,3 +1,5 @@
+// export const dynamic = "force-dynamic";
+
 import getAllCatalogues from "../../actions/get-all-catalogues";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";

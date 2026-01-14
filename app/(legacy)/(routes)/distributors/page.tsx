@@ -1,3 +1,5 @@
+// export const dynamic = "force-dynamic";
+
 import { distributors } from "@prisma/client";
 import getAllDistributor from "../../actions/get-all-distributor";
 import { Separator } from "@/components/ui/separator";

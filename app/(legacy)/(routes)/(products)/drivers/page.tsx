@@ -1,68 +1,15 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
-import { AllFilterProductsOnlyType, CheckBoxData, ChildSpecificationProp, SliderData } from "@/app/(legacy)/types";
+import { AllFilterProductsOnlyType, ChildSpecificationProp } from "@/app/(legacy)/types";
 import getAllProductsForFilterPage from "@/app/(legacy)/actions/get-all-products-for-filter-page";
 import { Suspense } from "react";
-import FullScreenLoader from "@/app/(legacy)/components/loadingNoScroll";
-import AllDriversandFiltersProducts from "./components/all-filters";
-import { removeDuplicates } from "./components/remove-duplicate";
+import { Loader } from "@/app/(legacy)/components/ui/loader";
+import DriversPageWithData from "./withData";
 
 const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ALL_PRODUCTS}`;
 
-export default async function DriversPage() {
-  
-  let [tempData, allSpecsCombined]: [AllFilterProductsOnlyType[], Record<string, ChildSpecificationProp[]>] = await getAllProductsForFilterPage(API);
-  // console.log("tempDataL ",tempData)
-  let sliderRows: SliderData[] = [];
-  let checkboxRows: CheckBoxData[] = [];
-  let showserver: boolean = true;
-
-
-  let counterShow = 0;
-  for (const key in allSpecsCombined) {
-    if(key !== 'series' && key != "type") {
-      const allValueWithoutDuplicates: number[] = removeDuplicates(allSpecsCombined[key].map((val) => Number(val.value)));
-      const allValueWithoutDuplicatesAndNone = allValueWithoutDuplicates.filter(number => !Number.isNaN(number));
-      const sortedValues = allValueWithoutDuplicatesAndNone.slice().sort((a, b) => a - b);
-      if(sortedValues.length>1){
-        counterShow+=1
-      }
-      sliderRows.push(
-        {
-          name: allSpecsCombined[key][0].childname, 
-          value: sortedValues, 
-          unit: allSpecsCombined[key][0].unit,
-          max_index: sortedValues.length - 1,
-          min_index: 0,
-          minIndex: 0,
-          maxIndex: sortedValues.length - 1,
-          slug: key
-        },
-      )
-    }
-    else{
-      const allValueWithoutDuplicates: string[] = removeDuplicates(allSpecsCombined[key].map((val) => val.value));
-      const allValueWithoutDuplicatesAndNone = allValueWithoutDuplicates.filter(number => number != '');
-      const sortedValues = allValueWithoutDuplicatesAndNone.sort()
-      if(sortedValues.length>1){
-        counterShow+=1
-      }
-      checkboxRows.push(
-        {
-          name: allSpecsCombined[key][0].childname, 
-          value: sortedValues, 
-          unit: allSpecsCombined[key][0].unit,
-          slug: key,
-        },
-      )
-    }
-  }
-
-  if(counterShow===0){
-    showserver = false
-  }
-
-
+async function AllDriversJsonLd() {
+  let [tempData, _]: [AllFilterProductsOnlyType[], Record<string, ChildSpecificationProp[]>] = await getAllProductsForFilterPage(API);
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
 
   const jsonLd = {
@@ -89,24 +36,21 @@ export default async function DriversPage() {
     }))
   }  
 
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+}
+
+
+export default function DriversPage() {
+  const tempDataPromise = getAllProductsForFilterPage(API)
   return (
     <div className="bg-white -z-10">
-      <Suspense fallback={<FullScreenLoader isVisible/>}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <h1 className="sr-only">All Drivers | Legacy Speaker</h1>
-        <div className="relative w-full py-8 h-fit">
-            {showserver?
-                <AllDriversandFiltersProducts data={tempData} slider={sliderRows} checkbox={checkboxRows} showFilters={showserver} />
-            :
-              <div className="md:grid md:grid-cols-4">
-                  <AllDriversandFiltersProducts data={tempData} slider={sliderRows} checkbox={checkboxRows} showFilters={showserver} />
-              </div>
-            }
-        </div>
-      </Suspense>
+      <AllDriversJsonLd />
+      <h1 className="sr-only">All Drivers | Legacy Speaker</h1>
+      <div className="relative w-full py-8 h-fit">
+        <Suspense fallback={<div className='h-screen w-full flex items-center justify-center'><Loader/></div>}>
+          <DriversPageWithData tempDataPromise={tempDataPromise} />
+        </Suspense>
+      </div>
     </div>
   );
 }

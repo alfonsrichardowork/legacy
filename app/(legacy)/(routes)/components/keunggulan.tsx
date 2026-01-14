@@ -1,5 +1,5 @@
 import { superior } from '@prisma/client';
-import SwiperCarouselKeunggulan from '../../components/ui/swipercarouselkeunggulan';
+import SwiperCarouselKeunggulan from '../../components/swipercarouselkeunggulan';
 import { use } from 'react';
 
 export default function Keunggulan({superiorPromise}: {superiorPromise: Promise<superior[]>}) {

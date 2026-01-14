@@ -12,10 +12,10 @@ import SpecificationTable from "@/app/(legacy)/components/spec-table";
 const all_desc_style = "text-left xl:text-base sm:text-sm text-xs text-black p-0 py-1"
 const all_sub_title_style = "text-left font-bold xl:text-4xl text-2xl text-black"
 
-const SwiperCoverDynamic = dynamic(() => import("@/app/(legacy)/components/ui/swipercarouselcoverandcatalogues"), {
+const SwiperCoverDynamic = dynamic(() => import("@/app/(legacy)/components/swipercarouselcoverandcatalogues"), {
     loading: () => <FullScreenLoader isVisible/>,
 });
-const SwiperGraphImpedanceDynamic = dynamic(() => import("@/app/(legacy)/components/ui/swipercarouselgraphimpedance"), {
+const SwiperGraphImpedanceDynamic = dynamic(() => import("@/app/(legacy)/components/swipercarouselgraphimpedance"), {
     loading: () => <FullScreenLoader isVisible/>,
 });
 const DompurifyContentDynamic = dynamic(() => import("@/app/(legacy)/components/dompurifyText"), {

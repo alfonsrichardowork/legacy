@@ -1,16 +1,15 @@
 import { describe, test, expect } from "vitest"
 import { render, screen, within } from "@testing-library/react"
-import SwiperCarouselNews from "@/app/(legacy)/components/ui/swipercarouselnews"
+import SwiperCarouselNews from "@/app/(legacy)/components/swipercarouselnews"
 import { mockNews } from "../mockData/mock"
 import { NewsType } from "@/app/(legacy)/types"
-
 
 
 describe("SwiperCarouselNews Vitest", () => {
   describe("Rendering Tests", () => {
     test("should render the swiper component", () => {
       render(<SwiperCarouselNews news={mockNews} />)
-      const swiperElement = screen.getByTestId("swiper-carousel")
+      const swiperElement = screen.getByTestId("swiper-carousel-news")
       expect(swiperElement).toBeInTheDocument()
     })
     
@@ -22,9 +21,9 @@ describe("SwiperCarouselNews Vitest", () => {
     test("should handle single news item", () => {
       const singleNews = [mockNews[0]]
       render(<SwiperCarouselNews news={singleNews} />)
-      expect(screen.queryByTestId("swiper-slide-0")).toBeInTheDocument()
+      expect(screen.queryByTestId("swiper-slide-news-0")).toBeInTheDocument()
       expect(screen.getByText(mockNews[0].title)).toBeInTheDocument()
-      expect(screen.queryByTestId("swiper-slide-1")).not.toBeInTheDocument()
+      expect(screen.queryByTestId("swiper-slide-news-1")).not.toBeInTheDocument()
     })
     
     test("should render large news array", () => {
@@ -44,7 +43,7 @@ describe("SwiperCarouselNews Vitest", () => {
 
       // Verify all items are rendered
       largeNews.forEach((_, index) => {
-        expect(screen.getByTestId(`swiper-slide-${index}`)).toBeInTheDocument()
+        expect(screen.getByTestId(`swiper-slide-news-${index}`)).toBeInTheDocument()
       })
     })
 
@@ -94,9 +93,5 @@ describe("SwiperCarouselNews Vitest", () => {
         expect(link).toHaveAttribute("href", `/news/${news.slug}`)
       })
     })
-  })
-
-  describe.todo("Functionality", () => {
-
   })
 })

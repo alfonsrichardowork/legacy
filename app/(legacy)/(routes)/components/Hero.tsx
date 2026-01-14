@@ -1,5 +1,5 @@
 import { FeaturedProducts } from '@/app/(legacy)/types';
-import SwiperCarousel from '../../components/ui/swipercarousel';
+import SwiperCarousel from '../../components/swipercarousel';
 import { use } from 'react';
 
 export default function Hero({allHeroPromise} : {allHeroPromise: Promise<FeaturedProducts[]>}) {

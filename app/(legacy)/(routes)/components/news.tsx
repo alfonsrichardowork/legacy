@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import SwiperCarouselNews from "../../components/ui/swipercarouselnews";
+import SwiperCarouselNews from "../../components/swipercarouselnews";
 import { use } from "react";
 import DompurifyContent from "../../components/dompurifyText";
 import { NewsType } from "../../types";

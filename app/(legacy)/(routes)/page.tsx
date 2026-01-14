@@ -1,4 +1,5 @@
-// export const dynamic = 'force-dynamic';
+// export const dynamic = "force-dynamic";
+
 import Series from './components/Series';
 import History from './components/History';
 import { Youtube } from './components/Youtube';
