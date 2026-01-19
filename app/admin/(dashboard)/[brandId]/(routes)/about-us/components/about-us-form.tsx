@@ -24,7 +24,7 @@ import { Heading } from "@/app/admin/components/ui/heading"
 import { AlertModal } from "@/app/admin/components/modals/alert-modal"
 import { ApiAlert } from "@/app/admin/components/ui/api-alert"
 import { useOrigin } from "@/app/admin/hooks/use-origin"
-import { Brand } from "@prisma/client"
+import { brand } from "@prisma/client"
 import { uploadImage } from "@/app/admin/upload-image"
 import Image from "next/image"
 import { EditorContent, useEditor } from "@tiptap/react"
@@ -57,7 +57,7 @@ const formSchema = z.object({
 type AboutUsFormValues = z.infer<typeof formSchema>
 
 interface AboutUsFormProps {
-  initialData: Brand;
+  initialData: brand;
 };
 
 export const AboutUsForm: React.FC<AboutUsFormProps> = ({

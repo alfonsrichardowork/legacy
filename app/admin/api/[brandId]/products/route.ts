@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
-import { Cover_Image, Drawing_Image, Graph_Image, Image_Catalogues, Impedance_Image, multipleDatasheetProduct } from '@prisma/client';
+import { cover_image, drawing_image, graph_image, image_catalogues, impedance_image, multipledatasheetproduct } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 const slugify = (str: string): string => {
@@ -75,9 +75,9 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
 
 
       if(images_catalogues.length!=0){
-        images_catalogues.map(async (value: Image_Catalogues) => {
+        images_catalogues.map(async (value: image_catalogues) => {
           if(value.url!=''){
-            await prismadb.image_Catalogues.create({
+            await prismadb.image_catalogues.create({
               data:{
                 productId: product.id,
                 url:value.url,
@@ -91,9 +91,9 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       }
 
       if(multipleDatasheetProduct.length!=0){
-        multipleDatasheetProduct.map(async (datasheet: multipleDatasheetProduct) => {
+        multipleDatasheetProduct.map(async (datasheet: multipledatasheetproduct) => {
           if(datasheet.url!=''){
-            await prismadb.multipleDatasheetProduct.create({
+            await prismadb.multipledatasheetproduct.create({
               data:{
                 productId: product.id,
                 url:datasheet.url,
@@ -105,9 +105,9 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       }
 
       if(cover_img.length!=0){
-        cover_img.map(async (value: Cover_Image) => {
+        cover_img.map(async (value: cover_image) => {
           if(value.url!=''){
-            await prismadb.cover_Image.create({
+            await prismadb.cover_image.create({
               data:{
                 productId: product.id,
                 url:value.url,
@@ -120,9 +120,9 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       }
 
       if(drawing_img.length!=0){
-        drawing_img.map(async (value: Drawing_Image) => {
+        drawing_img.map(async (value: drawing_image) => {
           if(value.url!=''){
-            await prismadb.drawing_Image.create({
+            await prismadb.drawing_image.create({
               data:{
                 productId: product.id,
                 url:value.url,
@@ -135,9 +135,9 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       }
 
       if(graph_img.length!=0){
-        graph_img.map(async (value: Graph_Image) => {
+        graph_img.map(async (value: graph_image) => {
           if(value.url!=''){
-            await prismadb.graph_Image.create({
+            await prismadb.graph_image.create({
               data:{
                 productId: product.id,
                 url:value.url,
@@ -150,9 +150,9 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       }
 
       if(impedance_img.length!=0){
-        impedance_img.map(async (value: Impedance_Image) => {
+        impedance_img.map(async (value: impedance_image) => {
           if(value.url!=''){
-            await prismadb.impedance_Image.create({
+            await prismadb.impedance_image.create({
               data:{
                 productId: product.id,
                 url:value.url,

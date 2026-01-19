@@ -24,7 +24,7 @@ export async function GET(
       return new NextResponse("Product not found", { status: 404 });
     }
 
-    const multiple_datasheet = await prismadb.multipleDatasheetProduct.findMany({
+    const multiple_datasheet = await prismadb.multipledatasheetproduct.findMany({
       where: {
         productId: productId.id
       }

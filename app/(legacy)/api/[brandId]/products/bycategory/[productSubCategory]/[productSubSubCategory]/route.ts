@@ -17,7 +17,7 @@ export async function GET(
       return new NextResponse("Product Sub Sub Category is required", { status: 400 });
     }
     
-    const productIdbySubCat =  await prismadb.allProductCategory.findMany({
+    const productIdbySubCat =  await prismadb.allproductcategory.findMany({
       where:{
           slug: params.productSubCategory,
           type: 'Sub Category'
@@ -29,7 +29,7 @@ export async function GET(
 
     const productIdsSubCat = productIdbySubCat.map((value) => value.productId)
 
-    const productIdbySubSubCat =  await prismadb.allProductCategory.findMany({
+    const productIdbySubSubCat =  await prismadb.allproductcategory.findMany({
       where:{
           slug: params.productSubSubCategory,
           type: 'Sub Sub Category'
@@ -45,7 +45,7 @@ export async function GET(
 
     
     let neededSpec = allproductsSubSubCat
-      const allTypes = await prismadb.allCategory.findMany({
+      const allTypes = await prismadb.allcategory.findMany({
         where: {
           type: 'Sub Sub Category'
         },
@@ -54,7 +54,7 @@ export async function GET(
         }
       })
       
-      const allBrand = await prismadb.allCategory.findMany({
+      const allBrand = await prismadb.allcategory.findMany({
         where: {
           type: 'Sub Category'
         }

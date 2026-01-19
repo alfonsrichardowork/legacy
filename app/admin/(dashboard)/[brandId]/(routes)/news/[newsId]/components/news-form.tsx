@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { News, News_Image } from "@prisma/client"
+import { news, news_image } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -60,8 +60,8 @@ const formSchema = z.object({
 type NewsFormValues = z.infer<typeof formSchema>
 
 interface NewsFormProps {
-  initialData: News & {
-    news_img: News_Image[]
+  initialData: news & {
+    news_img: news_image[]
   } | null;
 };
 
@@ -73,7 +73,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
 
   const [date, setDate] = useState<Date | undefined>(new Date())
  
-  const [newsImage, setNewsImage] = useState<News_Image>()
+  const [newsImage, setNewsImage] = useState<news_image>()
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File>();
   const [linkUrl, setLinkUrl] = useState("")
@@ -103,7 +103,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
       setNewsImage(initialData.news_img[0]);
     }
     else{
-      let temp: News_Image = {
+      let temp: news_image = {
         id: Math.random().toString(),
         //@ts-ignore
         productId: params.newsId,
@@ -132,7 +132,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
   };
 
   const deleteImage = async () => {
-    let temp: News_Image = {
+    let temp: news_image = {
       id: '',
       //@ts-ignore
       productId: params.newsId,
@@ -143,7 +143,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
     setNewsImage(temp)
   };
 
-  async function handleImageUpload (file: File): Promise<News_Image> {
+  async function handleImageUpload (file: File): Promise<news_image> {
     if (file) {
       let updatednewsImage = newsImage;
       try {
@@ -155,7 +155,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
         return updatednewsImage!;
         } catch (error) {
         console.error("Error uploading news image:", error);
-        let temp: News_Image = {
+        let temp: news_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.newsId,
@@ -166,7 +166,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
         return temp;
       }
     }
-    let temp: News_Image = {
+    let temp: news_image = {
       id: Math.random().toString(),
       //@ts-ignore
       productId: params.newsId,

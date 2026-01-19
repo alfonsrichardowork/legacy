@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Separator } from '../../../../components/ui/separator';
-import { Brand } from '@prisma/client';
+import { brand } from '@prisma/client';
 import DompurifyContent from '../../components/dompurifyText';
 import { use } from 'react';
 import Image from 'next/image';
 
-export default function History({historyDataPromise}: {historyDataPromise: Promise<Brand>}) {
+export default function History({historyDataPromise}: {historyDataPromise: Promise<brand>}) {
   const historyData = use(historyDataPromise);
   return (
     historyData &&

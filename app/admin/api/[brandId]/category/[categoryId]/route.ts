@@ -15,7 +15,7 @@ export async function GET(req: Request, props: { params: Promise<{ categoryId: s
       return new NextResponse("Category id is required", { status: 400 });
     }
 
-    const Category = await prismadb.allCategory.findUnique({
+    const Category = await prismadb.allcategory.findUnique({
       where: {
         id: params.categoryId,
         type: "Category"
@@ -53,7 +53,7 @@ export async function DELETE(
       return NextResponse.json("unauthorized");
     }   
 
-    const stillused = await prismadb.allProductCategory.findMany({
+    const stillused = await prismadb.allproductcategory.findMany({
       where:{
         categoryId: params.categoryId,
         type: "Category"
@@ -64,18 +64,18 @@ export async function DELETE(
       return NextResponse.json("stillused")
     }
 
-    await prismadb.allCategory.deleteMany({
+    await prismadb.allcategory.deleteMany({
       where: {
         id: params.categoryId
       }
     });
 
-    const allSub = await prismadb.allProductCategory.findMany({
+    const allSub = await prismadb.allproductcategory.findMany({
       where:{
         type: "Sub Category",
       }
     })
-    const allSubSub = await prismadb.allProductCategory.findMany({
+    const allSubSub = await prismadb.allproductcategory.findMany({
       where:{
         type: "Sub Sub Category",
       }
@@ -128,7 +128,7 @@ export async function PATCH(
       return NextResponse.json("unauthorized");
     }    
 
-    const initial = await prismadb.allCategory.findFirst({
+    const initial = await prismadb.allcategory.findFirst({
       where:{
         id: params.categoryId,
         brandId: params.brandId
@@ -140,7 +140,7 @@ export async function PATCH(
 
     if(initial){
       if(initial.name ===  name){
-        await prismadb.allCategory.update({
+        await prismadb.allcategory.update({
           where: {
             id: params.categoryId
           },
@@ -155,7 +155,7 @@ export async function PATCH(
           }
         });
 
-        await prismadb.allProductCategory.updateMany({
+        await prismadb.allproductcategory.updateMany({
           where: {
             categoryId: params.categoryId,
             type
@@ -170,7 +170,7 @@ export async function PATCH(
       }
     }
 
-    const duplicates = await prismadb.allCategory.findFirst({
+    const duplicates = await prismadb.allcategory.findFirst({
       where:{
         name,
         type,
@@ -182,7 +182,7 @@ export async function PATCH(
       return NextResponse.json("duplicate")
     }
 
-    await prismadb.allCategory.update({
+    await prismadb.allcategory.update({
       where: {
         id: params.categoryId
       },
@@ -197,7 +197,7 @@ export async function PATCH(
       }
     });
     
-    await prismadb.allProductCategory.updateMany({
+    await prismadb.allproductcategory.updateMany({
       where: {
         categoryId: params.categoryId,
         type
@@ -213,7 +213,7 @@ export async function PATCH(
       revalidatePath(`/drivers/${slugify(name)}`);
     }
     else if( type === "Sub Sub Category" ){ 
-      const allSub = await prismadb.allProductCategory.findMany({
+      const allSub = await prismadb.allproductcategory.findMany({
         where:{
           type: "Sub Category",
         }

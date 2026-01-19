@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2026 at 06:57 AM
+-- Generation Time: Jan 19, 2026 at 07:04 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -207,8 +207,8 @@ CREATE TABLE `brand` (
   `userId` varchar(191) NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `desc` text NOT NULL,
-  `descHomePage` text NOT NULL,
+  `desc` text NOT NULL DEFAULT '',
+  `descHomePage` text NOT NULL DEFAULT '',
   `img` varchar(191) NOT NULL DEFAULT '',
   `imgHomePage` varchar(191) NOT NULL DEFAULT '',
   `title` varchar(191) NOT NULL DEFAULT ''
@@ -232,7 +232,7 @@ CREATE TABLE `catalogues` (
   `name` text NOT NULL,
   `pdf` text NOT NULL,
   `publicationDate` datetime(3) NOT NULL DEFAULT current_timestamp(3),
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -253,16 +253,16 @@ INSERT INTO `catalogues` (`id`, `name`, `pdf`, `publicationDate`, `updatedBy`, `
 CREATE TABLE `contacts` (
   `id` varchar(191) NOT NULL,
   `type` text NOT NULL,
-  `country` text NOT NULL,
-  `state` text NOT NULL,
-  `city` text NOT NULL,
-  `address` text NOT NULL,
-  `img` text NOT NULL,
-  `updatedBy` text NOT NULL,
+  `country` text NOT NULL DEFAULT '',
+  `state` text NOT NULL DEFAULT '',
+  `city` text NOT NULL DEFAULT '',
+  `address` text NOT NULL DEFAULT '',
+  `img` text NOT NULL DEFAULT '',
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `phone` text NOT NULL,
-  `locationUrl` text NOT NULL
+  `phone` text NOT NULL DEFAULT '',
+  `locationUrl` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -344,14 +344,14 @@ CREATE TABLE `distributors` (
   `contactPerson` text NOT NULL,
   `phoneNumber` text NOT NULL,
   `email` text NOT NULL,
-  `country` text NOT NULL,
+  `country` text NOT NULL DEFAULT '',
   `joinDate` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `active` tinyint(1) NOT NULL DEFAULT 0,
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `city` text NOT NULL,
-  `state` text NOT NULL
+  `city` text NOT NULL DEFAULT '',
+  `state` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -395,7 +395,7 @@ CREATE TABLE `dynamicspecification` (
   `slug` text NOT NULL,
   `unit` text NOT NULL,
   `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -452,7 +452,7 @@ CREATE TABLE `dynamicspecificationparent` (
   `name` text NOT NULL,
   `slug` text NOT NULL,
   `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -477,7 +477,7 @@ CREATE TABLE `dynamicspecificationsubparent` (
   `name` text NOT NULL,
   `slug` text NOT NULL,
   `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -503,7 +503,7 @@ CREATE TABLE `featuredseries` (
   `img` text NOT NULL,
   `alt` text NOT NULL,
   `desc` text NOT NULL,
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -605,7 +605,7 @@ CREATE TABLE `image_catalogues` (
   `url` text NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text NOT NULL
+  `name` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -769,8 +769,8 @@ INSERT INTO `impedance_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt
 CREATE TABLE `multipledatasheetproduct` (
   `id` varchar(191) NOT NULL,
   `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `name` text NOT NULL
+  `url` text NOT NULL DEFAULT '',
+  `name` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -830,8 +830,8 @@ CREATE TABLE `news` (
   `updatedBy` varchar(191) NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
-  `link_placeholder` text NOT NULL,
-  `link_url` text NOT NULL
+  `link_placeholder` text NOT NULL DEFAULT '',
+  `link_url` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -887,10 +887,10 @@ CREATE TABLE `product` (
   `updatedAt` datetime(3) NOT NULL,
   `description` text NOT NULL,
   `slug` text NOT NULL,
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `isNewProduct` tinyint(1) NOT NULL DEFAULT 0,
-  `featuredDesc` text NOT NULL,
-  `series` text NOT NULL
+  `featuredDesc` text NOT NULL DEFAULT '',
+  `series` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -947,7 +947,7 @@ CREATE TABLE `roles` (
   `id` varchar(191) NOT NULL,
   `userId` varchar(191) NOT NULL,
   `brandId` varchar(191) NOT NULL,
-  `brandName` text NOT NULL
+  `brandName` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -2119,7 +2119,7 @@ CREATE TABLE `superior` (
   `id` varchar(191) NOT NULL,
   `name` text NOT NULL,
   `url` text NOT NULL,
-  `updatedBy` text NOT NULL,
+  `updatedBy` text NOT NULL DEFAULT '',
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2165,14 +2165,15 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `refresh_token`, `create
 --
 ALTER TABLE `allcategory`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `AllCategory_brandId_idx` (`brandId`);
+  ADD UNIQUE KEY `allcategory_brandId_name_key` (`brandId`,`name`(191)),
+  ADD KEY `allcategory_brandId_idx` (`brandId`);
 
 --
 -- Indexes for table `allproductcategory`
 --
 ALTER TABLE `allproductcategory`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `AllProductCategory_productId_idx` (`productId`);
+  ADD KEY `allproductcategory_productId_idx` (`productId`);
 
 --
 -- Indexes for table `brand`
@@ -2197,7 +2198,7 @@ ALTER TABLE `contacts`
 --
 ALTER TABLE `cover_image`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Cover_Image_productId_idx` (`productId`);
+  ADD KEY `cover_image_productId_idx` (`productId`);
 
 --
 -- Indexes for table `distributors`
@@ -2210,7 +2211,7 @@ ALTER TABLE `distributors`
 --
 ALTER TABLE `drawing_image`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Drawing_Image_productId_idx` (`productId`);
+  ADD KEY `drawing_image_productId_idx` (`productId`);
 
 --
 -- Indexes for table `dynamicspecification`
@@ -2241,71 +2242,71 @@ ALTER TABLE `featuredseries`
 --
 ALTER TABLE `featured_image`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Featured_Image_productId_idx` (`productId`);
+  ADD KEY `featured_image_productId_idx` (`productId`);
 
 --
 -- Indexes for table `graph_image`
 --
 ALTER TABLE `graph_image`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Graph_Image_productId_idx` (`productId`);
+  ADD KEY `graph_image_productId_idx` (`productId`);
 
 --
 -- Indexes for table `image_catalogues`
 --
 ALTER TABLE `image_catalogues`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Image_Catalogues_productId_idx` (`productId`);
+  ADD KEY `image_catalogues_productId_idx` (`productId`);
 
 --
 -- Indexes for table `impedance_image`
 --
 ALTER TABLE `impedance_image`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Impedance_Image_productId_idx` (`productId`);
+  ADD KEY `impedance_image_productId_idx` (`productId`);
 
 --
 -- Indexes for table `multipledatasheetproduct`
 --
 ALTER TABLE `multipledatasheetproduct`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `multipleDatasheetProduct_productId_idx` (`productId`);
+  ADD KEY `multipledatasheetproduct_productId_idx` (`productId`);
 
 --
 -- Indexes for table `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `News_brandId_idx` (`brandId`);
+  ADD KEY `news_brandId_idx` (`brandId`);
 
 --
 -- Indexes for table `news_image`
 --
 ALTER TABLE `news_image`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `News_Image_newsId_idx` (`newsId`);
+  ADD KEY `news_image_newsId_idx` (`newsId`);
 
 --
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Product_brandId_idx` (`brandId`),
-  ADD KEY `Product_sizeId_idx` (`sizeId`);
+  ADD KEY `product_brandId_idx` (`brandId`),
+  ADD KEY `product_sizeId_idx` (`sizeId`);
 
 --
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Roles_userId_idx` (`userId`);
+  ADD KEY `roles_userId_idx` (`userId`);
 
 --
 -- Indexes for table `size`
 --
 ALTER TABLE `size`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Size_brandId_idx` (`brandId`);
+  ADD KEY `size_brandId_idx` (`brandId`);
 
 --
 -- Indexes for table `specificationconnector`

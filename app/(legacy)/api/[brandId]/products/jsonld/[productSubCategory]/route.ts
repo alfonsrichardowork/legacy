@@ -8,7 +8,7 @@ export async function GET(req: Request, props: { params: Promise<{ productSubCat
       return new NextResponse("Product Sub Category is required", { status: 400 });
     }
     
-    const productIdbyCat =  await prismadb.allProductCategory.findMany({
+    const productIdbyCat =  await prismadb.allproductcategory.findMany({
       where:{
           slug: params.productSubCategory,
           type: 'Sub Category'

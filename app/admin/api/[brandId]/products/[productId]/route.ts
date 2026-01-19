@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
-import { Cover_Image, Drawing_Image, Graph_Image, Image_Catalogues, Impedance_Image, multipleDatasheetProduct } from "@prisma/client";
+import { cover_image, drawing_image, graph_image, image_catalogues, impedance_image, multipledatasheetproduct } from "@prisma/client";
 import path from 'path';
 import fs from 'fs/promises';
 import { revalidatePath } from "next/cache";
@@ -73,7 +73,7 @@ export async function DELETE(
     //DELETE
 
     //DELETE COVER IMAGE
-    const coverImages = await prismadb.cover_Image.findMany({
+    const coverImages = await prismadb.cover_image.findMany({
       where: {
         productId: params.productId,
       },
@@ -91,7 +91,7 @@ export async function DELETE(
       }
     }
     //Delete cover_Image records
-    await prismadb.cover_Image.deleteMany({
+    await prismadb.cover_image.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -99,7 +99,7 @@ export async function DELETE(
 
     
     //DELETE DRAWING IMAGE
-    const drawingImages = await prismadb.drawing_Image.findMany({
+    const drawingImages = await prismadb.drawing_image.findMany({
       where: {
         productId: params.productId,
       },
@@ -117,7 +117,7 @@ export async function DELETE(
       }
     }
     //Delete drawing_Image records
-    await prismadb.drawing_Image.deleteMany({
+    await prismadb.drawing_image.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -125,7 +125,7 @@ export async function DELETE(
 
 
     //DELETE FEATURED IMAGE
-    const featuredImages = await prismadb.featured_Image.findMany({
+    const featuredImages = await prismadb.featured_image.findMany({
       where: {
         productId: params.productId,
       },
@@ -143,7 +143,7 @@ export async function DELETE(
       }
     }
     //Delete featured_Image records
-    await prismadb.featured_Image.deleteMany({
+    await prismadb.featured_image.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -151,7 +151,7 @@ export async function DELETE(
     
 
     //DELETE GRAPH IMAGE
-    const graphImages = await prismadb.graph_Image.findMany({
+    const graphImages = await prismadb.graph_image.findMany({
       where: {
         productId: params.productId,
       },
@@ -169,7 +169,7 @@ export async function DELETE(
       }
     }
     //Delete graph_Image records
-    await prismadb.graph_Image.deleteMany({
+    await prismadb.graph_image.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -177,7 +177,7 @@ export async function DELETE(
 
 
     //DELETE IMPEDANCE IMAGE
-    const impedanceImages = await prismadb.impedance_Image.findMany({
+    const impedanceImages = await prismadb.impedance_image.findMany({
       where: {
         productId: params.productId,
       },
@@ -195,7 +195,7 @@ export async function DELETE(
       }
     }
     //Delete impedance_Image records
-    await prismadb.impedance_Image.deleteMany({
+    await prismadb.impedance_image.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -203,7 +203,7 @@ export async function DELETE(
     
 
     //DELETE IMAGE CATALOGUES
-    const cataloguesImages = await prismadb.image_Catalogues.findMany({
+    const cataloguesImages = await prismadb.image_catalogues.findMany({
       where: {
         productId: params.productId,
       },
@@ -221,7 +221,7 @@ export async function DELETE(
       }
     }
     //Delete Image_catalogues records
-    await prismadb.image_Catalogues.deleteMany({
+    await prismadb.image_catalogues.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -229,7 +229,7 @@ export async function DELETE(
 
 
     //DELETE MULTIPLE DATASHEET
-    const multipleDatasheet = await prismadb.multipleDatasheetProduct.findMany({
+    const multipleDatasheet = await prismadb.multipledatasheetproduct.findMany({
       where: {
         productId: params.productId,
       },
@@ -247,7 +247,7 @@ export async function DELETE(
       }
     }
     //Delete multipleDatasheetProduct records
-    await prismadb.multipleDatasheetProduct.deleteMany({
+    await prismadb.multipledatasheetproduct.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -262,7 +262,7 @@ export async function DELETE(
     });
 
     //Delete allproductcategory
-    await prismadb.allProductCategory.deleteMany({
+    await prismadb.allproductcategory.deleteMany({
       where: {
         productId: params.productId,
       },
@@ -330,14 +330,14 @@ export async function PATCH(
 
 
         //IMAGE CATALOGUES
-        const cataloguesImages = await prismadb.image_Catalogues.findMany({
+        const cataloguesImages = await prismadb.image_catalogues.findMany({
           where: {
             productId: params.productId,
           },
         });
-        let finalfound : Image_Catalogues[] = []
+        let finalfound : image_catalogues[] = []
         cataloguesImages.forEach((val) => {
-          const found = images_catalogues.find((value: Image_Catalogues) => value.url === val.url);
+          const found = images_catalogues.find((value: image_catalogues) => value.url === val.url);
           
           if (found && !finalfound.some((item) => item.url === found.url)) {
             finalfound.push(found);
@@ -360,7 +360,7 @@ export async function PATCH(
           }
         }
         //Delete Image_catalogues records
-        await prismadb.image_Catalogues.deleteMany({
+        await prismadb.image_catalogues.deleteMany({
           where: {
             productId: params.productId,
             url: {
@@ -369,11 +369,11 @@ export async function PATCH(
           },
         });
         if (images_catalogues.length !== 0) {
-          const creations = images_catalogues.map(async (value: Image_Catalogues) => {
+          const creations = images_catalogues.map(async (value: image_catalogues) => {
             if(value !== null && value !== undefined){
               const alreadyInDB = finalfound.some((val) => val.url === value.url);
               if (!alreadyInDB && value.url !== '') {
-                await prismadb.image_Catalogues.create({
+                await prismadb.image_catalogues.create({
                   data: {
                     productId: params.productId,
                     url: value.url,
@@ -384,7 +384,7 @@ export async function PATCH(
                 });
               }
               else{ //UPDATE NAME
-                const image_catalogues_Id = await prismadb.image_Catalogues.findFirst({
+                const image_catalogues_Id = await prismadb.image_catalogues.findFirst({
                   where: {
                     url: value.url,
                     productId: params.productId
@@ -394,7 +394,7 @@ export async function PATCH(
                   }
                 })
                 if (image_catalogues_Id) {
-                  await prismadb.image_Catalogues.update({
+                  await prismadb.image_catalogues.update({
                     where: {
                       id: image_catalogues_Id.id
                     },
@@ -413,14 +413,14 @@ export async function PATCH(
 
 
         //DATASHEET
-        const datasheetOld = await prismadb.multipleDatasheetProduct.findMany({
+        const datasheetOld = await prismadb.multipledatasheetproduct.findMany({
           where: {
             productId: params.productId,
           },
         });
-        let finalfoundDatasheet : multipleDatasheetProduct[] = []
+        let finalfoundDatasheet : multipledatasheetproduct[] = []
         datasheetOld.forEach((val) => {
-          const found = multipleDatasheetProduct.find((value: multipleDatasheetProduct) => value.url === val.url);
+          const found = multipleDatasheetProduct.find((value: multipledatasheetproduct) => value.url === val.url);
           
           if (found && !finalfoundDatasheet.some((item) => item.url === found.url)) {
             finalfoundDatasheet.push(found);
@@ -443,7 +443,7 @@ export async function PATCH(
           }
         }
         //Delete oldDatasheet records
-        await prismadb.multipleDatasheetProduct.deleteMany({
+        await prismadb.multipledatasheetproduct.deleteMany({
           where: {
             productId: params.productId,
             url: {
@@ -452,11 +452,11 @@ export async function PATCH(
           },
         });
         if (multipleDatasheetProduct.length !== 0) {
-          const creations = multipleDatasheetProduct.map(async (value: multipleDatasheetProduct) => {
+          const creations = multipleDatasheetProduct.map(async (value: multipledatasheetproduct) => {
             if(value !== null && value !== undefined){
               const alreadyInDB = finalfoundDatasheet.some((val) => val.url === value.url);
               if (!alreadyInDB && value.url !== '') {
-                await prismadb.multipleDatasheetProduct.create({
+                await prismadb.multipledatasheetproduct.create({
                   data: {
                     productId: params.productId,
                     url: value.url,
@@ -465,7 +465,7 @@ export async function PATCH(
                 });
               }
               else{ //UPDATE NAME
-                const datasheet_Id = await prismadb.multipleDatasheetProduct.findFirst({
+                const datasheet_Id = await prismadb.multipledatasheetproduct.findFirst({
                   where: {
                     url: value.url,
                     productId: params.productId
@@ -475,7 +475,7 @@ export async function PATCH(
                   }
                 })
                 if (datasheet_Id) {
-                  await prismadb.multipleDatasheetProduct.update({
+                  await prismadb.multipledatasheetproduct.update({
                     where: {
                       id: datasheet_Id.id
                     },
@@ -493,14 +493,14 @@ export async function PATCH(
 
 
         //COVER_IMAGE
-        const coverImageOld = await prismadb.cover_Image.findMany({
+        const coverImageOld = await prismadb.cover_image.findMany({
           where: {
             productId: params.productId,
           },
         });
-        let finalfoundCoverImage : Cover_Image[] = []
+        let finalfoundCoverImage : cover_image[] = []
         coverImageOld.forEach((val) => {
-          const found = cover_img.find((value: Cover_Image) => value.url === val.url);
+          const found = cover_img.find((value: cover_image) => value.url === val.url);
           
           if (found && !finalfoundCoverImage.some((item) => item.url === found.url)) {
             finalfoundCoverImage.push(found);
@@ -523,7 +523,7 @@ export async function PATCH(
           }
         }
         //Delete oldCoverImage records
-        await prismadb.cover_Image.deleteMany({
+        await prismadb.cover_image.deleteMany({
           where: {
             productId: params.productId,
             url: {
@@ -532,11 +532,11 @@ export async function PATCH(
           },
         });
         if (cover_img.length !== 0) {
-          const creations = cover_img.map(async (value: Cover_Image) => {
+          const creations = cover_img.map(async (value: cover_image) => {
             if(value !== null && value !== undefined){
               const alreadyInDB = finalfoundCoverImage.some((val) => val.url === value.url);
               if (!alreadyInDB && value.url !== '') {
-                await prismadb.cover_Image.create({
+                await prismadb.cover_image.create({
                   data: {
                     productId: params.productId,
                     url: value.url,
@@ -553,14 +553,14 @@ export async function PATCH(
 
 
         //DRAWING_IMAGE
-        const drawingImageOld = await prismadb.drawing_Image.findMany({
+        const drawingImageOld = await prismadb.drawing_image.findMany({
           where: {
             productId: params.productId,
           },
         });
-        let finalfoundDrawingImage : Drawing_Image[] = []
+        let finalfoundDrawingImage : drawing_image[] = []
         drawingImageOld.forEach((val) => {
-          const found = drawing_img.find((value: Drawing_Image) => value.url === val.url);
+          const found = drawing_img.find((value: drawing_image) => value.url === val.url);
           
           if (found && !finalfoundDrawingImage.some((item) => item.url === found.url)) {
             finalfoundDrawingImage.push(found);
@@ -583,7 +583,7 @@ export async function PATCH(
           }
         }
         //Delete oldDrawingImage records
-        await prismadb.drawing_Image.deleteMany({
+        await prismadb.drawing_image.deleteMany({
           where: {
             productId: params.productId,
             url: {
@@ -592,11 +592,11 @@ export async function PATCH(
           },
         });
         if (drawing_img.length !== 0) {
-          const creations = drawing_img.map(async (value: Drawing_Image) => {
+          const creations = drawing_img.map(async (value: drawing_image) => {
             if(value !== null && value !== undefined){
               const alreadyInDB = finalfoundDrawingImage.some((val) => val.url === value.url);
               if (!alreadyInDB && value.url !== '') {
-                await prismadb.drawing_Image.create({
+                await prismadb.drawing_image.create({
                   data: {
                     productId: params.productId,
                     url: value.url,
@@ -613,14 +613,14 @@ export async function PATCH(
 
 
         //GRAPH_IMAGE | FREQ RES IMAGE
-        const graphImageOld = await prismadb.graph_Image.findMany({
+        const graphImageOld = await prismadb.graph_image.findMany({
           where: {
             productId: params.productId,
           },
         });
-        let finalfoundGraphImage : Graph_Image[] = []
+        let finalfoundGraphImage : graph_image[] = []
         graphImageOld.forEach((val) => {
-          const found = graph_img.find((value: Graph_Image) => value.url === val.url);
+          const found = graph_img.find((value: graph_image) => value.url === val.url);
           
           if (found && !finalfoundGraphImage.some((item) => item.url === found.url)) {
             finalfoundGraphImage.push(found);
@@ -643,7 +643,7 @@ export async function PATCH(
           }
         }
         //Delete oldGraphImage records
-        await prismadb.graph_Image.deleteMany({
+        await prismadb.graph_image.deleteMany({
           where: {
             productId: params.productId,
             url: {
@@ -652,11 +652,11 @@ export async function PATCH(
           },
         });
         if (graph_img.length !== 0) {
-          const creations = graph_img.map(async (value: Graph_Image) => {
+          const creations = graph_img.map(async (value: graph_image) => {
             if(value !== null && value !== undefined){
               const alreadyInDB = finalfoundGraphImage.some((val) => val.url === value.url);
               if (!alreadyInDB && value.url !== '') {
-                await prismadb.graph_Image.create({
+                await prismadb.graph_image.create({
                   data: {
                     productId: params.productId,
                     url: value.url,
@@ -674,14 +674,14 @@ export async function PATCH(
 
 
         //IMPEDANCE_IMAGE
-        const impedanceImageOld = await prismadb.impedance_Image.findMany({
+        const impedanceImageOld = await prismadb.impedance_image.findMany({
           where: {
             productId: params.productId,
           },
         });
-        let finalfoundImpedanceImage : Impedance_Image[] = []
+        let finalfoundImpedanceImage : impedance_image[] = []
         impedanceImageOld.forEach((val) => {
-          const found = impedance_img.find((value: Impedance_Image) => value.url === val.url);
+          const found = impedance_img.find((value: impedance_image) => value.url === val.url);
           
           if (found && !finalfoundImpedanceImage.some((item) => item.url === found.url)) {
             finalfoundImpedanceImage.push(found);
@@ -704,7 +704,7 @@ export async function PATCH(
           }
         }
         //Delete oldImpedanceImage records
-        await prismadb.impedance_Image.deleteMany({
+        await prismadb.impedance_image.deleteMany({
           where: {
             productId: params.productId,
             url: {
@@ -713,11 +713,11 @@ export async function PATCH(
           },
         });
         if (impedance_img.length !== 0) {
-          const creations = impedance_img.map(async (value: Impedance_Image) => {
+          const creations = impedance_img.map(async (value: impedance_image) => {
             if(value !== null && value !== undefined){
               const alreadyInDB = finalfoundImpedanceImage.some((val) => val.url === value.url);
               if (!alreadyInDB && value.url !== '') {
-                await prismadb.impedance_Image.create({
+                await prismadb.impedance_image.create({
                   data: {
                     productId: params.productId,
                     url: value.url,
@@ -769,14 +769,14 @@ export async function PATCH(
 
 
     //IMAGE CATALOGUES
-    const cataloguesImages = await prismadb.image_Catalogues.findMany({
+    const cataloguesImages = await prismadb.image_catalogues.findMany({
       where: {
         productId: params.productId,
       },
     });
-    let finalfound : Image_Catalogues[] = []
+    let finalfound : image_catalogues[] = []
     cataloguesImages.forEach((val) => {
-      const found = images_catalogues.find((value: Image_Catalogues) => value.url === val.url);
+      const found = images_catalogues.find((value: image_catalogues) => value.url === val.url);
       
       if (found && !finalfound.some((item) => item.url === found.url)) {
         finalfound.push(found);
@@ -799,7 +799,7 @@ export async function PATCH(
       }
     }
     //Delete Image_catalogues records
-    await prismadb.image_Catalogues.deleteMany({
+    await prismadb.image_catalogues.deleteMany({
       where: {
         productId: params.productId,
         url: {
@@ -808,11 +808,11 @@ export async function PATCH(
       },
     });
     if (images_catalogues.length !== 0) {
-      const creations = images_catalogues.map(async (value: Image_Catalogues) => {
+      const creations = images_catalogues.map(async (value: image_catalogues) => {
         if(value !== null && value !== undefined){
           const alreadyInDB = finalfound.some((val) => val.url === value.url);
           if (!alreadyInDB && value.url !== '') {
-            await prismadb.image_Catalogues.create({
+            await prismadb.image_catalogues.create({
               data: {
                 productId: params.productId,
                 url: value.url,
@@ -823,7 +823,7 @@ export async function PATCH(
             });
           }
           else{ //UPDATE NAME
-            const image_catalogues_Id = await prismadb.image_Catalogues.findFirst({
+            const image_catalogues_Id = await prismadb.image_catalogues.findFirst({
               where: {
                 url: value.url,
                 productId: params.productId
@@ -833,7 +833,7 @@ export async function PATCH(
               }
             })
             if (image_catalogues_Id) {
-              await prismadb.image_Catalogues.update({
+              await prismadb.image_catalogues.update({
                 where: {
                   id: image_catalogues_Id.id
                 },
@@ -852,14 +852,14 @@ export async function PATCH(
 
 
     //DATASHEET
-    const datasheetOld = await prismadb.multipleDatasheetProduct.findMany({
+    const datasheetOld = await prismadb.multipledatasheetproduct.findMany({
       where: {
         productId: params.productId,
       },
     });
-    let finalfoundDatasheet : multipleDatasheetProduct[] = []
+    let finalfoundDatasheet : multipledatasheetproduct[] = []
     datasheetOld.forEach((val) => {
-      const found = multipleDatasheetProduct.find((value: multipleDatasheetProduct) => value.url === val.url);
+      const found = multipleDatasheetProduct.find((value: multipledatasheetproduct) => value.url === val.url);
       
       if (found && !finalfoundDatasheet.some((item) => item.url === found.url)) {
         finalfoundDatasheet.push(found);
@@ -882,7 +882,7 @@ export async function PATCH(
       }
     }
     //Delete oldDatasheet records
-    await prismadb.multipleDatasheetProduct.deleteMany({
+    await prismadb.multipledatasheetproduct.deleteMany({
       where: {
         productId: params.productId,
         url: {
@@ -891,11 +891,11 @@ export async function PATCH(
       },
     });
     if (multipleDatasheetProduct.length !== 0) {
-      const creations = multipleDatasheetProduct.map(async (value: multipleDatasheetProduct) => {
+      const creations = multipleDatasheetProduct.map(async (value: multipledatasheetproduct) => {
         if(value !== null && value !== undefined){
           const alreadyInDB = finalfoundDatasheet.some((val) => val.url === value.url);
           if (!alreadyInDB && value.url !== '') {
-            await prismadb.multipleDatasheetProduct.create({
+            await prismadb.multipledatasheetproduct.create({
               data: {
                 productId: params.productId,
                 url: value.url,
@@ -904,7 +904,7 @@ export async function PATCH(
             });
           }
           else{ //UPDATE NAME
-            const datasheet_Id = await prismadb.multipleDatasheetProduct.findFirst({
+            const datasheet_Id = await prismadb.multipledatasheetproduct.findFirst({
               where: {
                 url: value.url,
                 productId: params.productId
@@ -914,7 +914,7 @@ export async function PATCH(
               }
             })
             if (datasheet_Id) {
-              await prismadb.multipleDatasheetProduct.update({
+              await prismadb.multipledatasheetproduct.update({
                 where: {
                   id: datasheet_Id.id
                 },
@@ -932,14 +932,14 @@ export async function PATCH(
 
 
     //COVER_IMAGE
-    const coverImageOld = await prismadb.cover_Image.findMany({
+    const coverImageOld = await prismadb.cover_image.findMany({
       where: {
         productId: params.productId,
       },
     });
-    let finalfoundCoverImage : Cover_Image[] = []
+    let finalfoundCoverImage : cover_image[] = []
     coverImageOld.forEach((val) => {
-      const found = cover_img.find((value: Cover_Image) => value.url === val.url);
+      const found = cover_img.find((value: cover_image) => value.url === val.url);
       
       if (found && !finalfoundCoverImage.some((item) => item.url === found.url)) {
         finalfoundCoverImage.push(found);
@@ -962,7 +962,7 @@ export async function PATCH(
       }
     }
     //Delete oldCoverImage records
-    await prismadb.cover_Image.deleteMany({
+    await prismadb.cover_image.deleteMany({
       where: {
         productId: params.productId,
         url: {
@@ -971,11 +971,11 @@ export async function PATCH(
       },
     });
     if (cover_img.length !== 0) {
-      const creations = cover_img.map(async (value: Cover_Image) => {
+      const creations = cover_img.map(async (value: cover_image) => {
         if(value !== null && value !== undefined){
           const alreadyInDB = finalfoundCoverImage.some((val) => val.url === value.url);
           if (!alreadyInDB && value.url !== '') {
-            await prismadb.cover_Image.create({
+            await prismadb.cover_image.create({
               data: {
                 productId: params.productId,
                 url: value.url,
@@ -992,14 +992,14 @@ export async function PATCH(
 
 
     //DRAWING_IMAGE
-    const drawingImageOld = await prismadb.drawing_Image.findMany({
+    const drawingImageOld = await prismadb.drawing_image.findMany({
       where: {
         productId: params.productId,
       },
     });
-    let finalfoundDrawingImage : Drawing_Image[] = []
+    let finalfoundDrawingImage : drawing_image[] = []
     drawingImageOld.forEach((val) => {
-      const found = drawing_img.find((value: Drawing_Image) => value.url === val.url);
+      const found = drawing_img.find((value: drawing_image) => value.url === val.url);
       
       if (found && !finalfoundDrawingImage.some((item) => item.url === found.url)) {
         finalfoundDrawingImage.push(found);
@@ -1022,7 +1022,7 @@ export async function PATCH(
       }
     }
     //Delete oldDrawingImage records
-    await prismadb.drawing_Image.deleteMany({
+    await prismadb.drawing_image.deleteMany({
       where: {
         productId: params.productId,
         url: {
@@ -1031,11 +1031,11 @@ export async function PATCH(
       },
     });
     if (drawing_img.length !== 0) {
-      const creations = drawing_img.map(async (value: Drawing_Image) => {
+      const creations = drawing_img.map(async (value: drawing_image) => {
         if(value !== null && value !== undefined){
           const alreadyInDB = finalfoundDrawingImage.some((val) => val.url === value.url);
           if (!alreadyInDB && value.url !== '') {
-            await prismadb.drawing_Image.create({
+            await prismadb.drawing_image.create({
               data: {
                 productId: params.productId,
                 url: value.url,
@@ -1052,14 +1052,14 @@ export async function PATCH(
 
 
     //GRAPH_IMAGE | FREQ RES IMAGE
-    const graphImageOld = await prismadb.graph_Image.findMany({
+    const graphImageOld = await prismadb.graph_image.findMany({
       where: {
         productId: params.productId,
       },
     });
-    let finalfoundGraphImage : Graph_Image[] = []
+    let finalfoundGraphImage : graph_image[] = []
     graphImageOld.forEach((val) => {
-      const found = graph_img.find((value: Graph_Image) => value.url === val.url);
+      const found = graph_img.find((value: graph_image) => value.url === val.url);
       
       if (found && !finalfoundGraphImage.some((item) => item.url === found.url)) {
         finalfoundGraphImage.push(found);
@@ -1082,7 +1082,7 @@ export async function PATCH(
       }
     }
     //Delete oldGraphImage records
-    await prismadb.graph_Image.deleteMany({
+    await prismadb.graph_image.deleteMany({
       where: {
         productId: params.productId,
         url: {
@@ -1091,11 +1091,11 @@ export async function PATCH(
       },
     });
     if (graph_img.length !== 0) {
-      const creations = graph_img.map(async (value: Graph_Image) => {
+      const creations = graph_img.map(async (value: graph_image) => {
         if(value !== null && value !== undefined){
           const alreadyInDB = finalfoundGraphImage.some((val) => val.url === value.url);
           if (!alreadyInDB && value.url !== '') {
-            await prismadb.graph_Image.create({
+            await prismadb.graph_image.create({
               data: {
                 productId: params.productId,
                 url: value.url,
@@ -1113,14 +1113,14 @@ export async function PATCH(
 
 
     //IMPEDANCE_IMAGE
-    const impedanceImageOld = await prismadb.impedance_Image.findMany({
+    const impedanceImageOld = await prismadb.impedance_image.findMany({
       where: {
         productId: params.productId,
       },
     });
-    let finalfoundImpedanceImage : Impedance_Image[] = []
+    let finalfoundImpedanceImage : impedance_image[] = []
     impedanceImageOld.forEach((val) => {
-      const found = impedance_img.find((value: Impedance_Image) => value.url === val.url);
+      const found = impedance_img.find((value: impedance_image) => value.url === val.url);
       
       if (found && !finalfoundImpedanceImage.some((item) => item.url === found.url)) {
         finalfoundImpedanceImage.push(found);
@@ -1143,7 +1143,7 @@ export async function PATCH(
       }
     }
     //Delete oldImpedanceImage records
-    await prismadb.impedance_Image.deleteMany({
+    await prismadb.impedance_image.deleteMany({
       where: {
         productId: params.productId,
         url: {
@@ -1152,11 +1152,11 @@ export async function PATCH(
       },
     });
     if (impedance_img.length !== 0) {
-      const creations = impedance_img.map(async (value: Impedance_Image) => {
+      const creations = impedance_img.map(async (value: impedance_image) => {
         if(value !== null && value !== undefined){
           const alreadyInDB = finalfoundImpedanceImage.some((val) => val.url === value.url);
           if (!alreadyInDB && value.url !== '') {
-            await prismadb.impedance_Image.create({
+            await prismadb.impedance_image.create({
               data: {
                 productId: params.productId,
                 url: value.url,

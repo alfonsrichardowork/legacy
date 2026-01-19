@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   try {
     let neededSpec = allproducts
-      const allTypes = await prismadb.allCategory.findMany({
+      const allTypes = await prismadb.allcategory.findMany({
         where: {
           type: 'Sub Sub Category'
         },
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
         }
       })
       
-      const allBrand = await prismadb.allCategory.findMany({
+      const allBrand = await prismadb.allcategory.findMany({
         where: {
           type: 'Sub Category'
         }

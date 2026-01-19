@@ -1,9 +1,9 @@
-import { Brand } from "@prisma/client";
+import { brand } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_ABOUT_US}`;
 
-const getAboutUs = async (): Promise<Brand> => {
+const getAboutUs = async (): Promise<brand> => {
   const response = await fetch(API, {
     next: { revalidate: 86400 }
   });
@@ -11,7 +11,7 @@ const getAboutUs = async (): Promise<Brand> => {
     redirect('/');
     // throw new Error('Failed to fetch featured products');
   }
-  const data : Brand = await response.json();
+  const data : brand = await response.json();
   if (!data) {
     redirect('/not-found');
   }

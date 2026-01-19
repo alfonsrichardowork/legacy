@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { Cover_Image, Drawing_Image, Graph_Image, Image_Catalogues, Impedance_Image, multipleDatasheetProduct, Product, Size } from "@prisma/client"
+import { cover_image, drawing_image, graph_image, image_catalogues, impedance_image, multipledatasheetproduct, product, size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -63,15 +63,15 @@ const formSchema = z.object({
 type ProductFormValues = z.infer<typeof formSchema>
 
 interface ProductFormProps {
-  initialData: Product & {
-    images_catalogues: Image_Catalogues[]
-    cover_img: Cover_Image[]
-    drawing_img: Drawing_Image[]
-    graph_img: Graph_Image[]
-    impedance_img: Impedance_Image[]
-    multipleDatasheetProduct: multipleDatasheetProduct[]
+  initialData: product & {
+    images_catalogues: image_catalogues[]
+    cover_img: cover_image[]
+    drawing_img: drawing_image[]
+    graph_img: graph_image[]
+    impedance_img: impedance_image[]
+    multipleDatasheetProduct: multipledatasheetproduct[]
   } | null;
-  sizes: Size[];
+  sizes: size[];
 };
 
 export const ProductForm: React.FC<ProductFormProps> = ({
@@ -82,22 +82,22 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const [allDatasheet, setAllDatasheet] = useState<multipleDatasheetProduct[]>([]);
+  const [allDatasheet, setAllDatasheet] = useState<multipledatasheetproduct[]>([]);
   const [selectedDatasheetFile, setSelectedDatasheetFile] = useState<File[]>([]);
 
-  const [coverImgUrl, setCoverImgUrl] = useState<Cover_Image>();
+  const [coverImgUrl, setCoverImgUrl] = useState<cover_image>();
   const [coverImg, setCoverImg] = useState<File>();
 
-  const [drawingImgUrl, setDrawingImgUrl] = useState<Drawing_Image>();
+  const [drawingImgUrl, setDrawingImgUrl] = useState<drawing_image>();
   const [drawingImg, setDrawingImg] = useState<File>();
   
-  const [freqResponseUrl, setFreqResponseUrl] = useState<Graph_Image>();
+  const [freqResponseUrl, setFreqResponseUrl] = useState<graph_image>();
   const [freqResponseImg, setfreqResponseImg] = useState<File>();
   
-  const [impedanceUrl, setImpedanceUrl] = useState<Graph_Image>();
+  const [impedanceUrl, setImpedanceUrl] = useState<graph_image>();
   const [impedanceImg, setImpedanceImg] = useState<File>();
   
-  const [imgCataloguesUrl, setImgCataloguesUrl] = useState<Image_Catalogues[]>([]);
+  const [imgCataloguesUrl, setImgCataloguesUrl] = useState<image_catalogues[]>([]);
   const [imgCatalogues, setImgCatalogues] = useState<File[]>([]);
 
 
@@ -135,7 +135,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         setCoverImgUrl(initialData.cover_img[0]);
       }
       else{
-        let temp: Cover_Image = {
+        let temp: cover_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -150,7 +150,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         setDrawingImgUrl(initialData.drawing_img[0]);
       }
       else{
-        let temp: Drawing_Image = {
+        let temp: drawing_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -165,7 +165,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         setFreqResponseUrl(initialData.graph_img[0]);
       }
       else{
-        let temp: Graph_Image = {
+        let temp: graph_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -180,7 +180,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         setImpedanceUrl(initialData.impedance_img[0]);
       }
       else{
-        let temp: Impedance_Image = {
+        let temp: impedance_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -228,7 +228,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     setSelectedDatasheetFile(temp);
   };
 
-  async function handleDatasheetFileUpload(file: File[]): Promise<multipleDatasheetProduct[]> {
+  async function handleDatasheetFileUpload(file: File[]): Promise<multipledatasheetproduct[]> {
     if (file && file.length > 0) {
       let updatedDatasheet = [...allDatasheet];
       try {
@@ -258,7 +258,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteCoverImage = async () => {
-    let temp: Cover_Image = {
+    let temp: cover_image = {
       id: '',
       //@ts-ignore
       productId: params.productId,
@@ -269,7 +269,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     setCoverImgUrl(temp)
   }
 
-  async function handleCoverImageUpload(file: File): Promise<Cover_Image> {
+  async function handleCoverImageUpload(file: File): Promise<cover_image> {
     if (file) {
       let updatedCoverImage = coverImgUrl ?? {
         id: Math.random().toString(),
@@ -287,7 +287,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return updatedCoverImage;
       } catch (error) {
         console.error("Error uploading cover image:", error);
-        let temp: Cover_Image = {
+        let temp: cover_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -298,7 +298,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return temp;
       }
     }
-    let temp: Cover_Image = {
+    let temp: cover_image = {
       id: Math.random().toString(),
       //@ts-ignore
       productId: params.productId,
@@ -317,7 +317,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteDrawingImage = async () => {
-    let temp: Drawing_Image = {
+    let temp: drawing_image = {
       id: '',
       //@ts-ignore
       productId: params.productId,
@@ -328,7 +328,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     setDrawingImgUrl(temp)
   }
 
-  async function handleDrawingImageUpload(file: File): Promise<Drawing_Image> {
+  async function handleDrawingImageUpload(file: File): Promise<drawing_image> {
     if (file) {
       let updatedDrawingImage = drawingImgUrl ?? {
         id: Math.random().toString(),
@@ -346,7 +346,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return updatedDrawingImage;
       } catch (error) {
         console.error("Error uploading drawing image:", error);
-        let temp: Drawing_Image = {
+        let temp: drawing_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -357,7 +357,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return temp;
       }
     }
-    let temp: Drawing_Image = {
+    let temp: drawing_image = {
       id: Math.random().toString(),
       //@ts-ignore
       productId: params.productId,
@@ -376,7 +376,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteFrequencyResponseImage = async () => {
-    let temp: Graph_Image = {
+    let temp: graph_image = {
       id: '',
       //@ts-ignore
       productId: params.productId,
@@ -387,7 +387,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     setFreqResponseUrl(temp)
   }
 
-  async function handleFrequencyResponseImageUpload(file: File): Promise<Graph_Image> {
+  async function handleFrequencyResponseImageUpload(file: File): Promise<graph_image> {
     if (file) {
       let updatedFrequencyResponseImage = freqResponseUrl ?? {
         id: Math.random().toString(),
@@ -405,7 +405,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return updatedFrequencyResponseImage!;
       } catch (error) {
         console.error("Error uploading frequency response image:", error);
-        let temp: Graph_Image = {
+        let temp: graph_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -416,7 +416,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return temp;
       }
     }
-    let temp: Graph_Image = {
+    let temp: graph_image = {
       id: Math.random().toString(),
       //@ts-ignore
       productId: params.productId,
@@ -437,7 +437,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteImpedanceImage = async () => {
-    let temp: Impedance_Image = {
+    let temp: impedance_image = {
       id: '',
       //@ts-ignore
       productId: params.productId,
@@ -448,7 +448,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     setImpedanceUrl(temp)
   }
 
-  async function handleImpedanceImageUpload(file: File): Promise<Impedance_Image> {
+  async function handleImpedanceImageUpload(file: File): Promise<impedance_image> {
     if (file) {
       let updatedImpedanceImage = impedanceUrl ?? {
         id: Math.random().toString(),
@@ -466,7 +466,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return updatedImpedanceImage;
       } catch (error) {
         console.error("Error uploading impedance image:", error);
-        let temp: Graph_Image = {
+        let temp: graph_image = {
           id: Math.random().toString(),
           //@ts-ignore
           productId: params.productId,
@@ -477,7 +477,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         return temp;
       }
     }
-    let temp: Impedance_Image = {
+    let temp: impedance_image = {
       id: Math.random().toString(),
       //@ts-ignore
       productId: params.productId,
@@ -516,7 +516,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     setImgCatalogues(temp);
   };
 
-  async function handleImageCataloguesFileUpload(file: File[]): Promise<Image_Catalogues[]> {
+  async function handleImageCataloguesFileUpload(file: File[]): Promise<image_catalogues[]> {
     if (file && file.length > 0) {
       let updatedImageCatalogues = [...imgCataloguesUrl];
       try {

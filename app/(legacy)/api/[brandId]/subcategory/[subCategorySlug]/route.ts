@@ -15,7 +15,7 @@ export async function GET(
       return new NextResponse("Sub Category Slug is required", { status: 400 });
     }
 
-    const subcategories = await prismadb.allCategory.findFirst({
+    const subcategories = await prismadb.allcategory.findFirst({
       where: {
         brandId: params.brandId,
         slug: params.subCategorySlug,

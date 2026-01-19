@@ -1,9 +1,9 @@
-import { Brand } from "@prisma/client";
+import { brand } from "@prisma/client";
 import { LazyImage } from "../../components/lazyImage";
 import DompurifyContent from "../../components/dompurifyText";
 import { use } from "react";
 
-export default function AboutUsWithData({aboutUsDataPromise}: {aboutUsDataPromise: Promise<Brand>}) {
+export default function AboutUsWithData({aboutUsDataPromise}: {aboutUsDataPromise: Promise<brand>}) {
   const aboutUsData = use(aboutUsDataPromise);
   return (
     <>

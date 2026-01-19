@@ -55,7 +55,7 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       }
     }
 
-    data.product.cover_img && data.product.cover_img.length > 0 && data.product.cover_img.map((img) => {
+    data.product.cover_img && data.product.cover_img.length > 0 && data.product.cover_img.map((img: any) => {
       cover_image = {
         name: `${data.product.name} - Cover`,
         url: img.url,
@@ -63,7 +63,7 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       }
     })
 
-    data.product.images_catalogues && data.product.images_catalogues.length > 0 && data.product.images_catalogues.map((img) => {
+    data.product.images_catalogues && data.product.images_catalogues.length > 0 && data.product.images_catalogues.map((img: any) => {
       all_image_catalogues.push({
         name: img.name,
         url: img.url,
@@ -71,7 +71,7 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       })
     })
     
-    data.product.drawing_img && data.product.drawing_img.length > 0 && data.product.drawing_img.map((img) => {
+    data.product.drawing_img && data.product.drawing_img.length > 0 && data.product.drawing_img.map((img: any) => {
       all_drawing.push({
         name: `${data.product.name} - Drawing`,
         url: img.url,
@@ -79,7 +79,7 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       })
     })
     
-    data.product.graph_img && data.product.graph_img.length > 0 && data.product.graph_img.map((img) => {
+    data.product.graph_img && data.product.graph_img.length > 0 && data.product.graph_img.map((img: any) => {
       all_graph.push({
         name: `${data.product.name} - Frequency Response`,
         url: img.url,
@@ -87,7 +87,7 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       })
     })
     
-    data.product.impedance_img && data.product.impedance_img.length > 0 && data.product.impedance_img.map((img) => {
+    data.product.impedance_img && data.product.impedance_img.length > 0 && data.product.impedance_img.map((img: any) => {
       all_impedance.push({
         name: `${data.product.name} - Impedance`,
         url: img.url,
@@ -95,7 +95,7 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
       })
     })
 
-    data.product.multipleDatasheetProduct && data.product.multipleDatasheetProduct.length > 0 && data.product.multipleDatasheetProduct.map((img) => {
+    data.product.multipleDatasheetProduct && data.product.multipleDatasheetProduct.length > 0 && data.product.multipleDatasheetProduct.map((img: any) => {
       all_datasheet.push({
         name: img.name,
         url: img.url,

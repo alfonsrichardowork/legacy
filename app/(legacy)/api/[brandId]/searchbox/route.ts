@@ -27,7 +27,7 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
 
     const productIds = products.map(product => product.id);
 
-    const categories = await prismadb.allProductCategory.findMany({
+    const categories = await prismadb.allproductcategory.findMany({
       where:{
           productId:{
               in: productIds
@@ -40,7 +40,7 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
       }
     })
     
-    const image_url = await prismadb.cover_Image.findMany({
+    const image_url = await prismadb.cover_image.findMany({
       select:{
         productId: true,
         url: true

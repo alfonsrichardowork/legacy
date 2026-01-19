@@ -163,7 +163,7 @@ export interface ChildSpecificationProp {
   unit: string
 }
 
-export type SingleProductsType = Prisma.ProductGetPayload<{
+export type SingleProductsType = Prisma.productGetPayload<{
   include: {
     cover_img: true;
     size: true,

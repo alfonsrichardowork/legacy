@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
-import { Featured_Image } from '@prisma/client';
+import { featured_image } from '@prisma/client';
 import path from 'path';
 import fs from 'fs/promises';
 
@@ -72,14 +72,14 @@ export async function PATCH(
 
 
     //FEATURED_IMAGE
-    const featuredImageOld = await prismadb.featured_Image.findMany({
+    const featuredImageOld = await prismadb.featured_image.findMany({
       where: {
         productId: params.featuredProductId,
       },
     });
-    let finalfoundFeaturedImage : Featured_Image[] = []
+    let finalfoundFeaturedImage : featured_image[] = []
     featuredImageOld.forEach((val) => {
-      const found = featured_img.find((value: Featured_Image) => value.url === val.url);
+      const found = featured_img.find((value: featured_image) => value.url === val.url);
       
       if (found && !finalfoundFeaturedImage.some((item) => item.url === found.url)) {
         finalfoundFeaturedImage.push(found);
@@ -102,7 +102,7 @@ export async function PATCH(
       }
     }
     //Delete oldFeaturedImage records
-    await prismadb.featured_Image.deleteMany({
+    await prismadb.featured_image.deleteMany({
       where: {
         productId: params.featuredProductId,
         url: {
@@ -111,11 +111,11 @@ export async function PATCH(
       },
     });
     if (featured_img.length !== 0) {
-      const creations = featured_img.map(async (value: Featured_Image) => {
+      const creations = featured_img.map(async (value: featured_image) => {
         if(value !== null && value !== undefined){
           const alreadyInDB = finalfoundFeaturedImage.some((val) => val.url === value.url);
           if (!alreadyInDB && value.url !== '') {
-            await prismadb.featured_Image.create({
+            await prismadb.featured_image.create({
               data: {
                 productId: params.featuredProductId,
                 url: value.url,
@@ -145,7 +145,7 @@ export async function PATCH(
         }
       }
       //Delete oldFeaturedImage records
-      await prismadb.featured_Image.deleteMany({
+      await prismadb.featured_image.deleteMany({
         where: {
           productId: params.featuredProductId
         },
