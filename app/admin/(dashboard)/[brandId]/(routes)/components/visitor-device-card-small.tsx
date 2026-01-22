@@ -24,10 +24,10 @@ export function VisitorDeviceSmall(props: Props) {
                         </div>
                     </div>
                     <div className="pt-6 font-bold text-xl capitalize">
-                        {props.LiveVisitor[0].device}
+                        {props.LiveVisitor[0]?.device}
                     </div>
                     <div className="text-xs text-foreground/50 flex items-center whitespace-nowrap line-clamp-2">
-                        {props.LiveVisitor[0].users} visitors <Dot size={20} /> Click to see device breakdown
+                        {props.LiveVisitor[0]?.users} visitors <Dot size={20} /> Click to see device breakdown
                     </div>
                 </div>
             </div>

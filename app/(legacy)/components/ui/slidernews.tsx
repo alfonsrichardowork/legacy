@@ -41,18 +41,18 @@ const SliderNews = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root
       if (realdatesvalues && Array.isArray(realdatesvalues) && realdatesvalues.length > 0) {
         return {
           minVal:
-            realdatesvalues[currentIndices[0]] !== undefined
-              ? realdatesvalues[currentIndices[0]]
-              : currentIndices[0].toString(),
+            realdatesvalues[currentIndices[0] ?? 0] !== undefined
+              ? realdatesvalues[currentIndices[0] ?? 0]
+              : currentIndices[0]?.toString(),
           maxVal:
-            realdatesvalues[currentIndices[1]] !== undefined
-              ? realdatesvalues[currentIndices[1]]
-              : currentIndices[1].toString(),
+            realdatesvalues[currentIndices[1] ?? 0] !== undefined
+              ? realdatesvalues[currentIndices[1] ?? 0]
+              : currentIndices[1]?.toString(),
         }
       }
       return {
-        minVal: currentIndices[0].toString(),
-        maxVal: currentIndices[1].toString(),
+        minVal: currentIndices[0]?.toString(),
+        maxVal: currentIndices[1]?.toString(),
       }
     }
 

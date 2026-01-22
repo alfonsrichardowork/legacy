@@ -66,7 +66,7 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
         value: tempName,
         slug: product.slug,
         url: final_Url,
-        categoryDetails: categoryDetails && categoryDetails.length > 2 ? categoryDetails[2].tempName : "",
+        categoryDetails: categoryDetails && categoryDetails.length > 2 ? categoryDetails[2]?.tempName : "",
       };
     });
 

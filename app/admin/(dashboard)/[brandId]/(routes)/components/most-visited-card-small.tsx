@@ -26,10 +26,10 @@ export function MostVisitorSmall(props: Props) {
                         </div>
                     </div>
                     <div className="pt-6 font-bold text-xl">
-                        {topReports[0].page}
+                        {topReports[0]?.page}
                     </div>
                     <div className="text-xs text-foreground/50 flex items-center whitespace-nowrap line-clamp-2">
-                        {topReports[0].views} page views <Dot size={20} /> Click to see popular pages
+                        {topReports[0]?.views} page views <Dot size={20} /> Click to see popular pages
                     </div>
                 </div>
             </div>

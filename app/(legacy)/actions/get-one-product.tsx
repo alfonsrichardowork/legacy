@@ -39,14 +39,14 @@ const getProduct = async (productSlug: string): Promise<SingleProducts> => {
     if(data.product.allCat){
       for (let i = 0; i < data.product.allCat.length; i++) {
         let temp: AllCategory = {
-          id: data.product.allCat[i].id,
-          name: data.product.allCat[i].name,
-          slug: data.product.allCat[i].slug
+          id: data.product.allCat[i]?.id ?? '',
+          name: data.product.allCat[i]?.name ?? '',
+          slug: data.product.allCat[i]?.slug ?? ''
         }
-        if(data.product.allCat[i].type === "Category"){
+        if(data.product.allCat[i]?.type === "Category"){
           prod_cat.push(temp)
         }
-        else if(data.product.allCat[i].type === "Sub Category"){
+        else if(data.product.allCat[i]?.type === "Sub Category"){
           prod_sub_cat.push(temp)
         }
         else{

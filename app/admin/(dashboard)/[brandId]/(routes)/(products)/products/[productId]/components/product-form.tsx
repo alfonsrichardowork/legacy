@@ -236,8 +236,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           if(value){
             const formData = new FormData();
             formData.append('file', value);
-            const url = await uploadDatasheet(formData, 'productdatasheet');
-            updatedDatasheet[updatedDatasheet.length - (file.length - index)].url = url;
+            const url = await uploadDatasheet(formData, 'productdatasheet');            
+            const elementIndex = updatedDatasheet.length - (file.length - index);
+            if (updatedDatasheet[elementIndex]) {
+              updatedDatasheet[elementIndex].url = url;
+            }
           }
         });
         await Promise.all(uploadPromises);
@@ -525,7 +528,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             const formData = new FormData();
             formData.append('image', value);
             const url = await uploadImage(formData, 'productimagecatalogues');
-            updatedImageCatalogues[updatedImageCatalogues.length - (file.length - index)].url = url;
+            const elementIndex = updatedImageCatalogues.length - (file.length - index)
+            if (updatedImageCatalogues[elementIndex]) {
+              updatedImageCatalogues[elementIndex].url = url;
+            }
           }
         });
         await Promise.all(uploadPromises);
@@ -1122,7 +1128,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       placeholder="Input this image name"
                       onChange={(e) => {
                         const updatedImageCatalogues = [...imgCataloguesUrl];
-                        updatedImageCatalogues[index].name = e.target.value;
+                        if(updatedImageCatalogues[index]){
+                          updatedImageCatalogues[index].name = e.target.value;
+                        }
                         setImgCataloguesUrl(updatedImageCatalogues);
                       }}
                       required
@@ -1185,7 +1193,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       placeholder="PDF File name"
                       onChange={(e) => {
                         const updatedDatasheet = [...allDatasheet];
-                        updatedDatasheet[index].name = e.target.value;
+                        if(updatedDatasheet[index]) {
+                          updatedDatasheet[index].name = e.target.value;
+                        }
                         setAllDatasheet(updatedDatasheet);
                       }}
                       required

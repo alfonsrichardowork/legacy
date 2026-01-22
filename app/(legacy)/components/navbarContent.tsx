@@ -398,7 +398,7 @@ function NavbarContent (){
           </ul>
         </div>
         <div className={`${hoveredDriverMenu === 'Legacy' ? 'pt-[36px]' : hoveredDriverMenu === 'Prestige' ? 'pt-[72px]' : hoveredDriverMenu === 'Energy' ? 'pt-[108px]' : hoveredDriverMenu === 'Sparta' ? 'pt-[144px]' : 'pt-0'} overflow-hidden whitespace-nowrap inline-block z-30`}>
-          <div className={`w-[190px] overflow-y-auto rounded-lg h-fit transform transition-all z-30 ${driversubMenu[0].title === '' ? '-translate-x-1/2 bg-transparent' : 'translate-x-0 bg-background shadow-md'}`}>
+          <div className={`w-[190px] overflow-y-auto rounded-lg h-fit transform transition-all z-30 ${driversubMenu[0]?.title === '' ? '-translate-x-1/2 bg-transparent' : 'translate-x-0 bg-background shadow-md'}`}>
             <ul className="gap-1 p-1">
               {/* SUB MENU */}
               {driversubMenu.map((products, index) => (
@@ -420,10 +420,10 @@ function NavbarContent (){
         {driversubsubMenu.length!=0 &&
           <div className={`${hoveredDriverMenu === 'Legacy' ? 'pt-[36px]' : hoveredDriverMenu === 'Prestige' ? 'pt-[72px]' : hoveredDriverMenu === 'Energy' ? 'pt-[108px]' : hoveredDriverMenu === 'Sparta' ? 'pt-[144px]' : 'pt-0'} z-20`}>
           <div style={{ paddingTop: `calc(${hoveredDriverSubMenuIndex} * 36px)` }}>
-          <div className={`w-[190px] overflow-y-auto max-h-[400px] h-fit rounded-lg transform transition-all z-20 ${driversubsubMenu[0].title === ''? '-translate-x-1/2 bg-transparent' : 'translate-x-0 bg-background shadow-md'}`}>
+          <div className={`w-[190px] overflow-y-auto max-h-[400px] h-fit rounded-lg transform transition-all z-20 ${driversubsubMenu[0]?.title === ''? '-translate-x-1/2 bg-transparent' : 'translate-x-0 bg-background shadow-md'}`}>
           <ul className="gap-1 p-1">
             {/* SUB MENU */}
-            {driversubsubMenu[0].title != '' && driversubsubMenu.map((products, index) => (
+            {driversubsubMenu[0]?.title != '' && driversubsubMenu.map((products, index) => (
               <div key={index} onMouseEnter={() => searchSubSubMenu(products.title, products.parent)} 
             className='px-2'
               >

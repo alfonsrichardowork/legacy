@@ -190,11 +190,11 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                             const topValue = Number(slider.topRealVal);
             
                             if (bottomValue <= productValue && topValue >= productValue) {
-                                tempShowed[indexslider].push(product);
+                                tempShowed[indexslider]?.push(product);
                             }
                         });
                     } else {
-                        tempShowed[indexslider - 1].forEach((product) => {
+                        tempShowed[indexslider - 1]?.forEach((product) => {
                             let productValue = 0
                             if(slider.slug==='size'){
                                 productValue = Number(product.size.value)
@@ -206,12 +206,12 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                             const topValue = Number(slider.topRealVal);
             
                             if (bottomValue <= productValue && topValue >= productValue) {
-                                tempShowed[indexslider].push(product);
+                                tempShowed[indexslider]?.push(product);
                             }
                         });
                     }
                 });
-                finishedSliderProducts = tempShowed[allActiveSlider.length - 1]
+                finishedSliderProducts = tempShowed[allActiveSlider.length - 1] ?? []
             } else {
                 finishedSliderProducts = data
             }
@@ -236,10 +236,10 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                         const checkboxValue = checkbox.name;
 
                         if (productValue === checkboxValue) {
-                            const productExists = finalTempProduct[category].some(item => item.products.name === product.products.name);
+                            const productExists = finalTempProduct[category]?.some(item => item.products.name === product.products.name);
 
                             if (!productExists) {
-                                finalTempProduct[category].push(product);
+                                finalTempProduct[category]?.push(product);
                             }
                         }
                     });
@@ -249,7 +249,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                 let productCountMap = new Map<string, number>();
 
                 checkboxCategories.map((category, indexcategory) => {
-                    finalTempProduct[category].map((product) => {
+                    finalTempProduct[category]?.map((product) => {
                         tempFinished.push(product);
                         const count = productCountMap.get(product.products.name) || 0;
                         productCountMap.set(product.products.name, count + 1);
@@ -337,10 +337,11 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
         // maxIndex: value[1],
         // }))
         let tempslider = sliderValue
-        tempslider[index].minIndex = value[0]
-        tempslider[index].maxIndex = value[1]
-        setSliderValue(tempslider)
-
+        if (tempslider[index] && value[0] !== undefined && value[1] !== undefined) {
+            tempslider[index].minIndex = value[0]
+            tempslider[index].maxIndex = value[1]
+            setSliderValue(tempslider)
+        }
         let tempactiveSlider : activeSlider[] = []
         let sliderisActive : boolean = false
         if(allActiveSlider.length!= 0){
@@ -353,10 +354,10 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                 else if(value[0] !== min_index || value[1] !== max_index){
                     tempactiveSlider.push({
                     slug,
-                    bottomVal: value[0],
-                    topVal: value[1],
-                    bottomRealVal: allVal[value[0]],
-                    topRealVal: allVal[value[1]],
+                    bottomVal: value[0] ?? 0,
+                    topVal: value[1] ?? 0,
+                    bottomRealVal: allVal[value[0] ?? 0] ?? 0,
+                    topRealVal: allVal[value[1] ?? 0] ?? 0,
                     parentName,
                     unit
                     })
@@ -372,10 +373,10 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
             if(value[0] !== min_index || value[1] !== max_index){
                 tempactiveSlider.push({
                 slug,
-                bottomVal: value[0],
-                topVal: value[1],
-                bottomRealVal: allVal[value[0]],
-                topRealVal: allVal[value[1]],
+                bottomVal: value[0] ?? 0,
+                topVal: value[1] ?? 0,
+                bottomRealVal: allVal[value[0] ?? 0] ?? 0,
+                topRealVal: allVal[value[1] ?? 0] ?? 0,
                 parentName,
                 unit
                 })
@@ -384,10 +385,10 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
         if(!sliderisActive){
             tempactiveSlider.push({
                 slug,
-                bottomVal: value[0],
-                topVal: value[1],
-                bottomRealVal: allVal[value[0]],
-                topRealVal: allVal[value[1]],
+                bottomVal: value[0] ?? 0,
+                topVal: value[1] ?? 0,
+                bottomRealVal: allVal[value[0] ?? 0] ?? 0,
+                topRealVal: allVal[value[1] ?? 0] ?? 0,
                 parentName,
                 unit
             })
@@ -431,9 +432,9 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
         let tempUrl: string = ''
         activeSlugCompare.map((value, index) => {
         if (value !== slug && value != '') {
-            tempslug.push(activeSlugCompare[index])
-            tempname.push(activeNameCompare[index])
-            tempUrlImage.push(activeUrlCompare[index])
+            tempslug.push(activeSlugCompare[index] ?? '')
+            tempname.push(activeNameCompare[index] ?? '')
+            tempUrlImage.push(activeUrlCompare[index] ?? '')
             tempUrl = tempUrl.concat(value, ",");
         } else {
             if (activeSlugCompare.length === 1) {
@@ -474,10 +475,10 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                 <div className="pr-2">
                     <div className="items-center justify-center text-center">
                         <LazyImageCustom
-                            src={activeUrlCompare[index].startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${activeUrlCompare[index]}` : activeUrlCompare[index]}
+                            src={activeUrlCompare[index]?.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${activeUrlCompare[index]}` : activeUrlCompare[index] ?? '/images/legacy/no-image.webp'}
                             width={50}
                             height={50}
-                            alt={activeNameCompare[index]}
+                            alt={activeNameCompare[index] ?? 'No Image'}
                             classname="max-h-12 max-w-full object-contain"
                         />
                     </div>
@@ -521,7 +522,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                         index !== segmentedPathname.length - 1?
                             <Fragment key={index}>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href={index === 0 ? `/` : index === 1?  `/`.concat(value) : `/`.concat(segmentedPathname[1],'/',value) }>{index===0?'Home' : value.charAt(0).toUpperCase() + value.slice(1)}</BreadcrumbLink>
+                                    <BreadcrumbLink href={index === 0 ? `/` : index === 1?  `/`.concat(value) : `/`.concat(segmentedPathname[1] ?? '','/',value) }>{index===0?'Home' : value.charAt(0).toUpperCase() + value.slice(1)}</BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator />
                             </Fragment>

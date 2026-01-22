@@ -23,12 +23,14 @@ function getLastMonths(data: { year: string, month: string, date: string, users:
   // Go backwards
   for (let i = data.length - 1; i >= 0; i--) {
     const item = data[i];
-    const key = `${item.year}-${item.month}`;
+    if(item){
+      const key = `${item.year}-${item.month}`;
 
-    result.unshift(item); // insert at beginning
-    seenMonths.add(key);
+      result.unshift(item); // insert at beginning
+      seenMonths.add(key);
 
-    if (seenMonths.size >= count) break;
+      if (seenMonths.size >= count) break;
+    }
   }
 
   return result;

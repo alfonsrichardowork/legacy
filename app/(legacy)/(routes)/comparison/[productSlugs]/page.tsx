@@ -40,7 +40,7 @@ function groupAllSpecifications(products: SingleProducts[]) {
       if (!grouped[parent][sub]) grouped[parent][sub] = {};
 
       spec.child.map((child) => {
-        if (!grouped[parent][sub][child.childname]) {
+        if (grouped[parent] && grouped[parent][sub] &&!grouped[parent][sub][child.childname]) {
           grouped[parent][sub][child.childname] = child.childname;
         }
       });
@@ -188,7 +188,7 @@ const ProductBySubCategoryPage = (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            (<TableCell key={product.name} className='text-center border-2 border-black p-2'>{product.sub_sub_categories.length > 0? `${product.sub_sub_categories[0].name}`: '-'
+                                            (<TableCell key={product.name} className='text-center border-2 border-black p-2'>{product.sub_sub_categories.length > 0? `${product.sub_sub_categories[0]?.name}`: '-'
                                                     }
                                             </TableCell>)
                                         ))}
@@ -268,12 +268,12 @@ const ProductBySubCategoryPage = (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            (<TableCell key={product.graph[0].name} className="justify-center items-center border-2 border-black p-2">
+                                            (<TableCell key={product.graph[0]?.name} className="justify-center items-center border-2 border-black p-2">
                                                 {product.graph.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.graph[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph[0].url}` : product.graph[0].url}
-                                                            alt={product.graph[0].name}
+                                                            src={product.graph[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph[0].url}` : product.graph[0]?.url ?? '/images/legacy/no-image.webp'}
+                                                            alt={product.graph[0]?.name ?? 'No Image'}
                                                             width={300}
                                                             height={300} 
                                                         />
@@ -297,12 +297,12 @@ const ProductBySubCategoryPage = (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            (<TableCell key={product.drawing[0].name} className="justify-center items-center border-2 border-black p-2">
+                                            (<TableCell key={product.drawing[0]?.name} className="justify-center items-center border-2 border-black p-2">
                                                 {product.drawing.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.drawing[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.drawing[0].url}` : product.drawing[0].url}
-                                                            alt={product.drawing[0].name}
+                                                            src={product.drawing[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.drawing[0].url}` : product.drawing[0]?.url ?? '/images/legacy/no-image.webp'}
+                                                            alt={product.drawing[0]?.name ?? 'No Image'}
                                                             width={300}
                                                             height={300} 
                                                         />
@@ -319,12 +319,12 @@ const ProductBySubCategoryPage = (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            (<TableCell key={product.impedance[0].name} className="justify-center items-center border-2 border-black p-2">
+                                            (<TableCell key={product.impedance[0]?.name} className="justify-center items-center border-2 border-black p-2">
                                                 {product.impedance.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.impedance[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance[0].url}` : product.impedance[0].url}
-                                                            alt={product.impedance[0].name}
+                                                            src={product.impedance[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance[0].url}` : product.impedance[0]?.url ?? '/images/legacy/no-image.webp'}
+                                                            alt={product.impedance[0]?.name ?? 'No Image'}
                                                             width={300}
                                                             height={300}  
                                                         />

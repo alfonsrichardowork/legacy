@@ -22,12 +22,14 @@ function groupByMonth(data: { year: string, month: string, date: string, users: 
     for (const key of Array.from(map.keys())) {
         const users = map.get(key) || 0
         const [year, month] = key.split("-")
-        const formattedDate = new Date(+year, +month - 1).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-        })
+        if(year && month) {
+            const formattedDate = new Date(+year, +month - 1).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+            })
 
-        result.push({ date: formattedDate, users })
+            result.push({ date: formattedDate, users })
+        }
     }
 
     return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(result.length - counterMonth, result.length)
@@ -56,11 +58,11 @@ export function LiveVisitorSmall(props: Props) {
                             </div>
                         </div>
                         <div className="pt-6 font-bold text-xl">
-                            {perMonths[perMonths.length-1].users}
+                            {perMonths[perMonths.length-1]?.users}
                         </div>
-                        <div className={`text-xs text-foreground/50 ${!perMonths[perMonths.length-2] ? "text-foreground/50" : (perMonths[perMonths.length-1].users - perMonths[perMonths.length - 2].users) >= 0 ? "text-green-500" : "text-red-500"} line-clamp-2`}>
+                        <div className={`text-xs text-foreground/50 ${!perMonths[perMonths.length-2] ? "text-foreground/50" : ((perMonths[perMonths.length-1]?.users ?? 0) - (perMonths[perMonths.length - 2]?.users ?? 0)) >= 0 ? "text-green-500" : "text-red-500"} line-clamp-2`}>
                             {perMonths[perMonths.length-2]
-                                    ? (((perMonths[perMonths.length-1].users - perMonths[perMonths.length - 2].users) / perMonths[perMonths.length - 2].users) * 100).toFixed(1)
+                                    ? ((((perMonths[perMonths.length-1]?.users ?? 0) - (perMonths[perMonths.length - 2]?.users ?? 0)) / (perMonths[perMonths.length - 2]?.users ?? 0)) * 100).toFixed(1)
                                     : "0"}
                                 % from last month
                         </div>
@@ -77,20 +79,20 @@ export function LiveVisitorSmall(props: Props) {
             <div className="grid md:grid-cols-3 grid-cols-1 min-h-28 gap-2 mb-4">
                 <div className="col-span-1 bg-red-500/10 rounded-xl text-red-500 p-3">
                     <div className="text-xs font-semibold">Total Growth</div>
-                    <div className={`text-lg font-bold ${!perMonths[1] ? "text-foreground/50" : (perMonths[perMonths.length-1].users - perMonths[1].users) >= 0 ? "text-green-500" : "text-red-500"}`}>
+                    <div className={`text-lg font-bold ${!perMonths[1] ? "text-foreground/50" : ((perMonths[perMonths.length-1]?.users ?? 0) - (perMonths[1]?.users ?? 0)) >= 0 ? "text-green-500" : "text-red-500"}`}>
                         {perMonths[1]
-                            ? (((perMonths[perMonths.length-1].users - perMonths[1].users) / perMonths[1].users) * 100).toFixed(1)
+                            ? ((((perMonths[perMonths.length-1]?.users ?? 0) - (perMonths[1]?.users ?? 0)) / (perMonths[1]?.users ?? 0)) * 100).toFixed(1)
                             : "0"}
                         %
                     </div>
                     <div className="text-[11px]">
-                        From {perMonths[1].date.split(' ')[0].slice(0,3)} {perMonths[1].date.split(' ')[1]} to {perMonths[perMonths.length - 1].date.split(' ')[0].slice(0,3)} {perMonths[perMonths.length - 1].date.split(' ')[1]}
+                        From {perMonths[1]?.date.split(' ')[0]?.slice(0,3)} {perMonths[1]?.date.split(' ')[1]} to {perMonths[perMonths.length - 1]?.date.split(' ')[0]?.slice(0,3)} {perMonths[perMonths.length - 1]?.date.split(' ')[1]}
                     </div>
                 </div>
                 <div className="col-span-1 bg-green-500/10 rounded-xl text-green-500 p-3">
                     <div className="text-xs font-semibold">Best Month</div>
                     <div className={`text-lg font-bold`}>
-                        {maxMonth.date.split(' ')[0].slice(0,3)} {maxMonth.date.split(' ')[1]}
+                        {maxMonth.date.split(' ')[0]?.slice(0,3)} {maxMonth.date.split(' ')[1]}
                     </div>
                     <div className="text-[11px]">
                         {maxMonth.users} visitors
@@ -110,16 +112,16 @@ export function LiveVisitorSmall(props: Props) {
             index !=0 &&
                 <div key={index} className="bg-foreground/5 rounded-xl grid grid-cols-2 min-h-14 px-4 my-2">
                     <div className="col-span-1 flex justify-start items-center font-semibold">
-                        {val.date.split(' ')[0].slice(0,3)} {val.date.split(' ')[1]}
+                        {val.date.split(' ')[0]?.slice(0,3)} {val.date.split(' ')[1]}
                     </div>
                     <div className="col-span-1 flex justify-end items-center font-semibold">
                         <div>
                             <div className="font-semibold text-sm">
                                 {val.users}
                             </div>
-                            <div className={`flex font-medium justify-end text-[11px] ${!perMonths[index - 1] ? "text-foreground/50" : (val.users - perMonths[index - 1].users) >= 0 ? "text-green-500" : "text-red-500"}`}>
+                            <div className={`flex font-medium justify-end text-[11px] ${!perMonths[index - 1] ? "text-foreground/50" : (val.users - (perMonths[index - 1]?.users ?? 0)) >= 0 ? "text-green-500" : "text-red-500"}`}>
                                 {perMonths[index - 1]
-                                    ? (((val.users - perMonths[index - 1].users) / perMonths[index - 1].users) * 100).toFixed(1)
+                                    ? (((val.users - (perMonths[index - 1]?.users ?? 0)) / (perMonths[index - 1]?.users ?? 0)) * 100).toFixed(1)
                                     : "0"}
                                 %
                             </div>

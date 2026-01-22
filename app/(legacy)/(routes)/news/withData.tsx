@@ -51,7 +51,7 @@ export default function NewsWithData({newsDataPromise}: {newsDataPromise: Promis
         // Replace Indonesian month with English equivalent
         const parts = dateStr.split(' ');
         const [day, month, year] = parts;
-        const englishMonth = monthMap[month];
+        const englishMonth = monthMap[month ?? 'Januari'];
         if (!englishMonth) return NaN;
         return new Date(`${day} ${englishMonth} ${year}`).getTime();
       })

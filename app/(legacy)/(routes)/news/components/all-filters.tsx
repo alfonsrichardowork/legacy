@@ -76,9 +76,11 @@ const AllNewsandFilters: React.FC<MainProps> = ({
     const handleSliderChange = (slug: string, value: number[], min_index: number, max_index: number, allVal: number[], parentName: string, unit: string, index: number) => {
 
         let tempslider = sliderValue
-        tempslider[index].minIndex = value[0]
-        tempslider[index].maxIndex = value[1]
-        setSliderValue(tempslider)
+        if (tempslider[index] && value[0] !== undefined && value[1] !== undefined) {
+            tempslider[index].minIndex = value[0]
+            tempslider[index].maxIndex = value[1]
+            setSliderValue(tempslider)
+        }
 
         let tempactiveSlider : activeSlider[] = []
         let sliderisActive : boolean = false
@@ -92,10 +94,10 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                 else if(value[0] !== min_index || value[1] !== max_index){
                     tempactiveSlider.push({
                     slug,
-                    bottomVal: value[0],
-                    topVal: value[1],
-                    bottomRealVal: allVal[value[0]],
-                    topRealVal: allVal[value[1]],
+                    bottomVal: value[0] ?? 0,
+                    topVal: value[1] ?? 0,
+                    bottomRealVal: allVal[value[0] ?? 0] ?? 0,
+                    topRealVal: allVal[value[1] ?? 0] ?? 0,
                     parentName,
                     unit
                     })
@@ -111,10 +113,10 @@ const AllNewsandFilters: React.FC<MainProps> = ({
             if(value[0] !== min_index || value[1] !== max_index){
                 tempactiveSlider.push({
                 slug,
-                bottomVal: value[0],
-                topVal: value[1],
-                bottomRealVal: allVal[value[0]],
-                topRealVal: allVal[value[1]],
+                bottomVal: value[0] ?? 0,
+                topVal: value[1] ?? 0,
+                bottomRealVal: allVal[value[0] ?? 0] ?? 0,
+                topRealVal: allVal[value[1] ?? 0] ?? 0,
                 parentName,
                 unit
                 })
@@ -123,10 +125,10 @@ const AllNewsandFilters: React.FC<MainProps> = ({
         if(!sliderisActive){
             tempactiveSlider.push({
                 slug,
-                bottomVal: value[0],
-                topVal: value[1],
-                bottomRealVal: allVal[value[0]],
-                topRealVal: allVal[value[1]],
+                bottomVal: value[0] ?? 0,
+                topVal: value[1] ?? 0,
+                bottomRealVal: allVal[value[0] ?? 0] ?? 0,
+                topRealVal: allVal[value[1] ?? 0] ?? 0,
                 parentName,
                 unit
             })
@@ -157,23 +159,23 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                             const topValue = normalizeDate(new Date(slider.topRealVal));
 
                             if (bottomValue <= productValue && topValue >= productValue) {
-                                tempShowed[indexslider].push(product);
+                                tempShowed[indexslider]?.push(product);
                             }
                         });
                     } else {
-                        tempShowed[indexslider - 1].forEach((product) => {
+                        tempShowed[indexslider - 1]?.forEach((product) => {
                             const productValue = normalizeDate(new Date(product.event_date));
                             const bottomValue = normalizeDate(new Date(slider.bottomRealVal));
                             const topValue = normalizeDate(new Date(slider.topRealVal));
 
 
                             if (bottomValue <= productValue && topValue >= productValue) {
-                                tempShowed[indexslider].push(product);
+                                tempShowed[indexslider]?.push(product);
                             }
                         });
                     }
                 });
-                finishedSliderNews = tempShowed[allActiveSlider.length - 1]
+                finishedSliderNews = tempShowed[allActiveSlider.length - 1] ?? []
             } else {
                 finishedSliderNews = data
             }

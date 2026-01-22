@@ -14,7 +14,7 @@ export default function SpecificationTable({ spec, styling, stylingTitle }: Prop
   // Step 1: Group data by parent
   const groupedByParent = spec.reduce((acc, curr) => {
     if (!acc[curr.parentname]) acc[curr.parentname] = [];
-    acc[curr.parentname].push(curr);
+    acc[curr.parentname]?.push(curr);
     return acc;
   }, {} as Record<string, SpecificationProp[]>);
 
@@ -29,7 +29,7 @@ export default function SpecificationTable({ spec, styling, stylingTitle }: Prop
 
         //For all notes
         const allNotes = Array.from(
-          (subGroups[0].child.map((c) => c.notes))
+          (subGroups[0]?.child?.map((c) => c.notes) ?? [])
         );
 
         allNotesNonNull = [...allNotesNonNull, ...allNotes.filter((val) => val.trim() !== '')];

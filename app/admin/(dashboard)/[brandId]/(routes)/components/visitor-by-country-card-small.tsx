@@ -26,10 +26,10 @@ export function VisitorByCountrySmall(props: Props) {
                         </div>
                     </div>
                     <div className="pt-6 font-bold text-xl">
-                        {props.LiveVisitor[0].country}
+                        {props.LiveVisitor[0]?.country}
                     </div>
                     <div className="text-xs text-foreground/50 flex items-center whitespace-nowrap line-clamp-2">
-                        {props.LiveVisitor[0].users} visitors <Dot size={20} /> Click to see top 5
+                        {props.LiveVisitor[0]?.users} visitors <Dot size={20} /> Click to see top 5
                     </div>
                 </div>
             </div>

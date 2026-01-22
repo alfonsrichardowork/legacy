@@ -93,7 +93,7 @@ const getAllProductsForFilterPage = async (api: string): Promise<[AllFilterProdu
 
   allSpecs['size'] = tempSize
   for (const key in allSpecs) {
-    if (allSpecs[key].length === 0) {
+    if (allSpecs[key]?.length === 0) {
       delete allSpecs[key]
     }
   }

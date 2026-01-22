@@ -40,8 +40,8 @@ const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, S
     const getDisplayValues = () => {
       if (dataArray && Array.isArray(dataArray)) {
         return {
-          minVal: dataArray[currentIndices[0]] !== undefined ? dataArray[currentIndices[0]] : currentIndices[0],
-          maxVal: dataArray[currentIndices[1]] !== undefined ? dataArray[currentIndices[1]] : currentIndices[1],
+          minVal: dataArray[currentIndices[0] ?? 0] !== undefined ? dataArray[currentIndices[0] ?? 0] : currentIndices[0],
+          maxVal: dataArray[currentIndices[1] ?? 0] !== undefined ? dataArray[currentIndices[1] ?? 0] : currentIndices[1],
         }
       }
       return {
