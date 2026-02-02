@@ -1,4 +1,4 @@
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 import { distributors } from "@prisma/client";
 import getAllDistributor from "../../actions/get-all-distributor";

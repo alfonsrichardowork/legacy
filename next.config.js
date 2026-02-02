@@ -2,12 +2,12 @@
 
 const nextConfig = {
   reactCompiler: true,
-  // cacheComponents: true,
   experimental: {
     serverActions: {
       bodySizeLimit: '50mb',
     },
   },
+  poweredByHeader: false,
   compress: true,
   images: {
     remotePatterns: [
@@ -18,13 +18,13 @@ const nextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'http',  // for local dev
+        protocol: 'http',
         hostname: 'localhost',
         port: '3001',
         pathname: '/uploads/**',
       },
       {
-        protocol: 'https', // for production
+        protocol: 'https',
         hostname: 'www.legacy.us.com',
         port: '',
         pathname: '/uploads/**',
@@ -72,4 +72,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

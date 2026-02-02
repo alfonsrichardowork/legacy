@@ -8,7 +8,7 @@ const getAllNews = async (totalNews: string): Promise<NewsType[]> => {
 
   const API_EDITED = API.replace('{totalNews}', totalNews)
   const response = await fetch(API_EDITED, {
-    next: { revalidate: 86400 }
+    next: { revalidate: 30 }
   });
   if (!response.ok) {
     redirect('/');

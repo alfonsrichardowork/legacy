@@ -1,4 +1,4 @@
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 import { AllFilterProductsOnlyType, ChildSpecificationProp } from "@/app/(legacy)/types";
 import getAllProductsForFilterPage from "@/app/(legacy)/actions/get-all-products-for-filter-page";

@@ -1,4 +1,4 @@
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 import type { contacts } from "@prisma/client"
 import { Suspense } from "react"

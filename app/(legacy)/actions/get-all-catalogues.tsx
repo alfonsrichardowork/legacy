@@ -5,7 +5,7 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_A
 
 const getAllCatalogues = async (): Promise<catalogues[]> => {
   const response = await fetch(API, {
-    next: { revalidate: 86400 }
+    next: { revalidate: 30 }
   });
   if (!response.ok) {
     redirect('/');

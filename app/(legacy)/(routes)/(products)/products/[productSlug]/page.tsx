@@ -131,12 +131,14 @@ export default async function SingleProductJsonLd(props: Props) {
                                         <div className="pt-4 space-y-2">
                                             {data.datasheet.length > 0 && data.datasheet.map((sheet, index) => (
                                             sheet?.url && (
-                                                <Link key={index} href={sheet.url} target="_blank" rel="noopener noreferrer">
+                                                <div key={index} className="mb-2">
+                                                <Link href={sheet.url} target="_blank" rel="noopener noreferrer">
                                                 <div className="w-full bg-blue-500 text-white flex justify-center items-center py-2 rounded-lg hover:bg-foreground transition-all ease-in-out duration-200">
                                                     <FileDown size={20} className="mr-2" />
                                                     <div>{sheet.name || "Download Manual"}</div>
                                                 </div>
                                                 </Link>
+                                                </div>
                                             )
                                             ))}
                                         </div>

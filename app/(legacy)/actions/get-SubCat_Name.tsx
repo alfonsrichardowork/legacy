@@ -6,8 +6,8 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_S
 const getSubCatNameBySlug = async (slug: string): Promise<categoriesHeader> => {
     const API_EDITED = API.replace('{subCategorySlug}', slug)
     const response = await fetch(API_EDITED, {
-    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
-  });
+      next: { revalidate: 30 }
+    });
     if (!response.ok) {
       redirect("/")
     }

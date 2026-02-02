@@ -3,15 +3,15 @@ import getAllProductsJsonld from "@/app/(legacy)/actions/jsonLd/get-all-products
 import { AllProductsJsonType } from "@/app/(legacy)/types";
 import { Metadata, ResolvingMetadata } from "next"
 
-export const revalidate = 86400
-export async function generateStaticParams() {
-  const allProducts : AllProductsJsonType[] = await getAllProductsJsonld();
-  if (!allProducts || allProducts.length === 0) {
-    return []; // no params generated
-  }
-  const onlySlug = allProducts.map((product) => product.slug);
-  return onlySlug.map((productSlug) => ({ productSlug }));
-}
+// export const revalidate = 86400
+// export async function generateStaticParams() {
+//   const allProducts : AllProductsJsonType[] = await getAllProductsJsonld();
+//   if (!allProducts || allProducts.length === 0) {
+//     return []; // no params generated
+//   }
+//   const onlySlug = allProducts.map((product) => product.slug);
+//   return onlySlug.map((productSlug) => ({ productSlug }));
+// }
 
 type Props = {
   params: Promise<{ productSlug: string }>

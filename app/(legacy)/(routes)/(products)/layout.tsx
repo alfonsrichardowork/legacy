@@ -1,7 +1,3 @@
-import { Suspense } from "react"
-import GAListener from "../../components/GAListener"
-import Script from "next/script"
-
 export default function ProductLayout({
     children,
   }: {

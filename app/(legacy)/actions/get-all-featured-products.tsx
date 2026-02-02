@@ -6,9 +6,9 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_A
 const getAllFeaturedProducts = async (): Promise<FeaturedProducts[]> => {
   let allFeaturedProducts: Array<FeaturedProducts> = []
 
-  const response = await fetch(API
-    // , {next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) }}
-  );
+  const response = await fetch(API, {
+    next: { revalidate: 30 }
+  });
   if (!response.ok) {
       redirect('/');
     // throw new Error('Failed to fetch featured products');

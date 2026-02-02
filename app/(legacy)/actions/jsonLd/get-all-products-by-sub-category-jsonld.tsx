@@ -5,7 +5,9 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_A
 
 const getAllProductsBySubCategoryJsonld = async (subcategory: string): Promise<AllProductsJsonType[]> => {
   const API_EDITED = API.replace('{productSubCategory}', subcategory)
-  const response = await fetch(API_EDITED);
+  const response = await fetch(API_EDITED, {
+    next: { revalidate: 30 }
+  });
   if (!response.ok) {
     redirect('/');
     // throw new Error(`Failed to fetch products by ${subcategory}`);

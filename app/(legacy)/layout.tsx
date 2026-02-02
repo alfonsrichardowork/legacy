@@ -6,9 +6,6 @@ import ScrollToTop from './components/scrollToTop';
 import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
 import '@/app/globals.css'
-import Script from 'next/script';
-import GAListener from './components/GAListener';
-import { Suspense } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 const font = Inter({ subsets: ['latin'] })
@@ -94,29 +91,6 @@ export default function RootlegacyLayout({
       />
     </head>
     <body className={`${font.className || ''} overflow-x-hidden`}>
-      {/* <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-        strategy="afterInteractive"
-      />
-
-      <Script id="ga-init" strategy="afterInteractive">
-      {`
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-
-        gtag('js', new Date());
-
-        gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-          send_page_view: false,
-          debug_mode: ${process.env.NODE_ENV === 'development'},
-        });
-      `}
-      </Script> 
-      <Suspense fallback={null}>
-        <GAListener />
-      </Suspense> */}
-
       <ScrollToTop />
       <div className='min-h-screen'>
         <NextTopLoader color='#f0ad4e' showSpinner={false}/>

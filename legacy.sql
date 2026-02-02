@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2026 at 07:04 AM
+-- Generation Time: Feb 02, 2026 at 07:12 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -296,6 +296,7 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 ('02bf5ca7-666e-4322-8b8f-d848879b634b', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/productcoverimage/12in LG-12385-2 SPARTA Collage-1732254879382.webp', '2025-07-30 01:07:25.662', '2025-07-30 01:07:25.662'),
 ('05b4f87f-ffb2-4d1b-87a8-ad16cbd38b66', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/productcoverimage/12in LG 1277-2-1733969592789.webp', '2024-12-13 00:50:52.327', '2024-12-13 00:50:52.327'),
 ('075b404e-bb96-4fcf-9a17-db978c493151', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productcoverimage/6.5in BST 1614 collage-1732765167247.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315'),
+('082ec22b-09f1-4551-b143-ea81b13a8109', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productcoverimage/1755242250702-1732254648921-10in-lg-1077-2-collage-1755242495810.webp', '2026-02-02 04:07:25.849', '2026-02-02 04:07:25.849'),
 ('1ebd2c38-d1e6-49c2-9b6a-536f22d0a38c', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '/uploads/productcoverimage/12in LG 1292-2 collage-1732254591415.webp', '2024-11-28 03:19:22.606', '2024-11-28 03:19:22.606'),
 ('240ea1fa-2dc2-4a8b-9106-6bc4024df138', '164c19d2-170f-4b48-958e-68ec335392f0', '/uploads/productcoverimage/5in-BST-522-Mk3-2way-Collage-1731894853776.webp', '2024-12-09 08:58:33.637', '2024-12-09 08:58:33.637'),
 ('31bc8f9a-84d3-46cb-bdb6-d17e423ce94b', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productcoverimage/6X9in-BST-6981-Mk1-collage-1731894927170.webp', '2024-12-09 08:57:24.171', '2024-12-09 08:57:24.171'),
@@ -319,7 +320,6 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 ('a95b18ed-faf0-4b90-a720-9d4c34eb2bd0', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', '/uploads/productcoverimage/12in LG 1299 collage-1731395912433.webp', '2024-11-28 03:20:43.407', '2024-11-28 03:20:43.407'),
 ('abdeb293-723b-4557-86ae-f56c8d628c2c', '42802840-d898-46ea-8377-7e0a9b6a060f', '/uploads/productcoverimage/pg 1054 2 layout-1731395570075.webp', '2024-11-28 03:31:53.137', '2024-11-28 03:31:53.137'),
 ('ace295fa-e1c2-44d5-96b7-444658ace649', 'e1c25166-8945-4f86-a898-3795b4b44883', '/uploads/productcoverimage/1240-cone-1758512180967.webp', '2025-09-22 03:36:22.155', '2025-09-22 03:36:22.155'),
-('aced7015-6959-4317-a7a9-95e888a8a41e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productcoverimage/1755242250702-1732254648921-10in-lg-1077-2-collage-1755242495810.webp', '2025-08-15 07:21:35.842', '2025-08-15 07:21:35.842'),
 ('b4e6e04b-e964-42e2-bd9b-1c43b2116295', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '/uploads/productcoverimage/4in 8347 KH collage-1731893247095.webp', '2024-11-28 03:34:00.594', '2024-11-28 03:34:00.594'),
 ('b592f719-7854-47b7-9cb3-9ad62a384c46', '78c76b38-9464-446b-ad93-2a10560d25b8', '/uploads/productcoverimage/73-1728015452703.jpg', '2024-11-28 03:13:07.619', '2024-11-28 03:13:07.619'),
 ('bb76a846-41fe-46dc-9c1a-ea34d7e16b37', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', '/uploads/productcoverimage/4in BST 1023 Dual Cone Collage-1731895876705.webp', '2024-12-09 08:56:57.104', '2024-12-09 08:56:57.104'),
@@ -630,7 +630,7 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('2e2b8365-ab52-41d9-a8cc-4743da0cc3ae', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '/uploads/productimagecatalogues/10in 1096-Mk1 magnet-1731395725672.webp', '2024-12-09 09:00:42.291', '2024-12-09 09:00:42.291', 'Side'),
 ('2f2e0486-e24f-46fb-85c8-1b280c923295', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productimagecatalogues/1727745200678-lg-696-2-cone-1024x1021-1730865885560.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574', 'Top'),
 ('306db6ca-74ee-49ff-b027-c897957b8ec6', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', '/uploads/productimagecatalogues/4in 8347 BH Magnet-1731893197682.webp', '2024-11-28 03:33:43.389', '2024-11-28 03:33:43.389', 'Bottom'),
-('33273d92-5bff-4dc8-b500-6e8085ffacc8', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 chasis-1732254649218.webp', '2024-11-28 03:10:43.881', '2025-08-15 07:21:35.827', 'Side Bottom'),
+('33273d92-5bff-4dc8-b500-6e8085ffacc8', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 chasis-1732254649218.webp', '2024-11-28 03:10:43.881', '2026-02-02 04:07:25.831', 'Side Bottom'),
 ('33cc154f-98ee-4308-954e-3f7d20ebb44a', '42802840-d898-46ea-8377-7e0a9b6a060f', '/uploads/productimagecatalogues/pg 1054 2 magnet-1731395570224.webp', '2024-11-28 03:31:53.137', '2025-12-09 09:13:40.374', 'Bottom'),
 ('350c14bd-6602-4f2e-aa8c-a27c53fde92d', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productimagecatalogues/6X9in-BST-6981-Mk1-cone-no-mesh-1731894927292.webp', '2024-12-09 08:57:24.170', '2024-12-09 08:57:24.170', 'Top No Mesh'),
 ('392894e8-26e2-43c5-aee9-8c2ed6ddc51f', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '/uploads/productimagecatalogues/10in 1096-Mk1 magnet top-1731395725717.webp', '2024-12-09 09:00:42.291', '2024-12-09 09:00:42.291', 'Bottom'),
@@ -644,11 +644,11 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('53623feb-62fb-4d53-aaa7-2834ef235737', '4899e144-b93b-446a-89b4-b055230545ee', '/uploads/productimagecatalogues/10in LG-1098-2 magnet-1731395653235.webp', '2024-11-28 03:12:45.627', '2024-11-28 03:12:45.627', 'Side'),
 ('53a7297f-14e7-47b7-98a1-a817f507a3de', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimagecatalogues/Foto Legacy Bawah.webp', '2025-09-22 07:35:39.207', '2025-09-22 07:35:39.207', 'Bottom Side'),
 ('53be2e67-ae3a-4ccf-a13e-3c0069e4f5c0', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/BST 1614 chasis-1732765167406.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Side'),
-('54a27c63-13e2-4b68-806a-bad86477d1f4', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 magnet-1732254649173.webp', '2024-11-28 03:10:43.881', '2025-08-15 07:21:35.827', 'Bottom'),
+('54a27c63-13e2-4b68-806a-bad86477d1f4', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 magnet-1732254649173.webp', '2024-11-28 03:10:43.881', '2026-02-02 04:07:25.831', 'Bottom'),
 ('56a3f5bf-9155-4c57-b84e-60086bf51b58', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/BST 1614 magnet-1732765167358.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Bottom'),
 ('59597d7d-ab5d-4976-8906-7bf319b741bd', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '/uploads/productimagecatalogues/4in 8347 KH Cone-1731893247136.webp', '2024-11-28 03:34:00.594', '2024-11-28 03:34:00.594', 'Top'),
 ('5de46b56-52ae-498c-9956-c93719815293', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '/uploads/productimagecatalogues/1095-2 Mk1 Cone-1731395781188.webp', '2024-12-13 01:59:24.739', '2024-12-13 01:59:24.739', 'Top'),
-('5e75580c-f0e7-41e8-bfc0-964093fff08e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 cone-1732254649107.webp', '2024-11-28 03:10:43.881', '2025-08-15 07:21:35.827', 'Top'),
+('5e75580c-f0e7-41e8-bfc0-964093fff08e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 cone-1732254649107.webp', '2024-11-28 03:10:43.881', '2026-02-02 04:07:25.831', 'Top'),
 ('613108fe-c17f-4b64-b79b-63180e0a332f', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productimagecatalogues/6X9in-BST-6981-Mk1-chasis-1731894927334.webp', '2024-12-09 08:57:24.170', '2024-12-09 08:57:24.170', 'Side'),
 ('64a5aab9-51eb-4ee2-af84-2451f0963b0d', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '/uploads/productimagecatalogues/6in 638 chassis-1731395977014.webp', '2024-11-28 03:23:18.530', '2024-11-28 03:23:18.530', 'Side'),
 ('69e4712c-7cb2-4ee0-ab1f-36c8fdb5e7f0', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productimagecatalogues/1727678256578-lg-696-2-magnet-1024x1024-1730865885685.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574', 'Bottom'),
@@ -910,7 +910,7 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8\" LG 896-2', 0, 0, '3ceafaeb-f3e4-4034-b46a-44948d3c2062', '2024-09-25 09:14:08.427', '2025-10-24 13:45:29.669', '<p></p>', 'lg-896-2', 'admin', 0, '', ''),
 ('58e4147b-93a0-4809-955d-d04ce1161c5e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1277-2', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:04:43.154', '2025-10-24 13:32:16.628', '<p></p>', 'lg-1277-2', 'admin', 0, 'Tampilan fresh dan elegan serta jahitan antara conepaper dan surround yang kuat mampu meningkatkan performa bass yang kuat dan dalam', 'LEGACY'),
 ('5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1040-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2025-09-22 01:59:43.289', '2025-10-24 13:29:36.130', '<p></p>', 'lg-1040-2', 'admin', 0, '', ''),
-('5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1077-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:53:37.562', '2025-10-24 13:26:24.995', '<p></p>', 'lg-1077-2', 'admin', 0, '', ''),
+('5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1077-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:53:37.562', '2026-02-02 04:07:25.858', '<p></p>', 'lg-1077-2', 'admin', 0, '', ''),
 ('62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1038-2', 0, 1, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:51:18.457', '2024-11-28 03:43:16.934', '<p></p>', 'lg-1038-2', 'admin', 0, '', ''),
 ('69db9385-8c1f-4863-a07d-30e3fc952ec6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6\" LG 638-2 MK1', 0, 0, 'ed8a91c0-2efb-4f49-892e-5f5cb123bd86', '2024-09-25 09:11:28.844', '2025-10-24 13:43:12.250', '<p></p>', 'lg-638-2-mk1', 'admin', 0, '', ''),
 ('6f3b950d-f94f-4c21-8e42-7e05251434b4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1295-2 MK1', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:06:50.888', '2025-10-24 13:34:03.933', '<p></p>', 'lg-1295-2-mk1', 'admin', 0, '', ''),

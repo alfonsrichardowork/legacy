@@ -5,8 +5,8 @@ const API=`${process.env.NEXT_PUBLIC_ROOT_URL}/${process.env.NEXT_PUBLIC_FETCH_M
 
 const getSingleMetadata = async (productSlug: string): Promise<MetadataSingleProducts> => {
   const API_EDITED = API.replace('{productSlug}', productSlug)
-  const response = await fetch(API_EDITED!, {
-    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+  const response = await fetch(API_EDITED, {
+    next: { revalidate: 30 }
   });
   if (!response.ok) {
     redirect('/');

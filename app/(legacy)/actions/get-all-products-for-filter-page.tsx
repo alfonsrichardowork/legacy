@@ -5,7 +5,7 @@ const getAllProductsForFilterPage = async (api: string): Promise<[AllFilterProdu
 
   let allSizes : string[] = []
   const response = await fetch(api, {
-    next: { revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE_TIME) } // Cache for 1 hour
+    next: { revalidate: 30 }
   });
   if (!response.ok) {
     redirect('/');
