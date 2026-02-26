@@ -75,6 +75,7 @@
     "eslint": "^9.24.0",
     "eslint-config-next": "^15.3.0",
     "express": "^5.2.1",
+    "framer-motion": "^12.34.2",
     "iron-session": "^8.0.2",
     "isomorphic-dompurify": "^2.34.0",
     "jsonwebtoken": "^9.0.2",
