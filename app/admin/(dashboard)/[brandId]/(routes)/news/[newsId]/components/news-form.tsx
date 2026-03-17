@@ -46,6 +46,7 @@ import Underline from "@tiptap/extension-underline"
 import '@/app/css/styles.scss'
 import { Calendar } from "@/components/ui/calendar"
 import { uploadImage } from "@/app/admin/upload-image"
+import { MAX_SIZE } from "@/app/admin/model/model"
 
 
 const formSchema = z.object({
@@ -128,6 +129,12 @@ export const NewsForm: React.FC<NewsFormProps> = ({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if(!file) return
+    if (file.size > MAX_SIZE) {
+      alert("File size must be less than 2MB");
+      e.target.value = "";
+      return;
+    }
     setSelectedFile(file);
   };
 
@@ -431,10 +438,15 @@ export const NewsForm: React.FC<NewsFormProps> = ({
   
   
     const handleFileChangeTiptap = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files?.[0]) {
-        let testUrl = await handleImageUploadContentNews(e.target.files?.[0]);
-        addImage(testUrl)
+      const file = e.target.files?.[0];
+      if(!file) return
+      if (file.size > MAX_SIZE) {
+        alert("File size must be less than 2MB");
+        e.target.value = "";
+        return;
       }
+      let testUrl = await handleImageUploadContentNews(file);
+      addImage(testUrl)
     };
 
 

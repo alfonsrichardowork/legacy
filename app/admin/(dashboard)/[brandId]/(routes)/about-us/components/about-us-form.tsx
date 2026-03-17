@@ -21,8 +21,6 @@ import {
 } from "@/app/admin/components/ui/form"
 import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/app/admin/components/ui/heading"
-import { AlertModal } from "@/app/admin/components/modals/alert-modal"
-import { ApiAlert } from "@/app/admin/components/ui/api-alert"
 import { useOrigin } from "@/app/admin/hooks/use-origin"
 import { brand } from "@prisma/client"
 import { uploadImage } from "@/app/admin/upload-image"
@@ -45,6 +43,7 @@ import { Toggle } from "@/app/admin/components/ui/toggle"
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/admin/components/ui/popover"
 import '@/app/css/styles.scss'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/(legacy)/components/ui/accordionmobilemenu"
+import { MAX_SIZE } from "@/app/admin/model/model"
 
 const formSchema = z.object({
   img: z.string().optional(),
@@ -113,11 +112,23 @@ useEffect(() => {
   
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
+      if(!file) return
+      if (file.size > MAX_SIZE) {
+        alert("File size must be less than 2MB");
+        e.target.value = "";
+        return;
+      }
       setSelectedFile(file);
     };
 
     const handleFileChangeHomepage = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
+      if(!file) return
+      if (file.size > MAX_SIZE) {
+        alert("File size must be less than 2MB");
+        e.target.value = "";
+        return;
+      }
       setSelectedFileHomepage(file);
     };
   
@@ -479,10 +490,15 @@ useEffect(() => {
     };
 
     const handleFileChangeTiptap = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files?.[0]) {
-        let testUrl = await handleImageUploadContent(e.target.files?.[0]);
-        addImage(testUrl)
+      const file = e.target.files?.[0];
+      if(!file) return
+      if (file.size > MAX_SIZE) {
+        alert("File size must be less than 2MB");
+        e.target.value = "";
+        return;
       }
+      let testUrl = await handleImageUploadContent(file);
+      addImage(testUrl)
     };
 
 
@@ -527,10 +543,15 @@ useEffect(() => {
     };
 
     const handleFileChangeTiptap2 = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files?.[0]) {
-        let testUrl = await handleImageUploadContent2(e.target.files?.[0]);
-        addImage2(testUrl)
+      const file = e.target.files?.[0];
+      if(!file) return
+      if (file.size > MAX_SIZE) {
+        alert("File size must be less than 2MB");
+        e.target.value = "";
+        return;
       }
+      let testUrl = await handleImageUploadContent2(file);
+      addImage2(testUrl)
     };
 
 

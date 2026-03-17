@@ -28,6 +28,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { uploadImage } from "@/app/admin/upload-image"
 import Image from "next/image"
 import Link from "next/link"
+import { MAX_SIZE } from "@/app/admin/model/model"
 
 
 const formSchema = z.object({
@@ -124,6 +125,12 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     
       const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+        if(!file) return
+        if (file.size > MAX_SIZE) {
+          alert("File size must be less than 2MB");
+          e.target.value = "";
+          return;
+        }
         setSelectedFile(file);
       };
     
@@ -272,7 +279,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                         onChange={(e) =>
                           e.target.files && handleFileChange(e) // Ensure your file upload function can handle image files
                         }
-                        // required
+                        required
                         disabled={loading}
                         className="border border-gray-300 p-2 rounded-md"
                       />

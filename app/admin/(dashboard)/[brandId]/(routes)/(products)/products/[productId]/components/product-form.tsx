@@ -42,6 +42,7 @@ import '@/app/css/styles.scss'
 import { Toggle } from "@/app/admin/components/ui/toggle"
 import { uploadImage } from "@/app/admin/upload-image"
 import { uploadDatasheet } from "@/app/admin/upload-datasheet"
+import { MAX_SIZE } from "@/app/admin/model/model"
 
 
 const formSchema = z.object({
@@ -257,6 +258,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   //COVER IMAGE
   const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if(!file) return
+    if (file.size > MAX_SIZE) {
+      alert("File size must be less than 2MB");
+      e.target.value = "";
+      return;
+    }
     setCoverImg(file);
   };
 
@@ -316,6 +323,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
    //DRAWING IMAGE
    const handleDrawingImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if(!file) return
+    if (file.size > MAX_SIZE) {
+      alert("File size must be less than 2MB");
+      e.target.value = "";
+      return;
+    }
     setDrawingImg(file);
   };
 
@@ -375,6 +388,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   //FREQUENCY RESPONSE IMAGE
   const handleFrequencyResponseImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if(!file) return
+    if (file.size > MAX_SIZE) {
+      alert("File size must be less than 2MB");
+      e.target.value = "";
+      return;
+    }
     setfreqResponseImg(file);
   };
 
@@ -436,6 +455,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   //IMPEDANCE IMAGE
   const handleImpedanceImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if(!file) return
+    if (file.size > MAX_SIZE) {
+      alert("File size must be less than 2MB");
+      e.target.value = "";
+      return;
+    }
     setImpedanceImg(file);
   };
 
@@ -514,6 +539,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   const handleImageCataloguesFileChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const tempfile = e.target.files?.[0];
+    if(!tempfile) return
+    if (tempfile.size > MAX_SIZE) {
+      alert("File size must be less than 2MB");
+      e.target.value = "";
+      return;
+    }
     let temp = imgCatalogues
     temp[index] = tempfile!
     setImgCatalogues(temp);

@@ -7,3 +7,6 @@ export interface DecodedJwt {
     iat: number;
     exp: number;
   }
+
+
+export const MAX_SIZE = 2 * 1024 * 1024; // 2MB

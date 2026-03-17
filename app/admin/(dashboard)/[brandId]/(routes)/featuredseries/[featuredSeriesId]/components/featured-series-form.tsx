@@ -24,6 +24,7 @@ import { Heading } from "@/app/admin/components/ui/heading"
 import Image from "next/image"
 import { Trash } from "lucide-react"
 import { uploadImage } from "@/app/admin/upload-image"
+import { MAX_SIZE } from "@/app/admin/model/model"
 
 
 const formSchema = z.object({
@@ -85,6 +86,12 @@ export const FeaturedSeriesForm: React.FC<FeaturedSeriesFormProps> = ({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if(!file) return
+    if (file.size > MAX_SIZE) {
+      alert("File size must be less than 2MB");
+      e.target.value = "";
+      return;
+    }
     setSelectedFile(file);
   };
 
