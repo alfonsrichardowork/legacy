@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 04, 2026 at 01:15 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Mar 17, 2026 at 05:44 AM
+-- Server version: 8.0.45
+-- PHP Version: 8.4.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `legacy`
+-- Database: `sbacoust_new_legacy`
 --
 
 -- --------------------------------------------------------
@@ -28,16 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `allcategory` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `type` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `description` text NOT NULL,
-  `thumbnail_url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail_url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `updatedBy` varchar(191) NOT NULL DEFAULT ''
+  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -65,14 +65,14 @@ INSERT INTO `allcategory` (`id`, `brandId`, `type`, `name`, `slug`, `description
 --
 
 CREATE TABLE `allproductcategory` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `categoryId` varchar(191) NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `categoryId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `type` varchar(191) NOT NULL
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -202,16 +202,16 @@ INSERT INTO `allproductcategory` (`id`, `productId`, `categoryId`, `createdAt`, 
 --
 
 CREATE TABLE `brand` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `userId` varchar(191) NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `desc` text NOT NULL DEFAULT '',
-  `descHomePage` text NOT NULL DEFAULT '',
-  `img` varchar(191) NOT NULL DEFAULT '',
-  `imgHomePage` varchar(191) NOT NULL DEFAULT '',
-  `title` varchar(191) NOT NULL DEFAULT ''
+  `desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descHomePage` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `imgHomePage` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -228,12 +228,12 @@ INSERT INTO `brand` (`id`, `name`, `userId`, `createdAt`, `updatedAt`, `desc`, `
 --
 
 CREATE TABLE `catalogues` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `pdf` text NOT NULL,
-  `publicationDate` datetime(3) NOT NULL DEFAULT current_timestamp(3),
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pdf` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `publicationDate` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -251,18 +251,18 @@ INSERT INTO `catalogues` (`id`, `name`, `pdf`, `publicationDate`, `updatedBy`, `
 --
 
 CREATE TABLE `contacts` (
-  `id` varchar(191) NOT NULL,
-  `type` text NOT NULL,
-  `country` text NOT NULL DEFAULT '',
-  `state` text NOT NULL DEFAULT '',
-  `city` text NOT NULL DEFAULT '',
-  `address` text NOT NULL DEFAULT '',
-  `img` text NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `phone` text NOT NULL DEFAULT '',
-  `locationUrl` text NOT NULL DEFAULT ''
+  `phone` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `locationUrl` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -281,10 +281,10 @@ INSERT INTO `contacts` (`id`, `type`, `country`, `state`, `city`, `address`, `im
 --
 
 CREATE TABLE `cover_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -296,7 +296,6 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 ('02bf5ca7-666e-4322-8b8f-d848879b634b', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '/uploads/productcoverimage/12in LG-12385-2 SPARTA Collage-1732254879382.webp', '2025-07-30 01:07:25.662', '2025-07-30 01:07:25.662'),
 ('05b4f87f-ffb2-4d1b-87a8-ad16cbd38b66', '58e4147b-93a0-4809-955d-d04ce1161c5e', '/uploads/productcoverimage/12in LG 1277-2-1733969592789.webp', '2024-12-13 00:50:52.327', '2024-12-13 00:50:52.327'),
 ('075b404e-bb96-4fcf-9a17-db978c493151', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productcoverimage/6.5in BST 1614 collage-1732765167247.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315'),
-('082ec22b-09f1-4551-b143-ea81b13a8109', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productcoverimage/1755242250702-1732254648921-10in-lg-1077-2-collage-1755242495810.webp', '2026-02-02 04:07:25.849', '2026-02-02 04:07:25.849'),
 ('1ebd2c38-d1e6-49c2-9b6a-536f22d0a38c', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '/uploads/productcoverimage/12in LG 1292-2 collage-1732254591415.webp', '2024-11-28 03:19:22.606', '2024-11-28 03:19:22.606'),
 ('240ea1fa-2dc2-4a8b-9106-6bc4024df138', '164c19d2-170f-4b48-958e-68ec335392f0', '/uploads/productcoverimage/5in-BST-522-Mk3-2way-Collage-1731894853776.webp', '2024-12-09 08:58:33.637', '2024-12-09 08:58:33.637'),
 ('31bc8f9a-84d3-46cb-bdb6-d17e423ce94b', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productcoverimage/6X9in-BST-6981-Mk1-collage-1731894927170.webp', '2024-12-09 08:57:24.171', '2024-12-09 08:57:24.171'),
@@ -307,6 +306,7 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 ('629e9436-92b3-4e9b-b216-a32eff0e6f41', 'c0118d2b-ca07-4d5d-9819-42b1fdc27655', '/uploads/productcoverimage/PG 298-1732254609880.webp', '2024-11-28 03:42:36.376', '2024-11-28 03:42:36.376'),
 ('63f52dee-962b-4154-ad0d-a4817b3ca673', '4899e144-b93b-446a-89b4-b055230545ee', '/uploads/productcoverimage/10in LG-1098-2 collage-1731395653031.webp', '2024-11-28 03:12:45.628', '2024-11-28 03:12:45.628'),
 ('64a3195c-c4e5-4263-af5a-e986cfea2e77', '2e888496-0048-4943-982f-ebfdd4625e1f', '/uploads/productcoverimage/69-1727254194974.jpg', '2024-11-28 03:12:56.222', '2024-11-28 03:12:56.222'),
+('6ad4c33e-861a-4443-a5b7-7bf29ef16a73', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productcoverimage/1755242250702-1732254648921-10in-lg-1077-2-collage-1755242495810.webp', '2026-02-02 06:09:33.223', '2026-02-02 06:09:33.223'),
 ('6dbc4278-befb-4424-a8e6-de2294d81f5f', 'bd5ecf65-04d8-4b4d-813b-cffd8748b0fa', '/uploads/productcoverimage/8in LG-838-2-Mk1-1733969545020.webp', '2024-12-12 02:13:24.823', '2024-12-12 02:13:24.823'),
 ('7f51924c-021a-4a99-b4dd-20cd290f976b', '77932324-df07-44d8-84d2-30af8ae38c0a', '/uploads/productcoverimage/12in LG 1238-2 LEGACY ENERGY Collage-1732254833508.webp', '2024-12-09 08:59:16.262', '2024-12-09 08:59:16.262'),
 ('805100b5-42ac-46a0-aee9-86783678fa35', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '/uploads/productcoverimage/10in LG 10385 collage.jpg-1734414918838.webp', '2024-12-17 05:55:19.913', '2024-12-17 05:55:19.913'),
@@ -339,19 +339,19 @@ INSERT INTO `cover_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 --
 
 CREATE TABLE `distributors` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `contactPerson` text NOT NULL,
-  `phoneNumber` text NOT NULL,
-  `email` text NOT NULL,
-  `country` text NOT NULL DEFAULT '',
-  `joinDate` datetime(3) NOT NULL DEFAULT current_timestamp(3),
-  `active` tinyint(1) NOT NULL DEFAULT 0,
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contactPerson` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phoneNumber` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `joinDate` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `city` text NOT NULL DEFAULT '',
-  `state` text NOT NULL DEFAULT ''
+  `city` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -376,10 +376,10 @@ INSERT INTO `distributors` (`id`, `name`, `contactPerson`, `phoneNumber`, `email
 --
 
 CREATE TABLE `drawing_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -390,13 +390,13 @@ CREATE TABLE `drawing_image` (
 --
 
 CREATE TABLE `dynamicspecification` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `unit` text NOT NULL,
-  `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unit` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -448,12 +448,12 @@ INSERT INTO `dynamicspecification` (`id`, `name`, `slug`, `unit`, `priority`, `u
 --
 
 CREATE TABLE `dynamicspecificationparent` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -473,12 +473,12 @@ INSERT INTO `dynamicspecificationparent` (`id`, `name`, `slug`, `priority`, `upd
 --
 
 CREATE TABLE `dynamicspecificationsubparent` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `slug` text NOT NULL,
-  `priority` varchar(191) NOT NULL DEFAULT '',
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -497,14 +497,14 @@ INSERT INTO `dynamicspecificationsubparent` (`id`, `name`, `slug`, `priority`, `
 --
 
 CREATE TABLE `featuredseries` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `href` text NOT NULL,
-  `img` text NOT NULL,
-  `alt` text NOT NULL,
-  `desc` text NOT NULL,
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `href` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alt` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -524,10 +524,10 @@ INSERT INTO `featuredseries` (`id`, `name`, `href`, `img`, `alt`, `desc`, `updat
 --
 
 CREATE TABLE `featured_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -549,10 +549,10 @@ INSERT INTO `featured_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`
 --
 
 CREATE TABLE `graph_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -600,12 +600,12 @@ INSERT INTO `graph_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt`) V
 --
 
 CREATE TABLE `image_catalogues` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `name` text NOT NULL DEFAULT ''
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -630,7 +630,7 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('2e2b8365-ab52-41d9-a8cc-4743da0cc3ae', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '/uploads/productimagecatalogues/10in 1096-Mk1 magnet-1731395725672.webp', '2024-12-09 09:00:42.291', '2024-12-09 09:00:42.291', 'Side'),
 ('2f2e0486-e24f-46fb-85c8-1b280c923295', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productimagecatalogues/1727745200678-lg-696-2-cone-1024x1021-1730865885560.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574', 'Top'),
 ('306db6ca-74ee-49ff-b027-c897957b8ec6', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', '/uploads/productimagecatalogues/4in 8347 BH Magnet-1731893197682.webp', '2024-11-28 03:33:43.389', '2024-11-28 03:33:43.389', 'Bottom'),
-('33273d92-5bff-4dc8-b500-6e8085ffacc8', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 chasis-1732254649218.webp', '2024-11-28 03:10:43.881', '2026-02-02 04:07:25.831', 'Side Bottom'),
+('33273d92-5bff-4dc8-b500-6e8085ffacc8', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 chasis-1732254649218.webp', '2024-11-28 03:10:43.881', '2026-02-02 06:09:33.212', 'Side Bottom'),
 ('33cc154f-98ee-4308-954e-3f7d20ebb44a', '42802840-d898-46ea-8377-7e0a9b6a060f', '/uploads/productimagecatalogues/pg 1054 2 magnet-1731395570224.webp', '2024-11-28 03:31:53.137', '2025-12-09 09:13:40.374', 'Bottom'),
 ('350c14bd-6602-4f2e-aa8c-a27c53fde92d', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productimagecatalogues/6X9in-BST-6981-Mk1-cone-no-mesh-1731894927292.webp', '2024-12-09 08:57:24.170', '2024-12-09 08:57:24.170', 'Top No Mesh'),
 ('392894e8-26e2-43c5-aee9-8c2ed6ddc51f', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '/uploads/productimagecatalogues/10in 1096-Mk1 magnet top-1731395725717.webp', '2024-12-09 09:00:42.291', '2024-12-09 09:00:42.291', 'Bottom'),
@@ -644,11 +644,11 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 ('53623feb-62fb-4d53-aaa7-2834ef235737', '4899e144-b93b-446a-89b4-b055230545ee', '/uploads/productimagecatalogues/10in LG-1098-2 magnet-1731395653235.webp', '2024-11-28 03:12:45.627', '2024-11-28 03:12:45.627', 'Side'),
 ('53a7297f-14e7-47b7-98a1-a817f507a3de', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '/uploads/productimagecatalogues/Foto Legacy Bawah.webp', '2025-09-22 07:35:39.207', '2025-09-22 07:35:39.207', 'Bottom Side'),
 ('53be2e67-ae3a-4ccf-a13e-3c0069e4f5c0', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/BST 1614 chasis-1732765167406.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Side'),
-('54a27c63-13e2-4b68-806a-bad86477d1f4', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 magnet-1732254649173.webp', '2024-11-28 03:10:43.881', '2026-02-02 04:07:25.831', 'Bottom'),
+('54a27c63-13e2-4b68-806a-bad86477d1f4', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 magnet-1732254649173.webp', '2024-11-28 03:10:43.881', '2026-02-02 06:09:33.212', 'Bottom'),
 ('56a3f5bf-9155-4c57-b84e-60086bf51b58', 'b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '/uploads/productimagecatalogues/BST 1614 magnet-1732765167358.webp', '2024-12-09 08:58:14.315', '2024-12-09 08:58:14.315', 'Bottom'),
 ('59597d7d-ab5d-4976-8906-7bf319b741bd', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '/uploads/productimagecatalogues/4in 8347 KH Cone-1731893247136.webp', '2024-11-28 03:34:00.594', '2024-11-28 03:34:00.594', 'Top'),
 ('5de46b56-52ae-498c-9956-c93719815293', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '/uploads/productimagecatalogues/1095-2 Mk1 Cone-1731395781188.webp', '2024-12-13 01:59:24.739', '2024-12-13 01:59:24.739', 'Top'),
-('5e75580c-f0e7-41e8-bfc0-964093fff08e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 cone-1732254649107.webp', '2024-11-28 03:10:43.881', '2026-02-02 04:07:25.831', 'Top'),
+('5e75580c-f0e7-41e8-bfc0-964093fff08e', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '/uploads/productimagecatalogues/10in LG 1077-2 cone-1732254649107.webp', '2024-11-28 03:10:43.881', '2026-02-02 06:09:33.212', 'Top'),
 ('613108fe-c17f-4b64-b79b-63180e0a332f', '41a41be4-0044-4958-b270-7afa8207446c', '/uploads/productimagecatalogues/6X9in-BST-6981-Mk1-chasis-1731894927334.webp', '2024-12-09 08:57:24.170', '2024-12-09 08:57:24.170', 'Side'),
 ('64a5aab9-51eb-4ee2-af84-2451f0963b0d', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '/uploads/productimagecatalogues/6in 638 chassis-1731395977014.webp', '2024-11-28 03:23:18.530', '2024-11-28 03:23:18.530', 'Side'),
 ('69e4712c-7cb2-4ee0-ab1f-36c8fdb5e7f0', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '/uploads/productimagecatalogues/1727678256578-lg-696-2-magnet-1024x1024-1730865885685.webp', '2024-11-28 03:22:07.574', '2024-11-28 03:22:07.574', 'Bottom'),
@@ -716,10 +716,10 @@ INSERT INTO `image_catalogues` (`id`, `productId`, `url`, `createdAt`, `updatedA
 --
 
 CREATE TABLE `impedance_image` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -767,10 +767,10 @@ INSERT INTO `impedance_image` (`id`, `productId`, `url`, `createdAt`, `updatedAt
 --
 
 CREATE TABLE `multipledatasheetproduct` (
-  `id` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `url` text NOT NULL DEFAULT '',
-  `name` text NOT NULL DEFAULT ''
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -821,17 +821,17 @@ INSERT INTO `multipledatasheetproduct` (`id`, `productId`, `url`, `name`) VALUES
 --
 
 CREATE TABLE `news` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `title` text NOT NULL,
-  `slug` text NOT NULL,
-  `description` text NOT NULL,
-  `event_date` datetime(3) NOT NULL DEFAULT current_timestamp(3),
-  `updatedBy` varchar(191) NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `event_date` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `link_placeholder` text NOT NULL DEFAULT '',
-  `link_url` text NOT NULL DEFAULT ''
+  `link_placeholder` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `link_url` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -839,7 +839,7 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`id`, `brandId`, `title`, `slug`, `description`, `event_date`, `updatedBy`, `createdAt`, `updatedAt`, `link_placeholder`, `link_url`) VALUES
-('2d535d4d-5ebd-496d-a705-976da157a9b0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'SPEAKER MOBIL LIMITED EDITION KARYA ANAK BANGSA: 10in LG 1040 dan 12in LG 1240', 'speaker-mobil-limited-edition-karya-anak-bangsa-10in-lg-1040-dan-12in-lg-1240', '<p>Selama bertahun-tahun, Sinar Baja Electric mengeluarkan speaker mobil dengan bahan berkualitas dan suara yang jernih yang bisa didapatkan dari brand adalannya: Legacy Series. Dikenal luas lewat produk best sellernya yaitu 12in LG 1277-2, Legacy Series mengeluarkan serian Limited Editionnya sebanyak 2 tipe, yaitu 10in LG 1040 dan 12in LG 1240.</p><p>Setiap tipe memiliki daya magnet yang optimal yang didapat dari hasil pengukuran FEA (Finite Element Analysis), sehingga menghasilkan suara treble lebih jernih. Bass yang dalam juga membantu meningkatkan pengalaman audio yang lebih imersif sehingga pelanggan merasakan seperti di tengah konser. Material conepaper yang dibuat dari bahan PP injection khusus memiliki daya tahan yang sangat tinggi terhadap perubahan cuaca. Dengan teknologi ini, speaker bisa digunakan diberbagai macam tempat yaitu di area indoor maupun outdoor, karena speaker ini akan tetap mengeluarkan kualitas suara yang prima. Keunggulan lain yang tidak kalah penting adalah motor didesain dengan ventilasi khusus sehingga tidak ada kompresi udara dan memberikan sirkulasi udara yang berfungsi sebagai pendingin. &nbsp;Dengan sistem ini, maka pengguna dapat menggunakan speaker ini dalam jangka waktu yang lama, dan kualitas suara tetap stabil walaupun dengan volume yang tinggi.</p><p></p><p></p><p><strong>Pentingnya Memilih Speaker Berkualitas Dari Indonesia</strong></p><p>Sinar Baja Electric (SBE) merupakan produsen loudspeaker lokal terbesar di Asia Tenggara. Dengan sertifikasi <strong>ISO 9001/TS 16949</strong>, SBE fokus pada speaker mobil&nbsp;berkualitas tinggi. Dengan tagline Legacy Speaker yaitu <strong><em>The Driving Force</em></strong>, perusahaan berkomitmen untuk selalu meningkatkan pengalaman berkendaran tidak akan didapat dari brand-brand lainnya.</p><p>Dengan pabrik yang berlokasi di Surabaya ini, SBE memiliki keunggulan yang tidak dimiliki oleh brand-brand ternama lainnya, yaitu adanya fasilitas jasa servis yang melewati proses quality control yang sama seperti memproduksi produk baru.</p><p>Pelanggan juga dapat membeli produk dari Sinar Baja Electric melalui dealer-dealer resmi SBE. Daftar dealer resmi tersedia di aplikasi My SBE, dan dapat diunduh di Play Store.</p>', '2025-04-29 17:00:00.000', 'admin', '2025-04-30 09:07:08.816', '2025-11-26 07:43:35.997', '', ''),
+('2d535d4d-5ebd-496d-a705-976da157a9b0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'SPEAKER MOBIL LIMITED EDITION KARYA ANAK BANGSA: 10in LG 1040 dan 12in LG 1240', 'speaker-mobil-limited-edition-karya-anak-bangsa-10in-lg-1040-dan-12in-lg-1240', '<p>Selama bertahun-tahun, Sinar Baja Electric mengeluarkan speaker mobil dengan bahan berkualitas dan suara yang jernih yang bisa didapatkan dari brand adalannya: Legacy Series. Dikenal luas lewat produk best sellernya yaitu 12in LG 1277-2, Legacy Series mengeluarkan serian Limited Editionnya sebanyak 2 tipe, yaitu 10in LG 1040 dan 12in LG 1240.</p><p>Setiap tipe memiliki daya magnet yang optimal yang didapat dari hasil pengukuran FEA (Finite Element Analysis), sehingga menghasilkan suara treble lebih jernih. Bass yang dalam juga membantu meningkatkan pengalaman audio yang lebih imersif sehingga pelanggan merasakan seperti di tengah konser. Material conepaper yang dibuat dari bahan PP injection khusus memiliki daya tahan yang sangat tinggi terhadap perubahan cuaca. Dengan teknologi ini, speaker bisa digunakan diberbagai macam tempat yaitu di area indoor maupun outdoor, karena speaker ini akan tetap mengeluarkan kualitas suara yang prima. Keunggulan lain yang tidak kalah penting adalah motor didesain dengan ventilasi khusus sehingga tidak ada kompresi udara dan memberikan sirkulasi udara yang berfungsi sebagai pendingin. &nbsp;Dengan sistem ini, maka pengguna dapat menggunakan speaker ini dalam jangka waktu yang lama, dan kualitas suara tetap stabil walaupun dengan volume yang tinggi.</p><p></p><p></p><p><strong>Pentingnya Memilih Speaker Berkualitas Dari Indonesia</strong></p><p>Sinar Baja Electric (SBE) merupakan produsen loudspeaker lokal terbesar di Asia Tenggara. Dengan sertifikasi <strong>ISO 9001/TS 16949</strong>, SBE fokus pada speaker mobil&nbsp;berkualitas tinggi. Dengan tagline Legacy Speaker yaitu <strong><em>The Driving Force</em></strong>, perusahaan berkomitmen untuk selalu meningkatkan pengalaman berkendaran tidak akan didapat dari brand-brand lainnya.</p><p>Dengan pabrik yang berlokasi di Surabaya ini, SBE memiliki keunggulan yang tidak dimiliki oleh brand-brand ternama lainnya, yaitu adanya fasilitas jasa servis yang melewati proses quality control yang sama seperti memproduksi produk baru.</p><p>Pelanggan juga dapat membeli produk dari Sinar Baja Electric melalui dealer-dealer resmi SBE. Daftar dealer resmi tersedia di aplikasi My SBE, dan dapat diunduh di Play Store.</p>', '2025-04-29 17:00:00.000', 'admin', '2025-04-30 09:07:08.816', '2026-02-02 05:28:29.603', '', ''),
 ('2e4f6cbb-f4b5-47a4-b0a0-2f9342a9382d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Undangan Kerjasama dengan Para Youtuber dan Tiktokers Sound Audio Se-Indonesia', 'undangan-kerjasama-dengan-para-youtuber-dan-tiktokers-sound-audio-se-indonesia', '<p>Tim Legacy membuka kesempatan kepada para Youtuber dan TikTokers seluruh Indonesia untuk mendapatkan speaker gratis dari Legacy untuk direview. Kami akan memilih para youtuber untuk mendapatkan kesempatan emas ini.</p><p>Berikut sistem kerjasamanya:</p><ul><li><p>Speaker yang diberikan tidak perlu dibeli, dan menjadi milik influencer yang bersangkutan</p></li><li><p>Biaya ongkir dari pabrik Sinar Baja Electric ke rumah Influencer ditanggung oleh Sinar Baja Electric</p></li></ul><p>Berikut syarat dan ketentuannya:</p><ul><li><p>Follow Youtube dan TikTok @acrspeaker-rhymeproaudio</p></li><li><p>Durasi video dan banyaknya part bebas (sekreatif dan semenarik mungkin)</p></li><li><p>Review speaker mirip dengan konten-konten dari influencer tersebut. Contoh: Jika isi konten mengenai review box dan tes suara, maka isi konten bisa ditambahkan penjelasan singkat tentang speaker yang kami kirimkan</p></li><li><p>Setelah mengupload video, mohon untuk menghubugi admin kembali untuk di-review dan di-upload di Instagram @legacy.speaker</p></li></ul><p>Berikut contoh Youtuber yang telah bekerjasama dengan kami:</p><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.youtube.com/@jossaudio\">Joss Audio</a></p></li></ul><img src=\"/uploads/newsimages/1734425192313-joss.webp\"><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.youtube.com/@Zacky_Audio88\">Zacky Audio</a></p><img src=\"/uploads/newsimages/1734425271436-zacky.webp\"></li></ul>', '2024-10-12 17:00:00.000', 'admin', '2024-10-16 00:53:00.087', '2024-12-17 08:48:44.913', '', ''),
 ('8a024495-c9e4-40b9-88b6-7fdaa8bbc209', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Merchandise Gratis untuk Youtuber Penikmat Audio Legacy', 'merchandise-gratis-untuk-youtuber-penikmat-audio-legacy', '<p>Tidak kalah dari brand-brand Sinar Baja Electric lainnya, Legacy juga membuat event khusus untuk para penikmat sound Legacy. Event ini diadakan sebagai bentuk apresiasi kepada para pecinta audio yang tetap setia menggunakan Legacy. Mereka bisa mendapatkan merchandise gratis dengan cara sebagai berikut:</p><ul><li><p>Follow instagram @legacy.speaker</p></li><li><p>Upload konten review mengenai produk Legacy di Youtube atau Tiktok semenarik dan sekreatif mungkin</p></li><li><p>Kirimkan link video ke tim Legacy melalui instagram @legacy.speaker beserta kelengkapan data untuk pengiriman merchandise (nama, alamat lengkap, kode pos, dan no hp)</p></li></ul><p>Event ini akan diadakan tiap bulan, dan konten yang mendapatkan merchandise adalah konten yang telah terupload sejak Januari 2023.</p>', '2024-12-16 17:00:00.000', 'admin', '2024-12-17 05:47:55.165', '2025-07-30 03:15:26.137', '', ''),
 ('db43cd12-32f3-4236-a9a3-d93ba0f5b222', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'Langkah Mengikuti Undian Poin My SBE', 'langkah-mengikuti-undian-poin-my-sbe', '<p>Setelah keberhasilan acara Undian Poin My SBE 2023, event ini akan diadakan setiap tahun oleh tim ACR. Event ini diperuntukkan kepada konsumen lama dan konsumen baru jika membeli produk ACR, Legacy, Curve berdasarkan periode yang ditetapkan, maka bisa mendapatkan hadiah. Hadiah tersebut didapat dari poin-poin yang sudah dikumpulkan dengan cara sebagai berikut:</p><p></p><ul><li><p>Download app My SBE pada Play Store, lalu registrasi terlebih dahulu. Berikut <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://play.google.com/store/apps/details?id=id.sbe.mysbe.customer&amp;hl=id\">link app My SBE</a></p><img class=\"max-w-full rounded-md my-4\" src=\"/uploads/newsimages/1734395172735-App-My-SBE-di-Playstore.jpg\"></li><li><p>Pada halaman Beranda klik “Pindai” dan scan QR-Code yang ada pada speaker ACR. QR-Code biasanya terletak pada magnet atau yoke speaker</p><img class=\"max-w-full rounded-md my-4\" src=\"/uploads/newsimages/1734395208222-photo1693810641-1.jpeg\"><img class=\"max-w-full rounded-md my-4\" src=\"/uploads/newsimages/1734395221064-z1.jpg\"></li><li><p>Lalu pilih toko pembelian</p><img class=\"max-w-full rounded-md my-4\" src=\"/uploads/newsimages/1734395255184-Screenshot_2023_09_04_13_29_00_671_id_gits_sinarbajaelectric_customer-768x1511.jpg\"></li><li><p>Setelah memilih toko, maka akan muncul pop up message bahwa poin berhasil didapatkan. Banyaknya poin tergantung dari ukuran dan tipe speaker</p><img class=\"max-w-full rounded-md my-4\" src=\"/uploads/newsimages/1734395288378-photo16938095671.jpeg\"></li><li><p>Jika QR Barcode sudah pernah discan sebelumnya maka akan muncul pop up message yang menyatakan voucher gagal di-scan</p><img class=\"max-w-full rounded-md my-4\" src=\"/uploads/newsimages/1734395317133-photo1693809567.jpg\"></li><li><p>Poin yang berhasil didapatkan akan tersimpan pada “Poin Anda” di halaman Beranda. Untuk melihat riwayat scan, langsung klik pada kolom “Poin Anda”</p><img class=\"max-w-full rounded-md my-4\" src=\"/uploads/newsimages/1734395340644-photo1692938364.jpg\"></li></ul>', '2024-12-16 17:00:00.000', 'admin', '2024-12-17 00:29:17.488', '2025-07-30 04:02:32.295', '-', '-');
@@ -851,10 +851,10 @@ INSERT INTO `news` (`id`, `brandId`, `title`, `slug`, `description`, `event_date
 --
 
 CREATE TABLE `news_image` (
-  `id` varchar(191) NOT NULL,
-  `newsId` varchar(191) NOT NULL,
-  `url` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `newsId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -863,9 +863,9 @@ CREATE TABLE `news_image` (
 --
 
 INSERT INTO `news_image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUES
-('2424b664-dc80-4ac6-a533-9848579b817e', '2d535d4d-5ebd-496d-a705-976da157a9b0', '/uploads/newsimages/1746004026600-WhatsApp Image 2025-03-14 at 5.12.33 PM(1).webp', '2025-07-30 08:49:29.392', '2025-07-30 08:49:29.392'),
 ('36bca4e7-c030-4a27-97b6-f5727d94ccb1', 'db43cd12-32f3-4236-a9a3-d93ba0f5b222', '/uploads/newsimages/1734414173133-1728983842508-berita1.webp', '2025-07-30 04:02:32.322', '2025-07-30 04:02:32.322'),
 ('56b7a292-c18d-4059-8354-ac7995c214c2', '2e4f6cbb-f4b5-47a4-b0a0-2f9342a9382d', '/uploads/newsimages/1729039980021-berita2.webp', '2024-12-17 08:48:44.957', '2024-12-17 08:48:44.957'),
+('66a55382-52e0-4cc9-bed0-1ddc7c3969c2', '2d535d4d-5ebd-496d-a705-976da157a9b0', '/uploads/newsimages/1746004026600-WhatsApp Image 2025-03-14 at 5.12.33 PM_1_.webp', '2026-02-02 05:28:29.596', '2026-02-02 05:28:29.596'),
 ('75f4bb3d-76df-4544-a9d9-1437db5032d3', 'db43cd12-32f3-4236-a9a3-d93ba0f5b222', '/uploads/newsimages/1734414173133-1728983842508-berita1.webp', '2025-07-30 04:02:32.322', '2025-07-30 04:02:32.322'),
 ('dada7d12-d168-4430-97fe-a6f1edc144d5', '8a024495-c9e4-40b9-88b6-7fdaa8bbc209', '/uploads/newsimages/1734414474500-1729040004533-berita3.webp', '2025-07-30 03:15:26.164', '2025-07-30 03:15:26.164'),
 ('e1df691c-0756-4a91-875f-7aa3aeb0ece8', 'db43cd12-32f3-4236-a9a3-d93ba0f5b222', '/uploads/newsimages/1734414173133-1728983842508-berita1.webp', '2025-07-30 04:02:32.322', '2025-07-30 04:02:32.322');
@@ -877,20 +877,20 @@ INSERT INTO `news_image` (`id`, `newsId`, `url`, `createdAt`, `updatedAt`) VALUE
 --
 
 CREATE TABLE `product` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `isFeatured` tinyint(1) NOT NULL DEFAULT 0,
-  `isArchived` tinyint(1) NOT NULL DEFAULT 0,
-  `sizeId` varchar(191) NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isFeatured` tinyint(1) NOT NULL DEFAULT '0',
+  `isArchived` tinyint(1) NOT NULL DEFAULT '0',
+  `sizeId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `description` text NOT NULL,
-  `slug` text NOT NULL,
-  `updatedBy` text NOT NULL DEFAULT '',
-  `isNewProduct` tinyint(1) NOT NULL DEFAULT 0,
-  `featuredDesc` text NOT NULL DEFAULT '',
-  `series` text NOT NULL DEFAULT ''
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isNewProduct` tinyint(1) NOT NULL DEFAULT '0',
+  `featuredDesc` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `series` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -901,7 +901,7 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('164c19d2-170f-4b48-958e-68ec335392f0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5\" BST 522 MK3', 0, 0, '65830f7d-49e4-40e7-875c-02f2a72e1383', '2024-09-26 01:03:09.716', '2025-10-24 13:38:59.668', '<p></p>', 'bst-522-mk3', 'admin', 0, '', ''),
 ('2b1193f0-37cb-4576-9bfc-028cd5694d0e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1299-2-Mk1', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:09:39.014', '2025-10-24 13:35:58.534', '<p></p>', 'lg-1299-2-mk1', 'admin', 0, '', ''),
 ('2e888496-0048-4943-982f-ebfdd4625e1f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1009-2', 0, 1, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:49:55.751', '2024-11-28 03:12:56.212', '<p></p>', 'lg-1009-2', 'admin', 0, '', ''),
-('3213ef26-e2ab-4332-8d12-6ad1f18f39a2', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4\" W 8347 B/H', 0, 0, '2fdca373-4286-4dfc-bfa7-de77b7e1fe0d', '2024-09-26 00:58:53.223', '2024-11-28 03:33:43.387', '<p></p>', 'w-8347-b', 'admin', 0, '', ''),
+('3213ef26-e2ab-4332-8d12-6ad1f18f39a2', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4\" W 8347 B/H', 0, 0, '2fdca373-4286-4dfc-bfa7-de77b7e1fe0d', '2024-09-26 00:58:53.223', '2026-03-16 02:08:47.437', '<p></p>', 'w-8347-b', 'admin', 0, '', ''),
 ('3d4dd01e-42bc-41b7-8015-9c5d8afc8f1e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" PG 1254-2 RED', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-26 00:55:29.500', '2025-10-24 13:36:44.300', '<p></p>', 'pg-1254-2-red', 'admin', 0, '', ''),
 ('41a41be4-0044-4958-b270-7afa8207446c', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6X9\" BST 6981 MK1', 0, 0, 'ed8a91c0-2efb-4f49-892e-5f5cb123bd86', '2024-09-26 01:05:49.444', '2025-10-24 13:44:12.176', '<p></p>', 'bst-6981-mk1', 'admin', 0, '', ''),
 ('42802840-d898-46ea-8377-7e0a9b6a060f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" PG 1054-2 RED', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-26 00:54:36.579', '2025-12-09 09:13:40.398', '<p></p>', 'pg-1054-2-red', 'admin', 0, '', ''),
@@ -910,7 +910,7 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8\" LG 896-2', 0, 0, '3ceafaeb-f3e4-4034-b46a-44948d3c2062', '2024-09-25 09:14:08.427', '2025-10-24 13:45:29.669', '<p></p>', 'lg-896-2', 'admin', 0, '', ''),
 ('58e4147b-93a0-4809-955d-d04ce1161c5e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1277-2', 1, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:04:43.154', '2025-10-24 13:32:16.628', '<p></p>', 'lg-1277-2', 'admin', 0, 'Tampilan fresh dan elegan serta jahitan antara conepaper dan surround yang kuat mampu meningkatkan performa bass yang kuat dan dalam', 'LEGACY'),
 ('5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '10\" LG 1040-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2025-09-22 01:59:43.289', '2025-10-24 13:29:36.130', '<p></p>', 'lg-1040-2', 'admin', 0, '', ''),
-('5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1077-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:53:37.562', '2026-02-02 04:07:25.858', '<p></p>', 'lg-1077-2', 'admin', 0, '', ''),
+('5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1077-2', 0, 0, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:53:37.562', '2026-02-02 06:09:33.231', '<p></p>', 'lg-1077-2', 'admin', 0, '', ''),
 ('62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', ' 10\" LG 1038-2', 0, 1, '7f514f65-c75e-482d-bf43-66c4f8c08edc', '2024-09-25 08:51:18.457', '2024-11-28 03:43:16.934', '<p></p>', 'lg-1038-2', 'admin', 0, '', ''),
 ('69db9385-8c1f-4863-a07d-30e3fc952ec6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6\" LG 638-2 MK1', 0, 0, 'ed8a91c0-2efb-4f49-892e-5f5cb123bd86', '2024-09-25 09:11:28.844', '2025-10-24 13:43:12.250', '<p></p>', 'lg-638-2-mk1', 'admin', 0, '', ''),
 ('6f3b950d-f94f-4c21-8e42-7e05251434b4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1295-2 MK1', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:06:50.888', '2025-10-24 13:34:03.933', '<p></p>', 'lg-1295-2-mk1', 'admin', 0, '', ''),
@@ -928,7 +928,7 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 ('b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 1292-2', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:05:55.008', '2025-10-24 13:33:35.771', '<p></p>', 'lg-1292-2', 'admin', 0, '', ''),
 ('b9658a8b-77d9-4e00-8e0a-99b52fb1fad4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6.5\" BST 1614', 0, 0, '8dbb7e6d-2d6b-4e32-acc6-852e91b501e2', '2024-09-26 01:03:53.260', '2025-10-24 13:39:19.670', '<p></p>', 'bst-1614', 'admin', 0, '', ''),
 ('bd5ecf65-04d8-4b4d-813b-cffd8748b0fa', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8\" LG 838-2 MK1', 1, 0, '3ceafaeb-f3e4-4034-b46a-44948d3c2062', '2024-09-25 09:13:21.931', '2025-11-25 06:30:23.693', '<p></p>', 'lg-838-2-mk1', 'admin', 0, 'Ciri khas warna orange yang dilengkapi dengan magnet rubber cover dan conepaper menggunakan teknik jahitan yang memaksimalkan durability speaker', 'ENERGY'),
-('bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4\" W 8347 K/H', 0, 0, '2fdca373-4286-4dfc-bfa7-de77b7e1fe0d', '2024-09-26 00:59:38.539', '2024-11-28 03:34:00.591', '<p></p>', 'w-8347-k', 'admin', 0, '', ''),
+('bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4\" W 8347 K/H', 0, 0, '2fdca373-4286-4dfc-bfa7-de77b7e1fe0d', '2024-09-26 00:59:38.539', '2026-03-16 02:07:03.052', '<p></p>', 'w-8347-k', 'admin', 0, '', ''),
 ('c0118d2b-ca07-4d5d-9819-42b1fdc27655', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'PG 298', 0, 0, '28c45742-6d1f-44bd-915b-f940e30caf92', '2024-09-26 01:06:47.849', '2025-10-24 13:46:46.896', '<p></p>', 'pg-298', 'admin', 0, '', ''),
 ('c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '12\" LG 12386-2', 0, 0, 'afce813f-8a7d-424c-a086-9031ed369f64', '2024-09-25 09:03:39.694', '2025-10-24 13:31:12.907', '<p></p>', 'lg-12386-2', 'admin', 0, '', ''),
 ('c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '15\" LG 1596-2', 0, 0, 'bde0763b-2624-4b11-9f5c-993cd19f68ce', '2024-09-25 09:10:34.176', '2025-10-24 13:37:07.000', '<p></p>', 'lg-1596-2', 'admin', 0, '', ''),
@@ -944,10 +944,10 @@ INSERT INTO `product` (`id`, `brandId`, `name`, `isFeatured`, `isArchived`, `siz
 --
 
 CREATE TABLE `roles` (
-  `id` varchar(191) NOT NULL,
-  `userId` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `brandName` text NOT NULL DEFAULT ''
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandName` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -965,13 +965,13 @@ INSERT INTO `roles` (`id`, `userId`, `brandId`, `brandName`) VALUES
 --
 
 CREATE TABLE `size` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `value` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `updatedBy` varchar(191) NOT NULL DEFAULT ''
+  `updatedBy` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -997,14 +997,14 @@ INSERT INTO `size` (`id`, `brandId`, `name`, `value`, `createdAt`, `updatedAt`, 
 --
 
 CREATE TABLE `specificationconnector` (
-  `id` varchar(191) NOT NULL,
-  `brandId` varchar(191) NOT NULL,
-  `productId` varchar(191) NOT NULL,
-  `dynamicspecificationParentId` varchar(191) NOT NULL,
-  `dynamicspecificationSubParentId` varchar(191) DEFAULT NULL,
-  `dynamicspecificationId` varchar(191) NOT NULL,
-  `notes` text NOT NULL,
-  `value` text NOT NULL
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brandId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dynamicspecificationParentId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dynamicspecificationSubParentId` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dynamicspecificationId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notes` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1012,6 +1012,7 @@ CREATE TABLE `specificationconnector` (
 --
 
 INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
+('00012f92-cdd4-4166-926c-143709cf3ceb', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '88'),
 ('002ddbb9-9795-4da2-aa9a-06c7a2df4cad', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bd5ecf65-04d8-4b4d-813b-cffd8748b0fa', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '7639c90c-b6bc-4927-87bd-5bf052a07789', '', '0.57'),
 ('005f63ef-996a-423f-a829-10ba07927ed8', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '77932324-df07-44d8-84d2-30af8ae38c0a', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '35'),
 ('00db63bc-5dae-4e15-9225-c339aace8e07', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '164c19d2-170f-4b48-958e-68ec335392f0', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '1.44'),
@@ -1080,6 +1081,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('0dc8b7af-90ac-4211-b4e1-aa4ef07243a9', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.34'),
 ('0de18f82-feda-4596-8cd7-785512486ac0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '498bc88a-d5e6-4314-ad72-499ea3f1f780', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '831ce7d5-4711-41b7-a545-723473fed6a9', '', '4'),
 ('0deed13b-476a-42d0-86b0-53ff5ebd25b0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e0a12bf6-f9ba-47e7-8704-c34955b1b698', 'Power on continous program is defined as 3dB greater than nominal power handling.', '500'),
+('0e3a4640-be7b-452d-9b16-b3100507882d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', '', '40'),
 ('0e603762-c023-4cb9-96e7-374dc5184974', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '678c85cc-ba1f-4472-be09-d655c00e5b37', '', '100'),
 ('0eed130b-0da3-42fc-b706-669102f48960', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', 'IEC 268-5, (in box system, cut.off 20-500 Hz)', '300'),
 ('0f10f22b-51c8-4f1b-aa9e-28be6b7f7787', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '91d8a44f-c7e5-4d25-8be1-8b0cbf8e48ae', '', '36.5'),
@@ -1147,6 +1149,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('1e024919-0234-4d5d-a90b-63d60f554146', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '8.24'),
 ('1e172b72-75b5-46d0-94ae-427acf085cb4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', 'IEC 268-5, (in box system, cut.off 20-500 Hz)', '200'),
 ('1ea274c1-3ab8-4954-97a7-9ed58ef41251', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '34'),
+('1ef416de-41f9-4d74-98af-ad3bfe68efa9', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '0.14'),
 ('1f5c711f-87ab-4099-84fa-ab699845cce8', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '7a0b71f7-4400-4318-af0e-fc23c27171d1', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.45'),
 ('1f679829-f1f0-4de0-a3c4-5213d0c7d494', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4e42b38e-a524-4152-a956-717855971d4b', '', '5.43'),
 ('202773d2-4a6a-43f5-a904-d6b55d514c64', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '89'),
@@ -1166,6 +1169,8 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('23fa1af7-ad55-40f6-8dba-10e3cc5595b4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '353'),
 ('24090017-49d2-4131-a6da-d367f66fb8cb', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '1.16'),
 ('240c51a6-99ce-41dd-8fdc-3c1d666638a7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '43'),
+('24397614-cc32-4a2b-971a-7d3bcb96e70b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '831ce7d5-4711-41b7-a545-723473fed6a9', '', '4'),
+('24e2dd4b-24b2-4e22-a7cf-27b890875ea2', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e87669ff-8d73-4e9f-9863-9b2dbc7ed738', '', 'ASV'),
 ('24eeec45-34ee-40b5-aba8-a276958562ad', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '831ce7d5-4711-41b7-a545-723473fed6a9', '', '4'),
 ('24fd5182-dc91-464d-91f1-ff1d5241c1bb', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '58e4147b-93a0-4809-955d-d04ce1161c5e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '37'),
 ('2511031f-63f5-4b6b-a685-57ffb2e85e5b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '77932324-df07-44d8-84d2-30af8ae38c0a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', 'IEC 268-5, (in box system, cut.off 20-500 Hz)', '350'),
@@ -1190,12 +1195,14 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('2a05b742-16c4-4892-9be2-742d95a8f6ca', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e87669ff-8d73-4e9f-9863-9b2dbc7ed738', '', 'ASV'),
 ('2a2f0d81-7b20-4e1d-b180-b0dad0b0949e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '963116bc-4fef-48ae-a8e6-f655be756dc7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '7079b626-b406-4b03-947a-44e50fb316e4', '', '7.8'),
 ('2a534e27-14d0-4750-b04a-4c7f18477ca1', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '58e4147b-93a0-4809-955d-d04ce1161c5e', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e87669ff-8d73-4e9f-9863-9b2dbc7ed738', '', 'ASV'),
+('2b1f76bc-3a28-4c46-b71f-a97a1f81b0ec', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '7639c90c-b6bc-4927-87bd-5bf052a07789', '', '0.93'),
 ('2b6dd904-c951-40cf-9dfb-e680709f2d60', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6f3b950d-f94f-4c21-8e42-7e05251434b4', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.63'),
 ('2b75e47e-2056-48d5-866b-d60fae9bb0de', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.26'),
 ('2b9f9483-b2c0-4d58-97eb-1348c628b621', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '498bc88a-d5e6-4314-ad72-499ea3f1f780', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '7639c90c-b6bc-4927-87bd-5bf052a07789', '', '0.85'),
 ('2be37faa-68bd-4440-a888-63122813af85', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '498bc88a-d5e6-4314-ad72-499ea3f1f780', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.35'),
 ('2c2d77f8-6bd5-4ed4-bafd-f2ef7999e4eb', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'c64d6c10-91d3-45ab-b547-09b5a5b79bba', '', '0.45'),
 ('2c639da9-0bc5-43ea-8c00-5272bf42c06e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.59'),
+('2c89c711-ce62-46c9-a6df-c8e33e75272c', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '693c4409-faea-418e-afc4-0bd51489b62c', '', '5'),
 ('2c95a0b9-ba4c-4909-b094-957f9cd1e30f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '1.82'),
 ('2caf6e46-d63e-4a17-94da-2421963fcaf9', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6f3b950d-f94f-4c21-8e42-7e05251434b4', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'c64d6c10-91d3-45ab-b547-09b5a5b79bba', '', '0.57'),
 ('2cda5533-3d4b-4f08-848a-ce894095a138', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '963116bc-4fef-48ae-a8e6-f655be756dc7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '36'),
@@ -1213,15 +1220,15 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('2ff72fab-8754-4221-815d-a1952881e5eb', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '963116bc-4fef-48ae-a8e6-f655be756dc7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'c64d6c10-91d3-45ab-b547-09b5a5b79bba', '', '0.95'),
 ('302bfe30-2848-4c79-8cab-4f8f2427396b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '69db9385-8c1f-4863-a07d-30e3fc952ec6', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '84'),
 ('305952b1-3afc-46a4-85f6-9820ec3d210d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.3'),
-('30eff372-c3f3-46a2-a3e1-27279680b0ad', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '134.8'),
+('30eff372-c3f3-46a2-a3e1-27279680b0ad', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '134.8');
+INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
 ('30f9a6b4-e07b-43be-b472-188565620e62', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '353'),
 ('31366ac7-4bd7-49ad-aa25-88be5d2511b1', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '963116bc-4fef-48ae-a8e6-f655be756dc7', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '7639c90c-b6bc-4927-87bd-5bf052a07789', '', '0.84'),
 ('31d2a438-8e79-4a05-92f1-4b26fcd89240', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '41a41be4-0044-4958-b270-7afa8207446c', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e87669ff-8d73-4e9f-9863-9b2dbc7ed738', '', 'ASV'),
 ('3260b507-def7-474c-b1d5-32846aba8bc1', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '7079b626-b406-4b03-947a-44e50fb316e4', '', '7.9'),
 ('32afb416-c232-4585-8290-dc6db4611c8c', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.64'),
 ('32bb2a12-1dea-4369-bddf-5387a2e000f4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '498bc88a-d5e6-4314-ad72-499ea3f1f780', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.95'),
-('32dc4ade-5cac-4788-a420-67e6aef2fb56', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4e42b38e-a524-4152-a956-717855971d4b', '', '5.36');
-INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
+('32dc4ade-5cac-4788-a420-67e6aef2fb56', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4e42b38e-a524-4152-a956-717855971d4b', '', '5.36'),
 ('330ef5a6-f6b8-4c3e-bf4d-a274e827903c', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '42802840-d898-46ea-8377-7e0a9b6a060f', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4e42b38e-a524-4152-a956-717855971d4b', '', '4.52'),
 ('3383d5b6-2c94-43ba-abde-8e5b55136b37', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'c64d6c10-91d3-45ab-b547-09b5a5b79bba', '', '0.5'),
 ('33887683-800b-4bab-9569-06b7acb6a6c7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'c64d6c10-91d3-45ab-b547-09b5a5b79bba', '', '0.76'),
@@ -1244,6 +1251,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('36cd8845-db4b-4a27-994b-242773c4a1d3', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bd5ecf65-04d8-4b4d-813b-cffd8748b0fa', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '201.1'),
 ('36e266d7-4baa-403c-ba2d-11ada472ef2b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '91d8a44f-c7e5-4d25-8be1-8b0cbf8e48ae', '', '75.2'),
 ('3715c2c6-38ee-4075-9486-9df550e2e2a3', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.65'),
+('372e2a46-6405-4078-9467-e1e57e3d323b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '753c5dda-5d5a-4f87-a5c3-ce10b85fa11e', '', '81 - 13900'),
 ('37349955-b1c0-48a8-894c-ded76bc56a42', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '164c19d2-170f-4b48-958e-68ec335392f0', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '693c4409-faea-418e-afc4-0bd51489b62c', '', '5.25'),
 ('379763ab-35cd-4b8a-bc2f-9f17497a956a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '41a41be4-0044-4958-b270-7afa8207446c', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '55'),
 ('37e5f5b6-ad2f-4530-bb4e-e1d7894df465', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4899e144-b93b-446a-89b4-b055230545ee', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '1.7'),
@@ -1274,6 +1282,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('3f74d958-c87c-4bf0-ad49-212eea96ef22', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bd5ecf65-04d8-4b4d-813b-cffd8748b0fa', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '7079b626-b406-4b03-947a-44e50fb316e4', '', '4.3'),
 ('3fb806fe-49e6-4aff-8557-d631fd653d74', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '82.3'),
 ('3fdb4135-2d07-4a22-acc3-371f16932ff5', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '164c19d2-170f-4b48-958e-68ec335392f0', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '831ce7d5-4711-41b7-a545-723473fed6a9', '', '4'),
+('404b3de9-cf55-49cb-b717-b817faedacb3', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'a231074f-d6d0-4cdb-acd2-0f2cb3fcadcf', '', '25.4'),
 ('40a72285-b30b-4690-9af2-136a6f9ad3ef', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4e42b38e-a524-4152-a956-717855971d4b', '', '3.9'),
 ('40aee6ab-b575-4f67-9aed-833fd4123245', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '91d8a44f-c7e5-4d25-8be1-8b0cbf8e48ae', '', '11.6'),
 ('40bde376-9ccd-4578-925b-5dd6aad66865', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '77932324-df07-44d8-84d2-30af8ae38c0a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '753c5dda-5d5a-4f87-a5c3-ce10b85fa11e', '', '35 - 2500'),
@@ -1418,7 +1427,8 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('5d2210e1-db29-4125-a3fc-67418c816eb8', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3d4dd01e-42bc-41b7-8015-9c5d8afc8f1e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4e42b38e-a524-4152-a956-717855971d4b', '', '5.54'),
 ('5d285ccc-45ee-4201-82d9-5dd5cf6cee72', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '27'),
 ('5dab2c14-cade-4da1-8add-08db6adb4322', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '91d8a44f-c7e5-4d25-8be1-8b0cbf8e48ae', '', '64.5'),
-('5df37d2f-8e79-467b-afe7-2ca4c21c1eb9', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '7.4'),
+('5df37d2f-8e79-467b-afe7-2ca4c21c1eb9', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '7.4');
+INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
 ('5e126030-c19c-4749-870f-919befb683c0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4e42b38e-a524-4152-a956-717855971d4b', '', '5.36'),
 ('5e2696cb-8673-4c82-9da9-77844c805765', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '41a41be4-0044-4958-b270-7afa8207446c', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '206.1'),
 ('5e5b8f23-2814-4973-9245-22df5fdbd1a7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.22'),
@@ -1427,8 +1437,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('5f28cf7f-64ec-4500-a688-4692d0df42ba', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '164c19d2-170f-4b48-958e-68ec335392f0', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '1.33'),
 ('5f2a4e1f-f72c-4f29-9e87-3352e6a043d6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4899e144-b93b-446a-89b4-b055230545ee', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '7079b626-b406-4b03-947a-44e50fb316e4', '', '7.8'),
 ('5f87a9a4-4a04-402e-af1d-a4a090cf6b37', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '164c19d2-170f-4b48-958e-68ec335392f0', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '117'),
-('602f503d-5ccf-49df-955c-5a3966c62dd3', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '77932324-df07-44d8-84d2-30af8ae38c0a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '693c4409-faea-418e-afc4-0bd51489b62c', '', '12');
-INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
+('602f503d-5ccf-49df-955c-5a3966c62dd3', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '77932324-df07-44d8-84d2-30af8ae38c0a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '693c4409-faea-418e-afc4-0bd51489b62c', '', '12'),
 ('602f8fa4-ca2a-45ec-b499-dfb051ee37ea', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '1.8'),
 ('606ac9ce-0602-4c12-9a32-50570e7b32b7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '164c19d2-170f-4b48-958e-68ec335392f0', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '7639c90c-b6bc-4927-87bd-5bf052a07789', '', '1.03'),
 ('60e4219b-bc0d-42fd-be55-8109ecdbe995', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.83'),
@@ -1502,6 +1511,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('6e3f6ee4-267d-40c6-8dbc-2a7baf114661', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '3.6'),
 ('6e655086-8a90-4d0f-a56d-df2af887c309', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '41a41be4-0044-4958-b270-7afa8207446c', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '3.7'),
 ('6ede484c-201f-4090-8376-371862ba132f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3d4dd01e-42bc-41b7-8015-9c5d8afc8f1e', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '0.81'),
+('6f222287-0e1e-418b-ae6e-11fa4b5726bd', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e87669ff-8d73-4e9f-9863-9b2dbc7ed738', '', 'ASV'),
 ('6fc183ca-ed37-4468-9d74-dc0adab95c73', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '142a61b9-0738-42a3-8742-47b4fce63f73', '', '31'),
 ('7053bd31-5a96-4de5-940c-248e8daea279', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '753c5dda-5d5a-4f87-a5c3-ce10b85fa11e', '', '105 - 20000'),
 ('706ee860-4ce1-483a-9015-54b49401bc21', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.22'),
@@ -1623,7 +1633,8 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('8dd36a8b-c5e1-4b4b-a278-27a0225db578', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '42802840-d898-46ea-8377-7e0a9b6a060f', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.76'),
 ('8e11d4a2-a51e-41b8-843a-ec39dd5b4366', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '136.8'),
 ('8ef14b0a-e2f5-4bcc-bd96-dc21e8365c60', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6f3b950d-f94f-4c21-8e42-7e05251434b4', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '831ce7d5-4711-41b7-a545-723473fed6a9', '', '4'),
-('8f4a780b-cc05-4191-af6d-b5c19ce77ee9', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '0.82'),
+('8f4a780b-cc05-4191-af6d-b5c19ce77ee9', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '0.82');
+INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
 ('9014cbf4-2c66-447b-b690-e3b910dcbd03', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4899e144-b93b-446a-89b4-b055230545ee', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4e42b38e-a524-4152-a956-717855971d4b', '', '4.3'),
 ('90293c44-a064-42a2-833b-4371101926ef', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '41a41be4-0044-4958-b270-7afa8207446c', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '0.27'),
 ('9037a917-b09f-45e2-b161-a484275684d5', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.16'),
@@ -1633,8 +1644,8 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('91523796-72c5-451c-aaf9-721c5bc2aa2c', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '970f6aa5-91f5-464c-96e4-83f86280d053', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '831ce7d5-4711-41b7-a545-723473fed6a9', '', '4'),
 ('92b8e095-afb0-4c6c-8cdb-065170354ef6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'a231074f-d6d0-4cdb-acd2-0f2cb3fcadcf', '', '35.5'),
 ('939dc447-49ad-4397-94ba-4dda977df581', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '7079b626-b406-4b03-947a-44e50fb316e4', '', '4.2'),
-('94651195-9eff-44cb-a684-bff6d7d835a0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', 'IEC 268-5, (in box system, cut.off 20-500 Hz)', '50');
-INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
+('94651195-9eff-44cb-a684-bff6d7d835a0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '96f6309b-96d1-466f-9dbb-bff04e8e1fac', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', 'IEC 268-5, (in box system, cut.off 20-500 Hz)', '50'),
+('94be11e4-d78a-476d-854e-45ae78bbf8d1', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'a231074f-d6d0-4cdb-acd2-0f2cb3fcadcf', '', '25.4'),
 ('94c5ef43-434a-4756-a0da-ba730b2f9eb6', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '95bba079-4da5-4ac3-8a9a-9fdf23f146b7', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e87669ff-8d73-4e9f-9863-9b2dbc7ed738', '', 'ASV'),
 ('951430de-d1c4-47b6-91df-f85b91cebd3a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b4e5347e-fd18-4b47-a74a-6d90c6e0c305', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.18'),
 ('951b5b0c-388e-41dd-84b7-2c1a4eea45cb', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '93'),
@@ -1662,6 +1673,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('9800a70c-b0d8-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4f583bcb-ae46-4e3c-9c77-5525d0f58c1f', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '39.2'),
 ('9800a8d7-b0d8-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '59.7'),
 ('9817b47b-2cc2-4f8f-916a-2371d01d2d76', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '7079b626-b406-4b03-947a-44e50fb316e4', '', '5.2'),
+('981e5cf4-97d3-4904-bc6d-8cb360f0fee4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', '', '40'),
 ('983645d8-97b2-4108-9ec8-a6f30d4549d0', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '42802840-d898-46ea-8377-7e0a9b6a060f', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '7639c90c-b6bc-4927-87bd-5bf052a07789', '', '0.74'),
 ('9840a744-01a5-4e9e-8abc-520142837e97', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '8d4235e2-a456-4b87-83b1-2eeee04e40b9', 'IEC 268-5, (in box system, cut.off 20-500 Hz)', '250'),
 ('98bc25a2-fc7a-4112-bb3f-ad26f202fc4a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '1.04'),
@@ -1704,6 +1716,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('a1d95bc6-b0d6-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '2e888496-0048-4943-982f-ebfdd4625e1f', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'a231074f-d6d0-4cdb-acd2-0f2cb3fcadcf', '', '49.5'),
 ('a262f38e-c7aa-46b9-8741-5e3299e6afe3', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e3770df5-ea15-4be2-85f5-703caecdfd36', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '86.5'),
 ('a2b42692-56fa-4890-8b7a-cc9dcd350437', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.15'),
+('a2c4ec30-4a01-489b-bfa4-1cb046af9d6d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '693c4409-faea-418e-afc4-0bd51489b62c', '', '5'),
 ('a2dd1501-8279-4888-8941-0bae4983874b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.74'),
 ('a3357d04-2ed4-4cfa-91b9-54d8889f2685', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '77932324-df07-44d8-84d2-30af8ae38c0a', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.26'),
 ('a40d2e6f-305e-4d45-a0e4-ef020b59fa71', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '3.6'),
@@ -1827,8 +1840,10 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('c18d17b3-d5ce-4ac8-bcea-97f275825348', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '963116bc-4fef-48ae-a8e6-f655be756dc7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.57'),
 ('c26c7cb0-43e9-44c1-9669-ebca8c34fe16', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4e42b38e-a524-4152-a956-717855971d4b', '', '7.23'),
 ('c2db0876-8b8f-4c47-8f76-57e0fa31aaee', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '69db9385-8c1f-4863-a07d-30e3fc952ec6', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '1.5'),
+('c335a48e-de21-428e-85b2-18fe7096ee47', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '753c5dda-5d5a-4f87-a5c3-ce10b85fa11e', '', '82 - 8220'),
 ('c3367280-71ab-4794-bc51-1c96483f3eaa', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '6f3b950d-f94f-4c21-8e42-7e05251434b4', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '678c85cc-ba1f-4472-be09-d655c00e5b37', 'AES standard, test mode with continuous pink noise signal (6 dB crest factor; 2 hours) within the Fo to 10Fo power calculated on rated nominal impedance. Loudspeaker in free air', '200'),
-('c3427db2-b0d7-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '62.2'),
+('c3427db2-b0d7-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '62.2');
+INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
 ('c3428034-b0d7-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '2e888496-0048-4943-982f-ebfdd4625e1f', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '68.9'),
 ('c34294f3-b0d7-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4f583bcb-ae46-4e3c-9c77-5525d0f58c1f', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '40.5'),
 ('c368ee9a-aa10-45ce-883f-6322ff8135e2', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5b326d37-c8c1-49b1-83c5-c54f8eb4c2dd', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.13'),
@@ -1841,8 +1856,8 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('c4d193e1-585d-4cd7-aff0-885be20ed35e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '77895dbd-3f6f-4221-ba0b-dd1e6765454d', '', '0.23'),
 ('c56df581-7702-415a-9b17-e1f5cb15bcc7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4899e144-b93b-446a-89b4-b055230545ee', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.38'),
 ('c5bb7178-74bd-4fe9-8fc9-4d120b811961', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '8.04'),
-('c5d87903-3556-4a01-bbd4-1ce2d8c96424', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '753c5dda-5d5a-4f87-a5c3-ce10b85fa11e', '', '32 - 5000');
-INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
+('c5c73b70-86e8-421b-9e52-25adf6e14806', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '0.21'),
+('c5d87903-3556-4a01-bbd4-1ce2d8c96424', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '753c5dda-5d5a-4f87-a5c3-ce10b85fa11e', '', '32 - 5000'),
 ('c62968ab-45bd-4989-a55b-7bf6645d9a47', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e1c25166-8945-4f86-a898-3795b4b44883', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '7079b626-b406-4b03-947a-44e50fb316e4', '', '8.7'),
 ('c6723b53-8522-4c00-93ef-1a3647cb6275', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'e3770df5-ea15-4be2-85f5-703caecdfd36', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '353'),
 ('c7094059-f478-4f8b-9f81-b8908a24012f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bd5ecf65-04d8-4b4d-813b-cffd8748b0fa', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '0.48'),
@@ -1957,6 +1972,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('dcde77d0-b0d7-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '2e888496-0048-4943-982f-ebfdd4625e1f', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '7079b626-b406-4b03-947a-44e50fb316e4', '', '8.2'),
 ('dcde7af9-b0d7-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4f583bcb-ae46-4e3c-9c77-5525d0f58c1f', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '7079b626-b406-4b03-947a-44e50fb316e4', '', '4.3'),
 ('dcfe7210-5a71-4306-8693-bd40070a613f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '2b1193f0-37cb-4576-9bfc-028cd5694d0e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '1.7'),
+('ddb765b8-bfe0-4759-b102-170a5926604c', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '3213ef26-e2ab-4332-8d12-6ad1f18f39a2', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '831ce7d5-4711-41b7-a545-723473fed6a9', '', '4'),
 ('ddc64c6a-3f8f-4441-9306-32f1103bf1dc', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'a231074f-d6d0-4cdb-acd2-0f2cb3fcadcf', '', '49.5'),
 ('ddeae184-e249-40d3-898d-3b664c7134b4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '0.36'),
 ('de0ee4ce-db64-4087-96aa-39814822da82', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.18'),
@@ -2035,7 +2051,8 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('ed0ddbc6-55f3-48d5-837c-c120e9e2617f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '41a41be4-0044-4958-b270-7afa8207446c', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', 'c64d6c10-91d3-45ab-b547-09b5a5b79bba', '', '0.97'),
 ('ed44a144-2bc3-4d7e-b02f-f3ae26f32642', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '90'),
 ('ed6d1293-a2d9-4486-9f96-bbfd0bfa1078', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '7079b626-b406-4b03-947a-44e50fb316e4', '', '8.1'),
-('ed88042a-db12-4af5-bc51-e9c706f258b7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '963116bc-4fef-48ae-a8e6-f655be756dc7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4e42b38e-a524-4152-a956-717855971d4b', '', '6.92'),
+('ed88042a-db12-4af5-bc51-e9c706f258b7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '963116bc-4fef-48ae-a8e6-f655be756dc7', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '4e42b38e-a524-4152-a956-717855971d4b', '', '6.92');
+INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
 ('edb4b92d-7ea8-4196-b3cd-40b2617754ea', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '0a451b38-7865-4e17-9a33-cf56ab2d4ea2', '', '1.09'),
 ('eeb3ec4f-f0a3-4422-a5c3-3b5e782f6c2a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '91d8a44f-c7e5-4d25-8be1-8b0cbf8e48ae', '', '6.9'),
 ('ef245cef-da8b-4f0f-a73e-1ffce5ec604d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '693c4409-faea-418e-afc4-0bd51489b62c', '', '10'),
@@ -2050,8 +2067,7 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('f2169623-03a3-413d-8c7c-8a306df297aa', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '77932324-df07-44d8-84d2-30af8ae38c0a', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '514.7'),
 ('f2594bd4-0498-4c7e-834d-ec0ee66fa8ba', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '5fa5a613-16a3-4b8f-92c6-dd2bd7b68f8b', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '7.5'),
 ('f26f29db-b7da-464e-a2cd-e3cbf985023e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'b912e31b-58aa-4b51-a7d2-f1b80ebdfc0d', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e87669ff-8d73-4e9f-9863-9b2dbc7ed738', '', 'ASV'),
-('f2914a05-6408-4cb8-9ade-b06b815e130d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4899e144-b93b-446a-89b4-b055230545ee', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '1.08');
-INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspecificationParentId`, `dynamicspecificationSubParentId`, `dynamicspecificationId`, `notes`, `value`) VALUES
+('f2914a05-6408-4cb8-9ade-b06b815e130d', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4899e144-b93b-446a-89b4-b055230545ee', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '1.08'),
 ('f3330283-05d0-4373-9fc4-269652c03590', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '1.7'),
 ('f340297c-18cb-48f7-bfe2-4f2ff3341016', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '55fd0ddf-cd00-45a1-8ee0-6fd4231bd69e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '216.4'),
 ('f36ce616-8ad2-4be3-a940-6100dfb05658', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '8c29e60a-34c0-4b99-b9bf-104be2655e65', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '83.4'),
@@ -2072,12 +2088,14 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 ('f6daee65-e6b1-45e5-9d72-96db415dc5f7', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '498bc88a-d5e6-4314-ad72-499ea3f1f780', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e0a12bf6-f9ba-47e7-8704-c34955b1b698', 'Power on continous program is defined as 3dB greater than nominal power handling.', '400'),
 ('f75dee54-7c54-452d-96ba-511f246518fd', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c52ce46f-89a5-4576-a4fd-8a7ae5cf1f53', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'c64d6c10-91d3-45ab-b547-09b5a5b79bba', '', '0.42'),
 ('f81c9a69-e0d8-4ca0-b4d9-1125d5762302', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '4899e144-b93b-446a-89b4-b055230545ee', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '1380c6d4-3201-4dd0-85e3-69e00e00cade', '', '61.4'),
+('f8347dfc-91bf-4eff-a5a1-e45a51fc08f1', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '7639c90c-b6bc-4927-87bd-5bf052a07789', '', '0.66'),
 ('f8972c27-a55c-4fb8-a8fb-2925163102b5', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'ad3d4329-2433-42aa-8b0e-542a474f1c91', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'a231074f-d6d0-4cdb-acd2-0f2cb3fcadcf', '', '25.4'),
 ('f8bacf75-bb1b-429e-b66d-8416746d2d99', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '58e4147b-93a0-4809-955d-d04ce1161c5e', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', '2523f7aa-8859-4020-957a-4c1a9c2173d4', '', '3.4'),
 ('f8e0c3c4-ddbd-47ab-b74e-8a05c253dd12', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'cc2d7eb7-526f-4ffe-923d-4b6c57fb9006', '0ce0647e-d76e-43f3-961b-ed4c5137e135', 'a56868e9-3490-4a97-acb3-9dedbcfbf930', 'cf3a6075-4f62-4be1-80a4-f00e7e6ff6bb', '', '346.4'),
 ('f908fd61-95ce-4264-8956-61c1677c879a', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'fdd744f3-a65e-4c33-b2b6-81306f7b47f8', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '06671e3b-d634-4ab8-b88e-4d81b244e759', 'ae300345-3429-4e9b-8b65-ae4a1dddac20', '', '8.04'),
 ('f93310ab-e54f-4bad-bdc2-fb5b8e67478e', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '498bc88a-d5e6-4314-ad72-499ea3f1f780', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'f11c92e4-866c-4903-8aca-54a1a2b004c6', '', '1.35'),
 ('f980e36d-2a5a-44f9-871a-af9220935370', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '58e4147b-93a0-4809-955d-d04ce1161c5e', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '693c4409-faea-418e-afc4-0bd51489b62c', '', '12'),
+('f9b897e1-8af7-4f90-8ded-4b8cc7bcdb9b', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'bfef1a40-3cc6-4bc0-85dc-12501e9c8b8a', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '88'),
 ('f9cd2038-6f76-4741-b51f-ec2d355fd1b4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '970f6aa5-91f5-464c-96e4-83f86280d053', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', 'e0a12bf6-f9ba-47e7-8704-c34955b1b698', 'Power on continous program is defined as 3dB greater than nominal power handling.', '80'),
 ('f9deb418-edc8-46bc-a9cf-09278f7ae66f', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', 'c2abeea1-3c8d-4900-af2a-6fcb27bcb738', 'eb57241c-6f01-46b6-9f41-ed49a7b4eb12', '', '2381ab25-a8bd-40ac-aae3-52226bb4728b', '', '92'),
 ('fa22bc48-b0d7-11f0-98ba-18c04d02afd4', '680c5eee-7ed7-41bc-b14b-4185f8a1c379', '62a47bd6-a0c2-4df9-9cd0-21c496076a5a', '0ce0647e-d76e-43f3-961b-ed4c5137e135', '', '4d4fb3d5-34a1-466b-b6f4-80c7445f4f45', '', '0.49'),
@@ -2116,11 +2134,11 @@ INSERT INTO `specificationconnector` (`id`, `brandId`, `productId`, `dynamicspec
 --
 
 CREATE TABLE `superior` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `url` text NOT NULL,
-  `updatedBy` text NOT NULL DEFAULT '',
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updatedBy` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2138,14 +2156,14 @@ INSERT INTO `superior` (`id`, `name`, `url`, `updatedBy`, `createdAt`, `updatedA
 --
 
 CREATE TABLE `users` (
-  `id` varchar(191) NOT NULL,
-  `name` text NOT NULL,
-  `email` text NOT NULL,
-  `password` text NOT NULL,
-  `refresh_token` text NOT NULL,
-  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `refresh_token` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `expiredAt` varchar(191) NOT NULL DEFAULT ''
+  `expiredAt` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
