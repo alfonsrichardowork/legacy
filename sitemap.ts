@@ -55,7 +55,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date().toISOString(),
     },
     {
-      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/distributors`,
+      url: `${process.env.NEXT_PUBLIC_ROOT_URL}/agen`,
       lastModified: new Date().toISOString(),
     },
     {

@@ -127,7 +127,7 @@ export async function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL('/', req.url), 301)
   }
   if (url.pathname.includes('/distributors.php')) {
-    return NextResponse.redirect(new URL('/distributors', req.url), 301)
+    return NextResponse.redirect(new URL('/agen', req.url), 301)
   }
   if (url.pathname.includes('/contact.php')) {
     return NextResponse.redirect(new URL('/contact', req.url), 301)

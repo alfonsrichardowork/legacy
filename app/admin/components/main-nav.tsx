@@ -123,9 +123,9 @@ export function MainNav({
       icon: FileText,
     },
     {
-      title: "Distributors",
-      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/distributors`,
-      description: "Show All Legacy Distributors.",
+      title: "Agen",
+      href: `${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/agen`,
+      description: "Show All Legacy Agen.",
       icon: Users,
     },
     {
@@ -304,7 +304,7 @@ export function MainNav({
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className={`flex gap-1.5 text-xs ${pathSegments[3] === 'superior' || pathSegments[3] === 'catalogues' || pathSegments[3] === 'distributors' || pathSegments[3] === 'about-us' || pathSegments[3] === 'contacts' || pathSegments[3] === 'featuredseries' || pathSegments[3] === '' ? 'bg-foreground text-background hover:text-background' : ''}`}>
+              <NavigationMenuTrigger className={`flex gap-1.5 text-xs ${pathSegments[3] === 'superior' || pathSegments[3] === 'catalogues' || pathSegments[3] === 'agen' || pathSegments[3] === 'about-us' || pathSegments[3] === 'contacts' || pathSegments[3] === 'featuredseries' || pathSegments[3] === '' ? 'bg-foreground text-background hover:text-background' : ''}`}>
                 <List size={16} /> Others
               </NavigationMenuTrigger>
               <NavigationMenuContent>

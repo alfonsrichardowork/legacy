@@ -4,7 +4,7 @@ import Series from './components/Series';
 import History from './components/History';
 import { Youtube } from './components/Youtube';
 import News from './components/news';
-import { Distributor } from './components/distributor';
+import { Agen } from './components/agen';
 import Keunggulan from './components/keunggulan';
 import Hero from './components/Hero';
 import { Suspense } from 'react';
@@ -114,7 +114,7 @@ export default function LandingPageLegacy() {
 
 
       <div className="relative w-full bg-slate-100 lg:h-66 h-60">
-        <Distributor />
+        <Agen />
       </div>
     </>
   );

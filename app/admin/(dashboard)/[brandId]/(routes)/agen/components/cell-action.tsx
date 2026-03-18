@@ -12,14 +12,14 @@ import {
   DropdownMenuLabel, 
   DropdownMenuTrigger
 } from "@/app/admin/components/ui/dropdown-menu";
-import { DistributorColumn } from "./columns";
+import { AgenColumn } from "./columns";
 import { useState } from "react";
 import { AlertModal } from "@/app/admin/components/modals/alert-modal";
 import axios from "axios";
 
 
 interface CellActionProps {
-  data: DistributorColumn;
+  data: AgenColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({
@@ -33,10 +33,10 @@ export const CellAction: React.FC<CellActionProps> = ({
   const onConfirm = async () => {
     try {
       setLoading(true);
-      const API=`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}${process.env.NEXT_PUBLIC_ADMIN_UPDATE_ADD_DISTRIBUTOR}`;
+      const API=`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}${process.env.NEXT_PUBLIC_ADMIN_UPDATE_ADD_AGEN}`;
       //@ts-ignore
       const API_EDITED = API.replace('{brandId}', params.brandId)
-      const API_EDITED2 = API_EDITED.replace('{distributorId}', data.id)
+      const API_EDITED2 = API_EDITED.replace('{agenId}', data.id)
       const response = await axios.delete(API_EDITED2);
       if(response.data === 'expired_session'){
         router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/`);
@@ -54,9 +54,9 @@ export const CellAction: React.FC<CellActionProps> = ({
         toast.error("Unauthorized");
       }
       else{
-        router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/distributors`);
+        router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/agen`);
         router.refresh();
-        toast.success('Distributor deleted.');
+        toast.success('Agen deleted.');
       }
     } catch (error) {
       router.refresh()
@@ -72,7 +72,7 @@ export const CellAction: React.FC<CellActionProps> = ({
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success('Distributor ID copied to clipboard.');
+    toast.success('Agen ID copied to clipboard.');
   }
 
   return (
@@ -101,7 +101,7 @@ export const CellAction: React.FC<CellActionProps> = ({
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/distributors/${data.id}`)}
+            onClick={() => router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/agen/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>

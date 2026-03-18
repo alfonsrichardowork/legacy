@@ -19,7 +19,7 @@ const slugify = (str: string): string => {
 
 export async function GET(
   req: Request,
-  props: { params: Promise<{ brandId: string, distributorId: string }> }
+  props: { params: Promise<{ brandId: string, agenId: string }> }
 ) {
   const params = await props.params;
   try {
@@ -28,18 +28,18 @@ export async function GET(
       return new NextResponse("brand id is required", { status: 400 });
     }
 
-    const distributor = await prismadb.distributors.findMany({
+    const agen = await prismadb.agen.findMany({
       where: {
-        id: params.distributorId
+        id: params.agenId
       },
       orderBy: {
         createdAt: 'desc',
       }
     });
 
-    return NextResponse.json(distributor);
+    return NextResponse.json(agen);
   } catch (error) {
-    console.log('[SINGLE_DISTRIBUTOR_GET]', error);
+    console.log('[SINGLE_AGEN_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
@@ -47,7 +47,7 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  props: { params: Promise<{ distributorId: string, brandId: string }> }
+  props: { params: Promise<{ agenId: string, brandId: string }> }
 ) {
   const params = await props.params;
   try {
@@ -66,8 +66,8 @@ export async function PATCH(
 
     const { name, contactPerson, phoneNumber, email, country, state, city, joinDate, active } = body;
 
-    if (!params.distributorId) {
-      return new NextResponse("Distributor id is required", { status: 400 });
+    if (!params.agenId) {
+      return new NextResponse("Agen id is required", { status: 400 });
     }
 
     if(!(await checkAuth(session.isAdmin!, params.brandId, session.userId!))){
@@ -76,10 +76,10 @@ export async function PATCH(
 
 
 
-    if(params.distributorId != 'new'){
-      await prismadb.distributors.update({
+    if(params.agenId != 'new'){
+      await prismadb.agen.update({
         where: {
-          id: params.distributorId
+          id: params.agenId
         },
         data: {
           name, 
@@ -99,7 +99,7 @@ export async function PATCH(
     }
     else{
 
-      const duplicates = await prismadb.distributors.findFirst({
+      const duplicates = await prismadb.agen.findFirst({
         where:{
           name
         }
@@ -109,7 +109,7 @@ export async function PATCH(
         return NextResponse.json("duplicate")
       }
 
-      await prismadb.distributors.create({
+      await prismadb.agen.create({
         data: {
           name,
           contactPerson, 
@@ -127,11 +127,10 @@ export async function PATCH(
       })
     }
 
-    revalidatePath('/distributor')
-    revalidatePath('/en/distributors')
+    revalidatePath('/agen')
     return NextResponse.json("success");
   } catch (error) {
-    console.log('[DISTRIBUTOR_PATCH]', error);
+    console.log('[AGEN_PATCH]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
@@ -139,7 +138,7 @@ export async function PATCH(
 
   export async function DELETE(
     req: Request,
-    props: { params: Promise<{ brandId: string, distributorId: string }> }
+    props: { params: Promise<{ brandId: string, agenId: string }> }
   ) {
     const params = await props.params;
     try {
@@ -154,23 +153,23 @@ export async function PATCH(
         return NextResponse.json("invalid_token")
       }
   
-      if (!params.distributorId) {
-        return new NextResponse("Distributor id is required", { status: 400 });
+      if (!params.agenId) {
+        return new NextResponse("Agen id is required", { status: 400 });
       }
       
       if(!(await checkAuth(session.isAdmin!, params.brandId, session.userId!))){
         return NextResponse.json("unauthorized");
       }
 
-      const deleted = await prismadb.distributors.deleteMany({
+      const deleted = await prismadb.agen.deleteMany({
         where: {
-          id: params.distributorId
+          id: params.agenId
         },
       });
   
       return NextResponse.json(deleted);
     } catch (error) {
-      console.log('[DISTRIBUTOR_DELETE]', error);
+      console.log('[AGEN_DELETE]', error);
       return new NextResponse("Internal error", { status: 500 });
     }
   };

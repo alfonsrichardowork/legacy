@@ -10,11 +10,11 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
       return new NextResponse("brand id is required", { status: 400 });
     }
 
-    const distributors = await prismadb.distributors.findMany({});
+    const agen = await prismadb.agen.findMany({});
 
-    return NextResponse.json(distributors);
+    return NextResponse.json(agen);
   } catch (error) {
-    console.log('[DISTRIBUTOR_GET]', error);
+    console.log('[AGEN_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };

@@ -140,9 +140,9 @@ function Navbar() {
                       </NavigationMenuLink>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <NavigationMenuLink href="/distributors" className={navigationMenuTriggerStyle().concat(` bg-transparent`)}>
-                      <div className={`hover:text-[rgba(19,82,219,1)] ${pathname.includes('distributors') ?'text-foreground' :navbarBg ? 'text-black' : ''}`}>
-                        DISTRIBUTORS
+                    <NavigationMenuLink href="/agen" className={navigationMenuTriggerStyle().concat(` bg-transparent`)}>
+                      <div className={`hover:text-[rgba(19,82,219,1)] ${pathname.includes('agen') ?'text-foreground' :navbarBg ? 'text-black' : ''}`}>
+                        AGEN
                       </div>
                     </NavigationMenuLink>
                 </NavigationMenuItem>

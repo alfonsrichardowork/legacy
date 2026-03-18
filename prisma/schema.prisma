@@ -302,7 +302,7 @@ model superior {
   updatedAt   DateTime  @updatedAt
 }
 
-model distributors {
+model agen {
   id        String    @id @default(uuid())
   name      String    @db.Text
   contactPerson    String    @db.Text

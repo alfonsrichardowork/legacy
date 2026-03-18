@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { distributors } from "@prisma/client"
+import { agen } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -43,13 +43,13 @@ const formSchema = z.object({
   active: z.boolean(),
 });
 
-type DistributorFormValues = z.infer<typeof formSchema>
+type AgenFormValues = z.infer<typeof formSchema>
 
-interface DistributorFormProps {
-  initialData: distributors | null;
+interface AgenFormProps {
+  initialData: agen | null;
 };
 
-export const DistributorForm: React.FC<DistributorFormProps> = ({
+export const AgenForm: React.FC<AgenFormProps> = ({
   initialData
 }) => {
 
@@ -83,8 +83,8 @@ export const DistributorForm: React.FC<DistributorFormProps> = ({
  
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Edit Distributor' : 'Add Distributor';
-  const toastMessage = initialData ? 'Distributor updated.' : 'Distributor added.';
+  const title = initialData ? 'Edit Agen' : 'Add Agen';
+  const toastMessage = initialData ? 'Agen updated.' : 'Agen added.';
   const action = initialData ? 'Save changes' : 'Create';
 
   const defaultValues = initialData ? {
@@ -101,7 +101,7 @@ export const DistributorForm: React.FC<DistributorFormProps> = ({
     active: false,
   }
 
-  const form = useForm<DistributorFormValues>({
+  const form = useForm<AgenFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues
   });
@@ -109,7 +109,7 @@ export const DistributorForm: React.FC<DistributorFormProps> = ({
   const [open, setOpen] = useState(false)
   const [checkedActive, setCheckedActive] = useState<boolean| "indeterminate">(initialData?.active ?? false)
 
-  const onSubmit = async (data: DistributorFormValues) => {
+  const onSubmit = async (data: AgenFormValues) => {
     try {
       setLoading(true);
       data.joinDate = date ?? new Date()
@@ -117,15 +117,15 @@ export const DistributorForm: React.FC<DistributorFormProps> = ({
       data.country = country ? JSON.stringify(country) : ""
       data.state = currentState ? JSON.stringify(currentState) : ""
       data.city = city ? JSON.stringify(city) : ""
-      const API=`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}${process.env.NEXT_PUBLIC_ADMIN_UPDATE_ADD_DISTRIBUTOR}`;
+      const API=`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}${process.env.NEXT_PUBLIC_ADMIN_UPDATE_ADD_AGEN}`;
       //@ts-ignore
       const API_EDITED = API.replace('{brandId}', params.brandId)
       //@ts-ignore
-      const API_EDITED2 = API_EDITED.replace('{distributorId}', params.distributorId)
+      const API_EDITED2 = API_EDITED.replace('{agenId}', params.agenId)
       const response = await axios.patch(API_EDITED2, data);
       
       if(response.data === 'duplicate'){
-        toast.error("Duplicate Distributor")
+        toast.error("Duplicate Agen")
       }
       else if(response.data === 'expired_session'){
         router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/`);
@@ -143,7 +143,7 @@ export const DistributorForm: React.FC<DistributorFormProps> = ({
         toast.error("Unauthorized!");
       }
       else{
-        router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/distributors`);
+        router.push(`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}/${params.brandId}/agen`);
         router.refresh();
         toast.success(toastMessage);
       }

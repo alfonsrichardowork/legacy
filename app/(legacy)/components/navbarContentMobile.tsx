@@ -447,9 +447,9 @@ function NavbarContentMobile (){
                   </Link>
               </Button>
               <Button variant={null} asChild className='px-6'>
-                  <Link href="/distributors">
+                  <Link href="/agen">
                   <SheetClose className='w-full text-base hover:text-[rgba(19,82,219,1)] text-white'>
-                      DISTRIBUTORS
+                      AGEN
                     </SheetClose>
                   </Link>
               </Button>

@@ -3,10 +3,10 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 import { getSession } from "@/app/admin/actions";
 import { redirect } from "next/navigation";
-import { DistributorClient } from "./components/client";
-import { DistributorColumn } from "./components/columns";
+import { AgenClient } from "./components/client";
+import { AgenColumn } from "./components/columns";
 
-const DistributorPage = async (
+const AgenPage = async (
   props: {
     params: Promise<{ brandId: string }>
   }
@@ -17,13 +17,13 @@ const DistributorPage = async (
     redirect("/admin")
   }
 
-  const alldistributor = await prismadb.distributors.findMany({
+  const allagen = await prismadb.agen.findMany({
     orderBy: {
       updatedAt: 'desc'
     }
   });
 
-  const formattedDistributor: DistributorColumn[] = alldistributor.map((item) => ({
+  const formattedagen: AgenColumn[] = allagen.map((item) => ({
     id: item.id,
     name: item.name,
     phoneNumber: item.phoneNumber,
@@ -57,10 +57,10 @@ const DistributorPage = async (
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <DistributorClient data={formattedDistributor} userRole={session.isAdmin!}/>
+        <AgenClient data={formattedagen} userRole={session.isAdmin!}/>
       </div>
     </div>
   );
 };
 
-export default DistributorPage;
+export default AgenPage;

@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table"
 
 import { CellAction } from "./cell-action"
 
-export type DistributorColumn = {
+export type AgenColumn = {
   id: string
   name: string;
   phoneNumber: string;
@@ -15,7 +15,7 @@ export type DistributorColumn = {
   // updatedBy: string;
 }
 
-export const columns: ColumnDef<DistributorColumn>[] = [
+export const columns: ColumnDef<AgenColumn>[] = [
   {
     accessorKey: "name",
     header: "Company",
