@@ -68,9 +68,9 @@ function DashboardPage () {
     };
 
     fetchData();
-    fetch('/admin/api/analytics')
-      .then(res => res.json())
-      .then(data => [setMostVisitedPageReport(data.mostvisited || []), setTrafficByCountry(data.trafficbycountry || []), setDeviceUsed(data.deviceused || []), setTotalVisitor(data.totalvisitorperday || []), setLoading(false)])
+    // fetch('/admin/api/analytics')
+    //   .then(res => res.json())
+    //   .then(data => [setMostVisitedPageReport(data.mostvisited || []), setTrafficByCountry(data.trafficbycountry || []), setDeviceUsed(data.deviceused || []), setTotalVisitor(data.totalvisitorperday || []), setLoading(false)])
 
   }, []);
 
