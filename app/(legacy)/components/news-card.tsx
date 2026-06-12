@@ -3,9 +3,28 @@ import { NewsType } from "../types";
 import { Button } from "@/components/ui/button";
 import Image from "next/image"; 
 import DompurifyContent from "./dompurifyText";
+import { news, Prisma } from "@prisma/client";
+
+type NewsCardData = Prisma.newsGetPayload<{
+    select: {
+    id: true, 
+    title: true,
+    slug: true,
+    link_placeholder: true,
+    link_url: true,
+    description: true,
+    event_date: true,
+    updatedAt: true,
+    news_img: {
+        select: {
+        url: true
+        }
+    }
+    },
+}>
 
 interface NewsCardProps {
-  data: NewsType;
+  data: NewsCardData;
 }
 
 const NewsCard: React.FC<NewsCardProps> =  ({ data }) => {
@@ -18,14 +37,16 @@ const NewsCard: React.FC<NewsCardProps> =  ({ data }) => {
     <div className="py-4" data-testid="news-card">
       <div className="md:flex block items-center">    
         {/* <div className="w-fit">  */}
-        <Image
-          src={data.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${data.news_img_url}` : data.news_img_url} 
-          alt={data.title} 
-          width={300}
-          height={300}
-          data-testid="news-image"
-          className="md:w-[200px] w-[150px] h-fit justify-center"
-        />
+        {data.news_img[0] &&
+          <Image
+            src={data.news_img[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${data.news_img[0].url}` : data.news_img[0].url} 
+            alt={data.title} 
+            width={300}
+            height={300}
+            data-testid="news-image"
+            className="md:w-[200px] w-[150px] h-fit justify-center"
+          />
+        }
         {/* </div> */}
         <div className="md:w-2/3 md:pl-12">
           <h2 className="text-lg lg:text-xl font-bold text-black pb-2 md:pt-0 pt-4">

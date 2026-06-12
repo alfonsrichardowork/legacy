@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
-import { cover_image, drawing_image, graph_image, image_catalogues, impedance_image, multipledatasheetproduct } from "@prisma/client";
+import { image_catalogues, multipledatasheetproduct } from "@prisma/client";
 import path from 'path';
 import fs from 'fs/promises';
 import { revalidatePath } from "next/cache";
@@ -71,136 +71,51 @@ export async function DELETE(
     }    
 
     //DELETE
-
-    //DELETE COVER IMAGE
-    const coverImages = await prismadb.cover_image.findMany({
+    const oldImages = await prismadb.product.findFirst({
       where: {
-        productId: params.productId,
+        id: params.productId
       },
-    });
-    //Delete physical files
-    for (const image of coverImages) {
-      if (image.url) {
-        const imagePath = path.join(process.cwd(),  image.url);
-
-        try {
-          await fs.unlink(imagePath);
-        } catch (error) {
-          console.warn(`Could not delete file ${image.url}:`, error);
-        }
+      select: {
+        cover_img_url: true,
+        drawing_img_url: true,
+        graph_img_url: true,
+        impedance_img_url: true,
+        featured_img_url: true
       }
-    }
-    //Delete cover_Image records
-    await prismadb.cover_image.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
+    })
 
-    
-    //DELETE DRAWING IMAGE
-    const drawingImages = await prismadb.drawing_image.findMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete physical files
-    for (const image of drawingImages) {
-      if (image.url) {
-        const imagePath = path.join(process.cwd(),  image.url);
-
-        try {
-          await fs.unlink(imagePath);
-        } catch (error) {
-          console.warn(`Could not delete file ${image.url}:`, error);
-        }
+    if(oldImages){
+      const coverPath = path.join(process.cwd(), oldImages.cover_img_url);
+      try {
+        await fs.unlink(coverPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldImages.cover_img_url}:`, error);
       }
-    }
-    //Delete drawing_Image records
-    await prismadb.drawing_image.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-
-
-    //DELETE FEATURED IMAGE
-    const featuredImages = await prismadb.featured_image.findMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete physical files
-    for (const image of featuredImages) {
-      if (image.url) {
-        const imagePath = path.join(process.cwd(),  image.url);
-
-        try {
-          await fs.unlink(imagePath);
-        } catch (error) {
-          console.warn(`Could not delete file ${image.url}:`, error);
-        }
+      const drawingPath = path.join(process.cwd(), oldImages.drawing_img_url);
+      try {
+        await fs.unlink(drawingPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldImages.drawing_img_url}:`, error);
       }
-    }
-    //Delete featured_Image records
-    await prismadb.featured_image.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    
-
-    //DELETE GRAPH IMAGE
-    const graphImages = await prismadb.graph_image.findMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete physical files
-    for (const image of graphImages) {
-      if (image.url) {
-        const imagePath = path.join(process.cwd(),  image.url);
-
-        try {
-          await fs.unlink(imagePath);
-        } catch (error) {
-          console.warn(`Could not delete file ${image.url}:`, error);
-        }
+      const graphPath = path.join(process.cwd(), oldImages.graph_img_url);
+      try {
+        await fs.unlink(graphPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldImages.graph_img_url}:`, error);
       }
-    }
-    //Delete graph_Image records
-    await prismadb.graph_image.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-
-
-    //DELETE IMPEDANCE IMAGE
-    const impedanceImages = await prismadb.impedance_image.findMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    //Delete physical files
-    for (const image of impedanceImages) {
-      if (image.url) {
-        const imagePath = path.join(process.cwd(),  image.url);
-
-        try {
-          await fs.unlink(imagePath);
-        } catch (error) {
-          console.warn(`Could not delete file ${image.url}:`, error);
-        }
+      const impedancePath = path.join(process.cwd(), oldImages.impedance_img_url);
+      try {
+        await fs.unlink(impedancePath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldImages.impedance_img_url}:`, error);
       }
-    }
-    //Delete impedance_Image records
-    await prismadb.impedance_image.deleteMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    
+      const featuredPath = path.join(process.cwd(), oldImages.featured_img_url);
+      try {
+        await fs.unlink(featuredPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldImages.featured_img_url}:`, error);
+      }
+    }    
 
     //DELETE IMAGE CATALOGUES
     const cataloguesImages = await prismadb.image_catalogues.findMany({
@@ -268,6 +183,19 @@ export async function DELETE(
       },
     });
 
+    const deletedProd = await prismadb.product.findFirst({
+      where: {
+        id: params.productId
+      },
+      select: {
+        slug: true
+      }
+    })
+
+    if(deletedProd){
+      revalidatePath(`/products/${deletedProd.slug}`)
+    }
+
     const product = await prismadb.product.deleteMany({
       where: {
         id: params.productId
@@ -301,7 +229,7 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { name, description, isFeatured, isArchived, isNewProduct, sizeId, images_catalogues, multipleDatasheetProduct, cover_img, drawing_img, graph_img, impedance_img, series } = body;
+    const { name, description, isFeatured, isArchived, isNewProduct, sizeId, images_catalogues, multipleDatasheetProduct, cover_img_url, drawing_img_url, graph_img_url, impedance_img_url, series } = body;
 
     if (!params.productId) {
       return new NextResponse("Product id is required", { status: 400 });
@@ -492,246 +420,55 @@ export async function PATCH(
         }
 
 
-        //COVER_IMAGE
-        const coverImageOld = await prismadb.cover_image.findMany({
+        //COVER_IMAGE , DRAWING, IMPEDANCE, GRAPH
+        const oldUrl = await prismadb.product.findFirst({
           where: {
-            productId: params.productId,
+            id: params.productId
           },
-        });
-        let finalfoundCoverImage : cover_image[] = []
-        coverImageOld.forEach((val) => {
-          const found = cover_img.find((value: cover_image) => value.url === val.url);
-          
-          if (found && !finalfoundCoverImage.some((item) => item.url === found.url)) {
-            finalfoundCoverImage.push(found);
+          select:{
+            cover_img_url: true,
+            drawing_img_url: true,
+            impedance_img_url: true,
+            graph_img_url: true
           }
-        });
-        //DELETE CoverImage
+        })
         //Delete physical files
-        for (const coverImg of coverImageOld) {
-          const isInFinal = finalfoundCoverImage.some((item) => item.url === coverImg.url);
-          if (isInFinal) continue;
-
-          if (coverImg.url) {
-            const coverImgPath = path.join(process.cwd(),  coverImg.url);
-
-            try {
-              await fs.unlink(coverImgPath);
-            } catch (error) {
-              console.warn(`Could not delete file ${coverImg.url}:`, error);
-            }
+        if(oldUrl && oldUrl.cover_img_url && oldUrl.cover_img_url !== cover_img_url) {
+          const ImgPath = path.join(process.cwd(), oldUrl.cover_img_url);
+          try {
+            await fs.unlink(ImgPath);
+          } catch (error) {
+            console.warn(`Could not delete file ${oldUrl.cover_img_url}:`, error);
           }
         }
-        //Delete oldCoverImage records
-        await prismadb.cover_image.deleteMany({
-          where: {
-            productId: params.productId,
-            url: {
-              notIn: finalfoundCoverImage.map((val) => val.url),
-            },
-          },
-        });
-        if (cover_img.length !== 0) {
-          const creations = cover_img.map(async (value: cover_image) => {
-            if(value !== null && value !== undefined){
-              const alreadyInDB = finalfoundCoverImage.some((val) => val.url === value.url);
-              if (!alreadyInDB && value.url !== '') {
-                await prismadb.cover_image.create({
-                  data: {
-                    productId: params.productId,
-                    url: value.url,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                  }
-                });
-              }
-            }
-          });
-
-          await Promise.all(creations);
-        }
-
-
-        //DRAWING_IMAGE
-        const drawingImageOld = await prismadb.drawing_image.findMany({
-          where: {
-            productId: params.productId,
-          },
-        });
-        let finalfoundDrawingImage : drawing_image[] = []
-        drawingImageOld.forEach((val) => {
-          const found = drawing_img.find((value: drawing_image) => value.url === val.url);
-          
-          if (found && !finalfoundDrawingImage.some((item) => item.url === found.url)) {
-            finalfoundDrawingImage.push(found);
-          }
-        });
-        //DELETE DrawingImage
         //Delete physical files
-        for (const drawingImg of drawingImageOld) {
-          const isInFinal = finalfoundDrawingImage.some((item) => item.url === drawingImg.url);
-          if (isInFinal) continue;
-
-          if (drawingImg.url) {
-            const drawingImgPath = path.join(process.cwd(),  drawingImg.url);
-
-            try {
-              await fs.unlink(drawingImgPath);
-            } catch (error) {
-              console.warn(`Could not delete file ${drawingImg.url}:`, error);
-            }
+        if(oldUrl && oldUrl.drawing_img_url && oldUrl.drawing_img_url !== drawing_img_url) {
+          const ImgPath = path.join(process.cwd(), oldUrl.drawing_img_url);
+          try {
+            await fs.unlink(ImgPath);
+          } catch (error) {
+            console.warn(`Could not delete file ${oldUrl.drawing_img_url}:`, error);
           }
         }
-        //Delete oldDrawingImage records
-        await prismadb.drawing_image.deleteMany({
-          where: {
-            productId: params.productId,
-            url: {
-              notIn: finalfoundDrawingImage.map((val) => val.url),
-            },
-          },
-        });
-        if (drawing_img.length !== 0) {
-          const creations = drawing_img.map(async (value: drawing_image) => {
-            if(value !== null && value !== undefined){
-              const alreadyInDB = finalfoundDrawingImage.some((val) => val.url === value.url);
-              if (!alreadyInDB && value.url !== '') {
-                await prismadb.drawing_image.create({
-                  data: {
-                    productId: params.productId,
-                    url: value.url,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                  }
-                });
-              }
-            }
-          });
-
-          await Promise.all(creations);
-        }
-
-
-        //GRAPH_IMAGE | FREQ RES IMAGE
-        const graphImageOld = await prismadb.graph_image.findMany({
-          where: {
-            productId: params.productId,
-          },
-        });
-        let finalfoundGraphImage : graph_image[] = []
-        graphImageOld.forEach((val) => {
-          const found = graph_img.find((value: graph_image) => value.url === val.url);
-          
-          if (found && !finalfoundGraphImage.some((item) => item.url === found.url)) {
-            finalfoundGraphImage.push(found);
-          }
-        });
-        //DELETE GraphImage
         //Delete physical files
-        for (const graphImg of graphImageOld) {
-          const isInFinal = finalfoundGraphImage.some((item) => item.url === graphImg.url);
-          if (isInFinal) continue;
-
-          if (graphImg.url) {
-            const graphImgPath = path.join(process.cwd(),  graphImg.url);
-
-            try {
-              await fs.unlink(graphImgPath);
-            } catch (error) {
-              console.warn(`Could not delete file ${graphImg.url}:`, error);
-            }
+        if(oldUrl && oldUrl.impedance_img_url && oldUrl.impedance_img_url !== impedance_img_url) {
+          const ImgPath = path.join(process.cwd(), oldUrl.impedance_img_url);
+          try {
+            await fs.unlink(ImgPath);
+          } catch (error) {
+            console.warn(`Could not delete file ${oldUrl.impedance_img_url}:`, error);
           }
         }
-        //Delete oldGraphImage records
-        await prismadb.graph_image.deleteMany({
-          where: {
-            productId: params.productId,
-            url: {
-              notIn: finalfoundGraphImage.map((val) => val.url),
-            },
-          },
-        });
-        if (graph_img.length !== 0) {
-          const creations = graph_img.map(async (value: graph_image) => {
-            if(value !== null && value !== undefined){
-              const alreadyInDB = finalfoundGraphImage.some((val) => val.url === value.url);
-              if (!alreadyInDB && value.url !== '') {
-                await prismadb.graph_image.create({
-                  data: {
-                    productId: params.productId,
-                    url: value.url,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                  }
-                });
-              }
-            }
-          });
-
-          await Promise.all(creations);
-        }
-
-
-
-        //IMPEDANCE_IMAGE
-        const impedanceImageOld = await prismadb.impedance_image.findMany({
-          where: {
-            productId: params.productId,
-          },
-        });
-        let finalfoundImpedanceImage : impedance_image[] = []
-        impedanceImageOld.forEach((val) => {
-          const found = impedance_img.find((value: impedance_image) => value.url === val.url);
-          
-          if (found && !finalfoundImpedanceImage.some((item) => item.url === found.url)) {
-            finalfoundImpedanceImage.push(found);
-          }
-        });
-        //DELETE impedanceImage
         //Delete physical files
-        for (const impedanceImg of impedanceImageOld) {
-          const isInFinal = finalfoundImpedanceImage.some((item) => item.url === impedanceImg.url);
-          if (isInFinal) continue;
-
-          if (impedanceImg.url) {
-            const impedanceImgPath = path.join(process.cwd(),  impedanceImg.url);
-
-            try {
-              await fs.unlink(impedanceImgPath);
-            } catch (error) {
-              console.warn(`Could not delete file ${impedanceImg.url}:`, error);
-            }
+        if(oldUrl && oldUrl.graph_img_url && oldUrl.graph_img_url !== graph_img_url) {
+          const ImgPath = path.join(process.cwd(), oldUrl.graph_img_url);
+          try {
+            await fs.unlink(ImgPath);
+          } catch (error) {
+            console.warn(`Could not delete file ${oldUrl.graph_img_url}:`, error);
           }
         }
-        //Delete oldImpedanceImage records
-        await prismadb.impedance_image.deleteMany({
-          where: {
-            productId: params.productId,
-            url: {
-              notIn: finalfoundImpedanceImage.map((val) => val.url),
-            },
-          },
-        });
-        if (impedance_img.length !== 0) {
-          const creations = impedance_img.map(async (value: impedance_image) => {
-            if(value !== null && value !== undefined){
-              const alreadyInDB = finalfoundImpedanceImage.some((val) => val.url === value.url);
-              if (!alreadyInDB && value.url !== '') {
-                await prismadb.impedance_image.create({
-                  data: {
-                    productId: params.productId,
-                    url: value.url,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                  }
-                });
-              }
-            }
-          });
-
-          await Promise.all(creations);
-        }
-
+        
 
         // PRODUCT OVERALL
         await prismadb.product.update({
@@ -744,6 +481,10 @@ export async function PATCH(
             isFeatured,
             isArchived,
             isNewProduct,
+            cover_img_url,
+            drawing_img_url,
+            impedance_img_url,
+            graph_img_url,
             series,
             sizeId,
             description: description,
@@ -752,7 +493,7 @@ export async function PATCH(
           },
         });
         
-        
+        revalidatePath(`/products/${slugify(name)}`)
         return NextResponse.json("same")
       }
     }
@@ -931,244 +672,52 @@ export async function PATCH(
     }
 
 
-    //COVER_IMAGE
-    const coverImageOld = await prismadb.cover_image.findMany({
+    const oldUrl = await prismadb.product.findFirst({
       where: {
-        productId: params.productId,
+        id: params.productId
       },
-    });
-    let finalfoundCoverImage : cover_image[] = []
-    coverImageOld.forEach((val) => {
-      const found = cover_img.find((value: cover_image) => value.url === val.url);
-      
-      if (found && !finalfoundCoverImage.some((item) => item.url === found.url)) {
-        finalfoundCoverImage.push(found);
+      select:{
+        cover_img_url: true,
+        drawing_img_url: true,
+        impedance_img_url: true,
+        graph_img_url: true
       }
-    });
-    //DELETE CoverImage
+    })
     //Delete physical files
-    for (const coverImg of coverImageOld) {
-      const isInFinal = finalfoundCoverImage.some((item) => item.url === coverImg.url);
-      if (isInFinal) continue;
-
-      if (coverImg.url) {
-        const coverImgPath = path.join(process.cwd(),  coverImg.url);
-
-        try {
-          await fs.unlink(coverImgPath);
-        } catch (error) {
-          console.warn(`Could not delete file ${coverImg.url}:`, error);
-        }
+    if(oldUrl && oldUrl.cover_img_url && oldUrl.cover_img_url !== cover_img_url) {
+      const ImgPath = path.join(process.cwd(), oldUrl.cover_img_url);
+      try {
+        await fs.unlink(ImgPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldUrl.cover_img_url}:`, error);
       }
     }
-    //Delete oldCoverImage records
-    await prismadb.cover_image.deleteMany({
-      where: {
-        productId: params.productId,
-        url: {
-          notIn: finalfoundCoverImage.map((val) => val.url),
-        },
-      },
-    });
-    if (cover_img.length !== 0) {
-      const creations = cover_img.map(async (value: cover_image) => {
-        if(value !== null && value !== undefined){
-          const alreadyInDB = finalfoundCoverImage.some((val) => val.url === value.url);
-          if (!alreadyInDB && value.url !== '') {
-            await prismadb.cover_image.create({
-              data: {
-                productId: params.productId,
-                url: value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            });
-          }
-        }
-      });
-
-      await Promise.all(creations);
-    }
-
-
-    //DRAWING_IMAGE
-    const drawingImageOld = await prismadb.drawing_image.findMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    let finalfoundDrawingImage : drawing_image[] = []
-    drawingImageOld.forEach((val) => {
-      const found = drawing_img.find((value: drawing_image) => value.url === val.url);
-      
-      if (found && !finalfoundDrawingImage.some((item) => item.url === found.url)) {
-        finalfoundDrawingImage.push(found);
-      }
-    });
-    //DELETE DrawingImage
     //Delete physical files
-    for (const drawingImg of drawingImageOld) {
-      const isInFinal = finalfoundDrawingImage.some((item) => item.url === drawingImg.url);
-      if (isInFinal) continue;
-
-      if (drawingImg.url) {
-        const drawingImgPath = path.join(process.cwd(),  drawingImg.url);
-
-        try {
-          await fs.unlink(drawingImgPath);
-        } catch (error) {
-          console.warn(`Could not delete file ${drawingImg.url}:`, error);
-        }
+    if(oldUrl && oldUrl.drawing_img_url && oldUrl.drawing_img_url !== drawing_img_url) {
+      const ImgPath = path.join(process.cwd(), oldUrl.drawing_img_url);
+      try {
+        await fs.unlink(ImgPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldUrl.drawing_img_url}:`, error);
       }
     }
-    //Delete oldDrawingImage records
-    await prismadb.drawing_image.deleteMany({
-      where: {
-        productId: params.productId,
-        url: {
-          notIn: finalfoundDrawingImage.map((val) => val.url),
-        },
-      },
-    });
-    if (drawing_img.length !== 0) {
-      const creations = drawing_img.map(async (value: drawing_image) => {
-        if(value !== null && value !== undefined){
-          const alreadyInDB = finalfoundDrawingImage.some((val) => val.url === value.url);
-          if (!alreadyInDB && value.url !== '') {
-            await prismadb.drawing_image.create({
-              data: {
-                productId: params.productId,
-                url: value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            });
-          }
-        }
-      });
-
-      await Promise.all(creations);
-    }
-
-
-    //GRAPH_IMAGE | FREQ RES IMAGE
-    const graphImageOld = await prismadb.graph_image.findMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    let finalfoundGraphImage : graph_image[] = []
-    graphImageOld.forEach((val) => {
-      const found = graph_img.find((value: graph_image) => value.url === val.url);
-      
-      if (found && !finalfoundGraphImage.some((item) => item.url === found.url)) {
-        finalfoundGraphImage.push(found);
-      }
-    });
-    //DELETE GraphImage
     //Delete physical files
-    for (const graphImg of graphImageOld) {
-      const isInFinal = finalfoundGraphImage.some((item) => item.url === graphImg.url);
-      if (isInFinal) continue;
-
-      if (graphImg.url) {
-        const graphImgPath = path.join(process.cwd(),  graphImg.url);
-
-        try {
-          await fs.unlink(graphImgPath);
-        } catch (error) {
-          console.warn(`Could not delete file ${graphImg.url}:`, error);
-        }
+    if(oldUrl && oldUrl.impedance_img_url && oldUrl.impedance_img_url !== impedance_img_url) {
+      const ImgPath = path.join(process.cwd(), oldUrl.impedance_img_url);
+      try {
+        await fs.unlink(ImgPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldUrl.impedance_img_url}:`, error);
       }
     }
-    //Delete oldGraphImage records
-    await prismadb.graph_image.deleteMany({
-      where: {
-        productId: params.productId,
-        url: {
-          notIn: finalfoundGraphImage.map((val) => val.url),
-        },
-      },
-    });
-    if (graph_img.length !== 0) {
-      const creations = graph_img.map(async (value: graph_image) => {
-        if(value !== null && value !== undefined){
-          const alreadyInDB = finalfoundGraphImage.some((val) => val.url === value.url);
-          if (!alreadyInDB && value.url !== '') {
-            await prismadb.graph_image.create({
-              data: {
-                productId: params.productId,
-                url: value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            });
-          }
-        }
-      });
-
-      await Promise.all(creations);
-    }
-
-
-
-    //IMPEDANCE_IMAGE
-    const impedanceImageOld = await prismadb.impedance_image.findMany({
-      where: {
-        productId: params.productId,
-      },
-    });
-    let finalfoundImpedanceImage : impedance_image[] = []
-    impedanceImageOld.forEach((val) => {
-      const found = impedance_img.find((value: impedance_image) => value.url === val.url);
-      
-      if (found && !finalfoundImpedanceImage.some((item) => item.url === found.url)) {
-        finalfoundImpedanceImage.push(found);
-      }
-    });
-    //DELETE impedanceImage
     //Delete physical files
-    for (const impedanceImg of impedanceImageOld) {
-      const isInFinal = finalfoundImpedanceImage.some((item) => item.url === impedanceImg.url);
-      if (isInFinal) continue;
-
-      if (impedanceImg.url) {
-        const impedanceImgPath = path.join(process.cwd(),  impedanceImg.url);
-
-        try {
-          await fs.unlink(impedanceImgPath);
-        } catch (error) {
-          console.warn(`Could not delete file ${impedanceImg.url}:`, error);
-        }
+    if(oldUrl && oldUrl.graph_img_url && oldUrl.graph_img_url !== graph_img_url) {
+      const ImgPath = path.join(process.cwd(), oldUrl.graph_img_url);
+      try {
+        await fs.unlink(ImgPath);
+      } catch (error) {
+        console.warn(`Could not delete file ${oldUrl.graph_img_url}:`, error);
       }
-    }
-    //Delete oldImpedanceImage records
-    await prismadb.impedance_image.deleteMany({
-      where: {
-        productId: params.productId,
-        url: {
-          notIn: finalfoundImpedanceImage.map((val) => val.url),
-        },
-      },
-    });
-    if (impedance_img.length !== 0) {
-      const creations = impedance_img.map(async (value: impedance_image) => {
-        if(value !== null && value !== undefined){
-          const alreadyInDB = finalfoundImpedanceImage.some((val) => val.url === value.url);
-          if (!alreadyInDB && value.url !== '') {
-            await prismadb.impedance_image.create({
-              data: {
-                productId: params.productId,
-                url: value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            });
-          }
-        }
-      });
-
-      await Promise.all(creations);
     }
 
 
@@ -1180,6 +729,10 @@ export async function PATCH(
         name,
         slug: slugify(name),
         isFeatured,
+        cover_img_url,
+        impedance_img_url,
+        graph_img_url,
+        drawing_img_url,
         isArchived,
         isNewProduct,
         series,

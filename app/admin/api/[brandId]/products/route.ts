@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
-import { cover_image, drawing_image, graph_image, image_catalogues, impedance_image, multipledatasheetproduct } from '@prisma/client';
+import { image_catalogues, multipledatasheetproduct } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 const slugify = (str: string): string => {
@@ -31,7 +31,7 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
 
     const body = await req.json();
 
-    const { name, sizeId,  description, isFeatured, isArchived, isNewProduct, images_catalogues, cover_img, drawing_img, graph_img, impedance_img, multipleDatasheetProduct, series } = body;
+    const { name, sizeId,  description, isFeatured, isArchived, isNewProduct, images_catalogues, cover_img_url, drawing_img_url, graph_img_url, impedance_img_url, multipleDatasheetProduct, series } = body;
 
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
@@ -64,6 +64,10 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
           isFeatured,
           isArchived,
           isNewProduct,
+          cover_img_url,
+          impedance_img_url,
+          graph_img_url,
+          drawing_img_url,
           sizeId,
           series,
           updatedBy: session.name,
@@ -98,66 +102,6 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
                 productId: product.id,
                 url:datasheet.url,
                 name: datasheet.name
-              }
-            })
-          }
-        })
-      }
-
-      if(cover_img.length!=0){
-        cover_img.map(async (value: cover_image) => {
-          if(value.url!=''){
-            await prismadb.cover_image.create({
-              data:{
-                productId: product.id,
-                url:value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            })
-          }
-        })
-      }
-
-      if(drawing_img.length!=0){
-        drawing_img.map(async (value: drawing_image) => {
-          if(value.url!=''){
-            await prismadb.drawing_image.create({
-              data:{
-                productId: product.id,
-                url:value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            })
-          }
-        })
-      }
-
-      if(graph_img.length!=0){
-        graph_img.map(async (value: graph_image) => {
-          if(value.url!=''){
-            await prismadb.graph_image.create({
-              data:{
-                productId: product.id,
-                url:value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            })
-          }
-        })
-      }
-
-      if(impedance_img.length!=0){
-        impedance_img.map(async (value: impedance_image) => {
-          if(value.url!=''){
-            await prismadb.impedance_image.create({
-              data:{
-                productId: product.id,
-                url:value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
               }
             })
           }
@@ -199,14 +143,6 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
       where: {
         brandId: params.brandId,
         isArchived: false,
-      },
-      include: {
-        cover_img: true,
-        drawing_img: true,
-        graph_img: true,
-        impedance_img: true,
-        allCat: true,
-        size: true,
       },
       orderBy: {
         createdAt: 'desc',

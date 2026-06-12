@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { cover_image, drawing_image, graph_image, image_catalogues, impedance_image, multipledatasheetproduct, product, size } from "@prisma/client"
+import { image_catalogues, multipledatasheetproduct, product, size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -48,10 +48,10 @@ import { MAX_SIZE } from "@/app/admin/model/model"
 const formSchema = z.object({
   name: z.string().min(1),
   images_catalogues: z.object({ url: z.string() }).array(),
-  cover_img: z.object({ url: z.string() }).array(),
-  drawing_img: z.object({ url: z.string() }).array(),
-  graph_img: z.object({ url: z.string() }).array(),
-  impedance_img: z.object({ url: z.string() }).array(),
+  cover_img_url: z.string().optional(),
+  drawing_img_url: z.string().optional(),
+  graph_img_url: z.string().optional(),
+  impedance_img_url: z.string().optional(),
   multipleDatasheetProduct: z.object({ url: z.string() }).array(),
   description: z.string().min(1),
   sizeId: z.string().min(1),
@@ -66,10 +66,10 @@ type ProductFormValues = z.infer<typeof formSchema>
 interface ProductFormProps {
   initialData: product & {
     images_catalogues: image_catalogues[]
-    cover_img: cover_image[]
-    drawing_img: drawing_image[]
-    graph_img: graph_image[]
-    impedance_img: impedance_image[]
+    cover_img_url: string
+    drawing_img_url: string
+    graph_img_url: string
+    impedance_img_url: string
     multipleDatasheetProduct: multipledatasheetproduct[]
   } | null;
   sizes: size[];
@@ -86,16 +86,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const [allDatasheet, setAllDatasheet] = useState<multipledatasheetproduct[]>([]);
   const [selectedDatasheetFile, setSelectedDatasheetFile] = useState<File[]>([]);
 
-  const [coverImgUrl, setCoverImgUrl] = useState<cover_image>();
+  const [coverImgUrl, setCoverImgUrl] = useState<string>('');
   const [coverImg, setCoverImg] = useState<File>();
 
-  const [drawingImgUrl, setDrawingImgUrl] = useState<drawing_image>();
+  const [drawingImgUrl, setDrawingImgUrl] = useState<string>('');
   const [drawingImg, setDrawingImg] = useState<File>();
   
-  const [freqResponseUrl, setFreqResponseUrl] = useState<graph_image>();
+  const [freqResponseUrl, setFreqResponseUrl] = useState<string>('');
   const [freqResponseImg, setfreqResponseImg] = useState<File>();
   
-  const [impedanceUrl, setImpedanceUrl] = useState<graph_image>();
+  const [impedanceUrl, setImpedanceUrl] = useState<string>('');
   const [impedanceImg, setImpedanceImg] = useState<File>();
   
   const [imgCataloguesUrl, setImgCataloguesUrl] = useState<image_catalogues[]>([]);
@@ -112,10 +112,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   } : {
     name: '',
     images_catalogues: [],
-    cover_img: [],
-    drawing_img: [],
-    graph_img: [],
-    impedance_img: [],
+    cover_img_url: '',
+    drawing_img_url: '',
+    graph_img_url: '',
+    impedance_img_url: '',
     multipleDatasheetProduct: [],
     description: '',
     sizeId: '',
@@ -132,64 +132,32 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         setAllDatasheet(initialData.multipleDatasheetProduct);
       }
 
-      if (initialData && initialData.cover_img) {
-        setCoverImgUrl(initialData.cover_img[0]);
+      if (initialData && initialData.cover_img_url) {
+        setCoverImgUrl(initialData.cover_img_url);
       }
       else{
-        let temp: cover_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        setCoverImgUrl(temp)
+        setCoverImgUrl('')
       }
 
-      if (initialData && initialData.drawing_img) {
-        setDrawingImgUrl(initialData.drawing_img[0]);
+      if (initialData && initialData.drawing_img_url) {
+        setDrawingImgUrl(initialData.drawing_img_url);
       }
       else{
-        let temp: drawing_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        setDrawingImgUrl(temp)
+        setDrawingImgUrl('')
       }
 
-      if (initialData && initialData.graph_img) {
-        setFreqResponseUrl(initialData.graph_img[0]);
+      if (initialData && initialData.graph_img_url) {
+        setFreqResponseUrl(initialData.graph_img_url);
       }
       else{
-        let temp: graph_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        setFreqResponseUrl(temp)
+        setFreqResponseUrl('')
       }
 
-      if (initialData && initialData.impedance_img) {
-        setImpedanceUrl(initialData.impedance_img[0]);
+      if (initialData && initialData.impedance_img_url) {
+        setImpedanceUrl(initialData.impedance_img_url);
       }
       else{
-        let temp: impedance_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        setImpedanceUrl(temp)
+        setImpedanceUrl('')
       }
       
       if (initialData && initialData.images_catalogues) {
@@ -201,7 +169,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       console.error("Error fetching data: ", error);
     });
   
-  }, [params.productId, initialData, initialData?.multipleDatasheetProduct, initialData?.cover_img, initialData?.drawing_img, initialData?.graph_img, initialData?.impedance_img, initialData?.images_catalogues]); 
+  }, [params.productId, initialData, initialData?.multipleDatasheetProduct, initialData?.cover_img_url, initialData?.drawing_img_url, initialData?.graph_img_url, initialData?.impedance_img_url, initialData?.images_catalogues]); 
 
 
   //MULTIPLE DATASHEET
@@ -268,55 +236,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteCoverImage = async () => {
-    let temp: cover_image = {
-      id: '',
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    setCoverImgUrl(temp)
+    setCoverImgUrl('')
   }
 
-  async function handleCoverImageUpload(file: File): Promise<cover_image> {
+  async function handleCoverImageUpload(file: File): Promise<string> {
     if (file) {
-      let updatedCoverImage = coverImgUrl ?? {
-        id: Math.random().toString(),
-        productId: params.productId?.toString() ?? '',
-        url: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      let updatedCoverImage = coverImgUrl ?? ''
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadImage(formData, 'productcoverimage');
-        updatedCoverImage.url = url;
+        updatedCoverImage = url;
         return updatedCoverImage;
       } catch (error) {
         console.error("Error uploading cover image:", error);
-        let temp: cover_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        return temp;
+        return '';
       }
     }
-    let temp: cover_image = {
-      id: Math.random().toString(),
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    return temp;
+    return '';
   }
 
 
@@ -333,55 +271,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteDrawingImage = async () => {
-    let temp: drawing_image = {
-      id: '',
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    setDrawingImgUrl(temp)
+    setDrawingImgUrl('')
   }
 
-  async function handleDrawingImageUpload(file: File): Promise<drawing_image> {
+  async function handleDrawingImageUpload(file: File): Promise<string> {
     if (file) {
-      let updatedDrawingImage = drawingImgUrl ?? {
-        id: Math.random().toString(),
-        productId: params.productId?.toString() ?? '',
-        url: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      let updatedDrawingImage = drawingImgUrl ?? ''
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadImage(formData, 'productdrawing');
-        updatedDrawingImage.url = url;
+        updatedDrawingImage = url;
         return updatedDrawingImage;
       } catch (error) {
         console.error("Error uploading drawing image:", error);
-        let temp: drawing_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        return temp;
+        return '';
       }
     }
-    let temp: drawing_image = {
-      id: Math.random().toString(),
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    return temp;
+    return '';
   }
 
 
@@ -398,55 +306,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteFrequencyResponseImage = async () => {
-    let temp: graph_image = {
-      id: '',
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    setFreqResponseUrl(temp)
+    setFreqResponseUrl('')
   }
 
-  async function handleFrequencyResponseImageUpload(file: File): Promise<graph_image> {
+  async function handleFrequencyResponseImageUpload(file: File): Promise<string> {
     if (file) {
-      let updatedFrequencyResponseImage = freqResponseUrl ?? {
-        id: Math.random().toString(),
-        productId: params.productId?.toString() ?? '',
-        url: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      let updatedFrequencyResponseImage = freqResponseUrl ?? ''
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadImage(formData, 'productfrequencyresponse');
-        updatedFrequencyResponseImage.url = url;
+        updatedFrequencyResponseImage = url;
         return updatedFrequencyResponseImage!;
       } catch (error) {
         console.error("Error uploading frequency response image:", error);
-        let temp: graph_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        return temp;
+        return '';
       }
     }
-    let temp: graph_image = {
-      id: Math.random().toString(),
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    return temp;
+    return '';
   }
 
 
@@ -465,55 +343,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   const deleteImpedanceImage = async () => {
-    let temp: impedance_image = {
-      id: '',
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    setImpedanceUrl(temp)
+    setImpedanceUrl('')
   }
 
-  async function handleImpedanceImageUpload(file: File): Promise<impedance_image> {
+  async function handleImpedanceImageUpload(file: File): Promise<string> {
     if (file) {
-      let updatedImpedanceImage = impedanceUrl ?? {
-        id: Math.random().toString(),
-        productId: params.productId?.toString() ?? '',
-        url: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      let updatedImpedanceImage = impedanceUrl ?? ''
       try {
         const formData = new FormData();
         formData.append('image', file);
   
         const url = await uploadImage(formData, 'productimpedance');
-        updatedImpedanceImage.url = url;
+        updatedImpedanceImage = url;
         return updatedImpedanceImage;
       } catch (error) {
         console.error("Error uploading impedance image:", error);
-        let temp: graph_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        return temp;
+        return '';
       }
     }
-    let temp: impedance_image = {
-      id: Math.random().toString(),
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    return temp;
+    return '';
   }
 
 
@@ -593,31 +441,31 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       }
 
       if (coverImg) {
-        data.cover_img[0] = await handleCoverImageUpload(coverImg)
+        data.cover_img_url = await handleCoverImageUpload(coverImg)
       }
       else{
-        data.cover_img[0] = coverImgUrl!
+        data.cover_img_url = coverImgUrl
       }
 
       if (drawingImg) {
-        data.drawing_img[0] = await handleDrawingImageUpload(drawingImg)
+        data.drawing_img_url = await handleDrawingImageUpload(drawingImg)
       }
       else{
-        data.drawing_img[0] = drawingImgUrl!
+        data.drawing_img_url = drawingImgUrl
       }
 
       if (freqResponseImg) {
-        data.graph_img[0] = await handleFrequencyResponseImageUpload(freqResponseImg)
+        data.graph_img_url = await handleFrequencyResponseImageUpload(freqResponseImg)
       }
       else{
-        data.graph_img[0] = freqResponseUrl!
+        data.graph_img_url = freqResponseUrl
       }
 
       if (impedanceImg) {
-        data.impedance_img[0] = await handleImpedanceImageUpload(impedanceImg)
+        data.impedance_img_url = await handleImpedanceImageUpload(impedanceImg)
       }
       else{
-        data.impedance_img[0] = impedanceUrl!
+        data.impedance_img_url = impedanceUrl
       }
 
       if (imgCatalogues && imgCatalogues.length > 0) {
@@ -807,11 +655,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 <div
                   className="flex items-center justify-between rounded-md shadow-xs"
                 >
-                  {coverImgUrl && (coverImgUrl!.url !== undefined && coverImgUrl.url !== '') ?
+                  {coverImgUrl !== '' ?
                   <>
                   <div className="flex items-center space-x-4">
                       <Image
-                      src={coverImgUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${coverImgUrl.url}` : coverImgUrl.url}
+                      src={coverImgUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${coverImgUrl}` : coverImgUrl}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}
@@ -987,17 +835,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 <div
                   className="flex items-center justify-between rounded-md shadow-xs"
                 >
-                  <div className="flex items-center space-x-4">
-                    {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
-                      <Image
-                      src={drawingImgUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${drawingImgUrl.url}` : drawingImgUrl.url}
-                      alt={initialData?.name? initialData?.name : ''}
-                      width={100}
-                      height={100}
-                      className="w-32 h-fit"
-                      />
-                    )}
-                    {(!drawingImgUrl || (drawingImgUrl.url === '')) && (
+                    {drawingImgUrl !== '' ?
+                      <>
+                        <div className="flex items-center space-x-4">
+                          <Image
+                          src={drawingImgUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${drawingImgUrl}` : drawingImgUrl}
+                          alt={initialData?.name? initialData?.name : ''}
+                          width={100}
+                          height={100}
+                          className="w-32 h-fit"
+                          />
+                        </div>  
+                        <div
+                          className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                          onClick={() => deleteDrawingImage()}
+                        >
+                          <Trash width={20} height={20} />
+                        </div>
+                      </>
+                      :
                       <Input
                         type="file"
                         accept="image/*"
@@ -1008,16 +864,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         disabled={loading}
                         className="bg-white p-2 rounded-md"
                       />
-                    )}
-                  </div>
-                  {drawingImgUrl && (drawingImgUrl!.url !== undefined && drawingImgUrl.url !== '') && (
-                    <div
-                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                      onClick={() => deleteDrawingImage()}
-                    >
-                      <Trash width={20} height={20} />
-                    </div>
-                  )}
+                    }
                 </div>
             </div>
           </div>
@@ -1031,17 +878,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 <div
                   className="flex items-center justify-between rounded-md shadow-xs"
                 >
-                  <div className="flex items-center space-x-4">
-                    {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
+                    {freqResponseUrl !== '' ?
+                    <>
+                    <div className="flex items-center space-x-4">
                       <Image
-                      src={freqResponseUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${freqResponseUrl.url}` : freqResponseUrl.url}
+                      src={freqResponseUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${freqResponseUrl}` : freqResponseUrl}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}
                       className="w-32 h-fit"
                       />
-                    )}
-                    {(!freqResponseUrl || (freqResponseUrl.url === '')) && (
+                    </div>
+                    <div
+                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                      onClick={() => deleteFrequencyResponseImage()}
+                    >
+                      <Trash width={20} height={20} />
+                    </div>
+                    </>
+                    :
                       <Input
                         type="file"
                         accept="image/*"
@@ -1052,16 +907,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         disabled={loading}
                         className="bg-white p-2 rounded-md"
                       />
-                    )}
-                  </div>
-                  {freqResponseUrl && (freqResponseUrl!.url !== undefined && freqResponseUrl.url !== '') && (
-                    <div
-                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                      onClick={() => deleteFrequencyResponseImage()}
-                    >
-                      <Trash width={20} height={20} />
-                    </div>
-                  )}
+                    }
                 </div>
             </div>
           </div>
@@ -1075,17 +921,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 <div
                   className="flex items-center justify-between rounded-md shadow-xs"
                 >
-                  <div className="flex items-center space-x-4">
-                    {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
+                    {impedanceUrl !== '' ?
+                    <>
+                    <div className="flex items-center space-x-4">
                       <Image
-                      src={impedanceUrl.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${impedanceUrl.url}` : impedanceUrl.url}
+                      src={impedanceUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${impedanceUrl}` : impedanceUrl}
                       alt={initialData?.name? initialData?.name : ''}
                       width={100}
                       height={100}
                       className="w-32 h-fit"
                       />
-                    )}
-                    {(!impedanceUrl || (impedanceUrl.url === '')) && (
+                    </div>
+                    <div
+                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                      onClick={() => deleteImpedanceImage()}
+                    >
+                      <Trash width={20} height={20} />
+                    </div>
+                      </>
+                      :
                       <Input
                         type="file"
                         accept="image/*"
@@ -1096,16 +950,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         disabled={loading}
                         className="bg-white p-2 rounded-md"
                       />
-                    )}
-                  </div>
-                  {impedanceUrl && (impedanceUrl!.url !== undefined && impedanceUrl.url !== '') && (
-                    <div
-                      className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                      onClick={() => deleteImpedanceImage()}
-                    >
-                      <Trash width={20} height={20} />
-                    </div>
-                  )}
+                    }
                 </div>
             </div>
           </div>  

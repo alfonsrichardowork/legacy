@@ -3,8 +3,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
+//@ts-ignore
 import 'swiper/css';
+//@ts-ignore
 import 'swiper/css/free-mode';
+//@ts-ignore
 import 'swiper/css/navigation';
 
 // import required modules

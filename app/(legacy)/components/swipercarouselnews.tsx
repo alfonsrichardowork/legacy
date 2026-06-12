@@ -3,7 +3,9 @@
 import { Swiper, SwiperSlide } from "swiper/react"
 
 // Import Swiper styles
+//@ts-ignore
 import "swiper/css"
+//@ts-ignore
 import "swiper/css/free-mode"
 
 // import required modules
@@ -12,16 +14,29 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import DompurifyContent from "./dompurifyText"
+import { Prisma } from "@prisma/client"
 
-export interface NewsType {
-  title: string
-  news_img_url: string
-  description: string
-  slug: string
-}
+
+type newsCardData = Prisma.newsGetPayload<{
+  select: {
+    id: true, 
+    title: true,
+    slug: true,
+    link_placeholder: true,
+    link_url: true,
+    description: true,
+    event_date: true,
+    updatedAt: true,
+    news_img: {
+      select: {
+        url: true
+      }
+    }
+  },
+}>
 
 interface SwiperCarouselNewsProps {
-  news: NewsType[]
+  news: newsCardData[]
 }
 
 export default function SwiperCarouselNews({ news }: SwiperCarouselNewsProps) {
@@ -41,18 +56,20 @@ export default function SwiperCarouselNews({ news }: SwiperCarouselNewsProps) {
             className={`${index === 0 ? "pr-4" : index === news.length - 1 ? "pl-4" : "px-2"} flex flex-col h-full w-full`}
             key={index}
           >
-            <Image
-              src={
-                value.news_img_url.startsWith("/uploads/")
-                  ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img_url}`
-                  : value.news_img_url
-              }
-              alt={value.title}
-              width={500}
-              height={500}
-              className="w-fit h-[300px] mx-auto rounded-xl"
-              data-testid={`news-image-${index}`} 
-            />
+            {value.news_img[0] &&
+              <Image
+                src={
+                  value.news_img[0].url.startsWith("/uploads/")
+                    ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img[0].url}`
+                    : value.news_img[0].url
+                }
+                alt={value.title}
+                width={500}
+                height={500}
+                className="w-fit h-[300px] mx-auto rounded-xl"
+                data-testid={`news-image-${index}`} 
+              />
+            }
             <h3 className="text-2xl font-bold text-black w-full line-clamp-2 my-4">
               {value.title}
             </h3>

@@ -10,9 +10,6 @@ const NewsPage = async (
   const onenews = await prismadb.news.findUnique({
     where: {
       id: params.newsId,
-    },
-    include: {
-      news_img: true
     }
   });
 

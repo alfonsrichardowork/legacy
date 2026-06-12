@@ -1,13 +1,21 @@
-export const dynamic = "force-dynamic";
-
-import getAboutUs from "../../actions/get-about-us";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
 import { Loader } from "../../components/ui/loader";
-import AboutUsWithData from "./withData";
+import prismadb from "@/lib/prismadb";
+import { LazyImage } from "../../components/lazyImage";
+import DompurifyContent from "../../components/dompurifyText";
 
-export default function AboutUs() {
-  const aboutUsDataPromise = getAboutUs();
+export default async function AboutUs() {
+  const about = await prismadb.brand.findFirst({
+    select: {
+      title: true,
+      desc: true
+    }
+  });
+
+  if (!about) {
+    return null
+  }
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const jsonLd = {
     "@context": "https://schema.org",
@@ -33,7 +41,18 @@ export default function AboutUs() {
         </div>
         <Suspense fallback={<div className='h-screen w-full flex items-center justify-center'><Loader/></div>}>
           <div className="pb-4 md:grid md:grid-cols-2">
-            <AboutUsWithData aboutUsDataPromise={aboutUsDataPromise} />
+            <div className="md:pl-4 md:pb-0 pb-4 flex items-center md:order-2 order-1">
+              <LazyImage src={'/images/legacy/SBE_Baru.webp'} alt="Pabrik Sinar Baja Electric" width={1000} height={1000}/>
+            </div>
+
+            <div className="pr-4 md:order-1 order-2">
+              <h2 className="font-bold text-black pb-8 text-3xl">
+                  {about.title}
+              </h2>
+              <h3 className="text-black pb-4 text-justify">
+                  <DompurifyContent text={about.desc}/>
+              </h3>
+            </div>
           </div>
         </Suspense>
       </div>

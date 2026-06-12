@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { featured_image, product } from "@prisma/client"
+import { product } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -33,16 +33,14 @@ import { MAX_SIZE } from "@/app/admin/model/model"
 const formSchema = z.object({
   name: z.string().min(1),
   featuredDesc: z.string().min(1),
-  featured_img: z.object({ url: z.string() }).array(),
+  featured_img_url: z.string().optional(),
   isFeatured: z.boolean().default(false).optional(),
 });
 
 type FeaturedProductFormValues = z.infer<typeof formSchema>
 
 interface FeaturedProductFormProps {
-  initialData: product & {
-    featured_img: featured_image[]
-  } | null;
+  initialData: product | null;
 };
 
 export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
@@ -51,7 +49,7 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
   const params = useParams();
   const router = useRouter();
 
-  const [featuredImage, setFeaturedImage] = useState<featured_image>()
+  const [featuredImage, setFeaturedImage] = useState<string>('')
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File>();
 
@@ -65,32 +63,24 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
   } : {
     name: '',
     featuredDesc: '',
-    featured_img: [],
+    featured_img_url: '',
     isFeatured: false,
   }
 
   useEffect(() => {
   const fetchData = async () => {
-    if (initialData && initialData.featured_img.length>0) {
-      setFeaturedImage(initialData.featured_img[0]);
+    if (initialData && initialData.featured_img_url) {
+      setFeaturedImage(initialData.featured_img_url);
     }
     else{
-      let temp: featured_image = {
-        id: Math.random().toString(),
-        //@ts-ignore
-        productId: params.featuredProductId,
-        url: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-      setFeaturedImage(temp)
+      setFeaturedImage('')
     }
   };
   
   fetchData().catch((error) => {
     console.error("Error fetching featured data: ", error);
   });
-  }, [params.featuredProductId, initialData, initialData?.featured_img]);
+  }, [params.featuredProductId, initialData, initialData?.featured_img_url]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -104,18 +94,10 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
   };
 
   const deleteImage = async () => {
-    let temp: featured_image = {
-      id: '',
-      //@ts-ignore
-      productId: params.featuredProductId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    setFeaturedImage(temp)
+    setFeaturedImage('')
   };
 
-  async function handleImageUpload (file: File): Promise<featured_image> {
+  async function handleImageUpload (file: File): Promise<string> {
     if (file) {
       let updatedFeaturedImage = featuredImage;
       try {
@@ -123,32 +105,15 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
         formData.append('image', file);
 
         const url = await uploadImage(formData, 'featuredimages');
-        updatedFeaturedImage!.url = url
-        return updatedFeaturedImage!;
+        updatedFeaturedImage = url
+        return updatedFeaturedImage;
         } catch (error) {
         console.error("Error uploading featured image:", error);
-        let temp: featured_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.productId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        return temp;
+        return '';
       }
     }
-    let temp: featured_image = {
-      id: Math.random().toString(),
-      //@ts-ignore
-      productId: params.productId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    return temp;
+    return '';
   };
-
 
   const form = useForm<FeaturedProductFormValues>({
     resolver: zodResolver(formSchema),
@@ -160,10 +125,10 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
       setLoading(true);
 
       if (selectedFile) {
-        data.featured_img[0] = await handleImageUpload(selectedFile);
+        data.featured_img_url = await handleImageUpload(selectedFile);
       }
       else{
-        data.featured_img[0] = featuredImage!
+        data.featured_img_url = featuredImage
       }
 
       const API=`${process.env.NEXT_PUBLIC_ADMIN_FOLDER_URL}${process.env.NEXT_PUBLIC_ADMIN_ADD_FEATURED_PRODUCT}`;
@@ -217,10 +182,19 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
                 className="flex items-center justify-between rounded-md shadow-xs"
               >
                 <div className="flex items-center space-x-4">
-                  {featuredImage && featuredImage.url !== '' && (
-                    <Image alt={title} src={featuredImage.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${featuredImage.url}` : featuredImage.url} width={200} height={200} className="w-52 h-fit" priority/>
-                  )}
-                  {(!featuredImage || (featuredImage.url === '')) && (
+                  {featuredImage !== '' ? 
+                  <>
+                  <div className="flex items-center space-x-4">
+                    <Image alt={title} src={featuredImage.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${featuredImage}` : featuredImage} width={200} height={200} className="w-52 h-fit" priority/>
+                  </div>
+                  <div
+                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                    onClick={() => deleteImage()}
+                  >
+                    <Trash width={20} height={20} />
+                  </div>
+                  </>
+                  :
                     <Input
                       id={`file`}
                       type="file"
@@ -232,16 +206,8 @@ export const FeaturedProductForm: React.FC<FeaturedProductFormProps> = ({
                       disabled={loading}
                       className="border border-gray-300 p-2 rounded-md"
                     />
-                  )}
+                  }
                 </div>
-                {featuredImage && featuredImage.url !== '' && (
-                  <div
-                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                    onClick={() => deleteImage()}
-                  >
-                    <Trash width={20} height={20} />
-                  </div>
-                )}
               </div>
             </div>
             

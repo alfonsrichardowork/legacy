@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
-import { news_image } from '@prisma/client';
 import path from 'path';
 import fs from 'fs/promises';
 import { revalidatePath } from 'next/cache';
@@ -32,9 +31,6 @@ export async function GET(
       where: {
         brandId: params.brandId,
         id: params.newsId
-      },
-      include: {
-        news_img: true
       },
       orderBy: {
         createdAt: 'desc',
@@ -68,7 +64,7 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { news_img, news_date, title, description, link_url, link_placeholder } = body;
+    const { news_img_url, news_date, title, description, link_url, link_placeholder } = body;
 
     if (!params.newsId) {
       return new NextResponse("News id is required", { status: 400 });
@@ -82,64 +78,25 @@ export async function PATCH(
 
 
       //NEWS_IMAGE
-      const newsImageOld = await prismadb.news_image.findMany({
+      const newsImageOld = await prismadb.news.findFirst({
         where: {
-          newsId: params.newsId,
+          id: params.newsId,
         },
-      });
-      let finalfoundNewsImage : news_image[] = []
-      newsImageOld.forEach((val) => {
-        const found = news_img.find((value: news_image) => value.url === val.url);
-        
-        if (found && !finalfoundNewsImage.some((item) => item.url === found.url)) {
-          finalfoundNewsImage.push(found);
+        select: {
+          news_img_url: true
         }
       });
-      //DELETE NewsImage
-      //Delete physical files
-      for (const newsImg of newsImageOld) {
-        const isInFinal = finalfoundNewsImage.some((item) => item.url === newsImg.url);
-        if (isInFinal) continue;
 
-        if (newsImg.url) {
-          const newsImgPath = path.join(process.cwd(), newsImg.url);
-
+      if(newsImageOld){
+        if(newsImageOld.news_img_url !== news_img_url){
+          const newsImgPath = path.join(process.cwd(), newsImageOld.news_img_url);
           try {
             await fs.unlink(newsImgPath);
           } catch (error) {
-            console.warn(`Could not delete file ${newsImg.url}:`, error);
+            console.warn(`Could not delete file ${newsImageOld.news_img_url}:`, error);
           }
         }
       }
-      //Delete oldNewsImage records
-      await prismadb.news_image.deleteMany({
-        where: {
-          newsId: params.newsId,
-          url: {
-            notIn: finalfoundNewsImage.map((val) => val.url),
-          },
-        },
-      });
-      if (news_img.length !== 0) {
-        const creations = news_img.map(async (value: news_image) => {
-          if(value !== null && value !== undefined){
-            const alreadyInDB = finalfoundNewsImage.some((val) => val.url === value.url);
-            if (!alreadyInDB && value.url !== '') {
-              await prismadb.news_image.create({
-                data: {
-                  newsId: params.newsId,
-                  url: value.url,
-                  createdAt: new Date(),
-                  updatedAt: new Date()
-                }
-              });
-            }
-          }
-        });
-
-        await Promise.all(creations);
-      }
-
 
       await prismadb.news.update({
         where: {
@@ -149,6 +106,7 @@ export async function PATCH(
         data: {
           event_date: news_date,
           title,
+          news_img_url,
           link_placeholder,
           link_url,
           slug: slugify(title),
@@ -160,12 +118,13 @@ export async function PATCH(
 
     }
     else{
-      let new_news = await prismadb.news.create({
+      await prismadb.news.create({
         data: {
           brandId: params.brandId,
           event_date: news_date,
           title,
           link_placeholder,
+          news_img_url,
           link_url,
           slug: slugify(title),
           description,
@@ -174,25 +133,10 @@ export async function PATCH(
           updatedBy: session.name,
         },
       })
-
-      if(news_img.length!=0){
-        let tempImg: news_image[] = []
-        news_img.map(async (value: news_image, index: number) => {
-          if(value.url!=''){
-            let temp = await prismadb.news_image.create({
-              data:{
-                newsId: new_news.id,
-                url:value.url,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            })
-            tempImg.push(temp)
-          }
-        })
-      }
     }
 
+    revalidatePath(`/`);
+    revalidatePath(`/news`);
     revalidatePath(`/news/${slugify(title)}`);
     return NextResponse.json("success");
   } catch (error) {
@@ -225,39 +169,35 @@ export async function PATCH(
       
       if(!(await checkAuth(session.isAdmin!, params.brandId, session.userId!))){
         return NextResponse.json("unauthorized");
-      }    
-
-      //DELETE NEWS IMAGE
-      const newsImages = await prismadb.news_image.findMany({
+      }      
+      
+      //NEWS_IMAGE
+      const newsImageOld = await prismadb.news.findFirst({
         where: {
-          newsId: params.newsId,
+          id: params.newsId,
         },
+        select: {
+          news_img_url: true
+        }
       });
-      //Delete physical files
-      for (const image of newsImages) {
-        if (image.url) {
-          const imagePath = path.join(process.cwd(), image.url);
 
-          try {
-            await fs.unlink(imagePath);
-          } catch (error) {
-            console.warn(`Could not delete file ${image.url}:`, error);
-          }
+      if(newsImageOld){
+        const newsImgPath = path.join(process.cwd(), newsImageOld.news_img_url);
+        try {
+          await fs.unlink(newsImgPath);
+        } catch (error) {
+          console.warn(`Could not delete file ${newsImageOld.news_img_url}:`, error);
         }
       }
-      //Delete news_Image records
-      await prismadb.news_image.deleteMany({
-        where: {
-          newsId: params.newsId,
-        },
-      });
-  
+
       const newsDeleted = await prismadb.news.deleteMany({
         where: {
           id: params.newsId
         },
       });
   
+      revalidatePath('/')
+      revalidatePath('/news')
       return NextResponse.json(newsDeleted);
     } catch (error) {
       console.log('[NEWS_DELETE]', error);

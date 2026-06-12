@@ -1,4 +1,3 @@
-import getOneNews from "@/app/(legacy)/actions/get-one-news";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,6 +8,14 @@ import {
 } from "@/app/(legacy)/components/ui/breadcrumb";
 import { LazyImageContact } from "@/app/(legacy)/components/lazyImageContact";
 import DompurifyContent from "@/app/(legacy)/components/dompurifyText";
+import prismadb from "@/lib/prismadb";
+
+export async function generateStaticParams() {
+  const allNews = await prismadb.news.findMany({select: {slug: true}})
+  return allNews.map(({ slug }) => ({
+    newsSlug: slug,
+  }))
+}
 
 export default async function SingleNewsPage({
   params,
@@ -18,7 +25,27 @@ export default async function SingleNewsPage({
   const { newsSlug } = await params
 
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
-  const tempData = await getOneNews(newsSlug);
+  const oneNews = await prismadb.news.findFirst({
+    where: {
+      slug: newsSlug
+    },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      link_placeholder: true,
+      link_url: true,
+      description: true,
+      event_date: true,
+      updatedAt: true,
+      news_img: {
+        select: {
+          url: true
+        }
+      }
+    }
+  });
+
 
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
@@ -31,14 +58,18 @@ export default async function SingleNewsPage({
     return date.toLocaleDateString("id-ID", options);
   };
 
+  if(!oneNews){
+    return null
+  }
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": tempData?.title ? tempData.title : '',
-    "image": tempData?.news_img_url.length > 0 ? `${baseUrl}${[tempData.news_img_url]}` : '',
-    "description": tempData?.description? tempData.description : '',
-    "datePublished": tempData?.event_date ? tempData.event_date : '',
-    "dateModified": tempData?.updatedAt ? tempData.updatedAt : '',
+    "headline": oneNews.title,
+    "image": oneNews.news_img[0] ? oneNews.news_img[0].url : '',
+    "description": oneNews?.description,
+    "datePublished": oneNews?.event_date,
+    "dateModified": oneNews?.updatedAt,
     "author": {
       "@type": "Organization",
       "name": "Legacy Speaker"
@@ -53,7 +84,7 @@ export default async function SingleNewsPage({
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": tempData?.slug ? `${baseUrl}/news/${tempData.slug}` : `${baseUrl}/news`
+      "@id": `${baseUrl}/news/${oneNews.slug}`
     }
   };
   
@@ -65,7 +96,6 @@ export default async function SingleNewsPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} 
         />
         <div className="bg-white -z-10">
-          {tempData && (
             <div className="container mx-auto xl:px-36 lg:px-20 px-10 py-8">
               {/* Breadcrumb */}
               <div className="pb-6">
@@ -80,7 +110,7 @@ export default async function SingleNewsPage({
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                      <BreadcrumbPage>{tempData.title.length > 10 ? `${tempData.title.slice(0, 10)}...` : tempData.title}</BreadcrumbPage>
+                      <BreadcrumbPage>{oneNews.title.length > 10 ? `${oneNews.title.slice(0, 10)}...` : oneNews.title}</BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>
                 </Breadcrumb>
@@ -90,30 +120,23 @@ export default async function SingleNewsPage({
               <div className="w-full text-black">
                 {/* Image with reserved space */}
                 <div className="relative w-full sm:w-1/3 aspect-square">
-                  <LazyImageContact src={tempData.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${tempData.news_img_url}` : tempData.news_img_url} alt={tempData.title}/>
-                  {/* <Image
-                    src={news.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${news.news_img_url}` : news.news_img_url}
-                    alt={news.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover"
-                    priority
-                  /> */}
+                {oneNews.news_img[0] &&
+                  <LazyImageContact src={oneNews.news_img[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${oneNews.news_img[0].url}` : oneNews.news_img[0].url} alt={oneNews.title}/>
+                }
                 </div>
 
                 {/* Title and Date */}
                 <h1 className="lg:text-3xl text-xl text-black font-bold py-2">
-                  {tempData.title}
+                  {oneNews.title}
                 </h1>
                 <h2 className="lg:text-base text-sm text-gray-500 pb-8">
-                  {formatDate(tempData.event_date.toString())}
+                  {formatDate(oneNews.event_date.toString())}
                 </h2>
 
                 {/* Description */}
-                <DompurifyContent text={tempData.description} />
+                <DompurifyContent text={oneNews.description} />
               </div>
             </div>
-          )}
         </div>
     </>
   );

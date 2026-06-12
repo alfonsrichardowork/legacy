@@ -1,19 +1,5 @@
-import getAllNewsGSP from "@/app/(legacy)/actions/get-all-news-gsp";
-import getOneNews from "@/app/(legacy)/actions/get-one-news"
+import prismadb from "@/lib/prismadb";
 import { Metadata, ResolvingMetadata } from "next"
-
-// export const revalidate = 86400
-// export async function generateStaticParams() {
-//   const allNews = await getAllNewsGSP();
-
-//   if (!allNews || allNews.length === 0) {
-//     return []; // no params generated
-//   }
-
-//   return allNews.map((newsSlug) => ({
-//     newsSlug
-//   }));
-// }
 
 type Props = {
   params: Promise<{ newsSlug: string }>
@@ -29,59 +15,83 @@ function stripHtmlAndTruncate(html: string, wordLimit: number = 30): string {
 
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
-  const product = await getOneNews(params.newsSlug)
+  const onenews = await prismadb.news.findFirst({
+    where: {
+      slug: params.newsSlug
+    },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      link_placeholder: true,
+      link_url: true,
+      description: true,
+      event_date: true,
+      updatedAt: true,
+      news_img: {
+        select: {
+          url: true
+        }
+      }
+    }
+  });
+  if(!onenews) {
+    return {
+      title: 'No News Found'
+    }
+  }
   const previousImages = (await parent).openGraph?.images || []
-  const truncatedDescription = stripHtmlAndTruncate(product.description, 30);
+  const truncatedDescription = stripHtmlAndTruncate(onenews.description, 30);
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   return {
-    title: product.title.concat(" | Legacy Speaker"),
+    title: onenews.title.concat(" | Legacy Speaker"),
     description: truncatedDescription,
     applicationName: 'Legacy Speaker',
     keywords: [
-      product.title,
-      product.slug,
+      onenews.title,
+      onenews.slug,
       "Legacy News",
       "Berita Legacy Speaker",
       "Speaker Indonesia",
     ],
     openGraph: {
-      title: `${product.title} | Legacy Speaker`,
+      title: `${onenews.title} | Legacy Speaker`,
       description: truncatedDescription,
-      url: `${baseUrl}/news/${product.slug}`,
+      url: `${baseUrl}/news/${onenews.slug}`,
       siteName: "Legacy Speaker",
       images: [
         // {
-        //   url: `https://www.legacy.us.com${product.news_img_url}`,
+        //   url: `https://www.legacy.us.com${onenews.news_img_url}`,
         //   width: 1200,
         //   height: 630,
-        //   alt: product.title,
+        //   alt: onenews.title,
         // },
         {
-          url: `${baseUrl}${product.news_img_url}`,
+          url: `${baseUrl}${onenews.news_img[0]?.url}`,
           width: 800,
           height: 800,
-          alt: product.title,
+          alt: onenews.title,
         },
         ...previousImages,
       ],
       type: "article",
-      publishedTime: product.event_date.toString(), 
+      publishedTime: onenews.event_date.toString(), 
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.title} | Legacy Speaker`,
+      title: `${onenews.title} | Legacy Speaker`,
       description: truncatedDescription,
       images: [    
         {
-          url: `${baseUrl}${product.news_img_url}`,
+          url: `${baseUrl}${onenews.news_img[0]?.url}`,
           width: 800,
           height: 800,
-          alt: product.title,
+          alt: onenews.title,
         },
       ],
     },
     alternates: {
-      canonical: `${baseUrl}/news/${product.slug}`,
+      canonical: `${baseUrl}/news/${onenews.slug}`,
     }
   }
 }

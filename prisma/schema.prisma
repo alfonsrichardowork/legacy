@@ -56,7 +56,11 @@ model product {
   name        String    @db.Text
   slug        String    @db.Text
   description String    @db.Text
-  cover_img   cover_image[]
+  cover_img_url   String  @default("") //NEW
+  drawing_img_url String  @default("") //NEW
+  graph_img_url String @default("") //NEW
+  impedance_img_url String @default("") //NEW
+  featured_img_url String @default("") //NEW
   featuredDesc  String  @db.Text  @default("")
   isFeatured  Boolean   @default(false)
   isArchived  Boolean   @default(false)
@@ -65,10 +69,6 @@ model product {
   sizeId      String    
   size        size      @relation(fields: [sizeId], references: [id])
   images_catalogues      image_catalogues[]
-  drawing_img drawing_image[]
-  graph_img   graph_image[]
-  impedance_img  impedance_image[]
-  featured_img   featured_image[]
   allCat      allproductcategory[]
   multipleDatasheetProduct multipledatasheetproduct[]
   connectorSpecifications specificationconnector[] @relation("ProductToConnectorSpecification")
@@ -90,7 +90,7 @@ model news {
   description String    @db.Text
   link_url    String    @db.Text  @default("")
   link_placeholder  String  @db.Text  @default("")
-  news_img    news_image[]
+  news_img_url String @default("") //NEW
   event_date  DateTime  @default(now())
   updatedBy   String    @default("")
   // products    Product[] // Relation to Product model
@@ -127,7 +127,7 @@ model allcategory {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  @@unique([brandId, name(length: 191)])
+  productCategories allproductcategory[]
   @@index([brandId])
 }
 
@@ -138,72 +138,6 @@ model image_catalogues {
   product     product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   url         String   @db.Text
   name        String   @db.Text @default("")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([productId])
-}
-
-model news_image {
-  id          String   @id @default(uuid())
-  newsId      String   
-  news        news  @relation(fields: [newsId], references: [id], onDelete: Cascade)
-  url         String   @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([newsId])
-}
-
-model cover_image {
-  id          String   @id @default(uuid())
-  productId   String   // Foreign Key to Product
-  product     product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url         String   @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([productId])
-}
-
-model drawing_image {
-  id          String   @id @default(uuid())
-  productId   String   // Foreign Key to Product
-  product     product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url         String   @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([productId])
-}
-
-model graph_image {
-  id          String   @id @default(uuid())
-  productId   String   // Foreign Key to Product
-  product     product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url         String   @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([productId])
-}
-
-model impedance_image {
-  id          String   @id @default(uuid())
-  productId   String   // Foreign Key to Product
-  product     product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url         String   @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([productId])
-}
-
-model featured_image {
-  id          String   @id @default(uuid())
-  productId   String   // Foreign Key to Product
-  product     product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url         String   @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -226,13 +160,12 @@ model allproductcategory {
   productId   String   // Foreign Key to Product
   product     product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   categoryId  String
-  type        String    //Category, Sub Category, Sub Sub Category
-  name        String    @db.Text
-  slug        String    @db.Text
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   
+  category allcategory @relation(fields: [categoryId], references: [id])
   @@index([productId])
+  @@index([categoryId])
 }
 
 

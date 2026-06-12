@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { activeSlider, NewsType, SliderDataNews } from "@/app/(legacy)/types";
+import { activeSlider, SliderDataNews } from "@/app/(legacy)/types";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/app/(legacy)/components/ui/sheet";
 import { ScrollArea } from "@/app/(legacy)/components/ui/scroll-area";
@@ -11,9 +11,27 @@ import { Loader } from "@/app/(legacy)/components/ui/loader";
 import NoResults from "@/app/(legacy)/components/no-results";
 import NewsCard from "@/app/(legacy)/components/news-card";
 import { Separator } from "@/components/ui/separator";
+import { Prisma } from "@prisma/client";
 
+type NewsCardData = Prisma.newsGetPayload<{
+    select: {
+    id: true, 
+    title: true,
+    slug: true,
+    link_placeholder: true,
+    link_url: true,
+    description: true,
+    event_date: true,
+    updatedAt: true,
+    news_img: {
+        select: {
+        url: true
+        }
+    }
+    },
+}>
 interface MainProps {
-  data: (NewsType)[];
+  data: NewsCardData[];
   slider: (SliderDataNews)[]
   showFilters: (boolean)
 };
@@ -23,7 +41,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
 }) => {
     const [allActiveSlider, setAllActiveSlider] = useState<activeSlider[]>([])
     const [reseted, setReseted] = useState<string>('false')
-    const [allNews, setAllNews] = useState<NewsType[]>([])
+    const [allNews, setAllNews] = useState<NewsCardData[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
 
@@ -143,8 +161,8 @@ const AllNewsandFilters: React.FC<MainProps> = ({
       useEffect(() => {
         const fetchData = async () => {
           try {
-            let finishedSliderNews: NewsType[] = []
-            let tempShowed: NewsType[][] = [];
+            let finishedSliderNews: NewsCardData[] = []
+            let tempShowed: NewsCardData[][] = [];
             
 
             if (allActiveSlider.length !== 0) {
@@ -180,7 +198,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                 finishedSliderNews = data
             }
 
-            let FinalFeatured: NewsType[] = []
+            let FinalFeatured: NewsCardData[] = []
             for (const slidernews of finishedSliderNews) {
                 FinalFeatured.push(slidernews)
             }
@@ -315,7 +333,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                                 </div>
                             :
                                 <div className="block">
-                                    {allNews.map((item: NewsType, i) => (
+                                    {allNews.map((item: NewsCardData, i) => (
                                         <div key={i} className="lg:px-4">
                                             <NewsCard data={item}/>
                                             <Separator/>

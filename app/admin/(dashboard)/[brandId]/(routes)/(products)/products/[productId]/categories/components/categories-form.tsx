@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
  
 interface AllProductCategoryFormProps {
-  initialData: allproductcategory[];
+  initialData: (allproductcategory & { category: allcategory })[];
   categories: allcategory[];
   subcategories: allcategory[];
   subsubcategories: allcategory[];
@@ -64,9 +64,9 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
         const category: allcategory = {
           id: item.categoryId,
           brandId: myproduct.brandId,
-          type: item.type,
-          name: item.name,
-          slug: item.slug,
+          type: item.category.type,
+          name: item.category.name,
+          slug: item.category.slug,
           description: '',
           thumbnail_url: '',
           updatedBy: '',
@@ -74,9 +74,9 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
           updatedAt: item.updatedAt,
         };
         
-        if (item.type === "Category") {
+        if (item.category.type === "Category") {
           tempcat.push(category);
-        } else if (item.type === "Sub Category") {
+        } else if (item.category.type === "Sub Category") {
           tempsubcat.push(category);
         } else {
           tempsubsubcat.push(category);

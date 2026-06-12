@@ -10,10 +10,7 @@ const FeaturedProductPage = async (
   const product = await prismadb.product.findUnique({
     where: {
       id: params.featuredProductId,
-    },
-    include: {
-      featured_img: true
-    },
+    }
   });
 
   return ( 

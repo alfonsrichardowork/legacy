@@ -2,19 +2,36 @@
 
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
+//@ts-ignore
 import 'swiper/css';
+//@ts-ignore
 import 'swiper/css/navigation';
 
 import { Autoplay, Navigation } from 'swiper/modules';
-import { FeaturedProducts } from '../types';
 import Link from 'next/link';
 import { Separator } from '../../../components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
+import { Prisma } from '@prisma/client';
+
+type ProductCardData = Prisma.productGetPayload<{
+  select: {
+    id: true,
+    name: true,
+    slug: true,
+    featuredDesc: true,
+    series: true,
+    featured_img: {
+      select: {
+        url: true
+      }
+    },
+  },
+}>
 
 type PropType = {
-  slides: FeaturedProducts[];
+  slides: ProductCardData[];
 };
 
 const SwiperCarousel: React.FC<PropType> = (props) => {
@@ -45,16 +62,18 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
             <SwiperSlide key={item.name.concat(` ${indexParent}`)} data-testid={`swiper-slide-${indexParent}`}>
               <div className="container mx-auto flex flex-col md:flex-row items-center justify-between xl:px-36 lg:px-20 px-10 pb-18 h-full">
                 <div className="order-1 md:order-2 flex items-center justify-center md:w-2/5 w-full h-[200px] md:h-full">
-                <Image
-                  src={item.featuredImgUrl.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.featuredImgUrl}` : item.featuredImgUrl}
-                  alt={item.name}
-                  width={500}
-                  height={500}
-                  sizes="(max-width: 768px) 100vw, 500px"
-                  className="w-fit object-contain h-full"
-                  data-testid={`featured-product-image-${indexParent}`}
-                  priority
-                />
+                {item.featured_img[0] &&
+                  <Image
+                    src={item.featured_img[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.featured_img[0]?.url}` : item.featured_img[0]?.url}
+                    alt={item.name}
+                    width={500}
+                    height={500}
+                    sizes="(max-width: 768px) 100vw, 500px"
+                    className="w-fit object-contain h-full"
+                    data-testid={`featured-product-image-${indexParent}`}
+                    priority
+                  />
+                }
                 </div>
                 <div className="order-2 md:order-1 flex flex-col justify-center items-center md:items-start text-center md:text-left gap-2 md:w-3/5 w-full">
                   <h4 className="text-3xl md:text-4xl font-bold text-white line-clamp-1">

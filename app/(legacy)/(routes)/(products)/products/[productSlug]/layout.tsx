@@ -1,17 +1,5 @@
-import getSingleMetadata from "@/app/(legacy)/actions/get-metadata-single-product"
-import getAllProductsJsonld from "@/app/(legacy)/actions/jsonLd/get-all-products-jsonld";
-import { AllProductsJsonType } from "@/app/(legacy)/types";
+import prismadb from "@/lib/prismadb";
 import { Metadata, ResolvingMetadata } from "next"
-
-// export const revalidate = 86400
-// export async function generateStaticParams() {
-//   const allProducts : AllProductsJsonType[] = await getAllProductsJsonld();
-//   if (!allProducts || allProducts.length === 0) {
-//     return []; // no params generated
-//   }
-//   const onlySlug = allProducts.map((product) => product.slug);
-//   return onlySlug.map((productSlug) => ({ productSlug }));
-// }
 
 type Props = {
   params: Promise<{ productSlug: string }>
@@ -20,8 +8,26 @@ type Props = {
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
-  const product = await getSingleMetadata(params.productSlug)
-  const previousImages = (await parent).openGraph?.images || []
+  const product = await prismadb.product.findFirst({
+    where: {
+      id: params.productSlug
+    },
+    select: {
+      name: true,
+      slug: true,
+      size: true,
+      cover_img: {
+        select: {
+          url: true
+        }
+      }
+    }
+  })
+  if(!product) {
+    return {
+      title: 'Product Not Found'
+    }
+  }
   return {
     title: product.name.concat(" | Legacy Speaker"),
     description: `Temukan spesifikasi dan fitur unggulan dari ${product.name}!`,
@@ -45,12 +51,11 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
         //   alt: product.name,
         // },
         {
-          url: `${baseUrl}${product.coverUrl}`,
+          url: `${baseUrl}${product.cover_img[0]?.url}`,
           width: 800,
           height: 800,
           alt: product.name,
         },
-        ...previousImages,
       ],
       locale: 'id_ID',
       type: "website",
@@ -61,7 +66,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       description: `Temukan spesifikasi dan fitur unggulan dari ${product.name}!`,
       images: [
         {
-          url: `${baseUrl}${product.coverUrl}`,
+          url: `${baseUrl}${product.cover_img[0]?.url}`,
           width: 800,
           height: 800,
           alt: product.name,

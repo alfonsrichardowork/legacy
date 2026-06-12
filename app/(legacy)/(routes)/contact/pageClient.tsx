@@ -15,9 +15,13 @@ export function extractIframeSrc(html: string): string | undefined {
   const iframe = doc.querySelector("iframe");
   return iframe?.getAttribute("src") || undefined;
 }
+interface ContactUsClientProps {
+  contacts: contacts[];
+}
 
-export default function ContactUsClient({contactDataPromise}: {contactDataPromise: Promise<contacts[]>}) {
-    const contacts = use(contactDataPromise);
+export default function ContactUsClient({
+  contacts,
+}: ContactUsClientProps) {
     const [activeMapIndex, setActiveMapIndex] = useState<number>(0)
     const [allPhone, setAllPhone] = useState<string[][]>([])
     const [_, setIsScrolling] = useState(false);

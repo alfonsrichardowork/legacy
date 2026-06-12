@@ -9,7 +9,6 @@ export async function POST(
   props: { params: Promise<{ brandId: string, productId: string }> }
 ) {
   const params = await props.params;
-  const allResults = [];
   try {
     const session = await getSession();
 
@@ -34,29 +33,17 @@ export async function POST(
 
     for (const item of body) {
       const { 
-        id,
-        brandId,
-        type,
-        name,
-        slug,
-        description,
-        thumbnail_url,
-        createdAt,
-        updatedAt
+        id
       } = item;
     
-      const allproductcategory = await prismadb.allproductcategory.create({
+      await prismadb.allproductcategory.create({
         data: {
           productId: params.productId,
           categoryId: id,
-          type,
-          name,
-          slug,
           createdAt: new Date(),
           updatedAt: new Date(),
         }
       });
-      allResults.push(allproductcategory);
       
     }
 
@@ -72,16 +59,6 @@ export async function POST(
 
     const productSlug = updatedProduct.slug;
     revalidatePath(`/products/${productSlug}`);
-    if( allResults && allResults.length > 0 ) {
-      const subCategories = allResults.filter(item => item.type === 'Sub Category') || [];
-      const subSubCategories = allResults.filter(item => item.type === 'Sub Sub Category') || [];
-      subCategories.forEach(sub => {
-        revalidatePath(`/drivers/${sub.slug}`);
-        subSubCategories.forEach(subsub => {
-          revalidatePath(`/drivers/${sub.slug}/${subsub.slug}`);
-        });
-      });
-    }
 
     return NextResponse.json("success");
   } catch (error) {
@@ -206,31 +183,18 @@ export async function PATCH(
       }
     });
   
-    const allResults = []
     for (const item of body) {
       const { 
         id,
-        brandId,
-        type,
-        name,
-        slug,
-        description,
-        thumbnail_url,
-        createdAt,
-        updatedAt
       } = item;
-      const allproductcategory = await prismadb.allproductcategory.create({
+      await prismadb.allproductcategory.create({
         data: {
           productId: params.productId,
           categoryId: id,
-          type,
-          name,
-          slug,
           createdAt: new Date(),
           updatedAt: new Date()
         }
       });
-      allResults.push(allproductcategory);
     }
 
     const updatedproduct = await prismadb.product.update({
@@ -245,20 +209,10 @@ export async function PATCH(
     
     const productSlug = updatedproduct.slug;
     revalidatePath(`/products/${productSlug}`);
-    if( allResults && allResults.length > 0 ) {
-      const subCategories = allResults.filter(item => item.type === 'Sub Category') || [];
-      const subSubCategories = allResults.filter(item => item.type === 'Sub Sub Category') || [];
-      subCategories.forEach(sub => {
-        revalidatePath(`/drivers/${sub.slug}`);
-        subSubCategories.forEach(subsub => {
-          revalidatePath(`/drivers/${sub.slug}/${subsub.slug}`);
-        });
-      });
-    }
   
     const responseData = {
       deletedCount: deleteOldCategories.count,
-      addedRecords: allResults,
+      addedRecords: [],
       updatedTime: updatedproduct
     };
 

@@ -33,6 +33,9 @@ const AllProductCategoryPage = async (
     where: {
       productId: params.productId,
     },
+    include: {
+      category: true
+    }
   });
 
   const myproduct = await prismadb.product.findFirst({

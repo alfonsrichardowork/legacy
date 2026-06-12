@@ -1,20 +1,18 @@
-export const dynamic = "force-dynamic";
-
 import type { contacts } from "@prisma/client"
 import { Suspense } from "react"
-import getAllContact from "../../actions/get-all-contact"
 import ContactUsClient from "./pageClient"
 import { Loader } from "../../components/ui/loader"
+import prismadb from "@/lib/prismadb"
 
 function formatPhoneNumbers(phone: string): string {
   return phone.split("||").join(", ")
 }
 
-async function ContactJsonLd() {
-  const contactData: contacts[] = await getAllContact()
+export default async function ContactUsJsonLd() {
+  const contacts = await prismadb.contacts.findMany({});
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? "http://localhost:3001"
 
-  const subContacts = contactData.map((val: contacts) => ({
+  const subContacts = contacts.map((val: contacts) => ({
     "@type": "ContactPoint",
     telephone: formatPhoneNumbers(val.phone),
     contactType: val.type,
@@ -31,19 +29,13 @@ async function ContactJsonLd() {
     contactPoint: [...subContacts],
   }
 
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-}
-
-export default function ContactUsJsonLd() {
-  const contactDataPromise = getAllContact()
-
   return (
     <>
-      <ContactJsonLd />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <h1 className="sr-only">Contact Us | Legacy Speaker</h1>
       <div className="bg-white -z-10 h-fit w-full">
         <Suspense fallback={<div className='h-screen w-full flex items-center justify-center'><Loader/></div>}>
-          <ContactUsClient contactDataPromise={contactDataPromise} />
+          <ContactUsClient contacts={contacts} />
         </Suspense>
       </div>
     </>

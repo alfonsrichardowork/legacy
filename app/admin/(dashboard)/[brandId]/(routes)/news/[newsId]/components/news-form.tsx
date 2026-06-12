@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { news, news_image } from "@prisma/client"
+import { news } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -54,16 +54,14 @@ const formSchema = z.object({
   description: z.string().optional(),
   link_url: z.string().optional(),
   link_placeholder: z.string().optional(),
-  news_img: z.object({ url: z.string() }).array(),
+  news_img_url: z.string().optional(),
   news_date: z.date().optional(),
 });
 
 type NewsFormValues = z.infer<typeof formSchema>
 
 interface NewsFormProps {
-  initialData: news & {
-    news_img: news_image[]
-  } | null;
+  initialData: news | null;
 };
 
 export const NewsForm: React.FC<NewsFormProps> = ({
@@ -74,7 +72,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
 
   const [date, setDate] = useState<Date | undefined>(new Date())
  
-  const [newsImage, setNewsImage] = useState<news_image>()
+  const [newsImage, setNewsImage] = useState<string>('')
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File>();
   const [linkUrl, setLinkUrl] = useState("")
@@ -94,25 +92,17 @@ export const NewsForm: React.FC<NewsFormProps> = ({
     description: '',
     link_url: '',
     link_placeholder: '',
-    news_img: [],
+    news_img_url: '',
     news_date: new Date(),
   }
 
   useEffect(() => {
   const fetchData = async () => {
-    if (initialData && initialData.news_img.length>0) {
-      setNewsImage(initialData.news_img[0]);
+    if (initialData && initialData.news_img_url) {
+      setNewsImage(initialData.news_img_url);
     }
     else{
-      let temp: news_image = {
-        id: Math.random().toString(),
-        //@ts-ignore
-        productId: params.newsId,
-        url: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-      setNewsImage(temp)
+      setNewsImage('')
     }
     if(initialData && initialData.event_date) {
       setDate(initialData.event_date)
@@ -125,7 +115,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
   fetchData().catch((error) => {
     console.error("Error fetching news: ", error);
   });
-  }, [params.newsId, initialData, initialData?.news_img]);
+  }, [params.newsId, initialData, initialData?.news_img_url]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -139,18 +129,10 @@ export const NewsForm: React.FC<NewsFormProps> = ({
   };
 
   const deleteImage = async () => {
-    let temp: news_image = {
-      id: '',
-      //@ts-ignore
-      productId: params.newsId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    setNewsImage(temp)
+    setNewsImage('')
   };
 
-  async function handleImageUpload (file: File): Promise<news_image> {
+  async function handleImageUpload (file: File): Promise<string> {
     if (file) {
       let updatednewsImage = newsImage;
       try {
@@ -158,30 +140,14 @@ export const NewsForm: React.FC<NewsFormProps> = ({
         formData.append('image', file);
 
         const url = await uploadImage(formData, 'newsimages');
-        updatednewsImage!.url = url
+        updatednewsImage = url
         return updatednewsImage!;
         } catch (error) {
         console.error("Error uploading news image:", error);
-        let temp: news_image = {
-          id: Math.random().toString(),
-          //@ts-ignore
-          productId: params.newsId,
-          url: '',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        return temp;
+        return '';
       }
     }
-    let temp: news_image = {
-      id: Math.random().toString(),
-      //@ts-ignore
-      productId: params.newsId,
-      url: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    return temp;
+    return '';
   };
 
 
@@ -195,10 +161,10 @@ export const NewsForm: React.FC<NewsFormProps> = ({
       setLoading(true);
 
       if (selectedFile) {
-        data.news_img[0] = await handleImageUpload(selectedFile);
+        data.news_img_url = await handleImageUpload(selectedFile);
       }
       else{
-        data.news_img[0] = newsImage!
+        data.news_img_url = newsImage
       }
 
       if(date){
@@ -470,11 +436,19 @@ export const NewsForm: React.FC<NewsFormProps> = ({
             > */}
               <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border gap-4">
                 <div className="text-left font-bold pb-2">Cover Image</div>
-                <div className="flex items-center space-x-4 justify-between">
-                  {newsImage && newsImage.url !== '' && (
-                    <Image alt={title} src={newsImage.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${newsImage.url}` : newsImage.url} width={200} height={200} className="w-52 h-fit" priority/>
-                  )}
-                  {newsImage && newsImage.url === '' && (
+                  {newsImage !== '' ?
+                    <>
+                      <div className="flex items-center space-x-4 justify-between">
+                          <Image alt={title} src={newsImage.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${newsImage}` : newsImage} width={200} height={200} className="w-52 h-fit" priority/>
+                        <div
+                          className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
+                          onClick={() => deleteImage()}
+                        >
+                          <Trash width={20} height={20} />
+                        </div>
+                      </div>
+                    </>
+                  :
                     <Input
                       id={`file`}
                       type="file"
@@ -487,16 +461,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
                       required
                       className="border border-gray-300 p-2 rounded-md bg-white"
                     />
-                  )}
-                {newsImage && newsImage.url !== '' && (
-                  <div
-                    className="bg-red-500 text-white py-1 px-3 rounded-md cursor-pointer hover:bg-red-600"
-                    onClick={() => deleteImage()}
-                  >
-                    <Trash width={20} height={20} />
-                  </div>
-                )}
-                </div>
+                  }
               </div>
             
             
