@@ -46,15 +46,15 @@ import { MAX_SIZE } from "@/app/admin/model/model"
 
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  images_catalogues: z.object({ url: z.string() }).array(),
+  name: z.string().min(1, "Product name is required"),
+  images_catalogues: z.object({ url: z.string() }).array().default([]).optional(),
   cover_img_url: z.string().optional(),
   drawing_img_url: z.string().optional(),
   graph_img_url: z.string().optional(),
   impedance_img_url: z.string().optional(),
-  multipleDatasheetProduct: z.object({ url: z.string() }).array(),
-  description: z.string().min(1),
-  sizeId: z.string().min(1),
+  multipleDatasheetProduct: z.object({ url: z.string() }).array().default([]).optional(),
+  description: z.string().optional(),
+  sizeId: z.string().min(1, "Size is required"),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
   isNewProduct: z.boolean().default(false).optional(),
@@ -66,10 +66,10 @@ type ProductFormValues = z.infer<typeof formSchema>
 interface ProductFormProps {
   initialData: product & {
     images_catalogues: image_catalogues[]
-    cover_img_url: string
-    drawing_img_url: string
-    graph_img_url: string
-    impedance_img_url: string
+    cover_img_url: string,
+    drawing_img_url: string,
+    graph_img_url: string,
+    impedance_img_url: string,
     multipleDatasheetProduct: multipledatasheetproduct[]
   } | null;
   sizes: size[];
@@ -611,7 +611,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     
   
     const setLink = useCallback(() => {
-      const previousUrl = editor!.getAttributes('link').href
+      if (!editor) return;
+      const previousUrl = editor.getAttributes('link').href
       const url = window.prompt('Change the root URL to {temp}. Ex: https://sbacoustics.com/products/sb12pac25-4 => {temp}products/sb12pac25-4', previousUrl)
   
       // cancelled
@@ -621,20 +622,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   
       // empty
       if (url === '') {
-        editor!.chain().focus().extendMarkRange('link').unsetLink()
+        editor.chain().focus().extendMarkRange('link').unsetLink()
           .run()
   
         return
       }
   
       // update link
-      editor!.chain().focus().extendMarkRange('link').setLink({ href: url })
+      editor.chain().focus().extendMarkRange('link').setLink({ href: url })
         .run()
     }, [editor])
-  
-    if (!editor) {
-      return null
-    }
   
 
   
@@ -745,7 +742,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         </div>
 
 
-      <div className="grid grid-cols-1 gap-4 border rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30">
+      {editor &&
+        <div className="grid grid-cols-1 gap-4 border rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30">
         <div className="font-bold text-base pb-2">Description | <Link href={'/images/admin/description_placement.png'} target="blank" className="text-[rgba(19,82,219,1)] hover:underline font-normal text-sm  ">See where this will be shown</Link></div>
         {/* <FormControl> */}
           <div>
@@ -824,6 +822,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           <EditorContent editor={editor} className="border p-4 bg-white text-black rounded-md"/>
           </div>
         </div>
+      }
 
           
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

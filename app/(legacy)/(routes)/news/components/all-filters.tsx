@@ -23,11 +23,7 @@ type NewsCardData = Prisma.newsGetPayload<{
     description: true,
     event_date: true,
     updatedAt: true,
-    news_img: {
-        select: {
-        url: true
-        }
-    }
+    news_img_url: true
     },
 }>
 interface MainProps {

@@ -56,7 +56,9 @@ export async function DELETE(
     const stillused = await prismadb.allproductcategory.findMany({
       where:{
         categoryId: params.subCategoryId,
-        type:"Sub Category"
+        category: {
+          type:"Sub Category"
+        }
       }
     })
     if(stillused.length!=0){
@@ -143,12 +145,9 @@ export async function PATCH(
         await prismadb.allproductcategory.updateMany({
           where: {
             categoryId: params.subCategoryId,
-            type
           },
           data:{
-            name,
             updatedAt: new Date(),
-            slug: slugify(name)
           }
         })
         return NextResponse.json("same")
@@ -184,12 +183,9 @@ export async function PATCH(
     await prismadb.allproductcategory.updateMany({
       where: {
         categoryId: params.subCategoryId,
-        type
       },
       data:{
-        name,
         updatedAt: new Date(),
-        slug: slugify(name)
       }
     })
   
@@ -197,7 +193,7 @@ export async function PATCH(
       revalidatePath(`/drivers/${slugify(name)}`);
     }
     else if( type === "Sub Sub Category" ){ 
-      const allSub = await prismadb.allproductcategory.findMany({
+      const allSub = await prismadb.allcategory.findMany({
         where:{
           type: "Sub Category",
         }

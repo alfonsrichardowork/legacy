@@ -25,11 +25,7 @@ export async function GET(
           description: true,
           event_date: true,
           updatedAt: true,
-          news_img: {
-            select: {
-              url: true
-            }
-          }
+          news_img_url: true
         },
         orderBy: {
           event_date: 'desc',
@@ -52,11 +48,7 @@ export async function GET(
           description: true,
           event_date: true,
           updatedAt: true,
-          news_img: {
-            select: {
-              url: true
-            }
-          }
+          news_img_url: true
         },
         orderBy: {
           event_date: 'desc',

@@ -22,11 +22,7 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
         slug: true,
         featuredDesc: true,
         series: true,
-        featured_img: {
-          select: {
-            url: true
-          }
-        },
+        featured_img_url: true
       },
       orderBy: {
         createdAt: 'desc',

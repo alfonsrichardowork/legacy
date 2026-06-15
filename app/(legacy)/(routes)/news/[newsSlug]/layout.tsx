@@ -28,11 +28,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       description: true,
       event_date: true,
       updatedAt: true,
-      news_img: {
-        select: {
-          url: true
-        }
-      }
+      news_img_url: true
     }
   });
   if(!onenews) {
@@ -67,7 +63,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
         //   alt: onenews.title,
         // },
         {
-          url: `${baseUrl}${onenews.news_img[0]?.url}`,
+          url: `${baseUrl}${onenews.news_img_url}`,
           width: 800,
           height: 800,
           alt: onenews.title,
@@ -83,7 +79,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       description: truncatedDescription,
       images: [    
         {
-          url: `${baseUrl}${onenews.news_img[0]?.url}`,
+          url: `${baseUrl}${onenews.news_img_url}`,
           width: 800,
           height: 800,
           alt: onenews.title,

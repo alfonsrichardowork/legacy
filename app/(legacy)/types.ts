@@ -53,12 +53,12 @@ export interface NavbarProducts {
 }
 
 export interface SingleProducts {
-    coverImg: FilesProp;
+    coverImg: string;
     size: Size;
     images_Catalogues: FilesProp[];
-    drawing: FilesProp[];
-    graph: FilesProp[];
-    impedance: FilesProp[];
+    drawing: string;
+    graph: string;
+    impedance: string;
     categories: AllCategory[];
     sub_categories: AllCategory[];
     sub_sub_categories: AllCategory[];
@@ -163,20 +163,6 @@ export interface ChildSpecificationProp {
   unit: string
 }
 
-export type SingleProductsType = Prisma.productGetPayload<{
-  include: {
-    cover_img: true;
-    size: true,
-    images_catalogues: true,
-    drawing_img: true,
-    graph_img: true,
-    impedance_img: true,
-    allCat: true,
-    multipleDatasheetProduct: true,
-    connectorSpecifications: true
-  };
-}>;
-
 export interface FilesProp{
     name: string
     url: string
@@ -187,9 +173,7 @@ export interface AllProductsJsonType {
   name: string
   id: string
   slug: string
-  cover_img: {
-    url: string
-  }
+  cover_img_url: string
 };
 
 export interface AllFilterProductsOnlyType {

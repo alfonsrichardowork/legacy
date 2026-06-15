@@ -22,11 +22,7 @@ type ProductCardData = Prisma.productGetPayload<{
     slug: true,
     featuredDesc: true,
     series: true,
-    featured_img: {
-      select: {
-        url: true
-      }
-    },
+    featured_img_url: true
   },
 }>
 
@@ -62,9 +58,9 @@ const SwiperCarousel: React.FC<PropType> = (props) => {
             <SwiperSlide key={item.name.concat(` ${indexParent}`)} data-testid={`swiper-slide-${indexParent}`}>
               <div className="container mx-auto flex flex-col md:flex-row items-center justify-between xl:px-36 lg:px-20 px-10 pb-18 h-full">
                 <div className="order-1 md:order-2 flex items-center justify-center md:w-2/5 w-full h-[200px] md:h-full">
-                {item.featured_img[0] &&
+                {item.featured_img_url !== '' &&
                   <Image
-                    src={item.featured_img[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.featured_img[0]?.url}` : item.featured_img[0]?.url}
+                    src={item.featured_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.featured_img_url}` : item.featured_img_url}
                     alt={item.name}
                     width={500}
                     height={500}

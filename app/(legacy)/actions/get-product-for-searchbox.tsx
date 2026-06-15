@@ -18,14 +18,14 @@ const getProductsForSearchbox = async (): Promise<Searchbox[]> => {
     }
     for (let i = 0; i < data.length; i++) {
         // if(data[i].label !== '10" LG 1040 & 12" LG 1240'){ //TEMPORARY FIX
-            if(data[i].url.length>0){
+            if(data[i].url !== ''){
                 const normalizedStr = data[i].label.replace(/["“”‟″‶〃״˝ʺ˶ˮײ]/g, ' inch');
                 let combined_val = normalizedStr.concat(" ", data[i].value)
                 let temp: Searchbox = {
                     value: combined_val,
                     label: normalizedStr,
                     slug: data[i].slug,
-                    url: data[i].url[0].url,
+                    url: data[i].url,
                     categoryDetails: data[i].categoryDetails
                 };
                 productForSearchbox.push(temp);

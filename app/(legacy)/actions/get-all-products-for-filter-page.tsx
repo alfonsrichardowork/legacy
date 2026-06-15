@@ -78,9 +78,7 @@ const getAllProductsForFilterPage = async (api: string): Promise<[AllFilterProdu
         id: val.id,
         name: val.name,
         slug: val.slug,
-        cover_img: {
-          url: val.cover_img[0].url
-        }
+        cover_img_url: val.cover_img[0].url
       },
       size: {
         name: val.size.value,

@@ -65,8 +65,6 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
     const comparisonListRef = useRef<HTMLDivElement | null>(null);
     const pathname = usePathname()
     const segmentedPathname = pathname.split(('/'))
-    // console.log(segmentedPathname)
-    // console.log("allFeaturedProducts: ", allFeaturedProducts)
     const [sliderValue, setSliderValue] = useState<SliderData[]>([])
     const [loadingSlider, setLoadingSlider] = useState<boolean>(true)
     const [loading, setLoading] = useState<boolean>(true)
@@ -87,7 +85,6 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                         value: value.value
                     })
                 });
-                // console.log("tempSlider: ", tempSlider)
                 setSliderValue(tempSlider)
                 setLoadingSlider(false);
             } catch (error) {
@@ -231,8 +228,8 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                         finalTempProduct[category] = [];
                     }
 
-                    data.forEach((product) => {                        
-                        const productValue = product.specs.find((val) => val.slug === checkbox.slug)?.value;
+                    data.forEach((product) => {                  
+                        const productValue = product.specs.find((val) => val.slug === checkbox.slug)?.value;             
                         const checkboxValue = checkbox.name;
 
                         if (productValue === checkboxValue) {
@@ -797,7 +794,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                             <Button
                                                 onClick={() => 
                                                     activeSlugCompare.length < maxCompare?
-                                                        addComparison(item.products.slug, item.products.name, item.products.cover_img.url)
+                                                        addComparison(item.products.slug, item.products.name, item.products.cover_img_url)
                                                     :
                                                         toast({
                                                             title: "Tabel Perbandingan Full!",

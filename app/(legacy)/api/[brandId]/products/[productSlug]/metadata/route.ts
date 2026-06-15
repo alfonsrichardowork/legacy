@@ -17,11 +17,7 @@ export async function GET(req: Request, props: { params: Promise<{ productSlug: 
         slug: true,
         name: true,
         description: true,
-        cover_img: {
-          select: {
-            url: true
-          }
-        },
+        cover_img_url: true,
         size: {
           select: {
             value: true,

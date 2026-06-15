@@ -123,6 +123,7 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
     }
 
     revalidatePath(`/products/${slugify(name)}`);
+    revalidatePath('/')
   
     return NextResponse.json("success");
   } catch (error) {

@@ -30,10 +30,6 @@ export async function GET(req: Request, props: { params: Promise<{ productId: st
       include: {
         allCat: true,
         images_catalogues: true,
-        cover_img: true,
-        drawing_img: true,
-        graph_img: true,
-        impedance_img: true,
         size: true,
       }
     });
@@ -202,6 +198,7 @@ export async function DELETE(
       },
     });
 
+    revalidatePath('/')
     return NextResponse.json(product);
   } catch (error) {
     console.log('[PRODUCT_DELETE]', error);
@@ -493,6 +490,7 @@ export async function PATCH(
           },
         });
         
+        revalidatePath('/')
         revalidatePath(`/products/${slugify(name)}`)
         return NextResponse.json("same")
       }
@@ -743,6 +741,7 @@ export async function PATCH(
       },
     });
 
+    revalidatePath('/')
     revalidatePath(`/products/${slugify(name)}`);
 
     return NextResponse.json("success");

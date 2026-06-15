@@ -27,11 +27,7 @@ type newsCardData = Prisma.newsGetPayload<{
     description: true,
     event_date: true,
     updatedAt: true,
-    news_img: {
-      select: {
-        url: true
-      }
-    }
+    news_img_url: true
   },
 }>
 
@@ -56,12 +52,12 @@ export default function SwiperCarouselNews({ news }: SwiperCarouselNewsProps) {
             className={`${index === 0 ? "pr-4" : index === news.length - 1 ? "pl-4" : "px-2"} flex flex-col h-full w-full`}
             key={index}
           >
-            {value.news_img[0] &&
+            {value.news_img_url !== '' &&
               <Image
                 src={
-                  value.news_img[0].url.startsWith("/uploads/")
-                    ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img[0].url}`
-                    : value.news_img[0].url
+                  value.news_img_url.startsWith("/uploads/")
+                    ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img_url}`
+                    : value.news_img_url
                 }
                 alt={value.title}
                 width={500}

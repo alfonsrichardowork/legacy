@@ -155,8 +155,8 @@ const ProductBySubCategoryPage = (
                                 <TableHead key={product.name} className="items-center text-black border-2 border-black min-w-40 p-1">
                                     <div className='max-h-full max-w-full object-contain p-2'>
                                         <LazyImage
-                                            src={product.coverImg.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.coverImg.url}` : product.coverImg.url} 
-                                            alt={product.coverImg.name} 
+                                            src={product.coverImg.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.coverImg}` : product.coverImg} 
+                                            alt={product.name} 
                                             width={144}
                                             height={144} 
                                         />
@@ -268,12 +268,12 @@ const ProductBySubCategoryPage = (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            (<TableCell key={product.graph[0]?.name} className="justify-center items-center border-2 border-black p-2">
+                                            (<TableCell key={product.graph} className="justify-center items-center border-2 border-black p-2">
                                                 {product.graph.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.graph[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph[0].url}` : product.graph[0]?.url ?? '/images/legacy/no-image.webp'}
-                                                            alt={product.graph[0]?.name ?? 'No Image'}
+                                                            src={product.graph.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.graph}` : product.graph ?? '/images/legacy/no-image.webp'}
+                                                            alt={`${product.name} - Frequency Response Image`}
                                                             width={300}
                                                             height={300} 
                                                         />
@@ -297,12 +297,12 @@ const ProductBySubCategoryPage = (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            (<TableCell key={product.drawing[0]?.name} className="justify-center items-center border-2 border-black p-2">
+                                            (<TableCell key={product.drawing} className="justify-center items-center border-2 border-black p-2">
                                                 {product.drawing.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.drawing[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.drawing[0].url}` : product.drawing[0]?.url ?? '/images/legacy/no-image.webp'}
-                                                            alt={product.drawing[0]?.name ?? 'No Image'}
+                                                            src={product.drawing.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.drawing}` : product.drawing ?? '/images/legacy/no-image.webp'}
+                                                            alt={`${product.name} - Drawing Image`}
                                                             width={300}
                                                             height={300} 
                                                         />
@@ -319,12 +319,12 @@ const ProductBySubCategoryPage = (
                                     <TableRow key={index} className='hover:bg-secondary text-black border-2 border-black'>
                                         <TableCell className='font-bold bg-gray-200 border-2 border-black p-2'>{row.name}</TableCell>
                                         {finalFetchedProducts.map((product) => (
-                                            (<TableCell key={product.impedance[0]?.name} className="justify-center items-center border-2 border-black p-2">
+                                            (<TableCell key={product.impedance} className="justify-center items-center border-2 border-black p-2">
                                                 {product.impedance.length > 0 && (
                                                     (<div className='h-full w-56 mx-auto'>
                                                         <LazyImage
-                                                            src={product.impedance[0]?.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance[0].url}` : product.impedance[0]?.url ?? '/images/legacy/no-image.webp'}
-                                                            alt={product.impedance[0]?.name ?? 'No Image'}
+                                                            src={product.impedance.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${product.impedance}` : product.impedance ?? '/images/legacy/no-image.webp'}
+                                                            alt={`${product.name} - Impedance Image`}
                                                             width={300}
                                                             height={300}  
                                                         />

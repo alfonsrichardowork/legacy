@@ -5,22 +5,18 @@ type Props = {
   params: Promise<{ productSlug: string }>
 }
 
-export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const product = await prismadb.product.findFirst({
     where: {
-      id: params.productSlug
+      slug: params.productSlug
     },
     select: {
       name: true,
       slug: true,
       size: true,
-      cover_img: {
-        select: {
-          url: true
-        }
-      }
+      cover_img_url: true
     }
   })
   if(!product) {
@@ -51,7 +47,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
         //   alt: product.name,
         // },
         {
-          url: `${baseUrl}${product.cover_img[0]?.url}`,
+          url: `${baseUrl}${product.cover_img_url}`,
           width: 800,
           height: 800,
           alt: product.name,
@@ -66,7 +62,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       description: `Temukan spesifikasi dan fitur unggulan dari ${product.name}!`,
       images: [
         {
-          url: `${baseUrl}${product.cover_img[0]?.url}`,
+          url: `${baseUrl}${product.cover_img_url}`,
           width: 800,
           height: 800,
           alt: product.name,

@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import dynamic from "next/dynamic";
 import FullScreenLoader from "@/app/(legacy)/components/loadingNoScroll";
-import getProduct from "@/app/(legacy)/actions/get-one-product";
 import { Suspense } from "react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/app/(legacy)/components/ui/breadcrumb";
 import Link from "next/link";
@@ -43,12 +42,18 @@ export default async function SingleProductJsonLd(props: Props) {
             slug: productSlug
         },
         include: {
-          allCat: true,
+          allCat: {
+            include: {
+              category: {
+                select: {
+                  name: true,
+                  slug: true,
+                  type: true
+                }
+              }
+            }
+          },
           images_catalogues: true,
-          drawing_img: true,
-          graph_img: true,
-          impedance_img: true,
-          cover_img: true,
           multipleDatasheetProduct: true,
           size: true,
           connectorSpecifications: {
@@ -144,71 +149,29 @@ export default async function SingleProductJsonLd(props: Props) {
     let prod_cat: AllCategory[] = []
     let prod_sub_cat: AllCategory[] = []
     let prod_sub_sub_cat: AllCategory[] = []
-    let cover_image: FilesProp = {
-        name: '',
-        url: '',
-        productId: ''
-    }
     let all_image_catalogues : Array<FilesProp> = []
-    let all_drawing : Array<FilesProp> = []
-    let all_graph : Array<FilesProp> = []
-    let all_impedance : Array<FilesProp> = []
     let all_datasheet : Array<FilesProp> = []
-    if(data.allCat){
-        for (let i = 0; i < data.allCat.length; i++) {
-            let temp: AllCategory = {
-                id: data.allCat[i]?.id ?? '',
-                name: data.allCat[i]?.name ?? '',
-                slug: data.allCat[i]?.slug ?? ''
-            }
-            if(data.allCat[i]?.type === "Category"){
-                prod_cat.push(temp)
-            }
-            else if(data.allCat[i]?.type === "Sub Category"){
-                prod_sub_cat.push(temp)
-            }
-            else{
-                prod_sub_sub_cat.push(temp)
-            }
-        }
-    }
+    data.allCat && data.allCat.length > 0 && data.allCat.map((cat: any, i: number) => {
+      let temp: AllCategory = {
+        id: cat.id,
+        name: cat.category.name,
+        slug: cat.category.slug
+      }
+      if(cat.category.type === "Category"){
+        prod_cat.push(temp)
+      }
+      else if(cat.category.type === "Sub Category"){
+        prod_sub_cat.push(temp)
+      }
+      else{
+        prod_sub_sub_cat.push(temp)
+      }
+    })
 
-    
-        data.cover_img && data.cover_img.length > 0 && data.cover_img.map((img: any) => {
-          cover_image = {
-            name: `${data.name} - Cover`,
-            url: img.url,
-            productId: img.id
-          }
-        })
     
         data.images_catalogues && data.images_catalogues.length > 0 && data.images_catalogues.map((img: any) => {
           all_image_catalogues.push({
             name: img.name,
-            url: img.url,
-            productId: img.id
-          })
-        })
-        
-        data.drawing_img && data.drawing_img.length > 0 && data.drawing_img.map((img: any) => {
-          all_drawing.push({
-            name: `${data.name} - Drawing`,
-            url: img.url,
-            productId: img.id
-          })
-        })
-        
-        data.graph_img && data.graph_img.length > 0 && data.graph_img.map((img: any) => {
-          all_graph.push({
-            name: `${data.name} - Frequency Response`,
-            url: img.url,
-            productId: img.id
-          })
-        })
-        
-        data.impedance_img && data.impedance_img.length > 0 && data.impedance_img.map((img: any) => {
-          all_impedance.push({
-            name: `${data.name} - Impedance`,
             url: img.url,
             productId: img.id
           })
@@ -227,7 +190,7 @@ export default async function SingleProductJsonLd(props: Props) {
         "@type": "Product",
         "name": data.name,
         "description": data.name,
-        "image": data.cover_img[0]?.url,
+        "image": data.cover_img_url,
         "sku": data.slug,
         "brand": {
           "@type": "Brand",
@@ -302,17 +265,12 @@ export default async function SingleProductJsonLd(props: Props) {
                 <div className="md:order-2 order-1 md:w-1/2 justify-center md:h-1/2 block w-full h-full md:pl-2 md:pb-0 pb-4">
                     <div className="flex flex-col w-full">
                         <div>
-                            {cover_image && all_image_catalogues &&
-                                <div className="w-full h-fit pb-4">
-                                    <SwiperCoverDynamic cover={cover_image} image_catalogues={all_image_catalogues} />
-                                </div>
-                            }
-                            {(all_drawing || all_graph || all_impedance) && 
-                                <div className="w-full h-fit pb-4">
-                                    <SwiperGraphImpedanceDynamic drawing={all_drawing} graph={all_graph} impedance={all_impedance} />
-                                </div>
-                            }
-
+                            <div className="w-full h-fit pb-4">
+                              <SwiperCoverDynamic cover={data.cover_img_url} image_catalogues={all_image_catalogues} name={data.name}/>
+                            </div>
+                            <div className="w-full h-fit pb-4">
+                              <SwiperGraphImpedanceDynamic drawing={data.drawing_img_url} graph={data.graph_img_url} impedance={data.impedance_img_url} name={data.name}/>
+                            </div>
                             {all_datasheet && 
                                 <div className="pt-4 space-y-2">
                                     {all_datasheet.length > 0 && all_datasheet.map((sheet, index) => (

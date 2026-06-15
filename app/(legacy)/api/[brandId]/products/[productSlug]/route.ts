@@ -10,18 +10,23 @@ export async function GET(req: Request, props: { params: Promise<{ productSlug: 
     }
 
 
-    const product = await prismadb.product.findFirst({
+    let product = await prismadb.product.findFirst({
         where: {
-          slug: params.productSlug,
-          isArchived: false
+            slug: params.productSlug
         },
         include: {
-          allCat: true,
+          allCat: {
+            include: {
+              category: {
+                select: {
+                  name: true,
+                  slug: true,
+                  type: true
+                }
+              }
+            }
+          },
           images_catalogues: true,
-          drawing_img: true,
-          graph_img: true,
-          impedance_img: true,
-          cover_img: true,
           multipleDatasheetProduct: true,
           size: true,
           connectorSpecifications: {
@@ -32,7 +37,7 @@ export async function GET(req: Request, props: { params: Promise<{ productSlug: 
             }
           }
         }
-      });
+    })
 
     if (!product) {
       return new NextResponse("Product not found", { status: 404 });

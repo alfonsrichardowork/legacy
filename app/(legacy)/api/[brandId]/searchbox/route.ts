@@ -19,6 +19,7 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
         name: true,
         id: true,
         size: true,
+        cover_img_url: true
       },
       orderBy: {
         name: 'asc'
@@ -29,43 +30,36 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
 
     const categories = await prismadb.allproductcategory.findMany({
       where:{
-          productId:{
-              in: productIds
-          },
+        productId:{
+          in: productIds
+        },
       },
       select:{
-          type: true,
-          name: true,
-          productId: true
+        category: {
+          select: {
+            type: true,
+            name: true,
+          }
+        },
+        productId: true
       }
     })
     
-    const image_url = await prismadb.cover_image.findMany({
-      select:{
-        productId: true,
-        url: true
-      }
-    })
-
     const productsWithCategoriesandImage = products.map((product) => {
       const productCategories = categories.filter(category => category.productId === product.id);
       
       let tempName = ""
       const categoryDetails = productCategories.map(category => {
-          tempName = tempName.concat(category.name, " ");
+          tempName = tempName.concat(category.category.name, " ");
           return { tempName };
       });
-      
-      const productImage = image_url.filter(image => image.productId === product.id);
-      const final_Url = productImage.map(url => ({
-       url: url.url
-      }));
+    
 
       return {
         label: product.name,
         value: tempName,
         slug: product.slug,
-        url: final_Url,
+        url: product.cover_img_url,
         categoryDetails: categoryDetails && categoryDetails.length > 2 ? categoryDetails[2]?.tempName : "",
       };
     });

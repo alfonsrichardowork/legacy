@@ -14,9 +14,6 @@ export async function GET(req: Request, props: { params: Promise<{ brandId: stri
         isArchived: false,
         isNewProduct: true
       },
-      include:{
-        cover_img: true
-      }
     });
 
     if(products){

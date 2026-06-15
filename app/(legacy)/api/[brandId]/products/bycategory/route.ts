@@ -40,19 +40,14 @@ export async function GET(req: Request) {
       include: {
         allCat: {
           where: {
-            type: {
-              in: ['Sub Category', 'Sub Sub Category']
+            category: {
+              type: {
+                in: ['Sub Category', 'Sub Sub Category']
+              }
             }
           },
-          select: {
-            name: true,
-            slug: true,
-            type: true
-          }
-        },
-        cover_img: {
-          select: {
-            url: true
+          include:{
+            category: true
           }
         },
         size: {
@@ -87,11 +82,11 @@ export async function GET(req: Request) {
       if(specParent === 'type'){
         products.forEach((prod) => {
           prod.allCat.map((subprod) => {
-            if(subprod.type === 'Sub Sub Category'){
-              const found = allTypes.find((val) => val.slug === subprod.slug)
+            if(subprod.category.type === 'Sub Sub Category'){
+              const found = allTypes.find((val) => val.slug === subprod.category.slug)
               found && matchingSpecs.push({
                 childname: "Type",
-                value: subprod.name,
+                value: subprod.category.name,
                 notes: '',
                 slug: 'type',
                 unit: ''
@@ -103,11 +98,11 @@ export async function GET(req: Request) {
       else if(specParent === 'series'){
         products.forEach((prod) => {
           prod.allCat.map((subprod) => {
-            if(subprod.type === 'Sub Category'){
-              const found = allBrand.find((val) => val.slug === subprod.slug)
+            if(subprod.category.type === 'Sub Category'){
+              const found = allBrand.find((val) => val.slug === subprod.category.slug)
               found && matchingSpecs.push({
                 childname: "Series",
-                value: subprod.name,
+                value: subprod.category.name,
                 notes: '',
                 slug: 'series',
                 unit: ''

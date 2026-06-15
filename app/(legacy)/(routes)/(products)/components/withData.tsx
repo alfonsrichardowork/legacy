@@ -1,9 +1,10 @@
-export const dynamic = "force-dynamic";
-
 import { AllFilterProductsOnlyType, CheckBoxData, ChildSpecificationProp, SliderData } from "@/app/(legacy)/types";
 import { use } from "react";
-import AllDriversandFiltersProducts from "./components/all-filters";
-import { removeDuplicates } from "./components/remove-duplicate";
+import AllDriversandFiltersProducts from "./all-filters";
+
+function removeDuplicates<RangeSliderFilter>(arr: RangeSliderFilter[]): RangeSliderFilter[] {
+  return Array.from(new Set(arr));
+}
 
 export default function DriversPageWithData({tempDataPromise}: {
   tempDataPromise: Promise<

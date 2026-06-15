@@ -12,11 +12,7 @@ export async function GET(
         select: {
           name: true,
           slug: true,
-          cover_img: {
-            select: {
-              url: true
-            }
-          },
+          cover_img_url: true,
           id: true
         }
       });

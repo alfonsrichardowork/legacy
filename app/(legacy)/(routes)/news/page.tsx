@@ -4,7 +4,10 @@ import { Loader } from "../../components/ui/loader";
 import prismadb from "@/lib/prismadb";
 import AllNewsandFilters from "./components/all-filters";
 import { SliderDataNews } from "../../types";
-import { removeDuplicates } from "../(products)/drivers/components/remove-duplicate";
+
+function removeDuplicates<RangeSliderFilter>(arr: RangeSliderFilter[]): RangeSliderFilter[] {
+  return Array.from(new Set(arr));
+}
 
 function createFilterProps(
   key: string,
@@ -41,11 +44,7 @@ export default async function News() {
       description: true,
       event_date: true,
       updatedAt: true,
-      news_img: {
-        select: {
-          url: true
-        }
-      }
+      news_img_url: true
     },
     orderBy: {
       event_date: 'desc',
@@ -64,7 +63,7 @@ export default async function News() {
       "item": {
         "@type": "NewsArticle",
         "headline": news.title,
-        "image": `${baseUrl}${news.news_img[0]?.url}`,
+        "image": `${baseUrl}${news.news_img_url}`,
         "url": `${baseUrl}/news/${news.slug}`,
         "description": news.description,
         "datePublished": news.event_date,

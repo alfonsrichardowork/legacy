@@ -38,11 +38,7 @@ export default async function SingleNewsPage({
       description: true,
       event_date: true,
       updatedAt: true,
-      news_img: {
-        select: {
-          url: true
-        }
-      }
+      news_img_url: true
     }
   });
 
@@ -66,7 +62,7 @@ export default async function SingleNewsPage({
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "headline": oneNews.title,
-    "image": oneNews.news_img[0] ? oneNews.news_img[0].url : '',
+    "image": oneNews.news_img_url,
     "description": oneNews?.description,
     "datePublished": oneNews?.event_date,
     "dateModified": oneNews?.updatedAt,
@@ -120,8 +116,8 @@ export default async function SingleNewsPage({
               <div className="w-full text-black">
                 {/* Image with reserved space */}
                 <div className="relative w-full sm:w-1/3 aspect-square">
-                {oneNews.news_img[0] &&
-                  <LazyImageContact src={oneNews.news_img[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${oneNews.news_img[0].url}` : oneNews.news_img[0].url} alt={oneNews.title}/>
+                {oneNews.news_img_url !== '' &&
+                  <LazyImageContact src={oneNews.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${oneNews.news_img_url}` : oneNews.news_img_url} alt={oneNews.title}/>
                 }
                 </div>
 

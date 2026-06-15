@@ -15,11 +15,7 @@ type NewsCardData = Prisma.newsGetPayload<{
     description: true,
     event_date: true,
     updatedAt: true,
-    news_img: {
-        select: {
-        url: true
-        }
-    }
+    news_img_url: true
     },
 }>
 
@@ -37,9 +33,9 @@ const NewsCard: React.FC<NewsCardProps> =  ({ data }) => {
     <div className="py-4" data-testid="news-card">
       <div className="md:flex block items-center">    
         {/* <div className="w-fit">  */}
-        {data.news_img[0] &&
+        {data.news_img_url !== '' &&
           <Image
-            src={data.news_img[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${data.news_img[0].url}` : data.news_img[0].url} 
+            src={data.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${data.news_img_url}` : data.news_img_url} 
             alt={data.title} 
             width={300}
             height={300}

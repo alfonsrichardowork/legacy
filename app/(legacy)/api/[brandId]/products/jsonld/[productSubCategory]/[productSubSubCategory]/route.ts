@@ -17,8 +17,10 @@ export async function GET(
     
     const productIdbySubCat =  await prismadb.allproductcategory.findMany({
       where:{
+        category: {
           slug: params.productSubCategory,
           type: 'Sub Category'
+        }
       },
       select:{
           productId: true
@@ -29,8 +31,10 @@ export async function GET(
 
     const productIdbySubSubCat =  await prismadb.allproductcategory.findMany({
       where:{
+        category: {
           slug: params.productSubSubCategory,
           type: 'Sub Sub Category'
+        }
       },
       select:{
           productId: true
@@ -51,11 +55,7 @@ export async function GET(
         select: {
           name: true,
           slug: true,
-          cover_img: {
-            select: {
-              url: true
-            }
-          },
+          cover_img_url: true,
           id: true
         }
       });

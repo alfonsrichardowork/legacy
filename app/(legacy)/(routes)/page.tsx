@@ -36,11 +36,7 @@ export default async function LandingPageLegacy() {
       slug: true,
       featuredDesc: true,
       series: true,
-      featured_img: {
-        select: {
-          url: true
-        }
-      },
+      featured_img_url: true
     },
     orderBy: {
       createdAt: 'desc',
@@ -57,11 +53,7 @@ export default async function LandingPageLegacy() {
       description: true,
       event_date: true,
       updatedAt: true,
-      news_img: {
-        select: {
-          url: true
-        }
-      }
+      news_img_url: true
     },
     orderBy: {
       event_date: 'desc',
@@ -160,9 +152,9 @@ export default async function LandingPageLegacy() {
                       } h-full`}
                       key={index}
                     >
-                      {value.news_img[0] &&
+                      {value.news_img_url !== '' &&
                         <Image
-                          src={value.news_img[0].url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img[0].url}` : value.news_img[0].url}
+                          src={value.news_img_url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${value.news_img_url}` : value.news_img_url}
                           alt={value.title}
                           width={500}
                           height={500}

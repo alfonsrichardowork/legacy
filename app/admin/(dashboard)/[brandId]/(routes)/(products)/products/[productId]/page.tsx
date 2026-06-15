@@ -14,10 +14,6 @@ const ProductPage = async (
     },
     include: {
       images_catalogues: true,
-      cover_img: true,
-      drawing_img: true,
-      graph_img: true,
-      impedance_img: true,
       multipleDatasheetProduct: true,
     },
   });

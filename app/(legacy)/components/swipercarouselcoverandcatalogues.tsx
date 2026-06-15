@@ -5,10 +5,15 @@ import React, { useRef, useState } from 'react';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
+//@ts-ignore
 import 'swiper/css';
+//@ts-ignore
 import 'swiper/css/free-mode';
+//@ts-ignore
 import 'swiper/css/navigation';
+//@ts-ignore
 import 'swiper/css/pagination';
+//@ts-ignore
 import 'swiper/css/thumbs';
 
 // import required modules
@@ -28,8 +33,9 @@ import { LazyImageCustom } from './lazyImageCustom';
 
 
 type PropType = {
-  cover: FilesProp
+  cover: string
   image_catalogues: FilesProp[]
+  name: string
 }
 
 const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
@@ -41,7 +47,7 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
     setLightboxOpen(true)
   }
 
-  const { cover, image_catalogues } = props
+  const { cover, image_catalogues, name } = props
   const swiperRef = useRef<SwiperClass | null>(null);
   const [realIndex, setRealIndex] = useState(0);
 
@@ -100,15 +106,15 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
                   </SwiperSlide>
               ))}
               {cover && 
-                  <SwiperSlide key={cover.name} data-testid={`swiper-slide-cover`}>
+                  <SwiperSlide key={name} data-testid={`swiper-slide-cover`}>
                     <div className="h-full flex justify-center items-center cursor-pointer"
                     onClick={() => openLightbox(0)}>
                       <Card className="border-none h-full w-full flex items-center justify-center bg-transparent hover:bg-slate-200">
                         <CardContent className="p-6 flex items-center justify-center w-full h-full">
                           <div className="relative overflow-hidden flex items-center justify-center h-[200px] w-full">
                               <LazyImageCustom
-                                src={cover.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover.url}` : cover.url} 
-                                alt={cover.name} 
+                                src={cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover} 
+                                alt={name} 
                                 width={500}
                                 height={500}
                                 classname="max-h-full max-w-full object-contain"
@@ -191,9 +197,9 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           slides=
           {[
             { 
-              src: cover.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover.url}` : cover.url,
-              title: cover.name,
-              alt: cover.name
+              src: cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover,
+              title: name,
+              alt: name
             },
             ...image_catalogues.map((item, index) => ({ 
               src: item.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${item.url}` : item.url, 
@@ -208,9 +214,9 @@ const SwiperCarouselOneProduct: React.FC<PropType> = (props) => {
           close={() => setLightboxOpen(false)}
           index={lightboxIndex}
           slides={[{ 
-            src: cover.url.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover.url}` : cover.url, 
-            title: cover.name, 
-            alt: cover.name
+            src: cover.startsWith('/uploads/') ? `${process.env.NEXT_PUBLIC_ROOT_URL}${cover}` : cover, 
+            title: name, 
+            alt: name
           }]}
           plugins={[Zoom, Captions]}
         />
