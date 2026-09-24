@@ -9,6 +9,9 @@ import { Separator } from "@/components/ui/separator";
 import SpecificationTable from "@/app/(legacy)/components/spec-table";
 import prismadb from "@/lib/prismadb";
 import { AllCategory, ChildSpecificationProp, FilesProp, Size, SpecificationProp } from "@/app/(legacy)/types";
+import { cacheLife } from "next/cache";
+
+
 
 export async function generateStaticParams() {
   const allProducts = await prismadb.product.findMany({select: {slug: true}})
@@ -34,37 +37,45 @@ type Props = {
   params: Promise<{ productSlug?: string }>
 }
 
-export default async function SingleProductJsonLd(props: Props) {
-    const { productSlug = '' } = await props.params;
-    const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
-    let data = await prismadb.product.findFirst({
-        where: {
-            slug: productSlug
-        },
+async function getData(productSlug: string) {
+  'use cache'
+  cacheLife('minutes')
+  let data = await prismadb.product.findFirst({
+    where: {
+        slug: productSlug
+    },
+    include: {
+      allCat: {
         include: {
-          allCat: {
-            include: {
-              category: {
-                select: {
-                  name: true,
-                  slug: true,
-                  type: true
-                }
-              }
-            }
-          },
-          images_catalogues: true,
-          multipleDatasheetProduct: true,
-          size: true,
-          connectorSpecifications: {
-            include: {
-              dynamicspecification: true,
-              dynamicspecificationParent: true,
-              dynamicspecificationSubParent: true
+          category: {
+            select: {
+              name: true,
+              slug: true,
+              type: true
             }
           }
         }
-    })
+      },
+      images_catalogues: true,
+      multipleDatasheetProduct: true,
+      size: true,
+      connectorSpecifications: {
+        include: {
+          dynamicspecification: true,
+          dynamicspecificationParent: true,
+          dynamicspecificationSubParent: true
+        }
+      }
+    }
+  })
+  return data
+}
+
+
+export default async function SingleProductJsonLd(props: Props) {
+    const { productSlug = '' } = await props.params;
+    const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3000';
+    const data = await getData(productSlug)
     if(!data){
         redirect('/notfound')
     }

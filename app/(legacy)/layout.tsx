@@ -7,6 +7,7 @@ import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
 import '@/app/globals.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Suspense } from 'react';
 
 const font = Inter({ subsets: ['latin'] })
 
@@ -91,22 +92,24 @@ export default function RootlegacyLayout({
       />
     </head>
     <body className={`${font.className || ''} overflow-x-hidden`}>
-      <ScrollToTop />
-      <div className='min-h-screen'>
-        <NextTopLoader color='#f0ad4e' showSpinner={false}/>
-        <div className="sticky top-0 z-50 bg-transparent bg-cover bg-center">
-          <Navbar />
+      <Suspense fallback={<></>}>
+        <ScrollToTop />
+        <div className='min-h-screen'>
+          <NextTopLoader color='#f0ad4e' showSpinner={false}/>
+          <div className="sticky top-0 z-50 bg-transparent bg-cover bg-center">
+            <Navbar />
+          </div>
+          <div className="flex flex-col min-h-screen">
+            <main className="grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </div>
-        <div className="flex flex-col min-h-screen">
-          <main className="grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
-      </div>
-      <Toaster />
+        <Toaster />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ''} />
+      </Suspense>
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ''} />
     </html>
   )
 }

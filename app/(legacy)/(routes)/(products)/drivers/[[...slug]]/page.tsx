@@ -6,6 +6,313 @@ import { AllFilterProductsOnlyType, CheckBoxData, ChildSpecificationProp, Slider
 import DriversPageWithData from '../../components/withData';
 import FullScreenLoader from '@/app/(legacy)/components/loadingNoScroll';
 import AllDriversandFiltersProducts from '../../components/all-filters';
+import { cacheLife } from 'next/cache';
+
+async function getAllDriversData(neededSpec: string[]) {
+  'use cache'
+  cacheLife('minutes')
+  const allTypes = await prismadb.allcategory.findMany({
+    where: {
+      type: 'Sub Sub Category'
+    },
+    select:{
+      slug: true
+    }
+  })
+  
+  const allBrand = await prismadb.allcategory.findMany({
+    where: {
+      type: 'Sub Category'
+    }
+  })
+
+  const allSpecsNeeded = await prismadb.dynamicspecification.findMany({
+    where: {
+      slug: {
+        in : neededSpec.map((val) => val)
+      }
+    },
+    select: {
+      id: true
+    }
+  })
+
+  const products = await prismadb.product.findMany({
+    where: {
+      isArchived: false
+    },
+    include: {
+      allCat: {
+        where: {
+          category: {
+            type: {
+              in: ['Sub Category', 'Sub Sub Category']
+            }
+          }
+        },
+        include:{
+          category: true
+        }
+      },
+      size: {
+        select: {
+          name: true,
+          value: true
+        }
+      },
+      connectorSpecifications: {
+        where: {
+          dynamicspecificationId: {
+            in: allSpecsNeeded.map((val) => val.id)
+          }
+        },
+        include: {
+          dynamicspecification: {
+            select: {
+              name: true,
+              unit: true,
+              slug: true
+            }
+          }
+        }
+      }
+    }
+  });
+  return [allTypes, allBrand, products] as const;
+}
+
+async function getDriverData(subslug: string) {
+  'use cache'
+  cacheLife('minutes')
+  const productIdbyCat =  await prismadb.allproductcategory.findMany({
+    where:{
+      category: {
+        slug: subslug,
+        type: 'Sub Category'
+      }
+    },
+    select:{
+        productId: true
+    }
+  })
+  const productIds = productIdbyCat.map((value) => value.productId)
+
+  let neededSpec = allproductsSubCat
+    const allTypes = await prismadb.allcategory.findMany({
+      where: {
+        type: 'Sub Sub Category'
+      },
+      select:{
+        slug: true
+      }
+    })
+    
+    const allBrand = await prismadb.allcategory.findMany({
+      where: {
+        type: 'Sub Category'
+      }
+    })
+
+  const allSpecsNeeded = await prismadb.dynamicspecification.findMany({
+    where: {
+      slug: {
+        in : neededSpec.map((val) => val)
+      }
+    },
+    select: {
+      id: true
+    }
+  })
+
+  // if(params.brandId === process.env.NEXT_PUBLIC_SB_AUDIENCE_ID) {     
+  const products = await prismadb.product.findMany({
+    where: {
+      id: {
+        in: productIds
+      },
+      isArchived: false
+    },
+    include: {
+      allCat: {
+        where: {
+          category: {
+            type: {
+              in: ['Sub Category', 'Sub Sub Category']
+            }
+          }
+        },
+        include: {
+          category: true
+        }
+      },
+      size: {
+        select: {
+          name: true,
+          value: true
+        }
+      },
+      connectorSpecifications: {
+        where: {
+          dynamicspecificationId: {
+            in: allSpecsNeeded.map((val) => val.id)
+          }
+        },
+        include: {
+          dynamicspecification: {
+            select: {
+              name: true,
+              unit: true,
+              slug: true
+            }
+          }
+        }
+      }
+    }
+  });
+
+  return [allTypes, allBrand, products, neededSpec] as const;
+}
+
+
+async function getOneDriverData(subslug: string) {
+  'use cache'
+  cacheLife('minutes')
+  const [subCatNameResult] = await Promise.allSettled([
+    await prismadb.allcategory.findFirst({
+      where: {
+        slug: subslug,
+        type: "Sub Category"
+      },
+      select:{
+        name: true,
+        description: true
+      }
+    })
+  ]);
+  return subCatNameResult
+}
+
+
+async function getData(subslug: string) {
+  'use cache'
+  cacheLife('minutes')
+  const productIdbyCat =  await prismadb.allproductcategory.findMany({
+    where:{
+      category: {
+        slug: subslug,
+        type: 'Sub Category'
+      }
+    },
+    select:{
+        productId: true
+    }
+  })
+
+  const productIds = productIdbyCat.map((value) => value.productId)
+
+  let neededSpec = allproductsSubCat
+    const allTypes = await prismadb.allcategory.findMany({
+      where: {
+        type: 'Sub Sub Category'
+      },
+      select:{
+        slug: true
+      }
+    })
+    
+    const allBrand = await prismadb.allcategory.findMany({
+      where: {
+        type: 'Sub Category'
+      }
+    })
+
+  const allSpecsNeeded = await prismadb.dynamicspecification.findMany({
+    where: {
+      slug: {
+        in : neededSpec.map((val) => val)
+      }
+    },
+    select: {
+      id: true
+    }
+  })
+
+  // if(params.brandId === process.env.NEXT_PUBLIC_SB_AUDIENCE_ID) {     
+  const products = await prismadb.product.findMany({
+    where: {
+      id: {
+        in: productIds
+      },
+      isArchived: false
+    },
+    include: {
+      allCat: {
+        where: {
+          category: {
+            type: {
+              in: ['Sub Category', 'Sub Sub Category']
+            }
+          }
+        },
+        include: {
+          category: true
+        }
+      },
+      size: {
+        select: {
+          name: true,
+          value: true
+        }
+      },
+      connectorSpecifications: {
+        where: {
+          dynamicspecificationId: {
+            in: allSpecsNeeded.map((val) => val.id)
+          }
+        },
+        include: {
+          dynamicspecification: {
+            select: {
+              name: true,
+              unit: true,
+              slug: true
+            }
+          }
+        }
+      }
+    }
+  });
+  return [allTypes, allBrand, products, neededSpec] as const;
+}
+
+async function getFinalData(subslug: string, subsubslug: string) {
+  'use cache'
+  cacheLife('minutes')
+  const [subCatNameResult, subSubCatNameResult] = await Promise.allSettled([
+    await prismadb.allcategory.findFirst({
+      where: {
+        slug: subslug,
+        type: "Sub Category"
+      },
+      select:{
+        name: true,
+        description: true
+      }
+    }),
+    await prismadb.allcategory.findFirst({
+      where: {
+        slug: subsubslug ?? '',
+        type: "Sub Sub Category"
+      },
+      select:{
+        name: true,
+        description: true
+      }
+    })
+  ]);
+  return [subCatNameResult, subSubCatNameResult] as const;
+}
+
 
 export async function generateStaticParams() {
     const connectors = await prismadb.allproductcategory.findMany({
@@ -122,74 +429,7 @@ export default async function DriversPage({
 
   if(!subslug){
     let neededSpec = allproducts
-    const allTypes = await prismadb.allcategory.findMany({
-      where: {
-        type: 'Sub Sub Category'
-      },
-      select:{
-        slug: true
-      }
-    })
-    
-    const allBrand = await prismadb.allcategory.findMany({
-      where: {
-        type: 'Sub Category'
-      }
-    })
-
-    const allSpecsNeeded = await prismadb.dynamicspecification.findMany({
-      where: {
-        slug: {
-          in : neededSpec.map((val) => val)
-        }
-      },
-      select: {
-        id: true
-      }
-    })
- 
-    const products = await prismadb.product.findMany({
-      where: {
-        isArchived: false
-      },
-      include: {
-        allCat: {
-          where: {
-            category: {
-              type: {
-                in: ['Sub Category', 'Sub Sub Category']
-              }
-            }
-          },
-          include:{
-            category: true
-          }
-        },
-        size: {
-          select: {
-            name: true,
-            value: true
-          }
-        },
-        connectorSpecifications: {
-          where: {
-            dynamicspecificationId: {
-              in: allSpecsNeeded.map((val) => val.id)
-            }
-          },
-          include: {
-            dynamicspecification: {
-              select: {
-                name: true,
-                unit: true,
-                slug: true
-              }
-            }
-          }
-        }
-      }
-    });
-
+    const [allTypes, allBrand, products] = await getAllDriversData(neededSpec)
     let allSpecsCombined: Record<string, ChildSpecificationProp[]> = {}
     neededSpec.forEach((specParent) => {
       const matchingSpecs: ChildSpecificationProp[] = []
@@ -366,92 +606,9 @@ export default async function DriversPage({
 
   if(subslug && !subsubslug) {
 
-    const productIdbyCat =  await prismadb.allproductcategory.findMany({
-      where:{
-        category: {
-          slug: subslug,
-          type: 'Sub Category'
-        }
-      },
-      select:{
-          productId: true
-      }
-    })
+    const [allTypes, allBrand, products, neededSpec] = await getDriverData(subslug)
 
-    const productIds = productIdbyCat.map((value) => value.productId)
-
-    let neededSpec = allproductsSubCat
-      const allTypes = await prismadb.allcategory.findMany({
-        where: {
-          type: 'Sub Sub Category'
-        },
-        select:{
-          slug: true
-        }
-      })
-      
-      const allBrand = await prismadb.allcategory.findMany({
-        where: {
-          type: 'Sub Category'
-        }
-      })
-
-    const allSpecsNeeded = await prismadb.dynamicspecification.findMany({
-      where: {
-        slug: {
-          in : neededSpec.map((val) => val)
-        }
-      },
-      select: {
-        id: true
-      }
-    })
-
-    // if(params.brandId === process.env.NEXT_PUBLIC_SB_AUDIENCE_ID) {     
-    const products = await prismadb.product.findMany({
-      where: {
-        id: {
-          in: productIds
-        },
-        isArchived: false
-      },
-      include: {
-        allCat: {
-          where: {
-            category: {
-              type: {
-                in: ['Sub Category', 'Sub Sub Category']
-              }
-            }
-          },
-          include: {
-            category: true
-          }
-        },
-        size: {
-          select: {
-            name: true,
-            value: true
-          }
-        },
-        connectorSpecifications: {
-          where: {
-            dynamicspecificationId: {
-              in: allSpecsNeeded.map((val) => val.id)
-            }
-          },
-          include: {
-            dynamicspecification: {
-              select: {
-                name: true,
-                unit: true,
-                slug: true
-              }
-            }
-          }
-        }
-      }
-    });
+    
 
     let allSpecsCombined: Record<string, ChildSpecificationProp[]> = {}
     neededSpec.forEach((specParent) => {
@@ -638,19 +795,7 @@ export default async function DriversPage({
     showserver = false
   }
   
-  
-  const [subCatNameResult] = await Promise.allSettled([
-    await prismadb.allcategory.findFirst({
-      where: {
-        slug: subslug,
-        type: "Sub Category"
-      },
-      select:{
-        name: true,
-        description: true
-      }
-    })
-  ]);
+  const subCatNameResult = await getOneDriverData(subslug);
 
   const subCatName = subCatNameResult.status === 'fulfilled' && subCatNameResult.value ? subCatNameResult.value : { name: '', description: '' };
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
@@ -701,92 +846,7 @@ export default async function DriversPage({
   );
   }
   else{
-    const productIdbyCat =  await prismadb.allproductcategory.findMany({
-      where:{
-        category: {
-          slug: subslug,
-          type: 'Sub Category'
-        }
-      },
-      select:{
-          productId: true
-      }
-    })
-
-    const productIds = productIdbyCat.map((value) => value.productId)
-
-    let neededSpec = allproductsSubCat
-      const allTypes = await prismadb.allcategory.findMany({
-        where: {
-          type: 'Sub Sub Category'
-        },
-        select:{
-          slug: true
-        }
-      })
-      
-      const allBrand = await prismadb.allcategory.findMany({
-        where: {
-          type: 'Sub Category'
-        }
-      })
-
-    const allSpecsNeeded = await prismadb.dynamicspecification.findMany({
-      where: {
-        slug: {
-          in : neededSpec.map((val) => val)
-        }
-      },
-      select: {
-        id: true
-      }
-    })
-
-    // if(params.brandId === process.env.NEXT_PUBLIC_SB_AUDIENCE_ID) {     
-    const products = await prismadb.product.findMany({
-      where: {
-        id: {
-          in: productIds
-        },
-        isArchived: false
-      },
-      include: {
-        allCat: {
-          where: {
-            category: {
-              type: {
-                in: ['Sub Category', 'Sub Sub Category']
-              }
-            }
-          },
-          include: {
-            category: true
-          }
-        },
-        size: {
-          select: {
-            name: true,
-            value: true
-          }
-        },
-        connectorSpecifications: {
-          where: {
-            dynamicspecificationId: {
-              in: allSpecsNeeded.map((val) => val.id)
-            }
-          },
-          include: {
-            dynamicspecification: {
-              select: {
-                name: true,
-                unit: true,
-                slug: true
-              }
-            }
-          }
-        }
-      }
-    });
+    const [allTypes, allBrand, products, neededSpec] = await getData(subslug);
 
     let allSpecsCombined: Record<string, ChildSpecificationProp[]> = {}
     neededSpec.forEach((specParent) => {
@@ -973,28 +1033,7 @@ export default async function DriversPage({
   }
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   
-  const [subCatNameResult, subSubCatNameResult] = await Promise.allSettled([
-    await prismadb.allcategory.findFirst({
-      where: {
-        slug: subslug,
-        type: "Sub Category"
-      },
-      select:{
-        name: true,
-        description: true
-      }
-    }),
-    await prismadb.allcategory.findFirst({
-      where: {
-        slug: subsubslug ?? '',
-        type: "Sub Sub Category"
-      },
-      select:{
-        name: true,
-        description: true
-      }
-    })
-  ]);
+  const [subCatNameResult, subSubCatNameResult] = await getFinalData(subslug, subsubslug ?? '');
 
   const subCatName = subCatNameResult.status === 'fulfilled' && subCatNameResult.value ? subCatNameResult.value : { name: '', description: '' };
   const subSubCatName = subSubCatNameResult.status === 'fulfilled' && subSubCatNameResult.value ? subSubCatNameResult.value : { name: '', description: '' };

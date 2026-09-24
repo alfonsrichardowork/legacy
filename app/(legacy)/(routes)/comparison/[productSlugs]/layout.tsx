@@ -3,7 +3,7 @@ import { Metadata, ResolvingMetadata } from 'next'
 type Props = {
   params: Promise<{ productSlugs: string }>
 }
- 
+
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
   const slugs = decodeURIComponent(params.productSlugs); 

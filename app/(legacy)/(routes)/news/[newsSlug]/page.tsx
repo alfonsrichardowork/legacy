@@ -9,6 +9,7 @@ import {
 import { LazyImageContact } from "@/app/(legacy)/components/lazyImageContact";
 import DompurifyContent from "@/app/(legacy)/components/dompurifyText";
 import prismadb from "@/lib/prismadb";
+import { cacheLife } from "next/cache";
 
 export async function generateStaticParams() {
   const allNews = await prismadb.news.findMany({select: {slug: true}})
@@ -17,14 +18,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function SingleNewsPage({
-  params,
-}: {
-  params: Promise<{ newsSlug: string }>
-}) {
-  const { newsSlug } = await params
-
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
+async function getData(newsSlug: string) {
+  'use cache'
+  cacheLife('minutes')
   const oneNews = await prismadb.news.findFirst({
     where: {
       slug: newsSlug
@@ -41,6 +37,18 @@ export default async function SingleNewsPage({
       news_img_url: true
     }
   });
+  return oneNews
+}
+
+export default async function SingleNewsPage({
+  params,
+}: {
+  params: Promise<{ newsSlug: string }>
+}) {
+  const { newsSlug } = await params
+  const oneNews = await getData(newsSlug);
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
+  
 
 
   const formatDate = (isoDate: string): string => {
@@ -136,5 +144,5 @@ export default async function SingleNewsPage({
         </div>
     </>
   );
-};
+}
 

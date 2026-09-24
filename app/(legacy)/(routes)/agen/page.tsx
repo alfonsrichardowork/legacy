@@ -5,9 +5,17 @@ import { Suspense } from "react";
 import { Loader } from "../../components/ui/loader";
 import prismadb from "@/lib/prismadb";
 import { Phone } from "lucide-react";
+import { cacheLife } from "next/cache";
+
+async function getData() {
+  'use cache'
+  cacheLife('minutes')
+  const agen = await prismadb.agen.findMany({});
+  return agen
+}
 
 export default async function Agen() {
-  const agen = await prismadb.agen.findMany({});
+  const agen = await getData()
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const subOrganizations = agen.map((val: agen) => ({
     "@type": "LocalBusiness",

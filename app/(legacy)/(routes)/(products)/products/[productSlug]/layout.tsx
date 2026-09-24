@@ -1,16 +1,17 @@
 import prismadb from "@/lib/prismadb";
 import { Metadata, ResolvingMetadata } from "next"
+import { cacheLife } from "next/cache";
 
 type Props = {
   params: Promise<{ productSlug: string }>
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
+async function getData(productSlug: string) {
+  'use cache'
+  cacheLife('minutes')
   const product = await prismadb.product.findFirst({
     where: {
-      slug: params.productSlug
+      slug: productSlug
     },
     select: {
       name: true,
@@ -19,6 +20,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       cover_img_url: true
     }
   })
+  return product 
+}
+
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
+  const product = await getData(params.productSlug)
   if(!product) {
     return {
       title: 'Product Not Found'

@@ -86,7 +86,7 @@ export async function uploadDatasheet(formData: FormData, folder: string) {
     throw new Error("Invalid file type");
   }
 
-  const filePath = path.join(uploadDir, uniqueFilename);
+  const filePath = path.join(/* turbopackIgnore: true */ uploadDir, uniqueFilename);
 
   await fs.writeFile(filePath, buffer);
 

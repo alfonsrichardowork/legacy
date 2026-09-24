@@ -5,6 +5,7 @@ import { checkAuth, checkBearerAPI, getSession } from "@/app/admin/actions";
 import { revalidatePath } from "next/cache";
 import path from 'path';
 import fs from 'fs/promises';
+import { uploadsprefix } from "@/lib/uploads-prefix";
 
 
 export async function PATCH(req: Request, props: { params: Promise<{ brandId: string }> }) {
@@ -55,19 +56,35 @@ export async function PATCH(req: Request, props: { params: Promise<{ brandId: st
       if(oldUrl && oldUrl.length > 0) {
         oldUrl.map( async (val) => {
           if(val.img != img) {
-            const ImgPath = path.join(process.cwd(), val.img);
-            try {
-              await fs.unlink(ImgPath);
-            } catch (error) {
-              console.warn(`Could not delete file ${val.img}:`, error);
+            if(val.img.startsWith(uploadsprefix)){
+              const filename = val.img.slice(uploadsprefix.length)
+              // if (filename && path.basename(filename) === filename) {
+                const imgPath = path.join(process.cwd(), 'uploads', filename);
+                try {
+                  await fs.unlink(imgPath);
+                } catch (error) {
+                  console.warn(`Could not delete file ${val.img}:`, error);
+                } 
+              // }
+            }
+            else{
+              console.warn(`Not inside uploads folder`);
             }
           }
           if(val.imgHomePage != imgHomePage) {
-            const ImgPath = path.join(process.cwd(), val.imgHomePage);
-            try {
-              await fs.unlink(ImgPath);
-            } catch (error) {
-              console.warn(`Could not delete file ${val.imgHomePage}:`, error);
+            if(val.imgHomePage.startsWith(uploadsprefix)){
+              const filename = val.imgHomePage.slice(uploadsprefix.length)
+              // if (filename && path.basename(filename) === filename) {
+                const imgPath = path.join(process.cwd(), 'uploads', filename);
+                try {
+                  await fs.unlink(imgPath);
+                } catch (error) {
+                  console.warn(`Could not delete file ${val.imgHomePage}:`, error);
+                } 
+              // }
+            }
+            else{
+              console.warn(`Not inside uploads folder`);
             }
           }
         })

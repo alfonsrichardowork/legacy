@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { Metadata, ResolvingMetadata } from "next"
+import { cacheLife } from "next/cache";
 
 type Props = {
   params: Promise<{ newsSlug: string }>
@@ -13,11 +14,12 @@ function stripHtmlAndTruncate(html: string, wordLimit: number = 30): string {
   return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : plainText;
 }
 
-export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
-  const params = await props.params;
+async function getData(newsSlug: string) {
+  'use cache'
+  cacheLife('minutes')
   const onenews = await prismadb.news.findFirst({
     where: {
-      slug: params.newsSlug
+      slug: newsSlug
     },
     select: {
       id: true,
@@ -31,6 +33,13 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
       news_img_url: true
     }
   });
+  return onenews
+}
+
+
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params;
+  const onenews = await getData(params.newsSlug)
   if(!onenews) {
     return {
       title: 'No News Found'

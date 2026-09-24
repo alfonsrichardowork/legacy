@@ -3,13 +3,21 @@ import { Suspense } from "react"
 import ContactUsClient from "./pageClient"
 import { Loader } from "../../components/ui/loader"
 import prismadb from "@/lib/prismadb"
+import { cacheLife } from "next/cache"
 
 function formatPhoneNumbers(phone: string): string {
   return phone.split("||").join(", ")
 }
 
-export default async function ContactUsJsonLd() {
+async function getData() {
+  'use cache'
+  cacheLife('minutes')
   const contacts = await prismadb.contacts.findMany({});
+  return contacts
+}
+
+export default async function ContactUsJsonLd() {
+  const contacts = await getData();
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? "http://localhost:3001"
 
   const subContacts = contacts.map((val: contacts) => ({

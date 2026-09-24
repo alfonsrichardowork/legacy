@@ -5,9 +5,17 @@ import prismadb from "@/lib/prismadb";
 import Link from "next/link";
 import { FileDown } from "lucide-react";
 import { catalogues } from "@prisma/client";
+import { cacheLife } from "next/cache";
 
-export default async function Catalog() {  
+async function getData() {
+  'use cache'
+  cacheLife('minutes')
   const catalogData = await prismadb.catalogues.findMany({});
+  return catalogData
+}
+
+export default async function Catalog() {
+  const catalogData = await getData()
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const jsonLd = {
     "@context": "https://schema.org",

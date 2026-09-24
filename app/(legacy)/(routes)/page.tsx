@@ -12,19 +12,11 @@ import DompurifyContent from '../components/dompurifyText';
 import { Button } from '@/components/ui/button';
 import SwiperCarouselNews from '../components/swipercarouselnews';
 import SwiperCarouselKeunggulan from '../components/swipercarouselkeunggulan';
+import { cacheLife } from 'next/cache';
 
-export default async function LandingPageLegacy() {  
-  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Legacy Speaker",
-    "url": `${baseUrl}`,
-    "logo": `${baseUrl}/images/legacy/logo_legacy.webp`,
-    "sameAs": [
-      "https://www.instagram.com/legacy.speaker",
-    ]
-  };
+async function getData() {
+  'use cache'
+  cacheLife('minutes')
   const featuredProducts = await prismadb.product.findMany({
     where: {
       isFeatured: true,
@@ -62,6 +54,22 @@ export default async function LandingPageLegacy() {
   });
   const about = await prismadb.brand.findFirst({});
   const superior = await prismadb.superior.findMany({});
+  return [featuredProducts, series, allNews, about, superior] as const;
+}
+
+export default async function LandingPageLegacy() {  
+  const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Legacy Speaker",
+    "url": `${baseUrl}`,
+    "logo": `${baseUrl}/images/legacy/logo_legacy.webp`,
+    "sameAs": [
+      "https://www.instagram.com/legacy.speaker",
+    ]
+  };
+  const [featuredProducts, series, allNews, about, superior] = await getData();
   return (
     <>
       <script

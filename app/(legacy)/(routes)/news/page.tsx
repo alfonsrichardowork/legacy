@@ -4,6 +4,29 @@ import { Loader } from "../../components/ui/loader";
 import prismadb from "@/lib/prismadb";
 import AllNewsandFilters from "./components/all-filters";
 import { SliderDataNews } from "../../types";
+import { cacheLife } from "next/cache";
+
+async function getData() {
+  'use cache'
+  cacheLife('minutes')
+  const allnews = await prismadb.news.findMany({
+    select: {
+      id: true, 
+      title: true,
+      slug: true,
+      link_placeholder: true,
+      link_url: true,
+      description: true,
+      event_date: true,
+      updatedAt: true,
+      news_img_url: true
+    },
+    orderBy: {
+      event_date: 'desc',
+    },
+  });
+  return allnews
+}
 
 function removeDuplicates<RangeSliderFilter>(arr: RangeSliderFilter[]): RangeSliderFilter[] {
   return Array.from(new Set(arr));
@@ -34,22 +57,7 @@ const monthMap: Record<string, string> = {
 };
 
 export default async function News() { 
-  const allnews = await prismadb.news.findMany({
-    select: {
-      id: true, 
-      title: true,
-      slug: true,
-      link_placeholder: true,
-      link_url: true,
-      description: true,
-      event_date: true,
-      updatedAt: true,
-      news_img_url: true
-    },
-    orderBy: {
-      event_date: 'desc',
-    },
-  });
+  const allnews = await getData()
   const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? 'http://localhost:3001';
   const jsonLd = {
     "@context": "https://schema.org",

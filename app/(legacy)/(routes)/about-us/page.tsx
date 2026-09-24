@@ -4,15 +4,23 @@ import { Loader } from "../../components/ui/loader";
 import prismadb from "@/lib/prismadb";
 import { LazyImage } from "../../components/lazyImage";
 import DompurifyContent from "../../components/dompurifyText";
+import { cacheLife } from "next/cache";
 
-export default async function AboutUs() {
+async function getData() {
+  'use cache'
+  cacheLife('minutes')
   const about = await prismadb.brand.findFirst({
     select: {
       title: true,
       desc: true
     }
   });
+  return about
+}
 
+
+export default async function AboutUs() {
+  const about = await getData();
   if (!about) {
     return null
   }

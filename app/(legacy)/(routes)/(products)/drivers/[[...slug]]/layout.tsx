@@ -1,5 +1,34 @@
 import prismadb from "@/lib/prismadb";
 import { Metadata } from "next";
+import { cacheLife } from "next/cache";
+
+async function getData(subslug: string, subsubslug: string) {
+  'use cache'
+  cacheLife('minutes')
+  const [subCatNameResult, subSubCatNameResult] = await Promise.allSettled([
+    await prismadb.allcategory.findFirst({
+      where: {
+        slug: subslug,
+        type: "Sub Category"
+      },
+      select:{
+        name: true,
+        description: true
+      }
+    }),
+    await prismadb.allcategory.findFirst({
+      where: {
+        slug: subsubslug ?? '',
+        type: "Sub Sub Category"
+      },
+      select:{
+        name: true,
+        description: true
+      }
+    })
+  ]);
+  return [subCatNameResult, subSubCatNameResult] as const;
+}
 
 export async function generateMetadata({
   params,
@@ -52,28 +81,7 @@ export async function generateMetadata({
     };
   }
 
-  const [subCatNameResult, subSubCatNameResult] = await Promise.allSettled([
-    await prismadb.allcategory.findFirst({
-      where: {
-        slug: subslug,
-        type: "Sub Category"
-      },
-      select:{
-        name: true,
-        description: true
-      }
-    }),
-    await prismadb.allcategory.findFirst({
-      where: {
-        slug: subsubslug ?? '',
-        type: "Sub Sub Category"
-      },
-      select:{
-        name: true,
-        description: true
-      }
-    })
-  ]);
+  const [subCatNameResult, subSubCatNameResult] = await getData(subslug, subsubslug ?? '');
 
   const subCatName = subCatNameResult.status === 'fulfilled' && subCatNameResult.value ? subCatNameResult.value : { name: '', description: '' };
   const subSubCatName = subSubCatNameResult.status === 'fulfilled' && subSubCatNameResult.value ? subSubCatNameResult.value : { name: '', description: '' };

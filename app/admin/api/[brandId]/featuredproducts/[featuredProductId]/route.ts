@@ -5,6 +5,7 @@ import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
 import path from 'path';
 import fs from 'fs/promises';
 import { revalidatePath } from 'next/cache';
+import { uploadsprefix } from '@/lib/uploads-prefix';
 
 export async function GET(
   req: Request,
@@ -79,11 +80,19 @@ export async function PATCH(
 
     if(oldImage){
       if(!isFeatured){
-        const featuredImgPath = path.join(process.cwd(), oldImage.featured_img_url);
-        try {
-          await fs.unlink(featuredImgPath);
-        } catch (error) {
-          console.warn(`Could not delete file ${oldImage.featured_img_url}:`, error);
+        if(oldImage.featured_img_url.startsWith(uploadsprefix)){
+          const filename = oldImage.featured_img_url.slice(uploadsprefix.length)
+          // if (filename && path.basename(filename) === filename) {
+            const imgPath = path.join(process.cwd(), 'uploads', filename);
+            try {
+              await fs.unlink(imgPath);
+            } catch (error) {
+              console.warn(`Could not delete file ${oldImage.featured_img_url}:`, error);
+            } 
+          // }
+        }
+        else{
+          console.warn(`Not inside uploads folder`);
         }
         await prismadb.product.update({
           where: {
@@ -113,11 +122,19 @@ export async function PATCH(
           })
         }
         else{
-          const featuredImgPath = path.join(process.cwd(), oldImage.featured_img_url);
-          try {
-            await fs.unlink(featuredImgPath);
-          } catch (error) {
-            console.warn(`Could not delete file ${oldImage.featured_img_url}:`, error);
+          if(oldImage.featured_img_url.startsWith(uploadsprefix)){
+            const filename = oldImage.featured_img_url.slice(uploadsprefix.length)
+            // if (filename && path.basename(filename) === filename) {
+              const imgPath = path.join(process.cwd(), 'uploads', filename);
+              try {
+                await fs.unlink(imgPath);
+              } catch (error) {
+                console.warn(`Could not delete file ${oldImage.featured_img_url}:`, error);
+              } 
+            // }
+          }
+          else{
+            console.warn(`Not inside uploads folder`);
           }
           await prismadb.product.update({
             where: {
