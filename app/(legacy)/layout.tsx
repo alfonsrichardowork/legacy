@@ -92,6 +92,7 @@ export default function RootlegacyLayout({
       />
     </head>
     <body className={`${font.className || ''} overflow-x-hidden`}>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ''} />
       <Suspense fallback={<></>}>
         <ScrollToTop />
         <div className='min-h-screen'>
@@ -107,7 +108,6 @@ export default function RootlegacyLayout({
           </div>
         </div>
         <Toaster />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ''} />
       </Suspense>
       </body>
     </html>
