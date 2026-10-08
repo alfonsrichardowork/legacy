@@ -2,7 +2,7 @@
 
 import * as z from "zod"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
@@ -53,6 +53,7 @@ export const CataloguesForm: React.FC<CataloguesFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState<Date | undefined>(initialData?.publicationDate ?? new Date())
   const [open, setOpen] = useState(false)
+  const submitInProgress = useRef(false);
 
   const title = initialData ? 'Edit Catalogues' : 'Add Catalogues';
   const toastMessage = initialData ? 'Catalogues updated.' : 'Catalogues added.';
@@ -115,6 +116,8 @@ export const CataloguesForm: React.FC<CataloguesFormProps> = ({
   });
 
   const onSubmit = async (data: CataloguesFormValues) => {
+    if (submitInProgress.current) return;
+    submitInProgress.current = true;
     try {
       setLoading(true);
 
@@ -160,6 +163,7 @@ export const CataloguesForm: React.FC<CataloguesFormProps> = ({
       toast.error('Something went wrong.');
     } finally {
       setLoading(false);
+      submitInProgress.current = false;
     }
   };
 
@@ -171,7 +175,22 @@ export const CataloguesForm: React.FC<CataloguesFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+        <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+          onKeyDown={(event) => {
+            const target = event.target;
+            if (
+              event.key === "Enter" &&
+              !event.nativeEvent.isComposing &&
+              target instanceof HTMLInputElement &&
+              !target.hasAttribute("cmdk-input") &&
+              !["button", "checkbox", "file", "image", "radio", "reset", "submit"].includes(target.type)
+            ) {
+              event.preventDefault();
+            }
+          }}
+          className="space-y-4 w-full"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
                 <div className="text-left font-bold pb-2">PDF File</div>

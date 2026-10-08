@@ -2,7 +2,7 @@
 
 import * as z from "zod"
 import axios, { AxiosResponse } from "axios"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
@@ -41,6 +41,7 @@ export const SubSubCategoryForm: React.FC<SubSubCategoryFormProps> = ({
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+  const submitInProgress = useRef(false);
 
   const title = initialData ? 'Edit Sub Sub Category' : 'Create Sub Sub Category';
   const description = initialData ? 'Edit a Sub Sub Category.' : 'Add a new Sub Sub Category';
@@ -57,6 +58,8 @@ export const SubSubCategoryForm: React.FC<SubSubCategoryFormProps> = ({
   });
 
   const onSubmit = async (data: SubSubCategoryFormValues) => {
+    if (submitInProgress.current) return;
+    submitInProgress.current = true;
     try {
       setLoading(true);
       let response: AxiosResponse;
@@ -100,6 +103,7 @@ export const SubSubCategoryForm: React.FC<SubSubCategoryFormProps> = ({
       toast.error('Something went wrong.');
     } finally {
       setLoading(false);
+      submitInProgress.current = false;
     }
   };
 
@@ -110,7 +114,21 @@ export const SubSubCategoryForm: React.FC<SubSubCategoryFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+        <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+          onKeyDown={(event) => {
+            const target = event.target;
+            if (
+              event.key === "Enter" &&
+              !event.nativeEvent.isComposing &&
+              target instanceof HTMLInputElement &&
+              !target.hasAttribute("cmdk-input") &&
+              !["button", "checkbox", "file", "image", "radio", "reset", "submit"].includes(target.type)
+            ) {
+              event.preventDefault();
+            }
+          }}
+          className="space-y-4 w-full">
           <div className="grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-4 rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
             <FormField
               control={form.control}

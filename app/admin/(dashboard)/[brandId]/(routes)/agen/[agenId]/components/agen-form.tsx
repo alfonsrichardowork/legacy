@@ -2,7 +2,7 @@
 
 import * as z from "zod"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
@@ -59,6 +59,7 @@ export const AgenForm: React.FC<AgenFormProps> = ({
   const [countriesList, setCountriesList] = useState<Country[]>([]);
   const [stateList, setStateList] = useState<State[]>([]);
   const [citiesList, setCitiesList] = useState<City[]>([]);
+  const submitInProgress = useRef(false);
 
   useEffect(() => {
     GetCountries().then((result) => {
@@ -110,6 +111,8 @@ export const AgenForm: React.FC<AgenFormProps> = ({
   const [checkedActive, setCheckedActive] = useState<boolean| "indeterminate">(initialData?.active ?? false)
 
   const onSubmit = async (data: AgenFormValues) => {
+    if (submitInProgress.current) return;
+    submitInProgress.current = true;
     try {
       setLoading(true);
       data.joinDate = date ?? new Date()
@@ -151,6 +154,7 @@ export const AgenForm: React.FC<AgenFormProps> = ({
       toast.error('Something went wrong.');
     } finally {
       setLoading(false);
+      submitInProgress.current = false;
     }
   };
 
@@ -162,7 +166,21 @@ export const AgenForm: React.FC<AgenFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+        <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+          onKeyDown={(event) => {
+            const target = event.target;
+            if (
+              event.key === "Enter" &&
+              !event.nativeEvent.isComposing &&
+              target instanceof HTMLInputElement &&
+              !target.hasAttribute("cmdk-input") &&
+              !["button", "checkbox", "file", "image", "radio", "reset", "submit"].includes(target.type)
+            ) {
+              event.preventDefault();
+            }
+          }}
+          className="space-y-4 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="rounded-lg p-4 gap-4 flex items-center w-full bg-background shadow-lg shadow-primary-foreground/30 border">
               <div className="w-full">

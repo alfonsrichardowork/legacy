@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { Bold, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, ImageIcon, Italic, Link, List, ListOrdered, Redo, Strikethrough, Trash, UnderlineIcon, Undo, Unlink, YoutubeIcon } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -43,7 +43,7 @@ import { Toggle } from "@/app/admin/components/ui/toggle"
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/admin/components/ui/popover"
 import '@/app/css/styles.scss'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/(legacy)/components/ui/accordionmobilemenu"
-import { MAX_SIZE } from "@/app/admin/model/model"
+import { formatFileSize, MAX_SIZE } from "@/app/admin/model/model"
 
 const formSchema = z.object({
   img: z.string().optional(),
@@ -76,6 +76,7 @@ export const AboutUsForm: React.FC<AboutUsFormProps> = ({
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const submitInProgress = useRef(false);
 
   const form = useForm<AboutUsFormValues>({
     resolver: zodResolver(formSchema),
@@ -114,7 +115,7 @@ useEffect(() => {
       const file = e.target.files?.[0];
       if(!file) return
       if (file.size > MAX_SIZE) {
-        alert("File size must be less than 2MB");
+        toast.error(`The file exceeds the 50 MB per-file limit (${formatFileSize(file.size)}).`);
         e.target.value = "";
         return;
       }
@@ -125,7 +126,7 @@ useEffect(() => {
       const file = e.target.files?.[0];
       if(!file) return
       if (file.size > MAX_SIZE) {
-        alert("File size must be less than 2MB");
+        toast.error(`The file exceeds the 50 MB per-file limit (${formatFileSize(file.size)}).`);
         e.target.value = "";
         return;
       }
@@ -152,6 +153,8 @@ useEffect(() => {
   
 
   const onSubmit = async (data: AboutUsFormValues) => {
+    if (submitInProgress.current) return;
+    submitInProgress.current = true;
     try {
       setLoading(true);
 
@@ -217,6 +220,7 @@ useEffect(() => {
       toast.error('Something went wrong.');
     } finally {
       setLoading(false);
+      submitInProgress.current = false;
     }
   };
 
@@ -493,7 +497,7 @@ useEffect(() => {
       const file = e.target.files?.[0];
       if(!file) return
       if (file.size > MAX_SIZE) {
-        alert("File size must be less than 2MB");
+        toast.error(`The file exceeds the 50 MB per-file limit (${formatFileSize(file.size)}).`);
         e.target.value = "";
         return;
       }
@@ -546,7 +550,7 @@ useEffect(() => {
       const file = e.target.files?.[0];
       if(!file) return
       if (file.size > MAX_SIZE) {
-        alert("File size must be less than 2MB");
+        toast.error(`The file exceeds the 50 MB per-file limit (${formatFileSize(file.size)}).`);
         e.target.value = "";
         return;
       }
@@ -566,7 +570,21 @@ if (!editor || !editor2) return null
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+        <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+          onKeyDown={(event) => {
+            const target = event.target;
+            if (
+              event.key === "Enter" &&
+              !event.nativeEvent.isComposing &&
+              target instanceof HTMLInputElement &&
+              !target.hasAttribute("cmdk-input") &&
+              !["button", "checkbox", "file", "image", "radio", "reset", "submit"].includes(target.type)
+            ) {
+              event.preventDefault();
+            }
+          }}
+          className="space-y-4 w-full">
 
 
    <Accordion type="single" collapsible>

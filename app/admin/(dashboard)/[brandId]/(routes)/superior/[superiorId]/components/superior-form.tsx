@@ -2,7 +2,7 @@
 
 import * as z from "zod"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
@@ -24,7 +24,7 @@ import { Heading } from "@/app/admin/components/ui/heading"
 import Image from "next/image"
 import { Trash } from "lucide-react"
 import { uploadImage } from "@/app/admin/upload-image"
-import { MAX_SIZE } from "@/app/admin/model/model"
+import { formatFileSize, MAX_SIZE } from "@/app/admin/model/model"
 
 
 const formSchema = z.object({
@@ -47,6 +47,7 @@ export const SuperiorForm: React.FC<SuperiorFormProps> = ({
   const [superiorImage, setSuperiorImage] = useState<string>()
   const [selectedFile, setSelectedFile] = useState<File>();
   const [loading, setLoading] = useState(false);
+  const submitInProgress = useRef(false);
 
   const title = initialData ? 'Edit Superiority' : 'Add Superiority';
   const toastMessage = initialData ? 'Superiority updated.' : 'Superiority added.';
@@ -82,7 +83,7 @@ export const SuperiorForm: React.FC<SuperiorFormProps> = ({
     const file = e.target.files?.[0];
     if(!file) return
     if (file.size > MAX_SIZE) {
-      alert("File size must be less than 2MB");
+      toast.error(`The file exceeds the 50 MB per-file limit (${formatFileSize(file.size)}).`);
       e.target.value = "";
       return;
     }
@@ -114,6 +115,8 @@ export const SuperiorForm: React.FC<SuperiorFormProps> = ({
   });
 
   const onSubmit = async (data: SuperiorFormValues) => {
+    if (submitInProgress.current) return;
+    submitInProgress.current = true;
     try {
       setLoading(true);
 
@@ -158,6 +161,7 @@ export const SuperiorForm: React.FC<SuperiorFormProps> = ({
       toast.error('Something went wrong.');
     } finally {
       setLoading(false);
+      submitInProgress.current = false;
     }
   };
 
@@ -169,7 +173,21 @@ export const SuperiorForm: React.FC<SuperiorFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+        <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+          onKeyDown={(event) => {
+            const target = event.target;
+            if (
+              event.key === "Enter" &&
+              !event.nativeEvent.isComposing &&
+              target instanceof HTMLInputElement &&
+              !target.hasAttribute("cmdk-input") &&
+              !["button", "checkbox", "file", "image", "radio", "reset", "submit"].includes(target.type)
+            ) {
+              event.preventDefault();
+            }
+          }} 
+          className="space-y-4 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="rounded-lg p-4 bg-background shadow-lg shadow-primary-foreground/30 border">
                 <div className="text-left font-bold pb-2">Cover Image</div>

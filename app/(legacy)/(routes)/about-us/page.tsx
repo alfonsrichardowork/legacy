@@ -57,9 +57,11 @@ export default async function AboutUs() {
               <h2 className="font-bold text-black pb-8 text-3xl">
                   {about.title}
               </h2>
-              <h3 className="text-black pb-4 text-justify">
-                  <DompurifyContent text={about.desc}/>
-              </h3>
+              <Suspense fallback={<></>}>
+                <h3 className="text-black pb-4 text-justify">
+                    <DompurifyContent text={about.desc}/>
+                </h3>
+              </Suspense>
             </div>
           </div>
         </Suspense>

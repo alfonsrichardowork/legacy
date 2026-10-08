@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image"; 
 import DompurifyContent from "./dompurifyText";
 import { news, Prisma } from "@prisma/client";
+import { Suspense } from "react";
 
 type NewsCardData = Prisma.newsGetPayload<{
     select: {
@@ -51,11 +52,13 @@ const NewsCard: React.FC<NewsCardProps> =  ({ data }) => {
           <h3 className="text-sm py-2 text-black">
             {eventDate}
           </h3>
-          <h3 className="text-base py-2 text-black" data-testid={`news-description`}>
-            <DompurifyContent text={data.description.length > 150
-              ? `${data.description.slice(0, 150)}...`
-              : data.description}/>
-          </h3>
+          <Suspense fallback={<></>}>
+            <h3 className="text-base py-2 text-black" data-testid={`news-description`}>
+              <DompurifyContent text={data.description.length > 150
+                ? `${data.description.slice(0, 150)}...`
+                : data.description}/>
+            </h3>
+          </Suspense>
           <div className="text-base py-2 text-black">
             <Button asChild size={'lg'} variant={'secondary'} className="sm:w-fit w-full" data-testid={'read-more'}>
               <Link href={`/news/${data.slug}`} className='text-white font-bold'>READ MORE</Link>

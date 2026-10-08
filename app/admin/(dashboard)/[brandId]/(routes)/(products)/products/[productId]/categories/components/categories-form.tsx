@@ -1,7 +1,7 @@
 "use client"
 
 import axios, { AxiosResponse } from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { toast } from "react-hot-toast"
 import { ChevronsUpDown, Trash, } from "lucide-react"
 import { allcategory, allproductcategory, product } from "@prisma/client"
@@ -49,6 +49,7 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
   const [openCat, setOpenCat] = useState(false);
   const [openSubCat, setOpenSubCat] = useState(false);
   const [openSubSubCat, setOpenSubSubCat] = useState(false);
+  const submitInProgress = useRef(false);
 
   const title = initialData.length > 0 ? `Edit Categories` : `Add Categories`;
   const description = `For ${myproduct.name}`;
@@ -146,6 +147,8 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
     event.preventDefault();
     
     const allSelected: allcategory[] = [...allSelectedCategories, ...allSelectedSubCategories, ...allSelectedSubSubCategories];
+    if (submitInProgress.current) return;
+    submitInProgress.current = true;
     try {
       setLoading(true);
       let response: AxiosResponse;
@@ -183,6 +186,7 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
       toast.error('Something went wrong.');
     } finally {
       setLoading(false);
+      submitInProgress.current = false;
     }
   };
 
@@ -208,7 +212,21 @@ export const AllProductCategoryForm: React.FC<AllProductCategoryFormProps> = ({
         <Heading title={title} description={description} />
       </div>
       <Separator />
-      <form onSubmit={handleSubmit}>
+      <form 
+        onSubmit={handleSubmit}
+        onKeyDown={(event) => {
+          const target = event.target;
+          if (
+            event.key === "Enter" &&
+            !event.nativeEvent.isComposing &&
+            target instanceof HTMLInputElement &&
+            !target.hasAttribute("cmdk-input") &&
+            !["button", "checkbox", "file", "image", "radio", "reset", "submit"].includes(target.type)
+          ) {
+            event.preventDefault();
+          }
+        }} 
+      >
         <div className="md:grid md:grid-cols-3 gap-4">
 
 

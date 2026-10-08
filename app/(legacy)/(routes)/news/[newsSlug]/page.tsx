@@ -10,6 +10,7 @@ import { LazyImageContact } from "@/app/(legacy)/components/lazyImageContact";
 import DompurifyContent from "@/app/(legacy)/components/dompurifyText";
 import prismadb from "@/lib/prismadb";
 import { cacheLife } from "next/cache";
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const allNews = await prismadb.news.findMany({select: {slug: true}})
@@ -138,7 +139,9 @@ export default async function SingleNewsPage({
                 </h2>
 
                 {/* Description */}
-                <DompurifyContent text={oneNews.description} />
+                <Suspense fallback={<></>}>
+                  <DompurifyContent text={oneNews.description} />
+                </Suspense>
               </div>
             </div>
         </div>

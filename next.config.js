@@ -3,6 +3,7 @@
 const nextConfig = {
   cacheComponents: true,
   reactCompiler: true,
+  serverExternalPackages: ['isomorphic-dompurify', 'jsdom'],
   experimental: {
     serverActions: {
       bodySizeLimit: '50mb',

@@ -15,6 +15,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import DompurifyContent from "./dompurifyText"
 import { Prisma } from "@prisma/client"
+import { Suspense } from "react"
 
 
 type newsCardData = Prisma.newsGetPayload<{
@@ -69,10 +70,11 @@ export default function SwiperCarouselNews({ news }: SwiperCarouselNewsProps) {
             <h3 className="text-2xl font-bold text-black w-full line-clamp-2 my-4">
               {value.title}
             </h3>
-
-            <h4 className="text-black w-full line-clamp-3 my-4" data-testid={`news-description-${index}`}>
-              <DompurifyContent text={value.description} />
-            </h4>
+            <Suspense fallback={<></>}>
+              <h4 className="text-black w-full line-clamp-3 my-4" data-testid={`news-description-${index}`}>
+                <DompurifyContent text={value.description} />
+              </h4>
+            </Suspense>
             <div className="items-start pb-4 pt-2 w-full mt-auto">
               <Button asChild size={"lg"} variant={"secondary"} className="w-full">
                 <Link

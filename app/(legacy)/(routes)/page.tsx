@@ -173,11 +173,13 @@ export default async function LandingPageLegacy() {
                       <h3 className="text-2xl font-bold text-black w-full line-clamp-2 my-4">
                         {value.title}
                       </h3>
-                      <h4
-                        className="text-black w-full line-clamp-4 my-4"
-                      >
-                        <DompurifyContent text={value.description}/>
-                      </h4>
+                      <Suspense fallback={<></>}>
+                        <h4
+                          className="text-black w-full line-clamp-4 my-4"
+                        >
+                          <DompurifyContent text={value.description}/>
+                        </h4>
+                      </Suspense>
                       <div className="items-start pb-4 pt-2">
                         <Button asChild size={"lg"} variant={"secondary"}>
                           <Link
@@ -227,9 +229,11 @@ export default async function LandingPageLegacy() {
                   </h2>
                   <Separator className='bg-foreground w-56 h-2'/>
                     {about.descHomePage &&
-                      <h3 className='my-4 text-black pr-4 md:w-4/5 w-full md:line-clamp-none line-clamp-7'>
-                        <DompurifyContent text={about.descHomePage}/>
-                      </h3>
+                      <Suspense fallback={<></>}>
+                        <h3 className='my-4 text-black pr-4 md:w-4/5 w-full md:line-clamp-none line-clamp-7'>
+                          <DompurifyContent text={about.descHomePage}/>
+                        </h3>
+                      </Suspense>
                     }
                   <Button asChild variant={'secondary'} className='md:w-fit w-full'>
                     <Link href="/about-us" className='text-white font-extrabold'>ABOUT US</Link>
