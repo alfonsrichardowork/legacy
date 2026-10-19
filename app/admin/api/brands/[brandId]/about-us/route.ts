@@ -104,8 +104,7 @@ export async function PATCH(req: Request, props: { params: Promise<{ brandId: st
       }
     });
   
-    revalidatePath('/en/about-us')
-    revalidatePath('/tentang-kami')
+    revalidatePath('/about-us')
 
     return NextResponse.json(brand);
   } catch (error) {

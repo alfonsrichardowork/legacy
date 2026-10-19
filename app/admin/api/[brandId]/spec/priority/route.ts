@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb';
 import { checkAuth, checkBearerAPI, getSession } from '@/app/admin/actions';
 import { PriorityMenu } from '@/app/(legacy)/types';
+import { revalidatePath } from 'next/cache';
 export async function POST(req: Request, props: { params: Promise<{ brandId: string }> }) {
   const params = await props.params;
   try {
@@ -75,7 +76,7 @@ export async function POST(req: Request, props: { params: Promise<{ brandId: str
       )
     );
 
-    // revalidatePath(`${params.brandId === process.env.NEXT_PUBLIC_SB_AUDIENCE_ID ? '/sbaudience': params.brandId === process.env.NEXT_PUBLIC_SB_AUTOMOTIVE_ID ? '/sbautomotive' : ''}`);
+    revalidatePath(`/`);
     return NextResponse.json("success");
   } catch (error) {
     console.log('[SPEC_PRIORITY_POST]', error);

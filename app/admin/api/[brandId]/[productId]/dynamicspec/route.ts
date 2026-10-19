@@ -61,7 +61,7 @@ export async function POST(
         }
       });
       
-      revalidatePath(`${params.brandId === process.env.NEXT_PUBLIC_SB_AUDIENCE_ID ? '/sbaudience': params.brandId === process.env.NEXT_PUBLIC_SB_AUTOMOTIVE_ID ? '/sbautomotive' : ''}/products/${updatedProduct.slug}`);
+      revalidatePath(`/products/${updatedProduct.slug}`);
       return NextResponse.json(updatedconnector);
     }
     return NextResponse.json('');

@@ -139,8 +139,7 @@ export async function PATCH(
       })
     }
 
-    revalidatePath('')
-    revalidatePath('/en')
+    revalidatePath('/')
     return NextResponse.json("success");
   } catch (error) {
     console.log('[FEATURED_SERIES_PATCH]', error);

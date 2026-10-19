@@ -146,8 +146,7 @@ export async function PATCH(
       })
     }
 
-    revalidatePath('/kontak')
-    revalidatePath('/en/contact')
+    revalidatePath('/contact')
     return NextResponse.json("success");
   } catch (error) {
     console.log('[CONTACT_PATCH]', error);

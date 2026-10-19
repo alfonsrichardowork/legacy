@@ -149,8 +149,7 @@ export async function PATCH(
       })
     }
 
-    revalidatePath('')
-    revalidatePath('/en')
+    revalidatePath('/')
     return NextResponse.json("success");
   } catch (error) {
     console.log('[CATALOGUES_PATCH]', error);
